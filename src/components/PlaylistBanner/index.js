@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePlaylist } from "../../reducers/playlist-reducer.js";
+const PlaylistBanner = ({}) => {
+  const { id } = useParams();
+  const playlists = useSelector((state) => state.playlist);
+  const playlist = playlists.filter((item) => item._id == id)[0];
 
-const PlaylistBanner = () => {
-  const { username, name } = useParams();
+  const [playlistName, setPlaylistName] = useState(playlist.name);
+  const [playlistDesc, setPlaylistDesc] = useState(playlist.desc);
+  const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleNameChange = (e) => {
+    setPlaylistName(e.target.value);
+  };
+  const handleDescChange = (e) => {
+    setPlaylistDesc(e.target.value);
+  };
+  const handleEdit = () => {
+    setEdit(true);
+  };
+  const handleConfirm = (e) => {
+    const newName = playlistName === "" ? playlist.name : playlistName;
+    const newPlaylist = { ...playlist, name: newName, desc: playlistDesc };
+    dispatch(updatePlaylist(newPlaylist));
+    setEdit(false);
+  };
+  const handleCancel = () => {
+    setPlaylistName(playlist.name);
+    setPlaylistDesc(playlist.desc);
+    setEdit(false);
+  };
+
   return (
     <div className={`position-relative`}>
       <img
@@ -17,17 +47,67 @@ const PlaylistBanner = () => {
         width={`200px`}
       />
 
-      <h1 className={`text-white position-absolute playlist-cover-text-pos`}>
-        {name}
-      </h1>
-      <button
-        className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
-      >
-        Edit
-      </button>
-      <h4 className={`text-muted position-absolute playlist-desc-pos`}>
-        Add your description...
-      </h4>
+      {!edit && (
+        <>
+          <h1
+            className={`text-white position-absolute playlist-cover-text-pos`}
+          >
+            {playlist.name}
+          </h1>
+
+          <button
+            className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
+            onClick={() => handleEdit()}
+          >
+            Edit
+          </button>
+
+          <h4 className={`text-muted position-absolute playlist-desc-pos`}>
+            {playlist.desc === "" ? "Add your description..." : playlist.desc}
+          </h4>
+          <h4 className={`position-absolute playlist-num-pos text-white`}>
+            {playlist.songs.length} songs
+          </h4>
+        </>
+      )}
+
+      {edit && (
+        <>
+          <input
+            className="form-control control-input me-2 position-absolute playlist-cover-text-pos playlist-name-input"
+            id="playlist-cover-text"
+            name="playlist-cover-text"
+            type="text"
+            placeholder="Type the playlist name..."
+            value={playlistName}
+            onChange={(e) => handleNameChange(e)}
+          />
+          <button
+            className={`btn btn-dark border border-danger position-absolute playlist-confirm-pos rounded-pill ps-3 pe-3`}
+            onClick={() => handleConfirm()}
+          >
+            Confirm
+          </button>
+
+          <button
+            className={`btn btn-dark border border-warning position-absolute playlist-cancel-pos rounded-pill ps-3 pe-3`}
+            onClick={() => handleCancel()}
+          >
+            Cancel
+          </button>
+
+          <textarea
+            className="form-control control-input me-2 position-absolute playlist-desc-pos playlist-name-input"
+            id="playlist-cover-desc"
+            name="playlist-cover-desc"
+            type="text"
+            placeholder="Add your description..."
+            value={playlistDesc}
+            rows={5}
+            onChange={(e) => handleDescChange(e)}
+          />
+        </>
+      )}
     </div>
   );
 };

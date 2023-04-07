@@ -1,34 +1,29 @@
 import React, { useState } from "react";
 import "./index.css";
 import PlayListItem from "./PlayListItem";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { BiAddToQueue } from "react-icons/bi";
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  createPlaylist,
+  deletePlaylist,
+} from "../../reducers/playlist-reducer.js";
 
 const PlayList = () => {
   const navigate = useNavigate();
-  const data = [
-    { _id: 1, name: "Default playlist", song: 0 },
-    { _id: 2, name: "playlist2", song: 1 },
-    { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-    // { _id: 3, name: "playlist3", song: 2 },
-  ];
-  const handleClick = (playlist_name) => {
-    console.log("clicked");
-    navigate(`/playlist/shutong/${playlist_name}`);
+  const playlists = useSelector((state) => state.playlist);
+  const dispatch = useDispatch();
+  const handleClick = (playlist_id) => {
+    navigate(`/playlist/shutong/${playlist_id}`);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [playlistPerPage] = useState(3);
   const indexOfLastExercise = currentPage * playlistPerPage;
   const indexOfFirstExercise = indexOfLastExercise - playlistPerPage;
-  const currentExercises = data.slice(
+  const currentExercises = playlists.slice(
     indexOfFirstExercise,
     indexOfLastExercise
   );
@@ -37,6 +32,29 @@ const PlayList = () => {
 
     window.scrollTo({ top: 1800, behavior: "smooth" });
   };
+
+  const addPlaylist = () => {
+    const curPlaylist = playlists.length;
+    const newName = `My Playlist ${curPlaylist + 1}`;
+    const newId = Date.now();
+    const newPlaylist = {
+      _id: newId,
+      name: newName,
+      desc: "",
+      songs: [],
+    };
+    dispatch(createPlaylist(newPlaylist));
+    navigate(`/playlist/shutong/${newId}`);
+  };
+
+  const deletePlaylistById = (id) => {
+    if (playlists.length === 1) {
+      return;
+    }
+
+    dispatch(deletePlaylist(id));
+  };
+
   return (
     <div className={`playlist-container`}>
       <h4 className={`text-white`}>Playlists</h4>
@@ -49,8 +67,8 @@ const PlayList = () => {
           justifyContent="start"
           className={`ms-0 me-0`}
         >
-          <div className={`d-flex align-items-start mt-5 text-muted`}>
-            <BiAddToQueue size={100} />
+          <div className={`d-flex align-items-start mt-5 add-icon`}>
+            <BiAddToQueue size={100} onClick={() => addPlaylist()} />
           </div>
 
           {currentExercises.map((item, idx) => (
@@ -58,6 +76,7 @@ const PlayList = () => {
               key={idx + (currentPage - 1) * playlistPerPage}
               playlist={item}
               handleClick={handleClick}
+              deletePlaylist={deletePlaylistById}
             />
           ))}
         </Stack>
@@ -66,7 +85,7 @@ const PlayList = () => {
             color="warning"
             shape="rounded"
             defaultPage={1}
-            count={Math.ceil(data.length / playlistPerPage)}
+            count={Math.ceil(playlists.length / playlistPerPage)}
             page={currentPage}
             onChange={paginate}
             size="large"
