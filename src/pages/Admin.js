@@ -1,9 +1,7 @@
 import React from 'react'
 
 const Admin = props => {
-  return (
-    <div>Admin</div>
-  )
+  return <div className={`text-white`}>Admin</div>;
 }
 
 

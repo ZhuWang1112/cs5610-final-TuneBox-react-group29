@@ -1,0 +1,13 @@
+.premium-bg {
+    height: 40%;
+    width: 100%;
+}
+
+.no-decoration {
+    text-decoration: none;
+    color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}

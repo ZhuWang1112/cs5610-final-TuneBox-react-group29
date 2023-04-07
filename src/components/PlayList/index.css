@@ -1,0 +1,11 @@
+.playlist-container {
+    margin-top: 100px;
+    width: 90%;
+}
+.playlist-item-box {
+    width: 100%;
+    margin: 0px;
+}
+.remove-icon {
+    right: 5px;
+}

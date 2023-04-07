@@ -1,0 +1,7 @@
+.follow-container {
+    height: 500px;
+    background-color: #25232f;
+    margin-right: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
