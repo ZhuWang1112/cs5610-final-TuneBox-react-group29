@@ -7,8 +7,8 @@ const Follow = () => {
     <div className={`mt-5 pe-5 `}>
       <h4 className={`text-white`}>Follows</h4>
       <div className={`follow-container rounded-3`}>
-        {followList.map(() => (
-          <FollowItem />
+        {followList.map((follow, idx) => (
+          <FollowItem key={follow.id} />
         ))}
       </div>
     </div>

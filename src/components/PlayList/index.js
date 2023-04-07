@@ -4,7 +4,10 @@ import PlayListItem from "./PlayListItem";
 import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { BiAddToQueue } from "react-icons/bi";
+import { useNavigate } from "react-router";
+
 const PlayList = () => {
+  const navigate = useNavigate();
   const data = [
     { _id: 1, name: "Default playlist", song: 0 },
     { _id: 2, name: "playlist2", song: 1 },
@@ -16,6 +19,11 @@ const PlayList = () => {
     // { _id: 3, name: "playlist3", song: 2 },
     // { _id: 3, name: "playlist3", song: 2 },
   ];
+  const handleClick = (playlist_name) => {
+    console.log("clicked");
+    navigate(`/playlist/shutong/${playlist_name}`);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [playlistPerPage] = useState(3);
   const indexOfLastExercise = currentPage * playlistPerPage;
@@ -49,6 +57,7 @@ const PlayList = () => {
             <PlayListItem
               key={idx + (currentPage - 1) * playlistPerPage}
               playlist={item}
+              handleClick={handleClick}
             />
           ))}
         </Stack>

@@ -1,0 +1,4 @@
+.song-container {
+    height: 350px;
+    overflow-y: auto;
+}
