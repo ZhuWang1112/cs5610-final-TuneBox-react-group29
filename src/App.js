@@ -11,7 +11,8 @@ import Search from './pages/Search';
 import SideBar from './components/SideBar';
 import Premium from './pages/Premium';
 import Admin from './pages/Admin';
-import 'bootstrap/dist/css/bootstrap.css';
+import Playlist from "./pages/Playlist";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/playlist/:username/:name" element={<Playlist />} />
           </Routes>
         </div>
       </div>

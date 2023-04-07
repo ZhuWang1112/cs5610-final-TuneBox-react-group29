@@ -15,7 +15,7 @@ const Comment = () => {
           </div>
         )}
 
-        {data.length > 0 && data.map((item, idx) => <CommentItem />)}
+        {data.length > 0 && data.map((item, idx) => <CommentItem key={idx} />)}
       </div>
     </div>
   );

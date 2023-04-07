@@ -1,10 +1,15 @@
 import React from "react";
 import { MdRemoveCircle } from "react-icons/md";
 import "./index.css";
-const PlayListItem = ({ playlist }) => {
+
+const PlayListItem = ({ playlist, handleClick }) => {
   const isDefault = playlist.name === "Default playlist";
+
   return (
-    <div className={`ms-1 me-2 position-relative`}>
+    <div
+      className={`ms-1 me-2 position-relative`}
+      onClick={() => handleClick(playlist.name)}
+    >
       <img
         src={`/images/playlist-cover.jpeg`}
         className={`rounded-3`}
