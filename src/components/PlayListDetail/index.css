@@ -2,3 +2,9 @@
     height: 350px;
     overflow-y: auto;
 }
+.empty-song-cotainer {
+height: 300px;
+}
+.text-no-decoration {
+    text-decoration: none;
+}

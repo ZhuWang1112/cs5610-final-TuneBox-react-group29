@@ -2,10 +2,22 @@ import React from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import PlayListDetailItem from "./PlayListDetailItem";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import "./index.css";
 
-const PlayListDetail = () => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
+const PlayListDetail = ({}) => {
+  const { id } = useParams();
+  const playlists = useSelector((state) => state.playlist);
+  const playlist = playlists.filter((item) => item._id == id)[0];
+  const dispatch = useDispatch();
+  const handleUnLikeClick = (id) => {
+    const newSongs = playlist.songs.filter((item, idx) => item !== id);
+    const newPlaylist = { ...playlist, songs: newSongs };
+    dispatch(updatePlaylist(newPlaylist));
+  };
+
   return (
     <div className={`mt-3 ms-3 me-3`}>
       <div className={`row`}>
@@ -22,8 +34,25 @@ const PlayListDetail = () => {
         <div className={`col`}></div>
       </div>
       <div className={`song-container`}>
-        {data.map(() => (
-          <PlayListDetailItem />
+        {playlist.songs.length === 0 && (
+          <div
+            className={`text-muted empty-song-cotainer d-flex align-items-center justify-content-center`}
+          >
+            <h4 className={`p-0 m-0`}>
+              <a href={`/search`} className={`text-no-decoration`}>
+                Search
+              </a>{" "}
+              songs and add to your playlist
+            </h4>
+          </div>
+        )}
+
+        {playlist.songs.map((item, idx) => (
+          <PlayListDetailItem
+            key={idx}
+            song={item}
+            handleUnLikeClick={handleUnLikeClick}
+          />
         ))}
       </div>
     </div>

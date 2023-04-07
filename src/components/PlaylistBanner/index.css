@@ -22,7 +22,26 @@
     right: 70px;
     top: 20px;
 }
+.playlist-num-pos {
+    right: 70px;
+    bottom: 30px;
+}
+.playlist-confirm-pos {
+    right: 150px;
+    top: 20px;
+}
+.playlist-cancel-pos {
+    right: 60px;
+    top: 20px;
+}
 .playlist-desc-pos {
     left: 400px;
     top: 220px;
+}
+.playlist-name-input {
+    width: 700px;
+}
+
+input[type="text"], textarea {
+  background-color : lightgrey; 
 }
