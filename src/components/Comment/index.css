@@ -1,0 +1,38 @@
+.comment-container {
+    margin-top: 100px;
+    width: 90%;
+    margin-bottom: 50px;
+}
+.comment-inner-container {
+    height: 400px;
+    width: 100%;
+    background-color: #25232f;
+    overflow: auto;
+}
+.comment-empty-tag {
+    height: 309px;
+    width: 100%;
+    background-color: #25232f;
+    overflow: hidden;
+}
+.description{
+    /* width: 200px; */
+    max-height: 3em; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.border-width{
+    width:90%;
+}
+
+.border-edge{
+    border-bottom: 2px;
+    border-color: gray;
+    border-style: solid;
+}
+
+.comment-delete-icon {
+    right: 15px;
+    top: 45px;
+}

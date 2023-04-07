@@ -41,3 +41,7 @@ body {
   overflow-x: hidden;
   margin: 0px;
 }
+
+.bg {
+  background-color: black;
+}

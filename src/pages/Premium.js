@@ -1,9 +1,7 @@
 import React from 'react'
 
 const Premium = () => {
-  return (
-    <div>Premium</div>
-  )
+  return <div className={`text-white`}>Premium</div>;
 }
 
 export default Premium
