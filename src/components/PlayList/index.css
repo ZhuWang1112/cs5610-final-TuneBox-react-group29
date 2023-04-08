@@ -9,3 +9,14 @@
 .remove-icon {
     right: 5px;
 }
+
+.add-icon {
+    height: 100%;
+    color: gray;
+}
+.add-icon:hover {
+    color: orange;
+}
+.playlist-name:hover {
+    color: orange;
+}
