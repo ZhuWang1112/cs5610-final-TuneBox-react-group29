@@ -33,6 +33,11 @@
 }
 
 .comment-delete-icon {
+    color: gray;
     right: 15px;
     top: 45px;
+}
+
+.comment-delete-icon:hover {
+    color: red;
 }
