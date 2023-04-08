@@ -4,14 +4,14 @@ import PlayListItem from "./PlayListItem";
 import { Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { BiAddToQueue } from "react-icons/bi";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
   createPlaylist,
   deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
 
-const PlayList = () => {
+const PlayList = ({ isSelf }) => {
   const navigate = useNavigate();
   const playlists = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
@@ -67,9 +67,11 @@ const PlayList = () => {
           justifyContent="start"
           className={`ms-0 me-0`}
         >
-          <div className={`d-flex align-items-start mt-5 add-icon`}>
-            <BiAddToQueue size={100} onClick={() => addPlaylist()} />
-          </div>
+          {isSelf && (
+            <div className={`d-flex align-items-start mt-5 add-icon`}>
+              <BiAddToQueue size={100} onClick={() => addPlaylist()} />
+            </div>
+          )}
 
           {currentExercises.map((item, idx) => (
             <PlayListItem
@@ -77,6 +79,7 @@ const PlayList = () => {
               playlist={item}
               handleClick={handleClick}
               deletePlaylist={deletePlaylistById}
+              isSelf={isSelf}
             />
           ))}
         </Stack>

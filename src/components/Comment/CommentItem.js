@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
-const CommentItem = () => {
+const CommentItem = ({ isSelf }) => {
   const [showMore, toggleShowMore] = useState(false);
   return (
     <div className={`mt-2 border-width container position-relative`}>
@@ -63,10 +63,12 @@ const CommentItem = () => {
         </div>
         <hr className={"text-muted"} />
       </div>
-      <RiDeleteBinFill
-        size={25}
-        className={`text-muted position-absolute comment-delete-icon`}
-      />
+      {isSelf && (
+        <RiDeleteBinFill
+          size={25}
+          className={`text-muted position-absolute comment-delete-icon`}
+        />
+      )}
     </div>
   );
 };

@@ -20,3 +20,9 @@
 .playlist-name:hover {
     color: orange;
 }
+.remove-icon {
+color: gray;
+}
+.remove-icon:hover {
+color: red;
+}

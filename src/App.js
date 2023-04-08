@@ -16,10 +16,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import playlistReducer from "./reducers/playlist-reducer";
+import followReducer from "./reducers/follow-reducer";
 
 const store = configureStore({
   reducer: {
     playlist: playlistReducer,
+    follow: followReducer,
   },
 });
 
@@ -38,7 +40,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:uid" element={<Profile />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="/playlist/:username/:id" element={<Playlist />} />

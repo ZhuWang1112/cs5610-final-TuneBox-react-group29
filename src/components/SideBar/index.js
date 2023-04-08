@@ -14,6 +14,7 @@ const SideBar = () => {
   const { pathname } = useLocation();
   const paths = pathname.split("/");
   const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
+  const currentUID = localStorage.getItem("userId");
   return (
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
       <div className={`d-flex justify-content-center`}>
@@ -49,7 +50,7 @@ const SideBar = () => {
       </Link>
 
       <Link
-        to="/profile"
+        to={currentUID === null ? "/profile/default" : `/profile/${currentUID}`}
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
       >
         <div className={`row d-flex align-items-center`}>
