@@ -63,7 +63,7 @@ const SideBar = () => {
       </Link>
 
       <Link
-        to="/admin"
+        to="/admin/dashboard"
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
       >
         <div className={`row d-flex align-items-center`}>
