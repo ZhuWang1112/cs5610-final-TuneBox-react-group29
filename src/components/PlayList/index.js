@@ -56,7 +56,7 @@ const PlayList = ({ isSelf }) => {
   };
 
   return (
-    <div className={`playlist-container`}>
+    <div className={`playlist-container me-0`}>
       <h4 className={`text-white`}>Playlists</h4>
 
       <div className={`mt-3 playlist-item-box`}>
@@ -68,11 +68,14 @@ const PlayList = ({ isSelf }) => {
           className={`ms-0 me-0`}
         >
           {isSelf && (
-            <div className={`d-flex align-items-start mt-5 add-icon`}>
-              <BiAddToQueue size={100} onClick={() => addPlaylist()} />
+            <div className={` d-flex align-items-start mt-5 add-icon`}>
+              <BiAddToQueue
+                size={100}
+                className={`p-0`}
+                onClick={() => addPlaylist()}
+              />
             </div>
           )}
-
           {currentExercises.map((item, idx) => (
             <PlayListItem
               key={idx + (currentPage - 1) * playlistPerPage}
@@ -92,7 +95,7 @@ const PlayList = ({ isSelf }) => {
             page={currentPage}
             onChange={paginate}
             size="large"
-            className={`pagination-style float-end`}
+            className={`pagination-style float-end p-0`}
             sx={{
               "& .MuiPaginationItem-root": {
                 color: "#333",

@@ -27,7 +27,11 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <AiOutlineHome className={`float-end`} size={25} />
+            <AiOutlineHome
+              className={`float-end p-0`}
+              size={25}
+              height={`50px`}
+            />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Home</span>
@@ -41,7 +45,7 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <AiOutlineSearch className={`float-end`} size={25} />
+            <AiOutlineSearch className={`float-end p-0`} size={25} />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Search</span>
@@ -55,7 +59,7 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <FaRegUser className={`float-end`} size={25} />
+            <FaRegUser className={`float-end p-0`} size={25} />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Profile</span>
@@ -69,7 +73,10 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <MdOutlineAdminPanelSettings className={`float-end`} size={25} />
+            <MdOutlineAdminPanelSettings
+              className={`float-end p-0`}
+              size={25}
+            />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Admin</span>

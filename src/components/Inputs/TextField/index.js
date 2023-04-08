@@ -26,21 +26,21 @@ const TextField = ({
     };
 
     return (
-        <div className={styles.container}>
-            <p className={styles.label}>{label}</p>
-            <input
-                {...rest}
-                onChange={handleChange}
-                className={
-                    error ? `${styles.input} ${styles.error}` : `${styles.input} `
-                }
-            />
-            {error && (
-                <p className={styles.error_msg}>
-                    <ClearIcon /> {error}
-                </p>
-            )}
-        </div>
+      <div className={styles.container}>
+        <p className={styles.label}>{label}</p>
+        <input
+          {...rest}
+          onChange={handleChange}
+          className={
+            error ? `${styles.input} ${styles.error}` : `${styles.input} `
+          }
+        />
+        {error && (
+          <p className={styles.error_msg}>
+            <ClearIcon /> {error}
+          </p>
+        )}
+      </div>
     );
 };
 
