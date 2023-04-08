@@ -40,7 +40,7 @@ function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/premium" element={<Premium />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/*" element={<Admin />} />
               <Route path="/playlist/:username/:id" element={<Playlist />} />
             </Routes>
           </div>
