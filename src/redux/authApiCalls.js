@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
-import { loginStart, loginSuccess, loginFailure } from "./index";
+import { loginStart, loginSuccess, loginFailure } from "../../reducers/auth-reducers";
 
 export const login = async (payload, dispatch) => {
     dispatch(loginStart());
