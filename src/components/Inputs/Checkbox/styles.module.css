@@ -1,0 +1,15 @@
+.checkbox_container {
+    align-items: baseline !important;
+
+
+}
+
+.checkbox_container.checkbox {
+    transform: scale(1.6);
+    padding: 0.5rem 0 0;
+}
+.checkbox_container span {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-left: 1rem;
+}

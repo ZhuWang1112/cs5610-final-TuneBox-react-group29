@@ -1,0 +1,54 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+}
+
+.container p {
+    margin: 0.5rem 0;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.container .input {
+    height: 5rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    border-radius: 0.5rem;
+    border: 0.1rem solid black;
+    padding: 0 1rem;
+}
+
+.container :hover {
+    outline: 1px solid black;
+}
+
+
+.error {
+    border-color: red;
+    outline: red;
+
+
+}
+
+.error :hover {
+    outline: 1px solid red;
+}
+
+.error_msg {
+    color: red;
+    margin: 0.2rem 0;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.error_msg svg {
+    margin-right: 0.5rem;
+}
+
