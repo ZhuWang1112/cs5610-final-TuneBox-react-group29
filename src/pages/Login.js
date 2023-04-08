@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/authSlice/apiCalls";
+import { login } from "../redux/authApiCalls";
 import Joi from "joi";
 import TextField from "../components/Inputs/TextField";
 import Checkbox from "../components/Inputs/Checkbox";

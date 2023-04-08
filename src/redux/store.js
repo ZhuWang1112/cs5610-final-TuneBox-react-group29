@@ -3,16 +3,12 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import authReducer from "./authSlice";
-import PlaylistSlice from "./playListSlice";
-import audioPlayer from "./audioPlayer";
-import userSlice from "./userSlice";
+import authReducer from "../reducers/auth-reducers";
+
 
 const reducers = combineReducers({
     auth: authReducer,
-    playlists: PlaylistSlice,
-    audioPlayer: audioPlayer,
-    user: userSlice,
+
 });
 
 const persistConfig = {
