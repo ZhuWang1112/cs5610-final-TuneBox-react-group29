@@ -1,7 +1,11 @@
 import React from "react";
 import "./index.css";
 import CommentItem from "./CommentItem";
-const Comment = () => {
+import { useParams } from "react-router";
+const Comment = ({ isSelf }) => {
+  // const { uid } = useParams();
+  // const currentUID = localStorage.getItem("userId");
+  // const isSelf = uid === currentUID;
   const data = [{ id: 1 }, { id: 2 }, { id: 2 }, { id: 2 }];
   return (
     <div className={`comment-container`}>
@@ -15,7 +19,8 @@ const Comment = () => {
           </div>
         )}
 
-        {data.length > 0 && data.map((item, idx) => <CommentItem key={idx} />)}
+        {data.length > 0 &&
+          data.map((item, idx) => <CommentItem key={idx} isSelf={isSelf} />)}
       </div>
     </div>
   );

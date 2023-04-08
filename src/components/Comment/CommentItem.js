@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./index.css";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
-const CommentItem = () => {
+const CommentItem = ({ isSelf }) => {
   const [showMore, toggleShowMore] = useState(false);
   return (
-    <div className={`mt-2 border-width container position-relative`}>
+    <div className={`mt-2 border-width container position-relative p-0`}>
       <div className={`row me-5`}>
         <div className={`col-1 d-flex justify-content-center ms-3 me-3`}>
           <img
@@ -56,17 +56,19 @@ const CommentItem = () => {
                 onClick={() => toggleShowMore(true)}
               >
                 More
-                <AiOutlineEllipsis size={20} />
+                <AiOutlineEllipsis size={20} className={`p-0`} />
               </div>
             </>
           )}
         </div>
         <hr className={"text-muted"} />
       </div>
-      <RiDeleteBinFill
-        size={25}
-        className={`text-muted position-absolute comment-delete-icon`}
-      />
+      {isSelf && (
+        <RiDeleteBinFill
+          size={25}
+          className={`text-muted position-absolute comment-delete-icon p-0`}
+        />
+      )}
     </div>
   );
 };
