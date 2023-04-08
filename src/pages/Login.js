@@ -15,7 +15,7 @@ import styles from "./Login_styles.css";
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const { isFetching } = useSelector((state) => state.auth);
+  const  isFetching  = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleInputState = (name, value) => {
