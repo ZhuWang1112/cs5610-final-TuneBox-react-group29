@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import PlayListDetailItem from "./PlayListDetailItem";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
+import { updateLike } from "../../services/like-service.js";
 import "./index.css";
 
-const PlayListDetail = ({}) => {
-  const { id } = useParams();
-  const playlists = useSelector((state) => state.playlist);
-  const playlist = playlists.filter((item) => item._id == id)[0];
+const PlayListDetail = ({ playlist }) => {
+  console.log(playlist);
+  // const playlists = useSelector((state) => state.playlist);
+  // const playlist = playlists.filter((item) => item._id == id)[0];
   const dispatch = useDispatch();
-  const handleUnLikeClick = (id) => {
-    const newSongs = playlist.songs.filter((item, idx) => item !== id);
-    const newPlaylist = { ...playlist, songs: newSongs };
-    dispatch(updatePlaylist(newPlaylist));
+  const handleUnLikeClick = async (songId) => {
+    // const newSongs = playlist.songs.filter((item, idx) => item !== id);
+    // const newPlaylist = { ...playlist, songs: newSongs };
+    // dispatch(updatePlaylist(newPlaylist));
+    await updateLike(playlist.user, {
+      songId: songId,
+      playlistId: playlist._id,
+    });
   };
 
   return (

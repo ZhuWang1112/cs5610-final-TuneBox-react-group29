@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import PlayListItem from "./PlayListItem";
 import { Stack } from "@mui/material";
@@ -7,13 +7,20 @@ import { BiAddToQueue } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  findPlaylistsThunk,
+  createPlaylistThunk,
+} from "../../services/thunks/playlist-thunk";
+import {
   createPlaylist,
   deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
 
 const PlayList = ({ isSelf }) => {
+  const { uid } = useParams();
   const navigate = useNavigate();
-  const playlists = useSelector((state) => state.playlist);
+
+  const { playlists } = useSelector((state) => state.playlist);
+  console.log(playlists);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
     navigate(`/playlist/shutong/${playlist_id}`);
@@ -36,15 +43,17 @@ const PlayList = ({ isSelf }) => {
   const addPlaylist = () => {
     const curPlaylist = playlists.length;
     const newName = `My Playlist ${curPlaylist + 1}`;
-    const newId = Date.now();
+    // const newId = Date.now();
     const newPlaylist = {
-      _id: newId,
-      name: newName,
+      user: uid,
+      playListName: newName,
       desc: "",
       songs: [],
+      isDefault: false,
+      img: "playlist-cover.jpeg",
     };
-    dispatch(createPlaylist(newPlaylist));
-    navigate(`/playlist/shutong/${newId}`);
+    dispatch(createPlaylistThunk(newPlaylist));
+    // navigate(`/playlist/shutong/${newId}`);
   };
 
   const deletePlaylistById = (id) => {
@@ -54,6 +63,11 @@ const PlayList = ({ isSelf }) => {
 
     dispatch(deletePlaylist(id));
   };
+
+  useEffect(() => {
+    dispatch(findPlaylistsThunk(uid));
+    console.log("done");
+  }, []);
 
   return (
     <div className={`playlist-container me-0`}>
@@ -76,15 +90,16 @@ const PlayList = ({ isSelf }) => {
               />
             </div>
           )}
-          {currentExercises.map((item, idx) => (
-            <PlayListItem
-              key={idx + (currentPage - 1) * playlistPerPage}
-              playlist={item}
-              handleClick={handleClick}
-              deletePlaylist={deletePlaylistById}
-              isSelf={isSelf}
-            />
-          ))}
+          {playlists.length > 0 &&
+            currentExercises.map((item, idx) => (
+              <PlayListItem
+                key={idx + (currentPage - 1) * playlistPerPage}
+                playlist={item}
+                handleClick={handleClick}
+                deletePlaylist={deletePlaylistById}
+                isSelf={isSelf}
+              />
+            ))}
         </Stack>
         <div className={`me-3`}>
           <Pagination

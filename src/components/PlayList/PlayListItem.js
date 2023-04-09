@@ -11,7 +11,7 @@ const PlayListItem = ({ playlist, handleClick, deletePlaylist, isSelf }) => {
         width={`200px`}
         onClick={() => handleClick(playlist._id)}
       />
-      {isSelf && (
+      {isSelf && !playlist.isDefault && (
         <MdRemoveCircle
           size={25}
           className={`position-absolute remove-icon p-0`}
@@ -19,7 +19,9 @@ const PlayListItem = ({ playlist, handleClick, deletePlaylist, isSelf }) => {
         />
       )}
 
-      <p className={`text-white mt-2 mb-0 playlist-name`}>{playlist.name}</p>
+      <p className={`text-white mt-2 mb-0 playlist-name`}>
+        {playlist.playListName}
+      </p>
       <p className={`text-muted pt-0`}>{playlist.songs.length} songs</p>
     </div>
   );
