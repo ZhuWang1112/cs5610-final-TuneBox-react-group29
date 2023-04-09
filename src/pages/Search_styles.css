@@ -1,0 +1,49 @@
+.container {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 80vh;
+
+
+}
+
+
+.container.search_input_container {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 3rem;
+    width: 60rem;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+
+}
+
+.container.progress_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 80vh;
+    width: 100%;
+    z-index: 1;
+}
+
+.container.results_container {
+    margin: 2rem;
+    display: flex;
+    z-index: 2;
+}
+
+.container.songs_container {
+    flex: 2;
+}
+
+.container.playlists_container {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 2;
+}
