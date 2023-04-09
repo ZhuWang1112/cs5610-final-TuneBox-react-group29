@@ -23,6 +23,7 @@ const PlayList = ({ isSelf }) => {
   console.log(playlists);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
+    console.log(playlist_id);
     navigate(`/playlist/shutong/${playlist_id}`);
   };
 
@@ -43,7 +44,6 @@ const PlayList = ({ isSelf }) => {
   const addPlaylist = () => {
     const curPlaylist = playlists.length;
     const newName = `My Playlist ${curPlaylist + 1}`;
-    // const newId = Date.now();
     const newPlaylist = {
       user: uid,
       playListName: newName,

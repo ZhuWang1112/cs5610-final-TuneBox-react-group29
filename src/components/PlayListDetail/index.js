@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import PlayListDetailItem from "./PlayListDetailItem";
@@ -6,22 +6,28 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updateLike } from "../../services/like-service.js";
+import { updateLikeThunk } from "../../services/thunks/like-thunk.js";
+import { findSongsThunk } from "../../services/thunks/playlist-thunk.js";
 import "./index.css";
 
 const PlayListDetail = ({ playlist }) => {
   console.log(playlist);
-  // const playlists = useSelector((state) => state.playlist);
-  // const playlist = playlists.filter((item) => item._id == id)[0];
+  const { songs } = useSelector((state) => state.likedSong);
+  console.log("songs: ", songs);
   const dispatch = useDispatch();
   const handleUnLikeClick = async (songId) => {
-    // const newSongs = playlist.songs.filter((item, idx) => item !== id);
-    // const newPlaylist = { ...playlist, songs: newSongs };
-    // dispatch(updatePlaylist(newPlaylist));
-    await updateLike(playlist.user, {
-      songId: songId,
-      playlistId: playlist._id,
-    });
+    dispatch(
+      updateLikeThunk({
+        user: playlist.user,
+        songId: songId,
+        playlistId: playlist._id,
+      })
+    );
   };
+
+  useEffect(() => {
+    dispatch(findSongsThunk(playlist._id));
+  }, [playlist._id]);
 
   return (
     <div className={`mt-3 ms-3 me-3`}>
@@ -39,7 +45,7 @@ const PlayListDetail = ({ playlist }) => {
         <div className={`col`}></div>
       </div>
       <div className={`song-container`}>
-        {playlist.songs.length === 0 && (
+        {songs.length === 0 && (
           <div
             className={`text-muted empty-song-cotainer d-flex align-items-center justify-content-center`}
           >
@@ -52,7 +58,7 @@ const PlayListDetail = ({ playlist }) => {
           </div>
         )}
 
-        {playlist.songs.map((item, idx) => (
+        {songs.map((item, idx) => (
           <PlayListDetailItem
             key={idx}
             song={item}

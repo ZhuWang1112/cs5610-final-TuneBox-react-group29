@@ -19,7 +19,11 @@ export const deletePlaylist = async (playlistId) => {
 };
 
 export const findPlaylistDetails = async (playlistId) => {
-  console.log(`${PLAYLIST_API}/details/${playlistId}`);
   const response = await axios.get(`${PLAYLIST_API}/details/${playlistId}`);
+  return response.data;
+};
+
+export const findSongs = async (playlistId) => {
+  const response = await axios.get(`${PLAYLIST_API}/songs/${playlistId}`);
   return response.data;
 };

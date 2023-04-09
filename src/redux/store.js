@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import playlistReducer from "../reducers/playlist-reducer";
 import followReducer from "../reducers/follow-reducer";
 import commentReducer from "../reducers/comment-reducer";
+import likedSongReducer from "../reducers/like-reducer";
 import storage from "redux-persist/lib/storage";
 import authReducer from "../reducers/auth-reducers";
 
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   playlist: playlistReducer,
   follow: followReducer,
   comment: commentReducer,
+  likedSong: likedSongReducer,
 });
 
 const persistConfig = {
