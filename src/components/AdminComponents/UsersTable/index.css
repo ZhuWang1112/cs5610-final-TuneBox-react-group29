@@ -1,0 +1,9 @@
+.wd-white {
+    color: white;
+}
+.wd-edit-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    z-index: 1;
+}

@@ -6,6 +6,9 @@
 .wd-active {
     border-bottom: 4px solid rgb(29, 161, 242);
     padding-bottom: 8px;
-    color: black;
+    color: white;
     font-weight: bold;
+}
+.wd-white {
+    color: white;
 }

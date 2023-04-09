@@ -42,9 +42,9 @@ const AdminDashboard = () => {
                 </div>
                 <div style={{width:'50%'}}>
                     <span style={{color:'gold', fontSize:'23px'}} className={"me-5"}><b>Premium Users</b></span>
-                    <span><b>{premiumUsersNum}</b></span>
+                    <span style={{color:"white"}}><b>{premiumUsersNum}</b></span>
                     <span style={{color:'gray', fontSize:'10px'}} className={"me-5"}>/{usersNum}</span>
-                    <span style={{fontSize:'15px'}} className={"ms-5"}>{percent}%</span>
+                    <span style={{fontSize:'15px', color:"white"}} className={"ms-5"}>{percent}%</span>
                     <LinearProgress variant="determinate" value={percent} className={"wd-progress-bar"}/>
                 </div>
                 <div className={"mt-5"}></div>

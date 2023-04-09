@@ -11,7 +11,7 @@ import {
     TableRow
 } from "@mui/material";
 import {Link} from "react-router-dom";
-
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 const DashboardUserTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -62,7 +62,7 @@ const DashboardUserTable = () => {
     ];
     return (
         <div className={"mb-5"}>
-            <h4>Recent Users</h4>
+            <h4 style={{color:"white"}}><PeopleAltIcon /> Recent Users</h4>
             <div>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
