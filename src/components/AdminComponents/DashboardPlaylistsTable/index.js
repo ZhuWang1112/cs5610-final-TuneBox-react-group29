@@ -11,7 +11,7 @@ import {
     TableRow
 } from "@mui/material";
 import {Link} from "react-router-dom";
-
+import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 const DashboardPlaylistsTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -59,7 +59,7 @@ const DashboardPlaylistsTable = () => {
 
     return (
         <div className={"mb-5"}>
-            <h4>Recent Playlists</h4>
+            <h4 style={{color:"white"}}><LibraryMusicIcon /> Recent Playlists</h4>
             <div>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
