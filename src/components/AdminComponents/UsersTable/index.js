@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 const UserTable = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [usersPerPage, setUsersPerPage] = useState(3);
+    const [usersPerPage, setUsersPerPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const [editingUser, setEditingUser] = useState(null);
     const [formData, setFormData] = useState({
@@ -98,7 +98,7 @@ const UserTable = () => {
     };
 
     return (
-        <div className="container">
+        <div>
             <table className="table wd-white">
                 <thead>
                 <tr>
