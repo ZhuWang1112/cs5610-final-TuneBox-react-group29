@@ -38,7 +38,7 @@ const Login = () => {
     if (Object.keys(errors).length === 0) {
       login(data, dispatch);
     } else {
-      console.log("please fill out properly");
+      alert("please fill out properly");
     }
   };
 

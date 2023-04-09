@@ -1,0 +1,34 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+
+}
+
+.container.select {
+    height: 5rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    border-radius: 0.5rem;
+    border: 0.1rem solid black;
+    padding: 0 1rem;
+}
+
+
+.container:hover {
+    outline: 1px solid black;
+}
+
+.error {
+    border-color: red;
+    outline: red;
+}
+
+.error_msg {
+    color: red;
+    margin: 0.2rem 0;
+    font-weight: 400;
+}

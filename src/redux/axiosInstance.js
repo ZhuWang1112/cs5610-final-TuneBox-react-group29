@@ -7,7 +7,9 @@ const root = JSON.parse(window.localStorage.getItem("persist:root"));
 if (root) {
     const { auth } = root;
     const { user } = JSON.parse(auth);
-    if (user) token = user.token;
+    if (user) {
+        token = user.token;
+    }
 }
 
 const axiosInstance = axios.create({
