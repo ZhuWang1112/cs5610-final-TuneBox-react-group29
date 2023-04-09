@@ -14,38 +14,45 @@ import Admin from './pages/Admin';
 import Playlist from "./pages/Playlist";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import playlistReducer from "./reducers/playlist-reducer";
 
-const store = configureStore({
-  reducer: {
-    playlist: playlistReducer,
-  },
-});
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import store from "./redux/store";
+
+let persistor = persistStore(store);
+// const store = configureStore({
+//   reducer: {
+//     playlist: playlistReducer,
+//     follow: followReducer,
+//     auth:
+//   },
+// });
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <div className={"row bg"}>
-          <div className={"col-2 pe-0"}>
-            <SideBar />
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <div className={"row bg"}>
+            <div className={"col-2 pe-0"}>
+              <SideBar />
+            </div>
+            <div className={"col p-0 m-0"}>
+              <NavBar />
+              <Routes>
+                <Route path="/*" element={<Home />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/profile/:uid" element={<Profile />} />
+                <Route path="/premium" element={<Premium />} />
+                <Route path="/admin/*" element={<Admin />} />
+                <Route path="/playlist/:username/:id" element={<Playlist />} />
+              </Routes>
+            </div>
           </div>
-          <div className={"col p-0 m-0"}>
-            <NavBar />
-            <Routes>
-              <Route path="/*" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/premium" element={<Premium />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/playlist/:username/:id" element={<Playlist />} />
-            </Routes>
-          </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }

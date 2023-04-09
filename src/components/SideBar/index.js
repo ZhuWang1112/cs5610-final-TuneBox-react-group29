@@ -14,6 +14,7 @@ const SideBar = () => {
   const { pathname } = useLocation();
   const paths = pathname.split("/");
   const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
+  const currentUID = localStorage.getItem("userId");
   return (
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
       <div className={`d-flex justify-content-center`}>
@@ -26,7 +27,11 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <AiOutlineHome className={`float-end`} size={25} />
+            <AiOutlineHome
+              className={`float-end p-0`}
+              size={25}
+              height={`50px`}
+            />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Home</span>
@@ -40,7 +45,7 @@ const SideBar = () => {
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <AiOutlineSearch className={`float-end`} size={25} />
+            <AiOutlineSearch className={`float-end p-0`} size={25} />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Search</span>
@@ -49,12 +54,12 @@ const SideBar = () => {
       </Link>
 
       <Link
-        to="/profile"
+        to={currentUID === null ? "/profile/default" : `/profile/${currentUID}`}
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <FaRegUser className={`float-end`} size={25} />
+            <FaRegUser className={`float-end p-0`} size={25} />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Profile</span>
@@ -63,12 +68,15 @@ const SideBar = () => {
       </Link>
 
       <Link
-        to="/admin"
+        to="/admin/dashboard"
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
-            <MdOutlineAdminPanelSettings className={`float-end`} size={25} />
+            <MdOutlineAdminPanelSettings
+              className={`float-end p-0`}
+              size={25}
+            />
           </div>
           <div className={`col`}>
             <span className={`navbar-text`}>Admin</span>

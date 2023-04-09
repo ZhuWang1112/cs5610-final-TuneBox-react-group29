@@ -3,12 +3,12 @@ import "./index.css";
 import ProfileBanner from "../ProfileBanner";
 import PlayList from "../PlayList";
 import Comment from "../Comment";
-const ProfileMiddle = () => {
+const ProfileMiddle = ({ isSelf }) => {
   return (
     <div className={`profile-middle-bg`}>
-      <ProfileBanner />
-      <PlayList />
-      <Comment />
+      <ProfileBanner isSelf={isSelf} />
+      <PlayList isSelf={isSelf} />
+      <Comment isSelf={isSelf} />
     </div>
   );
 };

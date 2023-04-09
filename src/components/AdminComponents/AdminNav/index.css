@@ -1,0 +1,11 @@
+.wd-nav {
+    font-size: 15px;
+    color: rgb(110,118,125);
+}
+
+.wd-active {
+    border-bottom: 4px solid rgb(29, 161, 242);
+    padding-bottom: 8px;
+    color: black;
+    font-weight: bold;
+}

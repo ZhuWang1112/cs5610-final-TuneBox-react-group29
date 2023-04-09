@@ -2,9 +2,7 @@ import React from "react";
 import { MdRemoveCircle } from "react-icons/md";
 import "./index.css";
 
-const PlayListItem = ({ playlist, handleClick, deletePlaylist }) => {
-  const isDefault = playlist.name === "Default playlist";
-
+const PlayListItem = ({ playlist, handleClick, deletePlaylist, isSelf }) => {
   return (
     <div className={`ms-1 me-2 position-relative`}>
       <img
@@ -13,10 +11,10 @@ const PlayListItem = ({ playlist, handleClick, deletePlaylist }) => {
         width={`200px`}
         onClick={() => handleClick(playlist._id)}
       />
-      {!isDefault && (
+      {isSelf && (
         <MdRemoveCircle
           size={25}
-          className={`position-absolute text-muted remove-icon`}
+          className={`position-absolute remove-icon p-0`}
           onClick={() => deletePlaylist(playlist._id)}
         />
       )}
