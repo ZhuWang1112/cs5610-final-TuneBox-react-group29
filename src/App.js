@@ -14,24 +14,25 @@ import Admin from './pages/Admin';
 import Playlist from "./pages/Playlist";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
+import store from "./redux/store";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import store from "./redux/store";
+// import store from "./redux/store";
 
-let persistor = persistStore(store);
-// const store = configureStore({
-//   reducer: {
-//     playlist: playlistReducer,
-//     follow: followReducer,
-//     auth:
-//   },
-// });
+// let persistor = persistStore(store);
+// // const store = configureStore({
+// //   reducer: {
+// //     playlist: playlistReducer,
+// //     follow: followReducer,
+// //     auth:
+// //   },
+// // });
 
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+
         <BrowserRouter>
           <div className={"row bg"}>
             <div className={"col-2 pe-0"}>
@@ -52,7 +53,7 @@ function App() {
             </div>
           </div>
         </BrowserRouter>
-      </PersistGate>
+
     </Provider>
   );
 }

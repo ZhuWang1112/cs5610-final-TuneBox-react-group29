@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import axiosInstance from "../redux/axiosInstance";
+// import axiosInstance from "../redux/axiosInstance";
 // import Song from "../components/Song";
 // import Playlist from "../components/Playlist";
 import { IconButton, CircularProgress } from "@mui/material";
@@ -18,8 +18,8 @@ const Search = () => {
     try {
       setIsFetching(true);
       const url = process.env.REACT_APP_API_URL + `/?search=${input.value}`;
-      const { data } = await axiosInstance.get(url);
-      setResults(data);
+      // const { data } = await axiosInstance.get(url);
+      // setResults(data);
       setIsFetching(false);
     } catch (error) {
       console.log(error);
