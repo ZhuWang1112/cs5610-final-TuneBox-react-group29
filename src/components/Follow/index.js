@@ -37,7 +37,7 @@ const Follow = ({ isSelf }) => {
       <div className={`follow-container rounded-3`}>
         {followeeList.map((follow, idx) => (
           <FollowItem
-            key={follow.id}
+            key={Date.now() + "/" + follow._id}
             follow={follow}
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}

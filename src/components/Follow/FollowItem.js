@@ -6,7 +6,10 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf }) => {
   const visitOtherProfile = () => {
     navigate(`/profile/${follow._id}`);
   };
+  console.log("follow: ", follow);
+  console.log("check: ", isFollow);
   const [isFollow_, setIsFollow] = useState(isFollow);
+  console.log("isFollow_: ", isFollow_);
   const handleFollowWithStateChange = () => {
     handleFollow(follow._id);
     setIsFollow(!isFollow_);
@@ -45,7 +48,7 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf }) => {
           </button>
         ) : (
           <button
-            className={`btn btn-danger fw-bold`}
+            className={`btn btn-primary fw-bold`}
             onClick={() => handleFollowWithStateChange()}
           >
             Follow
