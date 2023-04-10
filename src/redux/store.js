@@ -2,8 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import playlistReducer from "../reducers/playlist-reducer";
 import followReducer from "../reducers/follow-reducer";
 import commentReducer from "../reducers/comment-reducer";
+import likedSongReducer from "../reducers/like-reducer";
 import authReducer from "../reducers/auth-reducers";
-import storage from "redux-persist/lib/storage";
+
+
 
 
 
@@ -13,9 +15,9 @@ const store = configureStore({
         playlist: playlistReducer,
         follow: followReducer,
         comment: commentReducer,
+        likedSong: likedSongReducer,
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({ serializableCheck: false }),
+
 });
 
 export default store;

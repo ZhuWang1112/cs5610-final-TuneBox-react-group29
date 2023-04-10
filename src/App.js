@@ -16,18 +16,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
-// import store from "./redux/store";
-
-// let persistor = persistStore(store);
-// // const store = configureStore({
-// //   reducer: {
-// //     playlist: playlistReducer,
-// //     follow: followReducer,
-// //     auth:
-// //   },
-// // });
 
 function App() {
   return (
@@ -48,7 +36,7 @@ function App() {
                 <Route path="/profile/:uid" element={<Profile />} />
                 <Route path="/premium" element={<Premium />} />
                 <Route path="/admin/*" element={<Admin />} />
-                <Route path="/playlist/:username/:id" element={<Playlist />} />
+                <Route path="/playlist/:id" element={<Playlist />} />
               </Routes>
             </div>
           </div>
