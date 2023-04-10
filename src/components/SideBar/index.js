@@ -15,6 +15,7 @@ const SideBar = () => {
   const paths = pathname.split("/");
   const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
   const currentUID = localStorage.getItem("userId");
+  console.log(currentUID);
   return (
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
       <div className={`d-flex justify-content-center`}>

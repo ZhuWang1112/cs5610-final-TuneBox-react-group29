@@ -3,13 +3,11 @@ import "./index.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
-const PlaylistBanner = ({}) => {
+const PlaylistBanner = ({ playlist }) => {
   const { id } = useParams();
-  const playlists = useSelector((state) => state.playlist);
-  const playlist = playlists.filter((item) => item._id == id)[0];
-
-  const [playlistName, setPlaylistName] = useState(playlist.name);
-  const [playlistDesc, setPlaylistDesc] = useState(playlist.desc);
+  console.log(playlist);
+  const [playlistName, setPlaylistName] = useState(playlist.playListName);
+  const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
 
@@ -23,8 +21,12 @@ const PlaylistBanner = ({}) => {
     setEdit(true);
   };
   const handleConfirm = (e) => {
-    const newName = playlistName === "" ? playlist.name : playlistName;
-    const newPlaylist = { ...playlist, name: newName, desc: playlistDesc };
+    const newName = playlistName === "" ? playlist.playListName : playlistName;
+    const newPlaylist = {
+      ...playlist,
+      playListName: newName,
+      description: playlistDesc,
+    };
     dispatch(updatePlaylist(newPlaylist));
     setEdit(false);
   };
@@ -52,7 +54,7 @@ const PlaylistBanner = ({}) => {
           <h1
             className={`text-white position-absolute playlist-cover-text-pos`}
           >
-            {playlist.name}
+            {playlist.playListName}
           </h1>
 
           <button
@@ -63,7 +65,9 @@ const PlaylistBanner = ({}) => {
           </button>
 
           <h4 className={`text-muted position-absolute playlist-desc-pos`}>
-            {playlist.desc === "" ? "Add your description..." : playlist.desc}
+            {playlist.description === ""
+              ? "Add your description..."
+              : playlist.description}
           </h4>
           <h4 className={`position-absolute playlist-num-pos text-white`}>
             {playlist.songs.length} songs
