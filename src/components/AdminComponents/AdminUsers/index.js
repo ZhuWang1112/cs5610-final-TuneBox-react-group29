@@ -1,4 +1,5 @@
 import UsersTable from "../UsersTable";
+import SpecificUser from "../SpecificUser";
 
 const AdminUsers = () => {
     return (

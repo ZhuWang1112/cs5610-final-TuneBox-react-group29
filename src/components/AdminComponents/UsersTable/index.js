@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Pagination from './Pagination';
+import SpecificUser from "../SpecificUser";
 const API_BASE = 'http://localhost:4000/api';
 
 const UserTable = () => {
@@ -20,7 +21,7 @@ const UserTable = () => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch(`${API_BASE}/users/all/pagination?page=${currentPage}&limit=${usersPerPage}`);
+            const response = await fetch(`${API_BASE}/users/admin/pagination?page=${currentPage}&limit=${usersPerPage}`);
             const data = await response.json();
             console.log(data);
             setUsers(data);
@@ -51,7 +52,7 @@ const UserTable = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`${API_BASE}/users/${editingUser._id}`, {
+        const response = await fetch(`${API_BASE}/users/admin/${editingUser._id}`, {
             method: 'PUT',
             body: JSON.stringify(formData),
             headers: {
@@ -85,7 +86,7 @@ const UserTable = () => {
     const handleDelete = async (id) => {
         const confirmed = window.confirm('Are you sure you want to delete this user?');
         if (confirmed) {
-            const response = await fetch(`${API_BASE}/users/${id}`, {
+            const response = await fetch(`${API_BASE}/users/admin/${id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -176,6 +177,10 @@ const UserTable = () => {
             )}
 
             <Pagination currentPage={currentPage} usersPerPage={usersPerPage} totalCount={totalCount} onPageChange={handlePageChange} />
+
+            <div className="mt-5"></div>
+            <SpecificUser handleDelete={handleDelete} handleEdit={handleEdit}/>
+
 
         </div>
     );
