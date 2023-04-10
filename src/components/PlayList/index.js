@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   findPlaylistsThunk,
   createPlaylistThunk,
+  deletePlaylistThunk
 } from "../../services/thunks/playlist-thunk";
 import {
   createPlaylist,
@@ -23,8 +24,7 @@ const PlayList = ({ isSelf }) => {
   console.log(playlists);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
-    console.log(playlist_id);
-    navigate(`/playlist/shutong/${playlist_id}`);
+    navigate(`/playlist/${playlist_id}`);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,15 +53,10 @@ const PlayList = ({ isSelf }) => {
       img: "playlist-cover.jpeg",
     };
     dispatch(createPlaylistThunk(newPlaylist));
-    // navigate(`/playlist/shutong/${newId}`);
   };
 
   const deletePlaylistById = (id) => {
-    if (playlists.length === 1) {
-      return;
-    }
-
-    dispatch(deletePlaylist(id));
+    dispatch(deletePlaylistThunk(id));
   };
 
   useEffect(() => {

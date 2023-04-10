@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
+import {findUser} from "../../services/user-service";
 const ProfileBanner = ({ isSelf }) => {
   const { uid } = useParams();
   const dispatch = useDispatch();
   const [hasFollow, setHasFollow] = useState(false);
+  const [user, setUser] = useState(null);
+  const getCurrentUser = async (uid) => {
+    const res = await findUser(uid);
+    setUser(res);
+  }
   const handleFollow = () => {
     setHasFollow(true);
     dispatch(createFollow(uid));
@@ -15,9 +21,12 @@ const ProfileBanner = ({ isSelf }) => {
     setHasFollow(false);
     dispatch(deleteFollow(uid));
   };
+  useEffect(() => {
+    getCurrentUser(uid);
+  }, [uid]);
   return (
     <div>
-      <div className={`d-flex justify-content-start position-relative`}>
+    {user && (<div className={`d-flex justify-content-start position-relative`}>
         <img
           src={`/images/profile_banner.jpg`}
           width="90%"
@@ -30,12 +39,12 @@ const ProfileBanner = ({ isSelf }) => {
           className={`position-absolute avatar-position rounded-pill`}
         />
         <h5 className={`position-absolute text-white username-position`}>
-          {uid}
+          {user.userName}
         </h5>
         {isSelf && (
           <>
             <p className={`position-absolute text-muted email-position`}>
-              cst950928@hotmail.com
+              {user.email}
             </p>
             <button
               className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
@@ -60,7 +69,8 @@ const ProfileBanner = ({ isSelf }) => {
             + UnFollow
           </button>
         )}
-      </div>
+      </div>)}
+      
     </div>
   );
 };

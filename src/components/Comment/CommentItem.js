@@ -5,9 +5,9 @@ import { RiDeleteBinFill } from "react-icons/ri";
 const CommentItem = ({ isSelf, comment, handleDelete }) => {
   const [showMore, toggleShowMore] = useState(false);
   return (
-    <div className={`mt-2 border-width container position-relative p-0`}>
+    <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
-        <div className={`col-1 d-flex justify-content-center ms-3 me-3`}>
+        <div className={`col-1 d-flex justify-content-center ms-3`}>
           <img
             src={`/images/comment-picture.png`}
             width={`50px`}

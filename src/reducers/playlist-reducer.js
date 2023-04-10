@@ -2,13 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   findPlaylistsThunk,
   createPlaylistThunk,
+  deletePlaylistThunk
 } from "../services/thunks/playlist-thunk";
-
-// const playlistData = [
-//   // { _id: 1, name: "Default playlist", desc: "", songs: [1, 2] },
-//   // { _id: 2, name: "playlist2", desc: "", songs: [4, 3] },
-//   // { _id: 3, name: "playlist3", desc: "", songs: [] },
-// ];
 
 const playlistSlice = createSlice({
   name: "playlist",
@@ -46,6 +41,10 @@ const playlistSlice = createSlice({
     },
     [createPlaylistThunk.fulfilled]: (state, { payload }) => {
       state.playlists.push(payload);
+    },
+    [deletePlaylistThunk.fulfilled]: (state, { payload }) => {
+        state.playlists = state.playlists
+            .filter(t => t._id !== payload)
     },
   },
 });
