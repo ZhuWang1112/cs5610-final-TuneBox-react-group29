@@ -4,7 +4,7 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
 const CommentItem = ({ isSelf, comment, handleDelete }) => {
   const [showMore, toggleShowMore] = useState(false);
-  console.log("comment", comment);
+
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>

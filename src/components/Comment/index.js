@@ -21,7 +21,7 @@ const Comment = ({ isSelf }) => {
 
   useEffect(() => {
     dispatch(findCommentsThunk(uid));
-  }, []);
+  }, [uid]);
   return (
     <div className={`comment-container`}>
       <h4 className={`text-white`}>Commented Playlist</h4>
