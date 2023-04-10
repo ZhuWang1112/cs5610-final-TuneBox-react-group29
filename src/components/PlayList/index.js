@@ -61,8 +61,7 @@ const PlayList = ({ isSelf }) => {
 
   useEffect(() => {
     dispatch(findPlaylistsThunk(uid));
-    console.log("done");
-  }, []);
+  }, [uid]);
 
   return (
     <div className={`playlist-container me-0`}>
