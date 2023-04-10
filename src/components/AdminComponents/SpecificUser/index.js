@@ -5,13 +5,13 @@ const API_BASE = 'http://localhost:4000/api';
 
 function SpecificUser({handleEdit, handleDelete}) {
     const [username, setUsername] = useState('');
-    const [user, setUser] = useState(null);
+    const [users, setUsers] = useState(null);
 
     const handleSearch = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.get(`${API_BASE}/users/admin/name/${username}`);
-            setUser(response.data);
+            const response = await axios.get(`${API_BASE}/users/admin/partialname/${username}`);
+            setUsers(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -29,7 +29,7 @@ function SpecificUser({handleEdit, handleDelete}) {
                     </Col>
                 </Row>
             </Form>
-            {user && (
+            {users && (
                 <table className="table wd-white">
                     <thead>
                     <tr>
@@ -42,22 +42,24 @@ function SpecificUser({handleEdit, handleDelete}) {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr key={user._id}>
-                            <td>{user._id}</td>
-                            <td>{user.userName}</td>
-                            <td>{user.email}</td>
-                            <td>{user.gender}</td>
-                            <td>{user.isAdmin ? 'Yes' : 'No'}</td>
-                            <td>{user.isVip ? 'Yes' : 'No'}</td>
-                            <td>
-                                <button onClick={() => handleEdit(user)} className="btn btn-primary mr-2">
-                                    Edit
-                                </button>
-                                <button onClick={() => handleDelete(user.id)} className="btn btn-danger">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                    {users.map((user) => (
+                            <tr key={user._id}>
+                                <td>{user._id}</td>
+                                <td>{user.userName}</td>
+                                <td>{user.email}</td>
+                                <td>{user.gender}</td>
+                                <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                                <td>{user.isVip ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button onClick={() => handleEdit(user)} className="btn btn-primary mr-2">
+                                        Edit
+                                    </button>
+                                    <button onClick={() => handleDelete(user.id)} className="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             )}
