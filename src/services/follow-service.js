@@ -19,6 +19,7 @@ export const updateFollowee = async (followObj) => {
 
 export const findFolloweeIds = async (userId) => {
   const response = await axios.get(`${FOLLOW_API}/${userId}`);
+  console.log("response.data in findFolloweeIds: ", response.data);
   return response.data;
 };
 

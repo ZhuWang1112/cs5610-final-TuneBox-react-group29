@@ -6,10 +6,10 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf }) => {
   const visitOtherProfile = () => {
     navigate(`/profile/${follow._id}`);
   };
-  console.log("follow: ", follow);
-  console.log("check: ", isFollow);
+  // console.log("follow: ", follow);
+  // console.log("check: ", isFollow);
   const [isFollow_, setIsFollow] = useState(isFollow);
-  console.log("isFollow_: ", isFollow_);
+  // console.log("isFollow_: ", isFollow_);
   const handleFollowWithStateChange = () => {
     handleFollow(follow._id);
     setIsFollow(!isFollow_);
