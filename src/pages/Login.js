@@ -17,7 +17,7 @@ const Login = () => {
           dispatch(loginThunk({ email, password }));
           navigate("/profile");
       } catch (err) {
-          console.log(err)
+          console.log("err", err)
       }
   };
 

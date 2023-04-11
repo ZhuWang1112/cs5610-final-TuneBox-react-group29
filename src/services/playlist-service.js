@@ -7,7 +7,7 @@ export const createPlaylist = async (playlist) => {
 };
 
 export const findPlaylists = async (userId) => {
-  console.log("search");
+  // console.log("search");
   const response = await axios.get(`${PLAYLIST_API}/${userId}`);
   const playlists = response.data;
   return playlists;

@@ -30,7 +30,7 @@ const Register = () => {
         ) {
           alert(error.response.data);
         } else {
-          console.log(error);
+          console.log("error", error);
           alert("Something went wrong!");
         }
       }

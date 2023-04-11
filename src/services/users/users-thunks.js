@@ -47,8 +47,9 @@ export const logoutThunk = createAsyncThunk("users/logout", async () => {
 export const registerThunk = (user) => createAsyncThunk(
     "users/register",
     async (user) => {
+        console.log("new user: ", user)
         const response = await userService.register(user);
-        console.log(response.data)
+        console.log("register response", response.data)
         return response.data;
     }
 );
