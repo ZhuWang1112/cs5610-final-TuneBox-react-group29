@@ -12,6 +12,9 @@ import {
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import {useEffect, useState} from "react";
+import axios from "axios";
+const API_BASE = 'http://localhost:4000/api';
 const DashboardUserTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,32 +37,17 @@ const DashboardUserTable = () => {
         },
     }));
 
-    const rows = [
-        {
-            username: "John",
-            email: "john@example.com",
-            gender: "Male",
-            playlistsCount: 3
-        },
-        {
-            username: "Mary",
-            email: "mary@example.com",
-            gender: "Female",
-            playlistsCount: 2
-        },
-        {
-            username: "Bob",
-            email: "bob@example.com",
-            gender: "Male",
-            playlistsCount: 4
-        },
-        {
-            username: "Lisa",
-            email: "lisa@example.com",
-            gender: "Female",
-            playlistsCount: 1
-        }
-    ];
+    const [rows, setRows] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${API_BASE}/users/admin/lastpage?limit=5`)
+            .then(response => {
+                setRows(response.data);
+            }).catch(error => {
+            console.error(error);
+        });
+    },[]);
+
     return (
         <div className={"mb-5"}>
             <h4 style={{color:"white"}}><PeopleAltIcon /> Recent Users</h4>
@@ -76,9 +64,9 @@ const DashboardUserTable = () => {
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
-                                <StyledTableRow key={row.name}>
+                                <StyledTableRow key={row._id}>
                                     <StyledTableCell component="th" scope="row">
-                                        {row.username}
+                                        {row.userName}
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.email}</StyledTableCell>
                                     <StyledTableCell align="center">{row.gender}</StyledTableCell>

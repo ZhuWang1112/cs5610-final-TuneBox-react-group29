@@ -9,8 +9,8 @@ export const findPlaylistsThunk = createAsyncThunk(
 export const deletePlaylistThunk = createAsyncThunk(
   "profile/deletePlaylist",
   async (playlistId) => {
-    await service.deletePlaylist(playlistId);
-    return playlistId;
+    const updatedPlaylists = await service.deletePlaylist(playlistId);
+    return updatedPlaylists;
   }
 );
 

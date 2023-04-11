@@ -12,6 +12,11 @@ import {
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import {useEffect, useState} from "react";
+import axios from "axios";
+
+
+const API_BASE = 'http://localhost:4000/api';
 const DashboardPlaylistsTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -33,29 +38,18 @@ const DashboardPlaylistsTable = () => {
             border: 0,
         },
     }));
+    const [rows, setRows] = useState([]);
 
-    const rows = [
-        {
-            name: "My Playlist 1",
-            creator: "John",
-            songs: 10
-        },
-        {
-            name: "My Playlist 2",
-            creator: "Mary",
-            songs: 5
-        },
-        {
-            name: "My Playlist 3",
-            creator: "Bob",
-            songs: 15
-        },
-        {
-            name: "My Playlist 4",
-            creator: "Lisa",
-            songs: 7
-        }
-    ];
+    useEffect(() => {
+        axios.get(`${API_BASE}/playlists/admin/lastpage?limit=3`)
+            .then(response => {
+                setRows(response.data);
+            }).catch(error => {
+            console.error(error);
+        });
+    },[]);
+
+
 
     return (
         <div className={"mb-5"}>
@@ -72,12 +66,12 @@ const DashboardPlaylistsTable = () => {
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
-                                <StyledTableRow key={row.name}>
+                                <StyledTableRow key={row._id}>
                                     <StyledTableCell component="th" scope="row">
-                                        {row.name}
+                                        {row.playListName}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">{row.creator}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.songs}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.user.userName}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.songs.length}</StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>

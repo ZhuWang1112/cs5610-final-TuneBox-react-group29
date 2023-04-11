@@ -43,8 +43,7 @@ const playlistSlice = createSlice({
       state.playlists.push(payload);
     },
     [deletePlaylistThunk.fulfilled]: (state, { payload }) => {
-        state.playlists = state.playlists
-            .filter(t => t._id !== payload)
+        state.playlists = payload;
     },
   },
 });

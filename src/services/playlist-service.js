@@ -15,6 +15,7 @@ export const findPlaylists = async (userId) => {
 
 export const deletePlaylist = async (playlistId) => {
   const response = await axios.delete(`${PLAYLIST_API}/${playlistId}`);
+  console.log("response./dat", response.data)
   return response.data;
 };
 
