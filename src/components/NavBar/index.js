@@ -1,17 +1,21 @@
-import React from 'react'
-import {Link} from "react-router-dom";
-import './index.css';
-import { logoutThunk } from "../../services/users/users-thunks";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./index.css";
+import { loginThunk, logoutThunk } from "../../services/users/users-thunks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 const NavBar = () => {
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
-
+  console.log("NavBar rerender");
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  console.log("loginUser in navBar", loginUser);
+  const [login, setLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setLogin(loginUser ? true : false);
+  }, [loginUser]);
+
   return (
     <div
       className={
@@ -24,7 +28,7 @@ const NavBar = () => {
 
       <div className={`text-white`}>|</div>
 
-      {!loginUser && (
+      {!login && (
         <>
           <Link
             to="/register"
@@ -37,12 +41,12 @@ const NavBar = () => {
           </Link>
         </>
       )}
-      {loginUser && (
+      {login && (
         <Link to="/login" className={`text-muted pt-2 navbar-text mx-3`}>
           <span
             onClick={() => {
               dispatch(logoutThunk());
-              navigate("/login");
+              // navigate("/login");
             }}
           >
             Logout
@@ -53,4 +57,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar
+export default NavBar;

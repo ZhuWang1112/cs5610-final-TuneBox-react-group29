@@ -29,12 +29,12 @@ export const deleteUserThunk = createAsyncThunk("users/delete", async (id) => {
 export const loginThunk = createAsyncThunk("users/login", async (user) => {
   const response = await userService.login(user);
   window.localStorage.setItem("currentUser", JSON.stringify(response.data));
-  console.log("response.data._id", response.data._id);
   const defaultPlaylist = await findDefaultPlaylistByUser(response.data._id);
   window.localStorage.setItem(
     "defaultPlaylist",
     JSON.stringify(defaultPlaylist)
   );
+  console.log("loginThunk");
   return response.data;
 });
 
@@ -44,7 +44,7 @@ export const logoutThunk = createAsyncThunk("users/logout", async () => {
     window.localStorage.removeItem("recent-user-img");
   }
   window.localStorage.removeItem("defaultPlaylist");
-
+  console.log("logoutThunk");
   await userService.logout();
 });
 
