@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as service from "../playlist-service";
+import { updateUser } from "../user-service";
 
 export const findPlaylistsThunk = createAsyncThunk(
   "profile/Playlists",
@@ -16,8 +17,10 @@ export const deletePlaylistThunk = createAsyncThunk(
 
 export const createPlaylistThunk = createAsyncThunk(
   "profile/createPlaylist",
-  async (playlist) => {
-    const newPlaylist = await service.createPlaylist(playlist);
+  async (obj) => {
+    const newPlaylist = await service.createPlaylist(obj.playlist);
+    // increase playlistCount in user table
+    updateUser({ _id: obj.playlist.user, playlistsCount: obj.cnt });
     return newPlaylist;
   }
 );

@@ -52,7 +52,9 @@ const PlayList = ({ isSelf }) => {
       isDefault: false,
       img: "playlist-cover.jpeg",
     };
-    dispatch(createPlaylistThunk(newPlaylist));
+    dispatch(
+      createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
+    );
   };
 
   const deletePlaylistById = (id) => {
