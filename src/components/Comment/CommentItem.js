@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./index.css";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
-const CommentItem = ({ isSelf, comment, handleDelete }) => {
-  const [showMore, toggleShowMore] = useState(false);
+import StarRatings from "react-star-ratings";
 
+const CommentItem = ({ isSelf, comment, handleDelete, visitPlaylist }) => {
+  const [showMore, toggleShowMore] = useState(false);
+  console.log("rating: ", comment);
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
@@ -19,10 +21,24 @@ const CommentItem = ({ isSelf, comment, handleDelete }) => {
         <div className={`text-white col`}>
           <div className={`row w-100 d-flex align-items-center`}>
             <span className={`text-white d-inline col-3`}>
-              <div className={`fw-bold`}>{comment.playListName}</div>
+              <div
+                className={`fw-bold visit-playlist`}
+                onClick={() => visitPlaylist(comment.playlist)}
+              >
+                {comment.playListName}
+              </div>
               <div className={`text-muted`}>{comment.userName}</div>
             </span>
-            <span className={`d-inline col`}>Rating</span>
+            <span className={`d-inline col`}>
+              <StarRatings
+                rating={comment.rating}
+                starRatedColor="orange"
+                starDimension="20px"
+                starSpacing="5px"
+                isSelectable={false}
+                numberOfStars={5}
+              />
+            </span>
           </div>
           {showMore && (
             <>

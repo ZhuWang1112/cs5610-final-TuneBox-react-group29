@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as service from "../comment-service";
 
-
 export const findCommentsThunk = createAsyncThunk(
   "profile/findCommentThunk",
   async (userId) => {

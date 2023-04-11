@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import PlayListDetailItem from "./PlayListDetailItem";
+import CommentPanel from "./CommentPanel";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
@@ -32,39 +33,47 @@ const PlayListDetail = ({ playlist }) => {
   return (
     <div className={`mt-3 ms-3 me-3`}>
       <div className={`row`}>
-        <div className={`col-4`}>
-          <h5 className={`fw-fold text-white`}># TITLE</h5>
-        </div>
-        <div className={`col-2 text-muted ps-0`}>
-          <BsFillPersonLinesFill size={30} />
-        </div>
-        <div className={`col-2 text-muted ps-0`}>
-          <AiOutlineFieldTime size={30} />
-        </div>
-        <div className={`col-2`}></div>
-        <div className={`col`}></div>
-      </div>
-      <div className={`song-container`}>
-        {songs.length === 0 && (
-          <div
-            className={`text-muted empty-song-cotainer d-flex align-items-center justify-content-center`}
-          >
-            <h4 className={`p-0 m-0`}>
-              <a href={`/search`} className={`text-no-decoration`}>
-                Search
-              </a>{" "}
-              songs and add to your playlist
-            </h4>
+        <div className={`col`}>
+          <div className={`row`}>
+            <div className={`col-4`}>
+              <h5 className={`fw-fold text-white`}># TITLE</h5>
+            </div>
+            <div className={`col-2 text-muted ps-0`}>
+              <BsFillPersonLinesFill size={30} />
+            </div>
+            <div className={`col-2 text-muted ps-0`}>
+              <AiOutlineFieldTime size={30} />
+            </div>
+            <div className={`col-2`}></div>
+            <div className={`col`}></div>
           </div>
-        )}
 
-        {songs.map((item, idx) => (
-          <PlayListDetailItem
-            key={idx}
-            song={item}
-            handleUnLikeClick={handleUnLikeClick}
-          />
-        ))}
+          <div className={`song-container`}>
+            {songs.length === 0 && (
+              <div
+                className={`text-muted empty-song-cotainer d-flex align-items-center justify-content-center`}
+              >
+                <h4 className={`p-0 m-0`}>
+                  <a href={`/search`} className={`text-no-decoration`}>
+                    Search
+                  </a>{" "}
+                  songs and add to your playlist
+                </h4>
+              </div>
+            )}
+
+            {songs.map((item, idx) => (
+              <PlayListDetailItem
+                key={idx}
+                song={item}
+                handleUnLikeClick={handleUnLikeClick}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
+          <CommentPanel />
+        </div>
       </div>
     </div>
   );

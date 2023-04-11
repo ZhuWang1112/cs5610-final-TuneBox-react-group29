@@ -40,7 +40,7 @@ const PlaylistBanner = ({ playlist }) => {
     <div className={`position-relative`}>
       <img
         src={`/images/playlist-banner.jpeg`}
-        height={`400px`}
+        height={`300px`}
         width={`100%`}
       />
       <img

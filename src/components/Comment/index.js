@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "./index.css";
 import CommentItem from "./CommentItem";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteComment } from "../../reducers/comment-reducer";
+
 import {
   findCommentsThunk,
   deleteCommentThunk,
@@ -12,13 +13,16 @@ const Comment = ({ isSelf }) => {
   const { uid } = useParams();
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
+  const navitate = useNavigate();
   // const { uid } = useParams();
   // const currentUID = localStorage.getItem("userId");
   // const isSelf = uid === currentUID;
   const handleDelete = (id) => {
     dispatch(deleteCommentThunk(id));
   };
-
+  const visitPlaylist = (pid) => {
+    navitate(`/playlist/${pid}`);
+  };
   useEffect(() => {
     dispatch(findCommentsThunk(uid));
   }, [uid]);
@@ -41,6 +45,7 @@ const Comment = ({ isSelf }) => {
               isSelf={isSelf}
               comment={comment}
               handleDelete={handleDelete}
+              visitPlaylist={visitPlaylist}
             />
           ))}
       </div>
