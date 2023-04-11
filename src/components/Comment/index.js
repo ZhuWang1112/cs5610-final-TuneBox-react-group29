@@ -34,7 +34,7 @@ const Comment = ({ isSelf }) => {
           <div
             className={`d-flex justify-content-center align-items-center comment-empty-tag`}
           >
-            <h4 className={`text-muted`}>Your comment plate is blank...</h4>
+            <h4 className={`text-muted`}>The comment plate is blank...</h4>
           </div>
         )}
 

@@ -6,7 +6,7 @@ import StarRatings from "react-star-ratings";
 
 const CommentItem = ({ isSelf, comment, handleDelete, visitPlaylist }) => {
   const [showMore, toggleShowMore] = useState(false);
-  console.log("rating: ", comment);
+
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>

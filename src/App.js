@@ -20,28 +20,26 @@ import store from "./redux/store";
 function App() {
   return (
     <Provider store={store}>
-
-        <BrowserRouter>
-          <div className={"row bg"}>
-            <div className={"col-2 pe-0"}>
-              <SideBar />
-            </div>
-            <div className={"col p-0 m-0"}>
-              <NavBar />
-              <Routes>
-                <Route path="/*" element={<Home />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/profile/:uid" element={<Profile />} />
-                <Route path="/premium" element={<Premium />} />
-                <Route path="/admin/*" element={<Admin />} />
-                <Route path="/playlist/:id" element={<Playlist />} />
-              </Routes>
-            </div>
+      <BrowserRouter>
+        <div className={"row bg"}>
+          <div className={"col-2 pe-0"}>
+            <SideBar />
           </div>
-        </BrowserRouter>
-
+          <div className={"col p-0 m-0"}>
+            <NavBar />
+            <Routes>
+              <Route path="/*" element={<Home />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/profile/:uid" element={<Profile />} />
+              <Route path="/premium" element={<Premium />} />
+              <Route path="/admin/*" element={<Admin />} />
+              <Route path="/playlist/:id" element={<Playlist />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
     </Provider>
   );
 }

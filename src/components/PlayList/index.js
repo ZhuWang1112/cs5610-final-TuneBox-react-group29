@@ -96,6 +96,13 @@ const PlayList = ({ isSelf }) => {
                 isSelf={isSelf}
               />
             ))}
+          {playlists.length === 0 && (
+            <div
+              className={`no-playlist d-flex justify-content-center align-items-center`}
+            >
+              <h5>No Playlist yet...</h5>
+            </div>
+          )}
         </Stack>
         <div className={`me-3`}>
           <Pagination
