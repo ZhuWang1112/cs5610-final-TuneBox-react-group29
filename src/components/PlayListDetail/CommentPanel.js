@@ -4,10 +4,14 @@ import StarRatings from "react-star-ratings";
 import { createComment } from "../../services/comment-service.js";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
-const CommentPanel = ({ user }) => {
+const CommentPanel = () => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
-  const loginUser = localStorage.getItem("userId");
+  let loginUser = localStorage.getItem("currentUser");
+  if (loginUser) {
+    loginUser = JSON.parse(loginUser);
+  }
+  const recentImg = localStorage.getItem("recent-user-img");
   console.log("loginUser: ", loginUser);
   const [submit, setSubmit] = useState(false);
   const { id } = useParams();
@@ -19,7 +23,7 @@ const CommentPanel = ({ user }) => {
   const handleSubmit = async () => {
     const newComment = {
       playlist: id,
-      user: loginUser,
+      user: loginUser._id,
       content: content,
       rating: rating,
     };
@@ -32,10 +36,10 @@ const CommentPanel = ({ user }) => {
     <div className={`m-0 p-0`}>
       <div className={`row w-100 m-0 mt-3`}>
         <div className="col-2">
-          <img src={user.img} width={60} />
+          <img src={recentImg ? recentImg : loginUser.img} width={60} />
         </div>
         <div className={`col p-0 text-white d-flex align-items-end ms-2`}>
-          <h5>{user.name}</h5>
+          <h5>{loginUser.userName}</h5>
         </div>
       </div>
 

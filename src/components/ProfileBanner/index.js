@@ -27,10 +27,11 @@ const ProfileBanner = ({ isSelf }) => {
   const [email, setEmail] = useState(user.email);
   const [url, setUrl] = useState(user.img);
   const [avatarFile, setAvatarFile] = useState(null);
-  console.log("user in profile banner", user);
-  console.log("user image in profile banner", user.img);
-  console.log("url in profile banner", url);
-  const loginUser = localStorage.getItem("userId");
+
+  let loginUser = localStorage.getItem("currentUser");
+  if (loginUser) {
+    loginUser = JSON.parse(loginUser);
+  }
 
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
@@ -42,7 +43,7 @@ const ProfileBanner = ({ isSelf }) => {
     setHasFollow(!hasFollow);
     dispatch(
       updateFolloweeThunk({
-        user: loginUser,
+        user: loginUser._id,
         followId: uid,
       })
     );
@@ -70,7 +71,7 @@ const ProfileBanner = ({ isSelf }) => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setUrl(url);
-
+          localStorage.setItem("recent-user-img", url);
           updateUser({
             _id: uid,
             email: email,
@@ -123,7 +124,7 @@ const ProfileBanner = ({ isSelf }) => {
   };
 
   useEffect(() => {
-    checkIsFollow(loginUser, uid);
+    checkIsFollow(loginUser._id, uid);
   }, [uid, loginUser]);
 
   return (

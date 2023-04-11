@@ -4,10 +4,10 @@ import { useNavigate } from "react-router";
 const FollowItem = ({ follow, isFollow, handleFollow, isSelf }) => {
   const navigate = useNavigate();
   const visitOtherProfile = () => {
+    console.log(`visit  /profile/${follow._id}`);
     navigate(`/profile/${follow._id}`);
   };
-  // console.log("follow: ", follow);
-  // console.log("check: ", isFollow);
+  
   const [isFollow_, setIsFollow] = useState(isFollow);
   // console.log("isFollow_: ", isFollow_);
   const handleFollowWithStateChange = () => {

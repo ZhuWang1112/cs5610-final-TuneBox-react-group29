@@ -1,5 +1,6 @@
 import axios from "axios";
 const PLAYLIST_API = "http://localhost:4000/api/playlists";
+const PLAYLISTDEFAULT_API = "http://localhost:4000/api/playlistsdefault";
 
 export const createPlaylist = async (playlist) => {
   const response = await axios.post(PLAYLIST_API, playlist);
@@ -15,7 +16,7 @@ export const findPlaylists = async (userId) => {
 
 export const deletePlaylist = async (playlistId) => {
   const response = await axios.delete(`${PLAYLIST_API}/${playlistId}`);
-  console.log("response./dat", response.data)
+  console.log("response./dat", response.data);
   return response.data;
 };
 
@@ -31,5 +32,17 @@ export const findSongs = async (playlistId) => {
 
 export const updatePlaylist = async (playlist) => {
   const response = await axios.put(`${PLAYLIST_API}/${playlist._id}`, playlist);
+  return response.data;
+};
+
+export const checkSongs = async (userId, playlistId) => {
+  console.log(`${PLAYLIST_API}/${userId}/${playlistId}`);
+  const response = await axios.get(`${PLAYLIST_API}/${userId}/${playlistId}`);
+  return response.data;
+};
+
+export const findDefaultPlaylistByUser = async (userId) => {
+  const response = await axios.get(`${PLAYLISTDEFAULT_API}/${userId}`);
+  console.log("response in finddefault: ", response.data);
   return response.data;
 };
