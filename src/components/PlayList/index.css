@@ -26,3 +26,8 @@ color: gray;
 .remove-icon:hover {
 color: red;
 }
+.no-playlist {
+    height: 100px;
+    color: gray;
+    width: 100%;
+}

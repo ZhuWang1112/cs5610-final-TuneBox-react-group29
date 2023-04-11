@@ -20,6 +20,7 @@ const Register = () => {
         // const url = process.env.REACT_APP_API_URL + "/users";
         // await axios.post(url, data);
         // dispatch(registerThunk({ userName, password, email,  gender }));
+       localStorage.clear();
         dispatch(registerThunk({ userName, password }));
         alert("Account created successfully");
         navigate("/login");
@@ -76,26 +77,26 @@ const Register = () => {
           </div>
 
 
-          {/*<div >*/}
-          {/*  <label>*/}
-          {/*    <input type="radio" name="gender" value="male" onChange={(e) => {*/}
-          {/*      setGender(e.target.value);*/}
-          {/*    }} />*/}
-          {/*    Male*/}
-          {/*  </label>*/}
-          {/*  <label>*/}
-          {/*    <input type="radio" name="gender" value="female" onChange={(e) => {*/}
-          {/*      setGender(e.target.value);*/}
-          {/*    }} />*/}
-          {/*    Female*/}
-          {/*  </label>*/}
-          {/*  <label>*/}
-          {/*    <input type="radio" name="gender" value="other" onChange={(e) => {*/}
-          {/*      setGender(e.target.value);*/}
-          {/*    }} />*/}
-          {/*    Other*/}
-          {/*  </label>*/}
-          {/*</div>*/}
+          <div >
+            <label>
+              <input type="radio" name="gender" value="male" onChange={(e) => {
+                setGender(e.target.value);
+              }} />
+              male
+            </label>
+            <label>
+              <input type="radio" name="gender" value="female" onChange={(e) => {
+                setGender(e.target.value);
+              }} />
+              female
+            </label>
+            <label>
+              <input type="radio" name="gender" value="other" onChange={(e) => {
+                setGender(e.target.value);
+              }} />
+                non-binary
+            </label>
+          </div>
 
           <div >
             <button type="button" onClick={register}>Sign Up</button>

@@ -42,7 +42,7 @@ const DashboardUserTable = () => {
     useEffect(() => {
         axios.get(`${API_BASE}/users/admin/lastpage?limit=5`)
             .then(response => {
-                setRows(response.data);
+                setRows(response.data.reverse());
             }).catch(error => {
             console.error(error);
         });
@@ -60,6 +60,7 @@ const DashboardUserTable = () => {
                                 <StyledTableCell align="center">Email</StyledTableCell>
                                 <StyledTableCell align="center">Gender</StyledTableCell>
                                 <StyledTableCell align="center">playlistsCount</StyledTableCell>
+                                <StyledTableCell align="center">Join Date</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -71,6 +72,7 @@ const DashboardUserTable = () => {
                                     <StyledTableCell align="center">{row.email}</StyledTableCell>
                                     <StyledTableCell align="center">{row.gender}</StyledTableCell>
                                     <StyledTableCell align="center">{row.playlistsCount}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.createTime}</StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>

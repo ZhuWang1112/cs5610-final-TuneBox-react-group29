@@ -22,7 +22,7 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf }) => {
         } d-flex align-items-center`}
       >
         <img
-          src={`/images/profile-avatar.jpeg`}
+          src={follow.img}
           width={`70px`}
           className={`rounded-pill`}
           onClick={() => visitOtherProfile()}

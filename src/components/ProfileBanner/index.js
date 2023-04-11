@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
-import { findUser } from "../../services/user-service";
+import { findUser, updateUser } from "../../services/user-service";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
+import { updateProfile } from "../../reducers/user-reducer";
+import { MdAddAPhoto } from "react-icons/md";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
+const defaultFile = "/images/profile-avatar.jpeg";
 const ProfileBanner = ({ isSelf }) => {
   const { uid } = useParams();
   const dispatch = useDispatch();
   const [hasFollow, setHasFollow] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const user = useSelector((state) => state.user);
+
+  const [email, setEmail] = useState(user.email);
+  const [url, setUrl] = useState(user.img);
+  const [avatarFile, setAvatarFile] = useState(null);
+  console.log("user in profile banner", user);
+  console.log("user image in profile banner", user.img);
+  console.log("url in profile banner", url);
   const loginUser = localStorage.getItem("userId");
-  const getCurrentUser = async (uid) => {
-    const res = await findUser(uid);
-    setUser(res);
-  };
+
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
     const followeeList = res[0].followeeList;
@@ -33,8 +48,81 @@ const ProfileBanner = ({ isSelf }) => {
     );
   };
 
+  const handleUploadFirebase = (file) => {
+    if (!file) {
+      return;
+    }
+    removeImageFromFirebase(user.img, defaultFile);
+    const storageRef = ref(storage, `/files/${file.name}`);
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setUrl(url);
+
+          updateUser({
+            _id: uid,
+            email: email,
+            img: url,
+          });
+        });
+      }
+    );
+  };
+
+  const handleSubmit = () => {
+    const newProfile = {
+      _id: uid,
+      email: email,
+      img: url,
+    };
+    dispatch(updateProfile(newProfile));
+
+    // update profile into firebase
+    if (url !== user.img) {
+      handleUploadFirebase(avatarFile);
+    } else {
+      updateUser(newProfile);
+    }
+
+    setIsEdit(false);
+  };
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleImgClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleImgChange = (event) => {
+    event.preventDefault();
+    if (event.target.files.length === 0) {
+      return;
+    }
+    const newUrl = URL.createObjectURL(event.target.files[0]);
+    setUrl(newUrl);
+    setAvatarFile(event.target.files[0]);
+    // setProfile_({ ...profile_, avatar: url });
+  };
+
+  const handleCancel = () => {
+    setEmail(user.email);
+    setIsEdit(false);
+    setUrl(user.img);
+  };
+
   useEffect(() => {
-    getCurrentUser(uid);
     checkIsFollow(loginUser, uid);
   }, [uid, loginUser]);
 
@@ -49,23 +137,75 @@ const ProfileBanner = ({ isSelf }) => {
             className={`m-0 rounded-5`}
           />
           <img
-            src={`/images/profile-avatar.jpeg`}
+            src={url}
             width="100px"
-            className={`position-absolute avatar-position rounded-pill`}
+            className={`position-absolute avatar-position rounded-circle`}
           />
           <h5 className={`position-absolute text-white username-position`}>
             {user.userName}
           </h5>
           {isSelf && (
             <>
-              <p className={`position-absolute text-muted email-position`}>
-                {user.email}
-              </p>
-              <button
-                className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
-              >
-                Edit Profile
-              </button>
+              {isEdit && (
+                <>
+                  <div
+                    className={`input-email position-absolute email-input-position`}
+                  >
+                    <input
+                      className="form-control"
+                      id={"email"}
+                      name={"name"}
+                      type="text"
+                      placeholder={"Email"}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div
+                    className={`avatar-cover rounded-circle position-absolute avatar-position bg-muted`}
+                  ></div>
+                  <MdAddAPhoto
+                    className={`position-absolute avatar-icon`}
+                    size={30}
+                    // ref={hiddenFileInput}
+                    onClick={handleImgClick}
+                  />
+                  <input
+                    id="upload-banner"
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={handleImgChange}
+                    style={{ display: "none" }}
+                  />
+                  <button
+                    className={`btn btn-danger border border-danger position-absolute save-position text-white`}
+                    onClick={() => handleSubmit()}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className={`btn btn-warning border border-warning position-absolute cancel-position text-white`}
+                    onClick={() => handleCancel()}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+              {!isEdit && (
+                <>
+                  <p className={`position-absolute text-muted email-position`}>
+                    {user.email}
+                  </p>
+                  <button
+                    className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
+                    onClick={() => setIsEdit(true)}
+                  >
+                    Edit Profile
+                  </button>
+                </>
+              )}
             </>
           )}
           {!isSelf && !hasFollow && (

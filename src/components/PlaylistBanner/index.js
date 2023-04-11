@@ -3,13 +3,96 @@ import "./index.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
+import { updatePlaylist as updatePlaylistService } from "../../services/playlist-service.js";
+import { MdAddAPhoto } from "react-icons/md";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import storage, { removeImageFromFirebase } from "../../services/firebase.js";
+
+const defaultFile = "/images/playlist-cover.jpeg";
 const PlaylistBanner = ({ playlist }) => {
   const { id } = useParams();
   console.log(playlist);
   const [playlistName, setPlaylistName] = useState(playlist.playListName);
   const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
   const [edit, setEdit] = useState(false);
+  const [url, setUrl] = useState(playlist.img);
+  const [avatarFile, setAvatarFile] = useState(null);
+
   const dispatch = useDispatch();
+  // const removeImageFromFirebase = (url) => {
+  //   if (url === defaultFile) return;
+  //   const deleteRef = ref(storage, url);
+
+  //   deleteObject(deleteRef)
+  //     .then(function () {
+  //       // File deleted successfully
+  //       console.log("File Deleted");
+  //     })
+  //     .catch(function (e) {
+  //       console.log("File not exist");
+  //     });
+  // };
+
+  const handleUploadFirebase = (file) => {
+    if (!file) {
+      return;
+    }
+    removeImageFromFirebase(playlist.img, defaultFile);
+    const storageRef = ref(storage, `/files/${file.name}`);
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+          setUrl(url);
+          const newPlaylist = {
+            ...playlist,
+            playListName:
+              playlistName === "" ? playlist.playListName : playlistName,
+            description: playlistDesc,
+            img: url,
+          };
+          playlist.img = url;
+          updatePlaylistService(newPlaylist);
+        });
+      }
+    );
+  };
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleImgClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleImgChange = (event) => {
+    event.preventDefault();
+    if (event.target.files.length === 0) {
+      return;
+    }
+    const newUrl = URL.createObjectURL(event.target.files[0]);
+    setUrl(newUrl);
+    console.log("url: ", newUrl);
+    console.log("file changed: ", event.target.files[0]);
+    setAvatarFile(event.target.files[0]);
+    // setProfile_({ ...profile_, avatar: url });
+  };
 
   const handleNameChange = (e) => {
     setPlaylistName(e.target.value);
@@ -20,19 +103,34 @@ const PlaylistBanner = ({ playlist }) => {
   const handleEdit = () => {
     setEdit(true);
   };
+
   const handleConfirm = (e) => {
     const newName = playlistName === "" ? playlist.playListName : playlistName;
     const newPlaylist = {
       ...playlist,
       playListName: newName,
       description: playlistDesc,
+      img: url,
     };
-    dispatch(updatePlaylist(newPlaylist));
+    // update profile into firebase
+    if (url !== playlist.img) {
+      handleUploadFirebase(avatarFile);
+    } else {
+      updatePlaylistService(newPlaylist);
+    }
+
+    playlist.playListName = newName;
+
+    if (playlistName === "") {
+      setPlaylistName(playlist.playListName);
+    }
     setEdit(false);
   };
+
   const handleCancel = () => {
-    setPlaylistName(playlist.name);
-    setPlaylistDesc(playlist.desc);
+    setPlaylistName(playlist.playListName);
+    setPlaylistDesc(playlist.description);
+    setUrl(playlist.img);
     setEdit(false);
   };
 
@@ -44,7 +142,7 @@ const PlaylistBanner = ({ playlist }) => {
         width={`100%`}
       />
       <img
-        src={`/images/playlist-cover.jpeg`}
+        src={url}
         className={`rounded-3 position-absolute playlist-cover-pos`}
         width={`200px`}
       />
@@ -54,20 +152,20 @@ const PlaylistBanner = ({ playlist }) => {
           <h1
             className={`text-white position-absolute playlist-cover-text-pos`}
           >
-            {playlist.playListName}
+            {playlistName}
           </h1>
 
-          <button
-            className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
-            onClick={() => handleEdit()}
-          >
-            Edit
-          </button>
+          {!playlist.isDefault && (
+            <button
+              className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
+              onClick={() => handleEdit()}
+            >
+              Edit
+            </button>
+          )}
 
           <h4 className={`text-muted position-absolute playlist-desc-pos`}>
-            {playlist.description === ""
-              ? "Add your description..."
-              : playlist.description}
+            {playlistDesc === "" ? "Add your description..." : playlistDesc}
           </h4>
           <h4 className={`position-absolute playlist-num-pos text-white`}>
             {playlist.songs.length} songs
@@ -107,8 +205,25 @@ const PlaylistBanner = ({ playlist }) => {
             type="text"
             placeholder="Add your description..."
             value={playlistDesc}
-            rows={5}
+            rows={3}
             onChange={(e) => handleDescChange(e)}
+          />
+
+          <div
+            className={`playlist-cover-cover rounded-3 position-absolute playlist-cover-pos bg-muted`}
+          ></div>
+          <MdAddAPhoto
+            className={`position-absolute cover-icon`}
+            size={30}
+            // ref={hiddenFileInput}
+            onClick={handleImgClick}
+          />
+          <input
+            id="upload-banner"
+            type="file"
+            ref={hiddenFileInput}
+            onChange={handleImgChange}
+            style={{ display: "none" }}
           />
         </>
       )}

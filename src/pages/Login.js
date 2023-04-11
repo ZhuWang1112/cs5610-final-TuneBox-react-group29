@@ -15,6 +15,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
       try {
+          localStorage.clear();
           dispatch(loginThunk({ userName, password }));
           navigate("/profile");
       } catch (err) {
