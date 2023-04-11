@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { AiOutlineHome, AiOutlineSearch } from "react-icons/ai";
-import {FaRegUser} from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import {
   MdOutlineAdminPanelSettings,
   MdWorkspacePremium,
@@ -9,19 +9,34 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
+import { useNavigate } from "react-router";
 
 const SideBar = () => {
   const { pathname } = useLocation();
   const paths = pathname.split("/");
   const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
-  const currentUID = localStorage.getItem("userId");
-  console.log(currentUID);
+
+  const navigate = useNavigate();
+  const handleProfile = () => {
+    localStorage.getItem("currentUser") === null
+      ? navigate(`profile/default`)
+      : navigate(
+          `profile/${JSON.parse(localStorage.getItem("currentUser"))._id}`
+        );
+  };
+
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    setLogin(loginUser ? true : false);
+  }, [loginUser]);
+
   return (
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
       <div className={`d-flex justify-content-center`}>
         <h2 className={`text-white mt-5 fw-bold`}>TuneBox</h2>
       </div>
-
       <Link
         to="/home"
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-5`}
@@ -39,7 +54,6 @@ const SideBar = () => {
           </div>
         </div>
       </Link>
-
       <Link
         to="/search"
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
@@ -54,9 +68,9 @@ const SideBar = () => {
         </div>
       </Link>
 
-      <Link
-        to={currentUID === null ? "/profile/default" : `/profile/${currentUID}`}
+      <div
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
+        onClick={() => handleProfile()}
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>
@@ -66,26 +80,27 @@ const SideBar = () => {
             <span className={`navbar-text`}>Profile</span>
           </div>
         </div>
-      </Link>
-
-      <Link
-        to="/admin/dashboard"
-        className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
-      >
-        <div className={`row d-flex align-items-center`}>
-          <div className={`col-3`}>
-            <MdOutlineAdminPanelSettings
-              className={`float-end p-0`}
-              size={25}
-            />
+      </div>
+      {login && loginUser && loginUser.isAdmin && (
+        <Link
+          to="/admin/dashboard"
+          className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
+        >
+          <div className={`row d-flex align-items-center`}>
+            <div className={`col-3`}>
+              <MdOutlineAdminPanelSettings
+                className={`float-end p-0`}
+                size={25}
+              />
+            </div>
+            <div className={`col`}>
+              <span className={`navbar-text`}>Admin</span>
+            </div>
           </div>
-          <div className={`col`}>
-            <span className={`navbar-text`}>Admin</span>
-          </div>
-        </div>
-      </Link>
+        </Link>
+      )}
     </ul>
   );
 };
 
-export default SideBar
+export default SideBar;

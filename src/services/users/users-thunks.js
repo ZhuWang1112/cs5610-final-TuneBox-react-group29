@@ -1,49 +1,51 @@
 import * as userService from "./users-service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
+import { findDefaultPlaylistByUser } from "../playlist-service";
 export const findAllUsersThunk = createAsyncThunk("users/findAll", async () => {
-    const users = await userService.findAllUsers();
-    return users;
+  const users = await userService.findAllUsers();
+  return users;
 });
 
-export const findUserByIdThunk = createAsyncThunk(
-    "users/findById",
-    async (id) => {
-        const response = await userService.findUserById(id);
-        return response.data;
-    }
-);
+export const findUserByIdThunk = createAsyncThunk("users/findById", async (id) => {
+  const response = await userService.findUserById(id);
+  return response.data;
+});
 
-export const createUserThunk = createAsyncThunk(
-    "users/create",
-    async (user) => {
-        const response = await userService.createUser(user);
-        return response.data;
-    }
-);
+export const createUserThunk = createAsyncThunk("users/create", async (user) => {
+  const response = await userService.createUser(user);
+  return response.data;
+});
 
-export const updateUserThunk = createAsyncThunk(
-    "users/update",
-    async (user) => {
-        await userService.updateUser(user);
-        return user;
-    }
-);
+export const updateUserThunk = createAsyncThunk("users/update", async (user) => {
+  await userService.updateUser(user);
+  return user;
+});
 
 export const deleteUserThunk = createAsyncThunk("users/delete", async (id) => {
-    await userService.deleteUser(id);
-    return id;
+  await userService.deleteUser(id);
+  return id;
 });
 
 export const loginThunk = createAsyncThunk("users/login", async (user) => {
-    const response = await userService.login(user);
-    window.localStorage.setItem('currentUser', JSON.stringify(response.data));
-    return response.data;
+  const response = await userService.login(user);
+  window.localStorage.setItem("currentUser", JSON.stringify(response.data));
+  const defaultPlaylist = await findDefaultPlaylistByUser(response.data._id);
+  window.localStorage.setItem(
+    "defaultPlaylist",
+    JSON.stringify(defaultPlaylist)
+  );
+  console.log("loginThunk");
+  return response.data;
 });
 
 export const logoutThunk = createAsyncThunk("users/logout", async () => {
-    window.localStorage.removeItem('currentUser');
-    await userService.logout();
+  window.localStorage.removeItem("currentUser");
+  if (window.localStorage.getItem("recent-user-img")) {
+    window.localStorage.removeItem("recent-user-img");
+  }
+  window.localStorage.removeItem("defaultPlaylist");
+  console.log("logoutThunk");
+  await userService.logout();
 });
 
 export const registerThunk =  createAsyncThunk(

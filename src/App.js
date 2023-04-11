@@ -1,21 +1,20 @@
 import './App.css';
-import React from "react";
-import {BrowserRouter} from "react-router-dom";
-import {Routes, Route} from "react-router";
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
-import Register from './pages/Register';
+import React, { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import Search from './pages/Search';
-import SideBar from './components/SideBar';
-import Premium from './pages/Premium';
-import Admin from './pages/Admin';
+import Search from "./pages/Search";
+import SideBar from "./components/SideBar";
+import Premium from "./pages/Premium";
+import Admin from "./pages/Admin";
 import Playlist from "./pages/Playlist";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
 
 function App() {
   return (

@@ -15,9 +15,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
       try {
-          localStorage.clear();
-          dispatch(loginThunk({ userName, password }));
-          navigate("/profile");
+        localStorage.clear();
+        dispatch(loginThunk({ userName, password })).then((res) => {
+          navigate("/home");
+        });
       } catch (err) {
           console.log("err", err)
       }

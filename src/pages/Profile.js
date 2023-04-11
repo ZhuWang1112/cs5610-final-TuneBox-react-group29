@@ -14,25 +14,22 @@ import { updateProfile } from "../reducers/user-reducer";
 
 const Profile = () => {
   const { uid } = useParams();
-  const currentUID = localStorage.getItem("userId");
-  const isSelf = uid === currentUID;
+  let loginUser = localStorage.getItem("currentUser");
+  if (loginUser) {
+    loginUser = JSON.parse(loginUser);
+  }
+
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
-
-  const [profile, setProfile] = useState(null);
+  const [login, setLogin] = useState(null);
   const fetchUser = async (uid) => {
     const user = await findUser(uid);
-    console.log("current user: ", user);
-    setProfile(user);
+    setLogin(user);
     dispatch(updateProfile(user));
   };
 
   useEffect(() => {
-    if (!currentUID) {
-      setProfile({});
-    } else {
+    if (loginUser) {
       fetchUser(uid);
     }
   }, [uid]);
@@ -40,20 +37,12 @@ const Profile = () => {
   return (
     <div className={"row"}>
       <div className={"col-8 ps-0 pe-0"}>
-        {profile && <ProfileMiddle isSelf={isSelf} />}
+        {login && <ProfileMiddle isSelf={uid === loginUser._id} />}
       </div>
       <div className={"col ps-0 pe-0"}>
-        {profile && <ProfileRight isSelf={isSelf} />}
+        {login && <ProfileRight isSelf={uid === loginUser._id} />}
       </div>
-        <button
-            className="btn btn-danger"
-            onClick={() => {
-                dispatch(logoutThunk());
-                navigate("/login");
-            }}
-        >
-            Logout
-        </button>
+      {uid === "default" && <div className={`text-white`}>Please login</div>}
     </div>
   );
 };

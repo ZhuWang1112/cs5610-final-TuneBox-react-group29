@@ -12,16 +12,17 @@ import {
 } from "../../services/thunks/follow-thunk";
 const Follow = ({ isSelf }) => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
-  console.log("followList", followeeList);
   const dispatch = useDispatch();
-  const loginUser = localStorage.getItem("userId");
-  // const getFolloweeOfLoginUser = async () => {
-  //   const followIds = await findFolloweeIds(loginUser);
-  // };
+
+  let loginUser = localStorage.getItem("currentUser");
+  if (loginUser) {
+    loginUser = JSON.parse(loginUser);
+  }
+
   const handleFollow = (id) => {
     dispatch(
       updateFolloweeThunk({
-        user: loginUser,
+        user: loginUser._id,
         followId: id,
       })
     );
@@ -29,15 +30,15 @@ const Follow = ({ isSelf }) => {
   const { uid } = useParams();
 
   useEffect(() => {
-    dispatch(checkFolloweeThunk({ loginUser: loginUser, uid: uid }));
-  }, [uid, loginUser]);
+    dispatch(checkFolloweeThunk({ loginUser: loginUser._id, uid: uid }));
+  }, [uid]);
   return (
     <div className={`mt-5 pe-5 `}>
       <h4 className={`text-white`}>Follows</h4>
       <div className={`follow-container rounded-3`}>
         {followeeList.map((follow, idx) => (
           <FollowItem
-            key={Date.now() + "/" + follow._id}
+            key={follow._id}
             follow={follow}
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}

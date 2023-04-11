@@ -7,27 +7,48 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updateLike } from "../../services/like-service.js";
-import { updateLikeThunk } from "../../services/thunks/like-thunk.js";
-import { findSongsThunk } from "../../services/thunks/playlist-thunk.js";
+import { updateLikeSong, deleteLikeSong } from "../../reducers/like-reducer.js";
+import { deleteSongPlaylist } from "../../services/songPlaylist-service.js";
+import {
+  findSongsThunk,
+  checkSongsThunk,
+} from "../../services/thunks/playlist-thunk.js";
 import "./index.css";
 
-const PlayListDetail = ({ playlist, user }) => {
-  console.log(playlist);
+const PlayListDetail = ({ playlist }) => {
   const { songs } = useSelector((state) => state.likedSong);
-  console.log("songs: ", songs);
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const dispatch = useDispatch();
-  const handleUnLikeClick = async (songId) => {
-    dispatch(
-      updateLikeThunk({
-        user: playlist.user,
-        songId: songId,
-        playlistId: playlist._id,
-      })
-    );
-  };
+  let showDelete;
+  if (!loginUser || loginUser._id !== playlist.user) {
+    showDelete = false;
+  } else {
+    showDelete = true;
+  }
+  const handleUnLikeClick = async (id, songId) => {
+    if (!loginUser) return;
+    dispatch(updateLikeSong(id));
 
+    updateLike({
+      user: loginUser._id,
+      songId: songId,
+      playlistId: defaultPlaylist._id,
+    });
+  };
+  const handleDelete = async (id, songId) => {
+    if (!loginUser) return;
+
+    dispatch(deleteLikeSong(id));
+    updateLike({
+      user: loginUser._id,
+      songId: songId,
+      playlistId: defaultPlaylist._id,
+    });
+    deleteSongPlaylist(loginUser._id, songId);
+  };
   useEffect(() => {
-    dispatch(findSongsThunk(playlist._id));
+    dispatch(checkSongsThunk({ user: loginUser._id, pid: playlist._id }));
   }, [playlist._id]);
 
   return (
@@ -64,15 +85,18 @@ const PlayListDetail = ({ playlist, user }) => {
 
             {songs.map((item, idx) => (
               <PlayListDetailItem
-                key={idx}
+                key={item._id}
+                id={idx}
                 song={item}
+                showDelete={showDelete}
                 handleUnLikeClick={handleUnLikeClick}
+                handleDelete={handleDelete}
               />
             ))}
           </div>
         </div>
         <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
-          <CommentPanel key={Date.now()} user={user} />
+          <CommentPanel />
         </div>
       </div>
     </div>

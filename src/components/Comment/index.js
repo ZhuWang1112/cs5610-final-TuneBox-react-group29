@@ -14,9 +14,6 @@ const Comment = ({ isSelf }) => {
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const navitate = useNavigate();
-  // const { uid } = useParams();
-  // const currentUID = localStorage.getItem("userId");
-  // const isSelf = uid === currentUID;
   const handleDelete = (id) => {
     dispatch(deleteCommentThunk(id));
   };
@@ -41,7 +38,7 @@ const Comment = ({ isSelf }) => {
         {comments.length > 0 &&
           comments.map((comment, idx) => (
             <CommentItem
-              key={Date.now() + idx}
+              key={idx}
               isSelf={isSelf}
               comment={comment}
               handleDelete={handleDelete}

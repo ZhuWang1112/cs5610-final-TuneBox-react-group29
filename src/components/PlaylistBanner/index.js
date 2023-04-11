@@ -16,7 +16,6 @@ import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 const defaultFile = "/images/playlist-cover.jpeg";
 const PlaylistBanner = ({ playlist }) => {
   const { id } = useParams();
-  console.log(playlist);
   const [playlistName, setPlaylistName] = useState(playlist.playListName);
   const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
   const [edit, setEdit] = useState(false);
@@ -24,19 +23,6 @@ const PlaylistBanner = ({ playlist }) => {
   const [avatarFile, setAvatarFile] = useState(null);
 
   const dispatch = useDispatch();
-  // const removeImageFromFirebase = (url) => {
-  //   if (url === defaultFile) return;
-  //   const deleteRef = ref(storage, url);
-
-  //   deleteObject(deleteRef)
-  //     .then(function () {
-  //       // File deleted successfully
-  //       console.log("File Deleted");
-  //     })
-  //     .catch(function (e) {
-  //       console.log("File not exist");
-  //     });
-  // };
 
   const handleUploadFirebase = (file) => {
     if (!file) {
@@ -88,10 +74,7 @@ const PlaylistBanner = ({ playlist }) => {
     }
     const newUrl = URL.createObjectURL(event.target.files[0]);
     setUrl(newUrl);
-    console.log("url: ", newUrl);
-    console.log("file changed: ", event.target.files[0]);
     setAvatarFile(event.target.files[0]);
-    // setProfile_({ ...profile_, avatar: url });
   };
 
   const handleNameChange = (e) => {
