@@ -47,12 +47,14 @@ const PlayList = ({ isSelf }) => {
     const newPlaylist = {
       user: uid,
       playListName: newName,
-      desc: "",
+      description: "",
       songs: [],
       isDefault: false,
-      img: "playlist-cover.jpeg",
+      img: "/images/playlist-cover.jpeg",
     };
-    dispatch(createPlaylistThunk(newPlaylist));
+    dispatch(
+      createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
+    );
   };
 
   const deletePlaylistById = (id) => {
@@ -94,6 +96,13 @@ const PlayList = ({ isSelf }) => {
                 isSelf={isSelf}
               />
             ))}
+          {playlists.length === 0 && (
+            <div
+              className={`no-playlist d-flex justify-content-center align-items-center`}
+            >
+              <h5>No Playlist yet...</h5>
+            </div>
+          )}
         </Stack>
         <div className={`me-3`}>
           <Pagination

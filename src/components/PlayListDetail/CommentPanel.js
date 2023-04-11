@@ -3,10 +3,12 @@ import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
 import { createComment } from "../../services/comment-service.js";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-const CommentPanel = () => {
+import { useSelector } from "react-redux";
+const CommentPanel = ({ user }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const loginUser = localStorage.getItem("userId");
+  console.log("loginUser: ", loginUser);
   const [submit, setSubmit] = useState(false);
   const { id } = useParams();
   const handleClear = () => {
@@ -21,17 +23,19 @@ const CommentPanel = () => {
       content: content,
       rating: rating,
     };
+    console.log("submitted comment: ", newComment);
     setSubmit(true);
     await createComment(newComment);
   };
+
   return (
     <div className={`m-0 p-0`}>
       <div className={`row w-100 m-0 mt-3`}>
         <div className="col-2">
-          <img src="/images/profile-avatar.jpeg" width={60} />
+          <img src={user.img} width={60} />
         </div>
         <div className={`col p-0 text-white d-flex align-items-end ms-2`}>
-          <h5>{loginUser}</h5>
+          <h5>{user.name}</h5>
         </div>
       </div>
 

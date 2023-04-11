@@ -11,7 +11,7 @@ import { updateLikeThunk } from "../../services/thunks/like-thunk.js";
 import { findSongsThunk } from "../../services/thunks/playlist-thunk.js";
 import "./index.css";
 
-const PlayListDetail = ({ playlist }) => {
+const PlayListDetail = ({ playlist, user }) => {
   console.log(playlist);
   const { songs } = useSelector((state) => state.likedSong);
   console.log("songs: ", songs);
@@ -72,7 +72,7 @@ const PlayListDetail = ({ playlist }) => {
           </div>
         </div>
         <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
-          <CommentPanel />
+          <CommentPanel key={Date.now()} user={user} />
         </div>
       </div>
     </div>

@@ -21,14 +21,14 @@ const playlistSlice = createSlice({
     },
 
     updatePlaylist(state, action) {
-      // const index = state.findIndex(
+      // const index = state.playlists.findIndex(
       //   (playlist) => playlist._id === action.payload._id
       // );
-      // return [
-      //   ...state.slice(0, index),
+      // console.log([
+      //   ...state.playlists.slice(0, index),
       //   action.payload,
-      //   ...state.slice(index + 1),
-      // ];
+      //   ...state.playlists.slice(index + 1),
+      // ]);
     },
   },
   extraReducers: {
@@ -43,11 +43,10 @@ const playlistSlice = createSlice({
       state.playlists.push(payload);
     },
     [deletePlaylistThunk.fulfilled]: (state, { payload }) => {
-        state.playlists = payload;
+      state.playlists = payload;
     },
   },
 });
 
-export const { createPlaylist, deletePlaylist, updatePlaylist } =
-  playlistSlice.actions;
+export const { updatePlaylist } = playlistSlice.actions;
 export default playlistSlice.reducer;

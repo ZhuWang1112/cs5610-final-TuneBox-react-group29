@@ -33,7 +33,7 @@ const Follow = ({ isSelf }) => {
   }, [uid, loginUser]);
   return (
     <div className={`mt-5 pe-5 `}>
-      <h4 className={`text-white`}>{!isSelf && uid} Follows</h4>
+      <h4 className={`text-white`}>Follows</h4>
       <div className={`follow-container rounded-3`}>
         {followeeList.map((follow, idx) => (
           <FollowItem

@@ -14,3 +14,35 @@
     top: 330px;
     right: 100px;
 }
+.input-email {
+    width: 200px;
+}
+.email-input-position{
+left: 195px;
+    top: 345px;
+}
+.save-position {
+    top: 330px;
+    right: 190px;
+    width: 80px;
+}
+
+.cancel-position {
+top: 330px;
+    right: 100px;
+    width: 80px;
+}
+
+.avatar-cover {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    opacity:0.7;
+   left: 80px;
+    top: 250px;
+}
+
+.avatar-icon {
+    left: 115px;
+    top: 285px;
+}

@@ -6,7 +6,7 @@ const PlayListItem = ({ playlist, handleClick, deletePlaylist, isSelf }) => {
   return (
     <div className={`ms-1 me-2 position-relative`}>
       <img
-        src={`/images/playlist-cover.jpeg`}
+        src={playlist.img}
         className={`rounded-3`}
         width={`200px`}
         onClick={() => handleClick(playlist._id)}

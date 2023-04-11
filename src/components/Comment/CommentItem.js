@@ -6,16 +6,12 @@ import StarRatings from "react-star-ratings";
 
 const CommentItem = ({ isSelf, comment, handleDelete, visitPlaylist }) => {
   const [showMore, toggleShowMore] = useState(false);
-  console.log("rating: ", comment);
+  console.log("comment: ", comment);
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
         <div className={`col-1 d-flex justify-content-center ms-3`}>
-          <img
-            src={`/images/comment-picture.png`}
-            width={`50px`}
-            height={`50px`}
-          />
+          <img src={comment.userImg} width={`50px`} height={`50px`} />
         </div>
 
         <div className={`text-white col`}>
