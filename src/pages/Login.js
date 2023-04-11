@@ -6,15 +6,16 @@ import {loginThunk} from "../services/users/users-thunks";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-    // const { currentUser } = useSelector((state) => state.users);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   const handleLogin = async (e) => {
       try {
-          dispatch(loginThunk({ email, password }));
+          dispatch(loginThunk({ userName, password }));
           navigate("/profile");
       } catch (err) {
           console.log("err", err)
@@ -23,22 +24,36 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-
         <div  className={styles.form_container}>
           <div className={styles.input_container}>
+          Enter your userName
             <input
-              placeholder="Enter your email"
-              name="email"
+              placeholder="Enter your userName"
+              name="userName"
 
-              value={email}
+              value={userName}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUserName(e.target.value);
               }}
               required={true}
             />
           </div>
 
+        {/*<div className={styles.input_container}>*/}
+        {/*    <input*/}
+        {/*        placeholder="Enter your email"*/}
+        {/*        name="email"*/}
+
+        {/*        value={email}*/}
+        {/*        onChange={(e) => {*/}
+        {/*            setEmail(e.target.value);*/}
+        {/*        }}*/}
+        {/*        required={true}*/}
+        {/*    />*/}
+        {/*</div>*/}
+
           <div className={styles.input_container}>
+              Enter your password
             <input
               placeholder="Password"
               name="password"

@@ -7,32 +7,25 @@ import { registerThunk } from "../services/users/users-thunks";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
 
 
 
-  const register = async () => {
+  const register = () => {
     // e.preventDefault();
       try {
         // const url = process.env.REACT_APP_API_URL + "/users";
         // await axios.post(url, data);
-        dispatch(registerThunk({ username, email, password, gender }));
+        // dispatch(registerThunk({ userName, password, email,  gender }));
+        dispatch(registerThunk({ userName, password }));
         alert("Account created successfully");
         navigate("/login");
       } catch (error) {
-        if (
-            error.response &&
-            error.response.status >= 400 &&
-            error.response.status < 500
-        ) {
-          alert(error.response.data);
-        } else {
-          console.log("error", error);
-          alert("Something went wrong!");
-        }
+        console.log(error);
+        alert("something is wrong!")
       }
   };
 
@@ -48,26 +41,26 @@ const Register = () => {
             What should we call you?
             <input
                 placeholder="Enter a userName"
-                value={username}
+                value={userName}
                 onChange={(e) => {
-                  setUsername(e.target.value);
+                  setUserName(e.target.value);
                 }}
                 required={true}
             />
           </div>
 
 
-          <div >
-            What's your email?
-            <input
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                required={true}
-            />
-          </div>
+          {/*<div >*/}
+          {/*  What's your email?*/}
+          {/*  <input*/}
+          {/*      placeholder="Enter your email"*/}
+          {/*      value={email}*/}
+          {/*      onChange={(e) => {*/}
+          {/*        setEmail(e.target.value);*/}
+          {/*      }}*/}
+          {/*      required={true}*/}
+          {/*  />*/}
+          {/*</div>*/}
 
           <div >
             Create a password
@@ -83,26 +76,26 @@ const Register = () => {
           </div>
 
 
-          <div >
-            <label>
-              <input type="radio" name="gender" value="male" onChange={(e) => {
-                setGender(e.target.value);
-              }} />
-              Male
-            </label>
-            <label>
-              <input type="radio" name="gender" value="female" onChange={(e) => {
-                setGender(e.target.value);
-              }} />
-              Female
-            </label>
-            <label>
-              <input type="radio" name="gender" value="other" onChange={(e) => {
-                setGender(e.target.value);
-              }} />
-              Other
-            </label>
-          </div>
+          {/*<div >*/}
+          {/*  <label>*/}
+          {/*    <input type="radio" name="gender" value="male" onChange={(e) => {*/}
+          {/*      setGender(e.target.value);*/}
+          {/*    }} />*/}
+          {/*    Male*/}
+          {/*  </label>*/}
+          {/*  <label>*/}
+          {/*    <input type="radio" name="gender" value="female" onChange={(e) => {*/}
+          {/*      setGender(e.target.value);*/}
+          {/*    }} />*/}
+          {/*    Female*/}
+          {/*  </label>*/}
+          {/*  <label>*/}
+          {/*    <input type="radio" name="gender" value="other" onChange={(e) => {*/}
+          {/*      setGender(e.target.value);*/}
+          {/*    }} />*/}
+          {/*    Other*/}
+          {/*  </label>*/}
+          {/*</div>*/}
 
           <div >
             <button type="button" onClick={register}>Sign Up</button>

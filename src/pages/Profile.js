@@ -3,10 +3,16 @@ import ProfileBanner from "../components/ProfileBanner";
 import ProfileMiddle from "../components/ProfileMiddle";
 import ProfileRight from "../components/ProfileRight";
 import { useParams } from "react-router";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {logoutThunk} from "../services/users/users-thunks";
 const Profile = () => {
   const { uid } = useParams();
   const currentUID = localStorage.getItem("userId");
   const isSelf = uid === currentUID;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className={"row"}>
       <div className={"col-8 ps-0 pe-0"}>
@@ -15,6 +21,15 @@ const Profile = () => {
       <div className={"col ps-0 pe-0"}>
         <ProfileRight isSelf={isSelf} />
       </div>
+        <button
+            className="btn btn-danger"
+            onClick={() => {
+                dispatch(logoutThunk());
+                navigate("/login");
+            }}
+        >
+            Logout
+        </button>
     </div>
   );
 };

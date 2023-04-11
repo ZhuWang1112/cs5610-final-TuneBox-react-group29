@@ -35,21 +35,23 @@ export const deleteUserThunk = createAsyncThunk("users/delete", async (id) => {
     return id;
 });
 
-export const loginThunk = (user) => createAsyncThunk("users/login", async (user) => {
+export const loginThunk = createAsyncThunk("users/login", async (user) => {
     const response = await userService.login(user);
+    window.localStorage.setItem('currentUser', JSON.stringify(response.data));
     return response.data;
 });
 
 export const logoutThunk = createAsyncThunk("users/logout", async () => {
+    window.localStorage.removeItem('currentUser');
     await userService.logout();
 });
 
-export const registerThunk = (user) => createAsyncThunk(
+export const registerThunk =  createAsyncThunk(
     "users/register",
     async (user) => {
         console.log("new user: ", user)
         const response = await userService.register(user);
-        console.log("register response", response.data)
+        console.log("register response: ", response.data)
         return response.data;
     }
 );
