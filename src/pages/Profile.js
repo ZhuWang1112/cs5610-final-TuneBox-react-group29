@@ -14,6 +14,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const fetchUser = async (uid) => {
     const user = await findUser(uid);
+    console.log("current user: ", user);
     setProfile(user);
     dispatch(updateProfile(user));
   };

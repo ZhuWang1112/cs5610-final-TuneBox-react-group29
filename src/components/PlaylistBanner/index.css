@@ -6,7 +6,7 @@
 
 .playlist-cover-pos {
     left: 120px;
-    top: 100px;
+    top: 50px;
 }
 
 .playlist-cover-edit-pos {
@@ -15,7 +15,7 @@
 }
 .playlist-cover-text-pos {
     left: 400px;
-    top: 100px;
+    top: 80px;
     font-size: 60px;
 }
 .playlist-edit-pos {
@@ -36,7 +36,7 @@
 }
 .playlist-desc-pos {
     left: 400px;
-    top: 220px;
+    top: 200px;
 }
 .playlist-name-input {
     width: 700px;
@@ -44,4 +44,16 @@
 
 input[type="text"], textarea {
   background-color : lightgrey; 
+}
+
+.playlist-cover-cover {
+    width: 200px;
+    height:200px;
+    background-color: grey;
+    opacity:0.7;
+}
+
+.cover-icon {
+    left: 205px;
+    top: 135px;
 }

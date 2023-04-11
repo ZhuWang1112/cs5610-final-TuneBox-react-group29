@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,4 +24,19 @@ const app = initializeApp({
 
 // Firebase storage reference
 const storage = getStorage(app);
+
+export const removeImageFromFirebase = (url, defaultFile) => {
+  if (url === defaultFile) return;
+  const deleteRef = ref(storage, url);
+
+  deleteObject(deleteRef)
+    .then(function () {
+      // File deleted successfully
+      console.log("File Deleted");
+    })
+    .catch(function (e) {
+      console.log("File not exist");
+    });
+};
+
 export default storage;

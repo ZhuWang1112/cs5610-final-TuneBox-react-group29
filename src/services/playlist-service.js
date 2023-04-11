@@ -28,3 +28,8 @@ export const findSongs = async (playlistId) => {
   const response = await axios.get(`${PLAYLIST_API}/songs/${playlistId}`);
   return response.data;
 };
+
+export const updatePlaylist = async (playlist) => {
+  const response = await axios.put(`${PLAYLIST_API}/${playlist._id}`, playlist);
+  return response.data;
+};

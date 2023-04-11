@@ -41,7 +41,7 @@ const Comment = ({ isSelf }) => {
         {comments.length > 0 &&
           comments.map((comment, idx) => (
             <CommentItem
-              key={idx}
+              key={Date.now() + idx}
               isSelf={isSelf}
               comment={comment}
               handleDelete={handleDelete}

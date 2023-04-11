@@ -14,7 +14,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-import storage from "../../services/firebase.js";
+import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/profile-avatar.jpeg";
 const ProfileBanner = ({ isSelf }) => {
@@ -23,12 +23,13 @@ const ProfileBanner = ({ isSelf }) => {
   const [hasFollow, setHasFollow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const user = useSelector((state) => state.user);
+
   const [email, setEmail] = useState(user.email);
   const [url, setUrl] = useState(user.img);
   const [avatarFile, setAvatarFile] = useState(null);
-
-  console.log("profile in banner: ", user);
-
+  console.log("user in profile banner", user);
+  console.log("user image in profile banner", user.img);
+  console.log("url in profile banner", url);
   const loginUser = localStorage.getItem("userId");
 
   const checkIsFollow = async (loginUser, targetUser) => {
@@ -47,25 +48,11 @@ const ProfileBanner = ({ isSelf }) => {
     );
   };
 
-  const removeImageFromFirebase = (url) => {
-    if (url === defaultFile) return;
-    const deleteRef = ref(storage, url);
-
-    deleteObject(deleteRef)
-      .then(function () {
-        // File deleted successfully
-        console.log("File Deleted");
-      })
-      .catch(function (e) {
-        console.log("File not exist");
-      });
-  };
-
   const handleUploadFirebase = (file) => {
     if (!file) {
       return;
     }
-    removeImageFromFirebase(user.img);
+    removeImageFromFirebase(user.img, defaultFile);
     const storageRef = ref(storage, `/files/${file.name}`);
     // progress can be paused and resumed. It also exposes progress updates.
     // Receives the storage reference and the file to upload.
@@ -82,7 +69,6 @@ const ProfileBanner = ({ isSelf }) => {
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          console.log(url);
           setUrl(url);
 
           updateUser({
@@ -126,8 +112,6 @@ const ProfileBanner = ({ isSelf }) => {
     }
     const newUrl = URL.createObjectURL(event.target.files[0]);
     setUrl(newUrl);
-    console.log("url: ", newUrl);
-    console.log("file changed: ", event.target.files[0]);
     setAvatarFile(event.target.files[0]);
     // setProfile_({ ...profile_, avatar: url });
   };

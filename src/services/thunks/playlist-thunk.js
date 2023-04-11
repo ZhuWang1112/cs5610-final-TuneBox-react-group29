@@ -28,8 +28,8 @@ export const createPlaylistThunk = createAsyncThunk(
 export const findPlaylistDetailsThunk = createAsyncThunk(
   "profile/findPlaylistDetails",
   async (playlistId) => {
-    const songs = await service.findPlaylistDetails(playlistId);
-    return songs;
+    const playlist = await service.findPlaylistDetails(playlistId);
+    return playlist;
   }
 );
 

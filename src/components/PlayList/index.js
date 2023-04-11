@@ -47,10 +47,10 @@ const PlayList = ({ isSelf }) => {
     const newPlaylist = {
       user: uid,
       playListName: newName,
-      desc: "",
+      description: "",
       songs: [],
       isDefault: false,
-      img: "playlist-cover.jpeg",
+      img: "/images/playlist-cover.jpeg",
     };
     dispatch(
       createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })

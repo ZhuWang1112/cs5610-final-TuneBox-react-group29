@@ -6,7 +6,7 @@ import Comment from "../Comment";
 const ProfileMiddle = ({ isSelf }) => {
   return (
     <div className={`profile-middle-bg`}>
-      <ProfileBanner isSelf={isSelf} />
+      <ProfileBanner key={Date.now()} isSelf={isSelf} />
       <PlayList isSelf={isSelf} />
       <Comment isSelf={isSelf} />
     </div>
