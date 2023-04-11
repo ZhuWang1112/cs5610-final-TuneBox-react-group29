@@ -1,9 +1,9 @@
-import SearchBar from "../SearchBar";
+import PlaylistsTable from "../PlaylistsTable";
 
 const AdminPlaylists = () => {
     return (
         <>
-            <h1>AdminPlaylists</h1>
+            <PlaylistsTable/>
         </>
     );
 }

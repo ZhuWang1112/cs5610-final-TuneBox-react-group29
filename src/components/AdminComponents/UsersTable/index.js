@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import Pagination from './Pagination';
+import Pagination from '../Pagination/Pagination';
 import SpecificUser from "../SpecificUser";
+import axios from "axios";
 const API_BASE = 'http://localhost:4000/api';
 
 const UserTable = () => {
@@ -17,7 +18,17 @@ const UserTable = () => {
         gender: '',
         isAdmin: false,
         isVip: false,
+        isDeleted: false,
     });
+
+    useEffect(() => {
+        axios.get(`${API_BASE}/users/admin/count`)
+            .then(response => {
+                setTotalCount(response.data);
+            }).catch(error => {
+            console.error(error);
+        });
+    }, []);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -69,6 +80,7 @@ const UserTable = () => {
             gender: '',
             isAdmin: false,
             isVip: false,
+            isDeleted: false,
         });
     };
 
@@ -80,17 +92,19 @@ const UserTable = () => {
             gender: user.gender,
             isAdmin: user.isAdmin,
             isVip: user.isVip,
+            isDeleted: user.isDeleted,
         });
     };
 
     const handleDelete = async (id) => {
-        const confirmed = window.confirm('Are you sure you want to delete this user?');
+        const confirmed = window.confirm('Are you sure you want to delete this user? It may lead to exceptions in the collection {follow}, so be careful !!');
         if (confirmed) {
             const response = await fetch(`${API_BASE}/users/admin/${id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
                 setUsers(users.filter((user) => user._id !== id));
+                setTotalCount(totalCount - 1);
             }
         }
     };
@@ -103,6 +117,7 @@ const UserTable = () => {
             gender: '',
             isAdmin: false,
             isVip: false,
+            isDeleted: false,
         });
     };
 
@@ -117,6 +132,7 @@ const UserTable = () => {
                     <th>gender</th>
                     <th>isAdmin</th>
                     <th>isVip</th>
+                    <th>isDeleted</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -128,11 +144,12 @@ const UserTable = () => {
                         <td>{user.gender}</td>
                         <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                         <td>{user.isVip ? 'Yes' : 'No'}</td>
+                        <td>{user.isDeleted ? 'Yes' : 'No'}</td>
                         <td>
                             <button onClick={() => handleEdit(user)} className="btn btn-primary mr-2">
                                 Edit
                             </button>
-                            <button onClick={() => handleDelete(user.id)} className="btn btn-danger">
+                            <button onClick={() => handleDelete(user._id)} className="btn btn-danger">
                                 Delete
                             </button>
                         </td>
@@ -154,9 +171,18 @@ const UserTable = () => {
                                 <input type="email" name="email" id="email" className="form-control" value={formData.email} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="gender">gender:</label>
-                                <input type="text" name="gender" id="gender" className="form-control" value={formData.gender} onChange={handleChange} />
+                                <label htmlFor="gender">Gender:</label>
+                                <select name="gender" id="gender" className="form-control" value={formData.gender} onChange={handleChange}>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="non-binary">Non-Binary</option>
+                                </select>
                             </div>
+                            {/*<div className="form-group">*/}
+                            {/*    <label htmlFor="gender">gender:</label>*/}
+                            {/*    <input type="text" name="gender" id="gender" className="form-control" value={formData.gender} onChange={handleChange} />*/}
+                            {/*</div>*/}
                             <div className="form-group">
                                 <label htmlFor="isAdmin">isAdmin:</label>
                                 <input type="checkbox" name="isAdmin" id="isAdmin" className="form-check-input" checked={formData.isAdmin} onChange={handleChange} />
@@ -164,6 +190,10 @@ const UserTable = () => {
                             <div className="form-group">
                                 <label htmlFor="isVip">isVip:</label>
                                 <input type="checkbox" name="isVip" id="isVip" className="form-check-input" checked={formData.isVip} onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="isDeleted">isDeleted:</label>
+                                <input type="checkbox" name="isDeleted" id="isDeleted" className="form-check-input" checked={formData.isDeleted} onChange={handleChange} />
                             </div>
                             <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                                 Cancel
