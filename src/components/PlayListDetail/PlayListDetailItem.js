@@ -107,26 +107,28 @@ const PlayListDetailItem = ({
               )}
 
               {playlistsOption && (
-                <Dropdown id="playlists">
-                  <Dropdown.Toggle
-                    variant="secondary"
-                    id="dropdown-basic"
-                    className={`bg-muted`}
-                  >
-                    <AiFillHeart size={iconSize} />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {playlistsOption.map((p) => (
-                      <Dropdown.Item
-                        onClick={() => {
-                          handleAddToPlaylist(id, p._id, song._id);
-                        }}
-                      >
-                        Add to {p.playListName}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
+                <div className={`d-flex align-items-center`}>
+                  <Dropdown id="playlists">
+                    <Dropdown.Toggle
+                      variant="secondary"
+                      id="dropdown-basic"
+                      className={`bg-muted`}
+                    >
+                      <AiFillHeart size={iconSize} />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {playlistsOption.map((p) => (
+                        <Dropdown.Item
+                          onClick={() => {
+                            handleAddToPlaylist(id, p._id, song._id);
+                          }}
+                        >
+                          Add to {p.playListName}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
               )}
             </>
           )}
@@ -135,7 +137,7 @@ const PlayListDetailItem = ({
           <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
         </div>
         {isSelf && playlistsOption && checkSong[id] && (
-          <div className={`col`}>
+          <div className={`col d-flex align-items-center`}>
             <Dropdown id="playlists">
               <Dropdown.Toggle
                 variant="warning"
