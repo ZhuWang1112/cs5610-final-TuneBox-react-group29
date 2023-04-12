@@ -52,7 +52,10 @@ const PlayListDetail = ({ playlist }) => {
   }, [playlist._id]);
 
   return (
-    <div className={`mt-3 ms-3 me-3`}>
+    <div className={`mt-3 ms-3 me-3 position-relative`}>
+      <h4 className={`text-white position-absolute song-num-pos`}>
+        {songs.length} songs
+      </h4>
       <div className={`row`}>
         <div className={`col`}>
           <div className={`row`}>
