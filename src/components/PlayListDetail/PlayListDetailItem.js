@@ -3,7 +3,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical, BsFillFolderSymlinkFill } from "react-icons/bs";
 // import { Dropdown, Icon } from "semantic-ui-react";
 import Dropdown from "react-bootstrap/Dropdown";
 
@@ -84,15 +84,19 @@ const PlayListDetailItem = ({
               </Dropdown>
             </>
           )}
-
-          {isSelf && checkSong[id] && (
+        </div>
+        <div className={`col d-flex align-items-center ps-0`}>
+          <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
+        </div>
+        {isSelf && checkSong[id] && (
+          <div className={`col`}>
             <Dropdown id="playlists">
               <Dropdown.Toggle
-                variant="primary"
+                variant="warning"
                 id="dropdown-basic"
                 className={`bg-muted`}
               >
-                <BsThreeDotsVertical
+                <BsFillFolderSymlinkFill
                   size={iconSize}
                   className={`show-more-playlist-option`}
                 />
@@ -109,11 +113,8 @@ const PlayListDetailItem = ({
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-          )}
-        </div>
-        <div className={`col d-flex align-items-center ps-0`}>
-          <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -44,8 +44,6 @@ const Profile = () => {
           {profile && <ProfileRight isSelf={uid ? false : true} />}
         </div>
       )}
-
-      {uid === "default" && <div className={`text-white`}>Please login</div>}
     </div>
   );
 };
