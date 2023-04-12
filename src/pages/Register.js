@@ -96,7 +96,7 @@ const Register = () => {
               female
             </label>
             <label>
-              <input type="radio" name="gender" value="other" onChange={(e) => {
+              <input type="radio" name="gender" value="non-binary" onChange={(e) => {
                 setGender(e.target.value);
               }} />
                 non-binary
