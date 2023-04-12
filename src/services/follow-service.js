@@ -28,3 +28,10 @@ export const checkFollowees = async (loginId, targetId) => {
   const response = await axios.get(`${FOLLOW_API}/${loginId}/${targetId}`);
   return response.data;
 };
+
+
+
+export const initFollowList = async (user_id) => {
+  const response = await axios.post(`${FOLLOW_API}/${user_id}`);
+  return response.data;
+};

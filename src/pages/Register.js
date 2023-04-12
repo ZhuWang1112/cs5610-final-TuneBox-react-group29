@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import styles from "./Register_styles.css";
-import { registerThunk } from "../services/users/users-thunks";
+import {loginThunk, registerThunk} from "../services/users/users-thunks";
+import {initFollowThunk} from "../services/thunks/follow-thunk";
+import * as service from "../services/follow-service";
+import {initLikeThunk} from "../services/thunks/like-thunk";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -12,18 +15,20 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
 
-
-
-  const register = () => {
-    // e.preventDefault();
+  const register = async () => {
       try {
-        // const url = process.env.REACT_APP_API_URL + "/users";
-        // await axios.post(url, data);
-        // dispatch(registerThunk({ userName, password, email,  gender }));
-       localStorage.clear();
-        dispatch(registerThunk({ userName, password }));
-        alert("Account created successfully");
-        navigate("/login");
+        localStorage.clear();
+        await dispatch(registerThunk({ userName, password, email, gender }));
+        // navigate("/login");
+        await dispatch(loginThunk({ userName, password })).then((res) => {
+          // console.log("user info: ", window.localStorage.getItem("currentUser"));
+          const user_id = JSON.parse(window.localStorage.getItem("currentUser"))._id;
+          navigate(`/home?_id=${user_id}`);
+        });
+        const user_id = JSON.stringify(JSON.parse(window.localStorage.getItem("currentUser"))._id);
+        dispatch(initFollowThunk( user_id ))
+        dispatch(initLikeThunk(user_id))
+
       } catch (error) {
         console.log(error);
         alert("something is wrong!")
@@ -36,12 +41,12 @@ const Register = () => {
         <p >or</p>
 
         <div  >
-          <h2 >Sign up with your email address</h2>
+          <h2 >Sign up with your email address*</h2>
 
           <div >
             What should we call you?
             <input
-                placeholder="Enter a userName"
+                placeholder="Enter a userName*"
                 value={userName}
                 onChange={(e) => {
                   setUserName(e.target.value);
@@ -51,22 +56,22 @@ const Register = () => {
           </div>
 
 
-          {/*<div >*/}
-          {/*  What's your email?*/}
-          {/*  <input*/}
-          {/*      placeholder="Enter your email"*/}
-          {/*      value={email}*/}
-          {/*      onChange={(e) => {*/}
-          {/*        setEmail(e.target.value);*/}
-          {/*      }}*/}
-          {/*      required={true}*/}
-          {/*  />*/}
-          {/*</div>*/}
+          <div >
+            What's your email?
+            <input
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                required={true}
+            />
+          </div>
 
           <div >
-            Create a password
+            Create a password*
             <input
-                placeholder="Create a password"
+                placeholder="Create a password*"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);

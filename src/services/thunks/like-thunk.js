@@ -8,3 +8,12 @@ export const updateLikeThunk = createAsyncThunk(
     return response;
   }
 );
+
+export const initLikeThunk = createAsyncThunk(
+    `likedSongs`,
+    async (user_id) => {
+        // console.log("obj, ", user_id);
+        const response = await service.initLikedList(user_id);
+        return response;
+    }
+);

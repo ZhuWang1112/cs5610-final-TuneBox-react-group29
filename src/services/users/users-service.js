@@ -38,6 +38,3 @@ export const register = (user) => {
     return api.post(`${USERS_API_URL}/register`, user);
 };
 
-export const profile = () => {
-    return api.get(`${USERS_API_URL}/profile`);
-};

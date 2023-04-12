@@ -17,7 +17,9 @@ const Login = () => {
       try {
         localStorage.clear();
         dispatch(loginThunk({ userName, password })).then((res) => {
-          navigate("/home");
+          console.log("user info: ", window.localStorage.getItem("currentUser"));
+          const userID = JSON.parse(window.localStorage.getItem("currentUser"))._id;
+          navigate(`/home?_id=${userID}`);
         });
       } catch (err) {
           console.log("err", err)

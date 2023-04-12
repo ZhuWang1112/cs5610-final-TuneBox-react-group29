@@ -22,3 +22,13 @@ export const checkFolloweeThunk = createAsyncThunk(
     return response;
   }
 );
+
+
+export const initFollowThunk = createAsyncThunk(
+    `follows`,
+    async (user_id) => {
+        // console.log("obj, ", user_id);
+        const response = await service.initFollowList(user_id);
+        return response;
+    }
+);
