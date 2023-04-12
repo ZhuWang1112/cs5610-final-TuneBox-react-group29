@@ -9,7 +9,7 @@ import {
   findCommentsThunk,
   deleteCommentThunk,
 } from "../../services/thunks/comment-thunk.js";
-const Comment = ({ isSelf }) => {
+const Comment = () => {
   const { uid } = useParams();
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
@@ -39,7 +39,6 @@ const Comment = ({ isSelf }) => {
           comments.map((comment, idx) => (
             <CommentItem
               key={idx}
-              isSelf={isSelf}
               comment={comment}
               handleDelete={handleDelete}
               visitPlaylist={visitPlaylist}
