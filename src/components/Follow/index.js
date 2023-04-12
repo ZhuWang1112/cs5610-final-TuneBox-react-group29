@@ -27,13 +27,15 @@ const Follow = () => {
   const { uid } = useParams();
 
   useEffect(() => {
+    if (!uid && !loginUser) return;
     dispatch(
       checkFolloweeThunk({
-        loginUser: loginUser._id,
+        loginUser: loginUser ? loginUser._id : null,
         uid: uid ? uid : loginUser._id,
       })
     );
   }, [uid]);
+
   return (
     <div className={`mt-5 pe-5 `}>
       <h4 className={`text-white`}>Follows</h4>
@@ -45,6 +47,7 @@ const Follow = () => {
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}
             isSelf={uid ? false : true}
+            isLogin={loginUser ? true : false}
           />
         ))}
       </div>

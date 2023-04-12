@@ -21,7 +21,6 @@ const PlayList = ({ isSelf }) => {
   const navigate = useNavigate();
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const { playlists } = useSelector((state) => state.playlist);
-  console.log(playlists);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
     navigate(`/playlist/${playlist_id}`);
@@ -62,14 +61,14 @@ const PlayList = ({ isSelf }) => {
   };
 
   useEffect(() => {
-    if (!loginUser) return;
+    if (!loginUser && !uid) return;
     dispatch(findPlaylistsThunk(uid ? uid : loginUser._id));
   }, [uid]);
 
   return (
     <div className={`playlist-container me-0`}>
       <h4 className={`text-white`}>Playlists</h4>
-      {loginUser && (
+      {(uid || loginUser) && (
         <div className={`mt-3 playlist-item-box`}>
           <Stack
             direction="row"

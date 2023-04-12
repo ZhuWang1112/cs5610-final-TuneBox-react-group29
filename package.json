@@ -38,6 +38,7 @@
     "react-show-more-text": "^1.6.2",
     "react-star-ratings": "^2.3.0",
     "react-toastify": "^9.1.2",
+    "react-tooltip": "^5.11.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "rsuite": "^5.31.0",

@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (loginUser) {
+    if (uid || loginUser) {
       fetchUser(uid);
     } else {
       setProfile({});
@@ -36,10 +36,15 @@ const Profile = () => {
 
   return (
     <div className={"row"}>
-      <div className={`${loginUser ? `col-8` : `col`} ps-0 pe-0`}>
-        {profile && <ProfileMiddle isSelf={uid ? false : true} />}
+      <div className={`${loginUser || uid ? `col-8` : `col`} ps-0 pe-0`}>
+        {profile && (
+          <ProfileMiddle
+            isSelf={uid ? false : true}
+            isLogin={loginUser ? true : false}
+          />
+        )}
       </div>
-      {loginUser && (
+      {(loginUser || uid) && (
         <div className={"col ps-0 pe-0"}>
           {profile && <ProfileRight isSelf={uid ? false : true} />}
         </div>
