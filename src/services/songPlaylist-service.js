@@ -12,3 +12,13 @@ export const deleteSongPlaylist = async (userId, songId) => {
   );
   return response.data;
 };
+
+export const createSongPlaylist = async (userId, songId, playlistId) => {
+  const response = await axios.post(SONG_PLAYLIST_API, {
+    userId: userId,
+    songId: songId,
+    playlistId: playlistId,
+  });
+  console.log("respinse.data: ", response.data);
+  return response.data;
+};

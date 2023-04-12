@@ -40,6 +40,9 @@
     "react-toastify": "^9.1.2",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "rsuite": "^5.31.0",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
