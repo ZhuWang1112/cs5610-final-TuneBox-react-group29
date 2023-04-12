@@ -33,5 +33,9 @@ color: orange;
 max-height: 3.5em; 
   overflow: hidden; 
   text-overflow: ellipsis; 
+}
 
+.song-num-pos {
+    right: 20px;
+    top: -90px;
 }
