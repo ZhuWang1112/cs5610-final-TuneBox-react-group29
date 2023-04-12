@@ -8,7 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updateLike } from "../../services/like-service.js";
 import { updateLikeSong, deleteLikeSong } from "../../reducers/like-reducer.js";
-import { deleteSongPlaylist } from "../../services/songPlaylist-service.js";
+import {
+  deleteSongPlaylist,
+  createSongPlaylist,
+} from "../../services/songPlaylist-service.js";
+import { findPlaylists } from "../../services/playlist-service.js";
 import {
   findSongsThunk,
   checkSongsThunk,
@@ -19,38 +23,64 @@ const PlayListDetail = ({ playlist }) => {
   const { songs } = useSelector((state) => state.likedSong);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
+  const [playlistsOption, setPlaylistsOption] = useState(null);
   const dispatch = useDispatch();
+
   let showDelete;
   if (!loginUser || loginUser._id !== playlist.user) {
     showDelete = false;
   } else {
     showDelete = true;
   }
+
   const handleUnLikeClick = async (id, songId) => {
     if (!loginUser) return;
-    dispatch(updateLikeSong(id));
+    if (loginUser._id === playlist.user) {
+      dispatch(deleteLikeSong(id));
+    } else {
+      dispatch(updateLikeSong(id));
+    }
 
     updateLike({
       user: loginUser._id,
       songId: songId,
       playlistId: defaultPlaylist._id,
     });
+    // deleteSongPlaylist(loginUser._id, songId);
   };
-  const handleDelete = async (id, songId) => {
+
+  const handleAddToPlaylist = async (id, pid, songId) => {
     if (!loginUser) return;
-
-    dispatch(deleteLikeSong(id));
+    dispatch(updateLikeSong(id));
     updateLike({
       user: loginUser._id,
       songId: songId,
-      playlistId: defaultPlaylist._id,
+      playlistId: pid,
     });
-    deleteSongPlaylist(loginUser._id, songId);
   };
+
+  const handleMovePlaylist = async (id, pid, songId) => {
+    dispatch(deleteLikeSong(id));
+    await deleteSongPlaylist(loginUser._id, songId);
+    createSongPlaylist(loginUser._id, songId, pid);
+  };
+
+  const addToPlaylist = async (songId) => {};
+  const fetchLoginUserPlaylists = async (uid) => {
+    let myPlaylists = await findPlaylists(uid);
+    myPlaylists = myPlaylists.filter((p) => p._id !== playlist._id);
+    setPlaylistsOption(myPlaylists);
+  };
+
   useEffect(() => {
     dispatch(checkSongsThunk({ user: loginUser._id, pid: playlist._id }));
   }, [playlist._id]);
 
+  useEffect(() => {
+    if (loginUser) {
+      fetchLoginUserPlaylists(loginUser._id);
+    }
+  }, [loginUser && loginUser._id]);
   return (
     <div className={`mt-3 ms-3 me-3 position-relative`}>
       <h4 className={`text-white position-absolute song-num-pos`}>
@@ -86,16 +116,20 @@ const PlayListDetail = ({ playlist }) => {
               </div>
             )}
 
-            {songs.map((item, idx) => (
-              <PlayListDetailItem
-                key={item._id}
-                id={idx}
-                song={item}
-                showDelete={showDelete}
-                handleUnLikeClick={handleUnLikeClick}
-                handleDelete={handleDelete}
-              />
-            ))}
+            {playlistsOption &&
+              songs.map((item, idx) => (
+                <PlayListDetailItem
+                  key={item._id}
+                  id={idx}
+                  song={item}
+                  isSelf={loginUser && loginUser._id === playlist.user}
+                  showDelete={showDelete}
+                  playlistsOption={playlistsOption}
+                  handleUnLikeClick={handleUnLikeClick}
+                  handleAddToPlaylist={handleAddToPlaylist}
+                  handleMovePlaylist={handleMovePlaylist}
+                />
+              ))}
           </div>
         </div>
         <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>

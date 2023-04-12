@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
+// import { Dropdown, Icon } from "semantic-ui-react";
+import Dropdown from "react-bootstrap/Dropdown";
+
 const PlayListDetailItem = ({
   id,
   song,
+  isSelf,
   showDelete,
+  playlistsOption,
   handleUnLikeClick,
   handleDelete,
+  handleAddToPlaylist,
+  handleMovePlaylist,
 }) => {
+  console.log("playlistsOption, ", playlistsOption);
+  console.log("isSelf", isSelf);
   const { checkSong } = useSelector((state) => state.likedSong);
-  console.log("checkSong in detail, ", checkSong);
+  const iconSize = 25;
+  const [playlist, setPlaylist] = useState("");
+  const DropdownPlaylistOptions = playlistsOption.map((playlist, idx) => {
+    return {
+      key: playlist._id,
+      text: playlist.playListName,
+      value: playlist.playListName,
+      // image: { avatar: false, src: playlist.img },
+      // style: { width: "20px", height: "20px" },
+    };
+  });
   return (
     <div className={`mt-3 ms-3 me-3`}>
       <div className={`row`}>
@@ -30,31 +50,70 @@ const PlayListDetailItem = ({
         <div className={`col d-flex align-items-center ps-0`}>
           {checkSong[id] && (
             <AiFillHeart
-              size={30}
+              size={iconSize}
               className={`text-danger`}
               onClick={() => handleUnLikeClick(id, song._id)}
             />
           )}
           {!checkSong[id] && (
-            <AiOutlineHeart
-              size={30}
-              className={`text-muted`}
-              onClick={() => handleUnLikeClick(id, song._id)}
-            />
+            <>
+              {/* <AiOutlineHeart
+                size={iconSize}
+                className={`text-muted`}
+                onClick={() => handleUnLikeClick(id, song._id)}
+              /> */}
+              <Dropdown id="playlists">
+                <Dropdown.Toggle
+                  variant="secondary"
+                  id="dropdown-basic"
+                  className={`bg-muted`}
+                >
+                  <AiFillHeart size={iconSize} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {playlistsOption.map((p) => (
+                    <Dropdown.Item
+                      onClick={() => {
+                        handleAddToPlaylist(id, p._id, song._id);
+                      }}
+                    >
+                      Add to {p.playListName}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </>
+          )}
+
+          {isSelf && checkSong[id] && (
+            <Dropdown id="playlists">
+              <Dropdown.Toggle
+                variant="primary"
+                id="dropdown-basic"
+                className={`bg-muted`}
+              >
+                <BsThreeDotsVertical
+                  size={iconSize}
+                  className={`show-more-playlist-option`}
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {playlistsOption.map((p) => (
+                  <Dropdown.Item
+                    onClick={() => {
+                      handleMovePlaylist(id, p._id, song._id);
+                    }}
+                  >
+                    Move to {p.playListName}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </div>
         <div className={`col d-flex align-items-center ps-0`}>
-          <BsFillPlayCircleFill size={30} className={`text-success`} />
+          <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
         </div>
-        {showDelete && (
-          <div className={`col d-flex align-items-center`}>
-            <RiDeleteBin5Fill
-              size={30}
-              className={`text-danger`}
-              onClick={() => handleDelete(id, song._id)}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
