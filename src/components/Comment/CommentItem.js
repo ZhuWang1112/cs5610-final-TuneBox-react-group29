@@ -4,9 +4,8 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
 import StarRatings from "react-star-ratings";
 
-const CommentItem = ({ isSelf, comment, handleDelete, visitPlaylist }) => {
+const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
   const [showMore, toggleShowMore] = useState(false);
-  console.log("comment: ", comment);
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
@@ -62,13 +61,11 @@ const CommentItem = ({ isSelf, comment, handleDelete, visitPlaylist }) => {
         </div>
         <hr className={"text-muted"} />
       </div>
-      {isSelf && (
-        <RiDeleteBinFill
-          size={25}
-          className={`position-absolute comment-delete-icon p-0`}
-          onClick={() => handleDelete(comment._id)}
-        />
-      )}
+      <RiDeleteBinFill
+        size={25}
+        className={`position-absolute comment-delete-icon p-0`}
+        onClick={() => handleDelete(comment._id)}
+      />
     </div>
   );
 };

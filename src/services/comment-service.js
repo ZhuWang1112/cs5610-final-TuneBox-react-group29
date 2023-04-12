@@ -15,3 +15,7 @@ export const deleteComment = async (cid) => {
   const response = await axios.delete(`${COMMENT_API}/${cid}`);
   return response.data;
 };
+export const findCommentsByPlaylist = async (pid) => {
+  const response = await axios.get(`${COMMENT_API}/playlist/${pid}`);
+  return response.data;
+};

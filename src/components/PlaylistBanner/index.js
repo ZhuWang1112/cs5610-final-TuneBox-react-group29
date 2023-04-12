@@ -121,7 +121,7 @@ const PlaylistBanner = ({ playlist }) => {
     <div className={`position-relative`}>
       <img
         src={`/images/playlist-banner.jpeg`}
-        height={`300px`}
+        height={`250px`}
         width={`100%`}
       />
       <img
@@ -149,9 +149,6 @@ const PlaylistBanner = ({ playlist }) => {
 
           <h4 className={`text-muted position-absolute playlist-desc-pos`}>
             {playlistDesc === "" ? "Add your description..." : playlistDesc}
-          </h4>
-          <h4 className={`position-absolute playlist-num-pos text-white`}>
-            {playlist.songs.length} songs
           </h4>
         </>
       )}
@@ -188,7 +185,7 @@ const PlaylistBanner = ({ playlist }) => {
             type="text"
             placeholder="Add your description..."
             value={playlistDesc}
-            rows={3}
+            rows={2}
             onChange={(e) => handleDescChange(e)}
           />
 
