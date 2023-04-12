@@ -10,14 +10,11 @@ import {
   updateFolloweeThunk,
   checkFolloweeThunk,
 } from "../../services/thunks/follow-thunk";
-const Follow = ({ isSelf }) => {
+const Follow = () => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
   const dispatch = useDispatch();
 
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const handleFollow = (id) => {
     dispatch(
