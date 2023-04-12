@@ -7,8 +7,8 @@ const ProfileMiddle = ({ isSelf }) => {
   return (
     <div className={`profile-middle-bg`}>
       <ProfileBanner key={Date.now()} />
-      <PlayList isSelf={isSelf} />
-      {isSelf && <Comment />}
+      {/* <PlayList isSelf={isSelf} /> */}
+      {/* {isSelf && <Comment />} */}
     </div>
   );
 };

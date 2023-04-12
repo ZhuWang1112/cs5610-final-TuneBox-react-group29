@@ -62,75 +62,77 @@ const PlayList = ({ isSelf }) => {
   };
 
   useEffect(() => {
+    if (!loginUser) return;
     dispatch(findPlaylistsThunk(uid ? uid : loginUser._id));
   }, [uid]);
 
   return (
     <div className={`playlist-container me-0`}>
       <h4 className={`text-white`}>Playlists</h4>
-
-      <div className={`mt-3 playlist-item-box`}>
-        <Stack
-          direction="row"
-          sx={{ gap: { lg: "20px", xs: "10px" } }}
-          flexWrap="wrap"
-          justifyContent="start"
-          className={`ms-0 me-0`}
-        >
-          {!uid && (
-            <div className={` d-flex align-items-start mt-5 add-icon`}>
-              <BiAddToQueue
-                size={100}
-                className={`p-0`}
-                onClick={() => addPlaylist()}
-              />
-            </div>
-          )}
-          {playlists.length > 0 &&
-            currentExercises.map((item, idx) => (
-              <PlayListItem
-                key={idx + (currentPage - 1) * playlistPerPage}
-                playlist={item}
-                handleClick={handleClick}
-                deletePlaylist={deletePlaylistById}
-                isSelf={isSelf}
-              />
-            ))}
-          {playlists.length === 0 && (
-            <div
-              className={`no-playlist d-flex justify-content-center align-items-center`}
-            >
-              <h5>No Playlist yet...</h5>
-            </div>
-          )}
-        </Stack>
-        <div className={`me-3`}>
-          <Pagination
-            color="warning"
-            shape="rounded"
-            defaultPage={1}
-            count={Math.ceil(playlists.length / playlistPerPage)}
-            page={currentPage}
-            onChange={paginate}
-            size="large"
-            className={`pagination-style float-end p-0`}
-            sx={{
-              "& .MuiPaginationItem-root": {
-                color: "#333",
-              },
-              "& .Mui-selected": {
-                color: "white",
-              },
-              "& .MuiPaginationItem-root:not(.Mui-selected)": {
-                color: "#ccc",
-              },
-              "& .MuiPaginationItem-icon": {
-                color: "gold",
-              },
-            }}
-          />
+      {loginUser && (
+        <div className={`mt-3 playlist-item-box`}>
+          <Stack
+            direction="row"
+            sx={{ gap: { lg: "20px", xs: "10px" } }}
+            flexWrap="wrap"
+            justifyContent="start"
+            className={`ms-0 me-0`}
+          >
+            {!uid && (
+              <div className={` d-flex align-items-start mt-5 add-icon`}>
+                <BiAddToQueue
+                  size={100}
+                  className={`p-0`}
+                  onClick={() => addPlaylist()}
+                />
+              </div>
+            )}
+            {playlists.length > 0 &&
+              currentExercises.map((item, idx) => (
+                <PlayListItem
+                  key={idx + (currentPage - 1) * playlistPerPage}
+                  playlist={item}
+                  handleClick={handleClick}
+                  deletePlaylist={deletePlaylistById}
+                  isSelf={isSelf}
+                />
+              ))}
+            {playlists.length === 0 && (
+              <div
+                className={`no-playlist d-flex justify-content-center align-items-center`}
+              >
+                <h5>No Playlist yet...</h5>
+              </div>
+            )}
+          </Stack>
+          <div className={`me-3`}>
+            <Pagination
+              color="warning"
+              shape="rounded"
+              defaultPage={1}
+              count={Math.ceil(playlists.length / playlistPerPage)}
+              page={currentPage}
+              onChange={paginate}
+              size="large"
+              className={`pagination-style float-end p-0`}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: "#333",
+                },
+                "& .Mui-selected": {
+                  color: "white",
+                },
+                "& .MuiPaginationItem-root:not(.Mui-selected)": {
+                  color: "#ccc",
+                },
+                "& .MuiPaginationItem-icon": {
+                  color: "gold",
+                },
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

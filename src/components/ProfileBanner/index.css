@@ -46,3 +46,67 @@ top: 330px;
     left: 115px;
     top: 285px;
 }
+
+.playlist-demo-left {
+    top: 400px;
+    left: 55px;
+}
+.playlist-demo-middle {
+    top: 395px;
+    left: 90px;
+    z-index: 1;
+}
+.playlist-demo-right {
+    top: 400px;
+    left: 135px;
+}
+.playlist-count {
+    top: 350px;
+    left: 55px;
+}
+.create-playlist {
+    top: 410px;
+    left: 250px;
+}
+
+.explore-user {
+    top: 560px;
+    left: 350px;
+}
+
+
+.user-guest-title {
+top: 500px;
+    left: 55px;
+}
+.user-demo-1 {
+    top: 550px;
+    left: 55px;
+}
+.user-demo-2 {
+    top: 545px;
+    left: 90px;
+    z-index: 1;
+}
+.user-demo-3 {
+    top: 540px;
+    left: 135px;
+    z-index: 2;
+}
+
+.user-demo-4 {
+    top: 545px;
+    left: 185px;
+    z-index: 1;
+}
+.user-demo-5 {
+    top: 550px;
+    left: 230px;
+}
+
+
+.demo-avatar-cover {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+}

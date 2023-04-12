@@ -8,6 +8,7 @@ import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
+import FollowUserGuest from "./FollowUserGuest";
 import {
   ref,
   uploadBytesResumable,
@@ -22,15 +23,17 @@ const ProfileBanner = () => {
   const dispatch = useDispatch();
   const [hasFollow, setHasFollow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const { currentProfile } = useSelector((state) => state.profile);
+
+  let { currentProfile } = useSelector((state) => state.profile);
+  console.log("currentProfile", currentProfile);
+  if (!currentProfile) {
+    currentProfile = { email: null, img: null };
+  }
   const [email, setEmail] = useState(currentProfile.email);
   const [url, setUrl] = useState(currentProfile.img);
   const [avatarFile, setAvatarFile] = useState(null);
 
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
@@ -38,6 +41,7 @@ const ProfileBanner = () => {
     const index = followeeList.indexOf(targetUser);
     setHasFollow(index === -1 ? false : true);
   };
+
   const handleFollow = () => {
     setHasFollow(!hasFollow);
     dispatch(
@@ -113,7 +117,6 @@ const ProfileBanner = () => {
     const newUrl = URL.createObjectURL(event.target.files[0]);
     setUrl(newUrl);
     setAvatarFile(event.target.files[0]);
-    // setProfile_({ ...profile_, avatar: url });
   };
 
   const handleCancel = () => {
@@ -123,6 +126,8 @@ const ProfileBanner = () => {
   };
 
   useEffect(() => {
+    console.log("render");
+    if (!loginUser) return;
     checkIsFollow(loginUser._id, uid ? uid : loginUser._id);
   }, [uid, loginUser]);
 
@@ -132,19 +137,25 @@ const ProfileBanner = () => {
         <div className={`d-flex justify-content-start position-relative`}>
           <img
             src={`/images/profile_banner.jpg`}
-            width="90%"
-            height="300px"
+            width="100%"
+            height="320px"
             className={`m-0 rounded-5`}
           />
-          <img
-            src={url}
-            width="100px"
-            className={`position-absolute avatar-position rounded-circle`}
-          />
-          <h5 className={`position-absolute text-white username-position`}>
-            {currentProfile.userName}
-          </h5>
-          {!uid && (
+
+          {loginUser && (
+            <>
+              <img
+                src={url}
+                width="100px"
+                className={`position-absolute avatar-position rounded-circle`}
+              />
+              <h5 className={`position-absolute text-white username-position`}>
+                {currentProfile.userName}
+              </h5>
+            </>
+          )}
+
+          {loginUser && !uid && (
             <>
               {isEdit && (
                 <>
@@ -208,6 +219,12 @@ const ProfileBanner = () => {
               )}
             </>
           )}
+          {!loginUser && (
+            <div className={``}>
+              <FollowUserGuest />
+            </div>
+          )}
+
           {uid && !hasFollow && (
             <button
               className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
