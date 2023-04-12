@@ -19,10 +19,8 @@ const SideBar = () => {
   const navigate = useNavigate();
   const handleProfile = () => {
     localStorage.getItem("currentUser") === null
-      ? navigate(`profile/default`)
-      : navigate(
-          `profile/${JSON.parse(localStorage.getItem("currentUser"))._id}`
-        );
+      ? navigate(`/profile/default`)
+      : navigate(`/profile`);
   };
 
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));

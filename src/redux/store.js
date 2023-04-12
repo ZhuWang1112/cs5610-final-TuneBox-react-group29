@@ -4,7 +4,7 @@ import followReducer from "../reducers/follow-reducer";
 import commentReducer from "../reducers/comment-reducer";
 import likedSongReducer from "../reducers/like-reducer";
 import authReducer from "../reducers/auth-reducers";
-import userReducers from "../reducers/user-reducer";
+import profileReducers from "../reducers/profile-reducer";
 
 const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ const store = configureStore({
     follow: followReducer,
     comment: commentReducer,
     likedSong: likedSongReducer,
-    user: userReducers,
+    profile: profileReducers,
   },
 });
 

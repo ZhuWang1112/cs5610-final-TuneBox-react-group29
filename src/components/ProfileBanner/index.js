@@ -6,7 +6,7 @@ import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
 import { findUser, updateUser } from "../../services/user-service";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
-import { updateProfile } from "../../reducers/user-reducer";
+import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
 import {
   ref,
@@ -17,15 +17,14 @@ import {
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/profile-avatar.jpeg";
-const ProfileBanner = ({ isSelf }) => {
+const ProfileBanner = () => {
   const { uid } = useParams();
   const dispatch = useDispatch();
   const [hasFollow, setHasFollow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const user = useSelector((state) => state.user);
-
-  const [email, setEmail] = useState(user.email);
-  const [url, setUrl] = useState(user.img);
+  const { currentProfile } = useSelector((state) => state.profile);
+  const [email, setEmail] = useState(currentProfile.email);
+  const [url, setUrl] = useState(currentProfile.img);
   const [avatarFile, setAvatarFile] = useState(null);
 
   let loginUser = localStorage.getItem("currentUser");
@@ -53,7 +52,7 @@ const ProfileBanner = ({ isSelf }) => {
     if (!file) {
       return;
     }
-    removeImageFromFirebase(user.img, defaultFile);
+    removeImageFromFirebase(currentProfile.img, defaultFile);
     const storageRef = ref(storage, `/files/${file.name}`);
     // progress can be paused and resumed. It also exposes progress updates.
     // Receives the storage reference and the file to upload.
@@ -73,7 +72,7 @@ const ProfileBanner = ({ isSelf }) => {
           setUrl(url);
           localStorage.setItem("recent-user-img", url);
           updateUser({
-            _id: uid,
+            _id: loginUser._id,
             email: email,
             img: url,
           });
@@ -84,14 +83,14 @@ const ProfileBanner = ({ isSelf }) => {
 
   const handleSubmit = () => {
     const newProfile = {
-      _id: uid,
+      _id: loginUser._id,
       email: email,
       img: url,
     };
     dispatch(updateProfile(newProfile));
 
     // update profile into firebase
-    if (url !== user.img) {
+    if (url !== currentProfile.img) {
       handleUploadFirebase(avatarFile);
     } else {
       updateUser(newProfile);
@@ -118,18 +117,18 @@ const ProfileBanner = ({ isSelf }) => {
   };
 
   const handleCancel = () => {
-    setEmail(user.email);
+    setEmail(currentProfile.email);
     setIsEdit(false);
-    setUrl(user.img);
+    setUrl(currentProfile.img);
   };
 
   useEffect(() => {
-    checkIsFollow(loginUser._id, uid);
+    checkIsFollow(loginUser._id, uid ? uid : loginUser._id);
   }, [uid, loginUser]);
 
   return (
     <div>
-      {user && (
+      {currentProfile && (
         <div className={`d-flex justify-content-start position-relative`}>
           <img
             src={`/images/profile_banner.jpg`}
@@ -143,9 +142,9 @@ const ProfileBanner = ({ isSelf }) => {
             className={`position-absolute avatar-position rounded-circle`}
           />
           <h5 className={`position-absolute text-white username-position`}>
-            {user.userName}
+            {currentProfile.userName}
           </h5>
-          {isSelf && (
+          {!uid && (
             <>
               {isEdit && (
                 <>
@@ -197,7 +196,7 @@ const ProfileBanner = ({ isSelf }) => {
               {!isEdit && (
                 <>
                   <p className={`position-absolute text-muted email-position`}>
-                    {user.email}
+                    {currentProfile.email}
                   </p>
                   <button
                     className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
@@ -209,7 +208,7 @@ const ProfileBanner = ({ isSelf }) => {
               )}
             </>
           )}
-          {!isSelf && !hasFollow && (
+          {uid && !hasFollow && (
             <button
               className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
               onClick={() => handleFollow()}
@@ -217,7 +216,7 @@ const ProfileBanner = ({ isSelf }) => {
               + Follow
             </button>
           )}
-          {!isSelf && hasFollow && (
+          {uid && hasFollow && (
             <button
               className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
               onClick={() => handleFollow()}

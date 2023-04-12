@@ -19,7 +19,7 @@ import {
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
-
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const { playlists } = useSelector((state) => state.playlist);
   console.log(playlists);
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const PlayList = ({ isSelf }) => {
     const curPlaylist = playlists.length;
     const newName = `My Playlist ${curPlaylist + 1}`;
     const newPlaylist = {
-      user: uid,
+      user: loginUser._id,
       playListName: newName,
       description: "",
       songs: [],
@@ -62,7 +62,7 @@ const PlayList = ({ isSelf }) => {
   };
 
   useEffect(() => {
-    dispatch(findPlaylistsThunk(uid));
+    dispatch(findPlaylistsThunk(uid ? uid : loginUser._id));
   }, [uid]);
 
   return (
@@ -77,7 +77,7 @@ const PlayList = ({ isSelf }) => {
           justifyContent="start"
           className={`ms-0 me-0`}
         >
-          {isSelf && (
+          {!uid && (
             <div className={` d-flex align-items-start mt-5 add-icon`}>
               <BiAddToQueue
                 size={100}

@@ -31,6 +31,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:uid" element={<Profile />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin/*" element={<Admin />} />

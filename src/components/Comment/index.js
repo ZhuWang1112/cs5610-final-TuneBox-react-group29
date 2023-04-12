@@ -11,6 +11,7 @@ import {
 } from "../../services/thunks/comment-thunk.js";
 const Comment = () => {
   const { uid } = useParams();
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const navitate = useNavigate();
@@ -21,8 +22,8 @@ const Comment = () => {
     navitate(`/playlist/${pid}`);
   };
   useEffect(() => {
-    dispatch(findCommentsThunk(uid));
-  }, [uid]);
+    dispatch(findCommentsThunk(loginUser._id));
+  }, [loginUser._id]);
   return (
     <div className={`comment-container`}>
       <h4 className={`text-white`}>Commented Playlist</h4>

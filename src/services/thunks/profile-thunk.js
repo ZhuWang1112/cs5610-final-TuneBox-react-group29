@@ -8,3 +8,11 @@ export const updateProfileThunk = createAsyncThunk(
     return response;
   }
 );
+
+export const findProfileThunk = createAsyncThunk(
+  "profile/findProfileThunk",
+  async (user) => {
+    const response = await service.findUser(user);
+    return response;
+  }
+);
