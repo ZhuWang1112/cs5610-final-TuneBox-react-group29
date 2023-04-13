@@ -1,30 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import CommentItem from "./CommentItem";
 import { useNavigate, useParams } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteComment } from "../../reducers/comment-reducer";
-
 import {
-  findCommentsThunk,
-  deleteCommentThunk,
-} from "../../services/thunks/comment-thunk.js";
+  deleteComment as deleteCommentService,
+  findComments as findCommentService,
+} from "../../services/comment-service";
+
 const Comment = () => {
   const { uid } = useParams();
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const loginId = loginUser ? loginUser._id : null;
-  const { comments } = useSelector((state) => state.comment);
-  const dispatch = useDispatch();
+  const [comments, setCommments] = useState([]);
   const navitate = useNavigate();
-  const handleDelete = (id) => {
-    dispatch(deleteCommentThunk(id));
+
+  const findComments = async (id) => {
+    const data = await findCommentService(id);
+    setCommments(data);
+  };
+  const handleDelete = (commentObj) => {
+    setCommments((prev) => prev.filter((p) => p._id !== commentObj._id));
+    deleteCommentService(commentObj);
   };
   const visitPlaylist = (pid) => {
     navitate(`/playlist/${pid}`);
   };
   useEffect(() => {
     if (!loginId) return;
-    dispatch(findCommentsThunk(loginUser._id));
+    findComments(loginUser._id);
   }, [loginId]);
 
   return (

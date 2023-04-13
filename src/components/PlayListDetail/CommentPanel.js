@@ -7,13 +7,14 @@ import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
 import { findCommentsByPlaylist } from "../../services/comment-service.js";
 
-const CommentPanel = () => {
+const CommentPanel = ({ pRating, setPlaylist }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [comments, setComments] = useState([]);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const recentImg = localStorage.getItem("recent-user-img");
   const [submit, setSubmit] = useState(false);
+  const [contentEmptyHint, setContentEmptyHint] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const handleClear = () => {
@@ -22,13 +23,30 @@ const CommentPanel = () => {
   };
 
   const handleSubmit = async () => {
+    if (content === "") {
+      setContentEmptyHint(true);
+      return;
+    }
+    setContentEmptyHint(false);
+    const newAvgRating =
+      ((pRating * comments.length + rating) * 1.0) / (comments.length + 1);
+
+    setSubmit(true);
+    setTimeout(() => {
+      setSubmit(false);
+    }, 2000);
+    setPlaylist((p) => ({
+      ...p,
+      rating: newAvgRating,
+    }));
+
     const newComment = {
       playlist: id,
       user: loginUser._id,
       content: content,
       rating: rating,
+      newAvgRating: newAvgRating,
     };
-    setSubmit(true);
     createComment(newComment);
     const newCommentDetails = {
       ...newComment,
@@ -81,6 +99,7 @@ const CommentPanel = () => {
         <div className="col">
           {loginUser ? (
             <textarea
+              required
               value={content}
               rows={2}
               placeholder="Leave your comments..."
@@ -98,6 +117,11 @@ const CommentPanel = () => {
 
           {loginUser && (
             <div className={`mt-1 row w-100`}>
+              {contentEmptyHint && (
+                <p className={`mb-0 text-warning`}>
+                  Please input you comment before submit!
+                </p>
+              )}
               <div
                 className={`col d-flex align-items-center justify-content-center`}
               >

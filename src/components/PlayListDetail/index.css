@@ -36,8 +36,12 @@ max-height: 3.5em;
 }
 
 .song-num-pos {
-    right: 20px;
+    right: 50px;
     top: -90px;
+}
+.playlist-rating {
+    right: 50px;
+    top: -120px;
 }
 
 .show-more-playlist-option:hover {
