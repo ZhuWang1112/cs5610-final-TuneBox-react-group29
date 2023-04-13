@@ -20,10 +20,10 @@ const commentSlice = createSlice({
     },
 
     deleteComment(state, action) {
-      const index = state.findIndex(
+      const index = state.comments.findIndex(
         (comment) => comment._id === action.payload
       );
-      state.splice(index, 1);
+      state.comments.splice(index, 1);
     },
   },
   extraReducers: {

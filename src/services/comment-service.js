@@ -11,8 +11,12 @@ export const findComments = async (userId) => {
   return response.data;
 };
 
-export const deleteComment = async (cid) => {
-  const response = await axios.delete(`${COMMENT_API}/${cid}`);
+export const deleteComment = async (commentObj) => {
+  const response = await axios.delete(`${COMMENT_API}`, {
+    data: {
+      commentObj,
+    },
+  });
   return response.data;
 };
 export const findCommentsByPlaylist = async (pid) => {

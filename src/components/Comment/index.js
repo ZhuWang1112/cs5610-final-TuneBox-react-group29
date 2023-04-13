@@ -4,6 +4,7 @@ import CommentItem from "./CommentItem";
 import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteComment } from "../../reducers/comment-reducer";
+import { deleteComment as deleteCommentReducer } from "../../services/comment-service";
 
 import {
   findCommentsThunk,
@@ -16,8 +17,10 @@ const Comment = () => {
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const navitate = useNavigate();
-  const handleDelete = (id) => {
-    dispatch(deleteCommentThunk(id));
+
+  const handleDelete = (commentObj) => {
+    dispatch(deleteComment(commentObj._id));
+    deleteCommentReducer(commentObj);
   };
   const visitPlaylist = (pid) => {
     navitate(`/playlist/${pid}`);

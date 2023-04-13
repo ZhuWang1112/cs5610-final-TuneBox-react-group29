@@ -11,8 +11,8 @@ export const findCommentsThunk = createAsyncThunk(
 
 export const deleteCommentThunk = createAsyncThunk(
   "profile/deleteCommentThunk",
-  async (cid) => {
-    const response = await service.deleteComment(cid);
-    return cid;
+  async (commentObj) => {
+    const response = await service.deleteComment(commentObj);
+    return commentObj._id;
   }
 );
