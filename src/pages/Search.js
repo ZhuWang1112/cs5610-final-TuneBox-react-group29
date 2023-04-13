@@ -1,73 +1,92 @@
-import { Fragment, useState } from "react";
-// import axiosInstance from "../redux/axiosInstance";
-// import Song from "../components/Song";
-// import Playlist from "../components/Playlist";
-import { IconButton, CircularProgress } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
-import styles from "./Search_styles.css";
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { getPlaylists } from "../services/rapidAPI-service.js";
 
-const Search = () => {
-  const [search, setSearch] = useState("");
+function Search() {
+    // let items;
+  const { searchTerm } = useParams();
+  const navigate = useNavigate();
+  const [search, setSearch] = useState(searchTerm);
   const [results, setResults] = useState({});
-  const [isFetching, setIsFetching] = useState(false);
 
-  const handleSearch = async ({ currentTarget: input }) => {
-    setSearch(input.value);
-    setResults({});
-    try {
-      setIsFetching(true);
-      const url = process.env.REACT_APP_API_URL + `/?search=${input.value}`;
-      // const { data } = await axiosInstance.get(url);
-      // setResults(data);
-      setIsFetching(false);
-    } catch (error) {
-      console.log(error);
-      setIsFetching(false);
-    }
+  const searchPlaylistsRapidAPI = async () => {
+    const response = await getPlaylists(search);
+    const currentData = JSON.parse(localStorage.getItem("currentData"));
+    console.log("???", currentData["playlists"]["items"][0]["data"])
+      console.log("!!!", currentData["playlists"])
+    // console.log("???", currentData["playlists"][1])
+    // setResults(response);
+    await setResults(currentData["playlists"]);
+    // console.log("!!!!!!!", JSON.stringify(response))
+    //navigate only used on local search results
+    // navigate("/home");
   };
 
-  return (
-      <div className={styles.container}>
-        <div className={styles.search_input_container}>
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-          <input
-              type="text"
-              placeholder="Search for songs and playlists"
-              onChange={handleSearch}
-              value={search}
-          />
-          <IconButton onClick={() => setSearch("")}>
-            <ClearIcon />
-          </IconButton>
+  useEffect(() => {
+      if (searchTerm) {
+       // searchAllRapidAPI();
+          searchPlaylistsRapidAPI();
+      }
+  }, [searchTerm]);
+
+
+    return (
+      <div>
+
+        <h1>Remote Search Playlists</h1>
+        <button onClick={searchPlaylistsRapidAPI} className="float-end btn btn-primary">
+          Search
+        </button>
+        <input
+            className="form-control w-75"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+        />
+        <h2>Remote playlists</h2>
+        <div >
+          <table >
+            <tbody>
+            <tr>
+              {results["items"] &&
+                  results["items"].map((playlist) => (
+                      <td key={playlist["data"]["uri"]}>
+                        <Link to={`https://open.spotify.com/playlist/${playlist["data"]["images"].items[0].sources[0].url.split(":")[2]}`}>
+                          <img
+                              src={playlist["data"]["images"].items[0].sources[0].url}
+                          />
+                          <h3>{playlist.data.name}</h3>
+                        </Link>
+                       {/*<h3>{playlist.data.name}</h3>*/}
+                      </td>
+                  ))}
+            </tr>
+            </tbody>
+          </table>
         </div>
-        {isFetching && (
-            <div className={styles.progress_container}>
-              <CircularProgress style={{ color: "#1ed760" }} size="5rem" />
-            </div>
-        )}
-        {/*{Object.keys(results).length !== 0 && (*/}
-        {/*    <div className={styles.results_container}>*/}
-        {/*      {results.songs.length !== 0 && (*/}
-        {/*          <div className={styles.songs_container}>*/}
-        {/*            {results.songs.map((song) => (*/}
-        {/*                <Fragment key={song._id}>*/}
-        {/*                  <Song song={song} />*/}
-        {/*                </Fragment>*/}
-        {/*            ))}*/}
-        {/*          </div>*/}
-        {/*      )}*/}
-        {/*      /!*{results.playlists.length !== 0 && (*!/*/}
-        {/*      /!*    <div className={styles.playlists_container}>*!/*/}
-        {/*      /!*      <Playlist playlists={results.playlists} />*!/*/}
-        {/*      /!*    </div>*!/*/}
-        {/*      /!*)}*!/*/}
-        {/*    </div>*/}
-        {/*)}*/}
+
+        {/*<h2>Remote Tracks</h2>*/}
+        {/*<div className="table-responsive">*/}
+        {/*  <table className="table">*/}
+        {/*    <tbody>*/}
+        {/*    <tr>*/}
+        {/*      {results.tracks &&*/}
+        {/*          results.tracks[items].map((track) => (*/}
+        {/*              <td>*/}
+        {/*                <h3>{track.data.name}</h3>*/}
+        {/*                {track.id}*/}
+        {/*                <Link to={track.data.uri}>Song's Link</Link>*/}
+        {/*              </td>*/}
+        {/*          ))}*/}
+        {/*    </tr>*/}
+        {/*    </tbody>*/}
+        {/*  </table>*/}
+        {/*</div>*/}
+
+
+        {/*<div>{results["playlists"]}</div>*/}
       </div>
   );
-};
+}
 
 export default Search;

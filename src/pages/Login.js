@@ -5,7 +5,7 @@ import styles from "./Login_styles.css";
 import {loginThunk} from "../services/users/users-thunks";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,18 +43,6 @@ const Login = () => {
             />
           </div>
 
-        {/*<div className={styles.input_container}>*/}
-        {/*    <input*/}
-        {/*        placeholder="Enter your email"*/}
-        {/*        name="email"*/}
-
-        {/*        value={email}*/}
-        {/*        onChange={(e) => {*/}
-        {/*            setEmail(e.target.value);*/}
-        {/*        }}*/}
-        {/*        required={true}*/}
-        {/*    />*/}
-        {/*</div>*/}
 
           <div className={styles.input_container}>
               Enter your password
