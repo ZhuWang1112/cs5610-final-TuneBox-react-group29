@@ -1,0 +1,20 @@
+.like-song-container {
+    width: 90%;
+    max-width: 900px;
+    flex-wrap: wrap;
+}
+.song-outer-container {
+    width: 90%;
+}
+.song-play-icon {
+    bottom: 95px;
+    right: 32px;
+    border-radius: 50%;
+    background-color: green;
+    transition: opacity 0.3s;
+}
+
+.song-item-card:hover {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}

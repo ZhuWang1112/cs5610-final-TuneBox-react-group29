@@ -9,13 +9,14 @@ export const updateLike = async (likeObj) => {
     likeObj
   );
   console.log("response.data: ", response.data);
-
-  //   const songObjs = await findSongs(response.data.likedSongs);
-  //   console.log(":, songObjs", songObjs);
   return response.data;
 };
 
-
+export const findLikedSongs = async (uid) => {
+  const response = await axios.get(`${LIKEDSONGS_API}/${uid}`);
+  console.log("response song: ", response.data);
+  return response.data;
+};
 export const initLikedList = async (user_id) => {
   const response = await axios.post(`${LIKEDSONGS_API}/${user_id}`);
   return response.data;
