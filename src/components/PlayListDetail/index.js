@@ -19,12 +19,13 @@ import {
 } from "../../services/thunks/playlist-thunk.js";
 import "./index.css";
 
-const PlayListDetail = ({ playlist }) => {
+const PlayListDetail = ({ playlist, setPlaylist }) => {
   const { songs } = useSelector((state) => state.likedSong);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const loginId = loginUser ? loginUser._id : null;
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
+  const [playlistRating, setPlaylistRating] = useState(playlist.rating);
   const dispatch = useDispatch();
 
   let showDelete;
@@ -74,8 +75,6 @@ const PlayListDetail = ({ playlist }) => {
 
   useEffect(() => {
     dispatch(checkSongsThunk({ user: loginId, pid: playlist._id })).then(() => {
-      console.log("finished");
-      console.log("songs", songs);
     });
   }, [playlist._id, loginId]);
 
@@ -86,6 +85,9 @@ const PlayListDetail = ({ playlist }) => {
   }, [loginId]);
   return (
     <div className={`mt-3 ms-3 me-3 position-relative`}>
+      <h4 className={`text-white position-absolute playlist-rating`}>
+        {Math.round(playlist.rating * 10) / 10} rating
+      </h4>
       <h4 className={`text-white position-absolute song-num-pos`}>
         {songs.length} songs
       </h4>
@@ -135,7 +137,7 @@ const PlayListDetail = ({ playlist }) => {
           </div>
         </div>
         <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
-          <CommentPanel />
+          <CommentPanel pRating={playlist.rating} setPlaylist={setPlaylist} />
         </div>
       </div>
     </div>
