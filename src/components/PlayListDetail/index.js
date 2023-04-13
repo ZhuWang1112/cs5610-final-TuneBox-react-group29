@@ -22,6 +22,7 @@ import "./index.css";
 const PlayListDetail = ({ playlist }) => {
   const { songs } = useSelector((state) => state.likedSong);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const loginId = loginUser ? loginUser._id : null;
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
   const dispatch = useDispatch();
@@ -65,7 +66,6 @@ const PlayListDetail = ({ playlist }) => {
     createSongPlaylist(loginUser._id, songId, pid);
   };
 
-  const addToPlaylist = async (songId) => {};
   const fetchLoginUserPlaylists = async (uid) => {
     let myPlaylists = await findPlaylists(uid);
     myPlaylists = myPlaylists.filter((p) => p._id !== playlist._id);
@@ -73,14 +73,17 @@ const PlayListDetail = ({ playlist }) => {
   };
 
   useEffect(() => {
-    dispatch(checkSongsThunk({ user: loginUser._id, pid: playlist._id }));
-  }, [playlist._id]);
+    dispatch(checkSongsThunk({ user: loginId, pid: playlist._id })).then(() => {
+      console.log("finished");
+      console.log("songs", songs);
+    });
+  }, [playlist._id, loginId]);
 
   useEffect(() => {
     if (loginUser) {
       fetchLoginUserPlaylists(loginUser._id);
     }
-  }, [loginUser && loginUser._id]);
+  }, [loginId]);
   return (
     <div className={`mt-3 ms-3 me-3 position-relative`}>
       <h4 className={`text-white position-absolute song-num-pos`}>
@@ -116,14 +119,13 @@ const PlayListDetail = ({ playlist }) => {
               </div>
             )}
 
-            {playlistsOption &&
+            {(playlistsOption || !loginUser) &&
               songs.map((item, idx) => (
                 <PlayListDetailItem
                   key={item._id}
                   id={idx}
                   song={item}
                   isSelf={loginUser && loginUser._id === playlist.user}
-                  showDelete={showDelete}
                   playlistsOption={playlistsOption}
                   handleUnLikeClick={handleUnLikeClick}
                   handleAddToPlaylist={handleAddToPlaylist}

@@ -47,3 +47,14 @@ color:orange;
 .show-more-playlist-option {
 color:gray;
 }
+
+.toolkit-like {
+    height: 80px;
+    width: 200px;
+}
+.toolkit-like-text {
+    font-size: 15px;
+    text-decoration: none;
+    text-decoration-line: none;
+    color: gray;
+}

@@ -8,11 +8,6 @@ const Playlist = () => {
   const { id } = useParams();
   const [playlist, setPlaylist] = useState(null);
 
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
-
   const getPlaylistDetails = async (id) => {
     const res = await findPlaylistDetails(id);
     setPlaylist(res.playlist);
