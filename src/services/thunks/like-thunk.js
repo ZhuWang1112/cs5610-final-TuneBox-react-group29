@@ -17,3 +17,14 @@ export const initLikeThunk = createAsyncThunk(
         return response;
     }
 );
+
+
+export const findProfileSongsThunk = createAsyncThunk(
+  "profile/findProfileSongsThunk",
+  async (uid) => {
+    const songs = await service.findLikedSongs(uid);
+    return songs;
+  }
+);
+
+;

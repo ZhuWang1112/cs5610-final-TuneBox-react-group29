@@ -16,7 +16,7 @@ import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 const defaultFile = "/images/playlist-cover.jpeg";
 const PlaylistBanner = ({ playlist }) => {
   const { id } = useParams();
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const { currentUser } = useSelector((state) => state.user);
   const [playlistName, setPlaylistName] = useState(playlist.playListName);
   const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
   const [edit, setEdit] = useState(false);
@@ -30,7 +30,10 @@ const PlaylistBanner = ({ playlist }) => {
       return;
     }
     removeImageFromFirebase(playlist.img, defaultFile);
-    const storageRef = ref(storage, `/files/${file.name}`);
+    const storageRef = ref(
+      storage,
+      `/files/${file.name + currentUser._id + "playlist"}`
+    );
     // progress can be paused and resumed. It also exposes progress updates.
     // Receives the storage reference and the file to upload.
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -139,8 +142,8 @@ const PlaylistBanner = ({ playlist }) => {
             {playlistName}
           </h1>
 
-          {loginUser &&
-            playlist.user === loginUser._id &&
+          {currentUser &&
+            playlist.user === currentUser._id &&
             !playlist.isDefault && (
               <button
                 className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}

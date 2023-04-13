@@ -33,7 +33,7 @@ const PlayListDetailItem = ({
     <div className={`mt-3 ms-3 me-3`}>
       <div className={`row`}>
         <div className={`col-4`}>
-          <img src={`/images/${song.img}`} height={`50px`} width={`50px`} />
+          <img src={song.img} height={`50px`} width={`50px`} />
           <h5 className={`ms-3 text-white fw-fold d-inline`}>
             {song.songName}
           </h5>

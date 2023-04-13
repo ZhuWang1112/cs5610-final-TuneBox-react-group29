@@ -17,6 +17,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import AllHotArtist from "./pages/homePage/AllHotArtist";
 import AllHotAlbum from "./pages/homePage/AllHotAlbum";
+import LikeSongDetail from "./components/LikeSongs/LikeSongDetail";
 
 function App() {
   return (
@@ -38,8 +39,9 @@ function App() {
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="/playlist/:id" element={<Playlist />} />
-              <Route path="/hot/artist/all" element={<AllHotArtist/>} />
-              <Route path="/hot/album/all" element={<AllHotAlbum/>} />
+              <Route path="/hot/artist/all" element={<AllHotArtist />} />
+              <Route path="/hot/album/all" element={<AllHotAlbum />} />
+              <Route path="/song/:uid" element={<LikeSongDetail />} />
             </Routes>
           </div>
         </div>

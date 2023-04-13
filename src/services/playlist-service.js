@@ -3,6 +3,7 @@ const PLAYLIST_API = "http://localhost:4000/api/playlists";
 const PLAYLISTDEFAULT_API = "http://localhost:4000/api/playlistsdefault";
 
 export const createPlaylist = async (playlist) => {
+  console.log("added playlist", playlist);
   const response = await axios.post(PLAYLIST_API, playlist);
   return response.data;
 };
@@ -14,8 +15,12 @@ export const findPlaylists = async (userId) => {
   return playlists;
 };
 
-export const deletePlaylist = async (playlistId) => {
-  const response = await axios.delete(`${PLAYLIST_API}/${playlistId}`);
+export const deletePlaylist = async (playlistObj) => {
+  const response = await axios.delete(`${PLAYLIST_API}`, {
+    data: {
+      playlistObj,
+    },
+  });
   console.log("response./dat", response.data);
   return response.data;
 };

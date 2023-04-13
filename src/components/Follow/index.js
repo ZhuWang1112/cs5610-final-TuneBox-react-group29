@@ -13,13 +13,11 @@ import {
 const Follow = () => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
   const dispatch = useDispatch();
-
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  const { currentUser } = useSelector((state) => state.user);
   const handleFollow = (id) => {
     dispatch(
       updateFolloweeThunk({
-        user: loginUser._id,
+        user: currentUser._id,
         followId: id,
       })
     );
@@ -27,11 +25,11 @@ const Follow = () => {
   const { uid } = useParams();
 
   useEffect(() => {
-    if (!uid && !loginUser) return;
+    if (!uid && !currentUser) return;
     dispatch(
       checkFolloweeThunk({
-        loginUser: loginUser ? loginUser._id : null,
-        uid: uid ? uid : loginUser._id,
+        loginUser: currentUser ? currentUser._id : null,
+        uid: uid ? uid : currentUser._id,
       })
     );
   }, [uid]);
@@ -47,7 +45,7 @@ const Follow = () => {
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}
             isSelf={uid ? false : true}
-            isLogin={loginUser ? true : false}
+            isLogin={currentUser ? true : false}
           />
         ))}
       </div>

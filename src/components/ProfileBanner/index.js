@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
 import { findUser, updateUser } from "../../services/user-service";
+import { updateUserThunk } from "../../services/users/users-thunks";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
@@ -30,15 +31,13 @@ const ProfileBanner = () => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   let { currentProfile } = useSelector((state) => state.profile);
-  console.log("currentProfile", currentProfile);
+  const { currentUser } = useSelector((state) => state.user);
   if (!currentProfile) {
     currentProfile = { email: null, img: null };
   }
   const [email, setEmail] = useState(currentProfile.email);
   const [url, setUrl] = useState(currentProfile.img);
   const [avatarFile, setAvatarFile] = useState(null);
-
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
@@ -49,14 +48,14 @@ const ProfileBanner = () => {
   };
 
   const handleFollow = () => {
-    if (!loginUser) {
+    if (!currentUser) {
       setShow(!show);
       return;
     }
     setHasFollow(!hasFollow);
     dispatch(
       updateFolloweeThunk({
-        user: loginUser._id,
+        user: currentUser._id,
         followId: uid,
       })
     );
@@ -67,7 +66,10 @@ const ProfileBanner = () => {
       return;
     }
     removeImageFromFirebase(currentProfile.img, defaultFile);
-    const storageRef = ref(storage, `/files/${file.name}`);
+    const storageRef = ref(
+      storage,
+      `/files/${file.name + currentUser._id + "profile"}`
+    );
     // progress can be paused and resumed. It also exposes progress updates.
     // Receives the storage reference and the file to upload.
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -84,12 +86,13 @@ const ProfileBanner = () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setUrl(url);
-          localStorage.setItem("recent-user-img", url);
-          updateUser({
-            _id: loginUser._id,
-            email: email,
-            img: url,
-          });
+          dispatch(
+            updateUserThunk({
+              _id: currentUser._id,
+              email: email,
+              img: url,
+            })
+          );
         });
       }
     );
@@ -97,17 +100,16 @@ const ProfileBanner = () => {
 
   const handleSubmit = () => {
     const newProfile = {
-      _id: loginUser._id,
+      _id: currentUser._id,
       email: email,
       img: url,
     };
     dispatch(updateProfile(newProfile));
-
     // update profile into firebase
     if (url !== currentProfile.img) {
       handleUploadFirebase(avatarFile);
     } else {
-      updateUser(newProfile);
+      dispatch(updateUserThunk(newProfile));
     }
 
     setIsEdit(false);
@@ -137,8 +139,11 @@ const ProfileBanner = () => {
 
   useEffect(() => {
     console.log("render");
-    if (!loginUser && !uid) return;
-    checkIsFollow(loginUser ? loginUser._id : null, uid ? uid : loginUser._id);
+    if (!currentUser && !uid) return;
+    checkIsFollow(
+      currentUser ? currentUser._id : null,
+      uid ? uid : currentUser._id
+    );
   }, [uid]);
 
   return (
@@ -147,15 +152,15 @@ const ProfileBanner = () => {
         <div className={`d-flex justify-content-start position-relative`}>
           <img
             src={`/images/profile_banner.jpg`}
-            width={`${loginUser || uid ? `90%` : `100%`}`}
+            width={`${currentUser || uid ? `90%` : `100%`}`}
             height="320px"
             className={`m-0 rounded-5`}
           />
 
-          {(uid || loginUser) && (
+          {(uid || currentUser) && (
             <>
               <img
-                src={url}
+                src={uid ? currentProfile.img : url}
                 width="100px"
                 className={`position-absolute avatar-position rounded-circle`}
               />
@@ -165,7 +170,7 @@ const ProfileBanner = () => {
             </>
           )}
 
-          {loginUser && !uid && (
+          {currentUser && !uid && (
             <>
               {isEdit && (
                 <>
@@ -229,7 +234,7 @@ const ProfileBanner = () => {
               )}
             </>
           )}
-          {!uid && !loginUser && (
+          {!uid && !currentUser && (
             <div className={``}>
               <FollowUserGuest />
             </div>
