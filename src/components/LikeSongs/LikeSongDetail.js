@@ -9,7 +9,7 @@ import { findLikedSongs } from "../../services/like-service";
 const LikeSongDetail = () => {
   const { uid } = useParams();
   const [songs, setSongs] = useState(null);
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleBackClick = () => {
@@ -20,7 +20,7 @@ const LikeSongDetail = () => {
     setSongs(data);
   };
   useEffect(() => {
-    findSongs(uid ? uid : loginUser._id);
+    findSongs(uid ? uid : currentUser._id);
   }, [uid]);
 
   const data = [

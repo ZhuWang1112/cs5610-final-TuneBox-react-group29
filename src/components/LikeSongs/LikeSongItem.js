@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import "./index.css";
 const LikeSongItem = ({ song }) => {
-  console.log("song: ", song);
+  // console.log("song: ", song);
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {

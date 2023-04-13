@@ -4,11 +4,11 @@ import {
   findSongsThunk,
   checkSongsThunk,
 } from "../services/thunks/playlist-thunk";
-
+import { findProfileSongsThunk } from "../services/thunks/like-thunk";
 import { findSongsPlaylistThunk } from "../services/thunks/playlist-thunk";
 const likeSlice = createSlice({
   name: "likedSongs",
-  initialState: { songs: [], checkSong: [] },
+  initialState: { songs: [], checkSong: [], profileSongs: null },
   reducers: {
     updateLikeSong(state, action) {
       const id = action.payload;
@@ -34,6 +34,12 @@ const likeSlice = createSlice({
         ...state.checkSong.slice(id + 1),
       ];
     },
+    updateProfileSongs(state, action) {
+      const songsToBeDeleted = action.payload.map((s) => s.toString());
+      state.profileSongs = state.profileSongs.filter((s) =>
+        songsToBeDeleted.includes(s._id.toString())
+      );
+    },
   },
   extraReducers: {
     [updateLikeThunk.fulfilled]: (state, { payload }) => {
@@ -45,6 +51,9 @@ const likeSlice = createSlice({
     [findSongsPlaylistThunk.fulfilled]: (state, { payload }) => {
       state.songs = payload;
     },
+    [findProfileSongsThunk.fulfilled]: (state, { payload }) => {
+      state.profileSongs = payload;
+    },
     [checkSongsThunk.fulfilled]: (state, { payload }) => {
       console.log("payload in checkSongsThunk, ", payload);
       state.songs = payload.songs;
@@ -53,5 +62,6 @@ const likeSlice = createSlice({
   },
 });
 
-export const { updateLikeSong, deleteLikeSong } = likeSlice.actions;
+export const { updateLikeSong, deleteLikeSong, updateProfileSongs } =
+  likeSlice.actions;
 export default likeSlice.reducer;

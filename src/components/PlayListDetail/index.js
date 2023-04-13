@@ -21,30 +21,30 @@ import "./index.css";
 
 const PlayListDetail = ({ playlist, setPlaylist }) => {
   const { songs } = useSelector((state) => state.likedSong);
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-  const loginId = loginUser ? loginUser._id : null;
+  const { currentUser } = useSelector((state) => state.user);
+  const loginId = currentUser ? currentUser._id : null;
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
   const [playlistRating, setPlaylistRating] = useState(playlist.rating);
   const dispatch = useDispatch();
 
   let showDelete;
-  if (!loginUser || loginUser._id !== playlist.user) {
+  if (!currentUser || currentUser._id !== playlist.user) {
     showDelete = false;
   } else {
     showDelete = true;
   }
 
   const handleUnLikeClick = async (id, songId) => {
-    if (!loginUser) return;
-    if (loginUser._id === playlist.user) {
+    if (!currentUser) return;
+    if (currentUser._id === playlist.user) {
       dispatch(deleteLikeSong(id));
     } else {
       dispatch(updateLikeSong(id));
     }
 
     updateLike({
-      user: loginUser._id,
+      user: currentUser._id,
       songId: songId,
       playlistId: defaultPlaylist._id,
     });
@@ -52,10 +52,10 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   };
 
   const handleAddToPlaylist = async (id, pid, songId) => {
-    if (!loginUser) return;
+    if (!currentUser) return;
     dispatch(updateLikeSong(id));
     updateLike({
-      user: loginUser._id,
+      user: currentUser._id,
       songId: songId,
       playlistId: pid,
     });
@@ -63,8 +63,8 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
 
   const handleMovePlaylist = async (id, pid, songId) => {
     dispatch(deleteLikeSong(id));
-    await deleteSongPlaylist(loginUser._id, songId);
-    createSongPlaylist(loginUser._id, songId, pid);
+    await deleteSongPlaylist(currentUser._id, songId);
+    createSongPlaylist(currentUser._id, songId, pid);
   };
 
   const fetchLoginUserPlaylists = async (uid) => {
@@ -74,13 +74,14 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   };
 
   useEffect(() => {
-    dispatch(checkSongsThunk({ user: loginId, pid: playlist._id })).then(() => {
-    });
+    dispatch(checkSongsThunk({ user: loginId, pid: playlist._id })).then(
+      () => {}
+    );
   }, [playlist._id, loginId]);
 
   useEffect(() => {
-    if (loginUser) {
-      fetchLoginUserPlaylists(loginUser._id);
+    if (currentUser) {
+      fetchLoginUserPlaylists(currentUser._id);
     }
   }, [loginId]);
   return (
@@ -121,13 +122,13 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
               </div>
             )}
 
-            {(playlistsOption || !loginUser) &&
+            {(playlistsOption || !currentUser) &&
               songs.map((item, idx) => (
                 <PlayListDetailItem
                   key={item._id}
                   id={idx}
                   song={item}
-                  isSelf={loginUser && loginUser._id === playlist.user}
+                  isSelf={currentUser && currentUser._id === playlist.user}
                   playlistsOption={playlistsOption}
                   handleUnLikeClick={handleUnLikeClick}
                   handleAddToPlaylist={handleAddToPlaylist}

@@ -6,11 +6,12 @@ import {
   deleteComment as deleteCommentService,
   findComments as findCommentService,
 } from "../../services/comment-service";
+import { useSelector } from "react-redux";
 
 const Comment = () => {
   const { uid } = useParams();
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-  const loginId = loginUser ? loginUser._id : null;
+  const { currentUser } = useSelector((state) => state.user);
+  const loginId = currentUser ? currentUser._id : null;
   const [comments, setCommments] = useState([]);
   const navitate = useNavigate();
 
@@ -27,7 +28,7 @@ const Comment = () => {
   };
   useEffect(() => {
     if (!loginId) return;
-    findComments(loginUser._id);
+    findComments(currentUser._id);
   }, [loginId]);
 
   return (

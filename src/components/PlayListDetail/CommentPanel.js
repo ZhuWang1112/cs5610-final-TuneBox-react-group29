@@ -11,8 +11,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [comments, setComments] = useState([]);
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-  const recentImg = localStorage.getItem("recent-user-img");
+  const { currentUser } = useSelector((state) => state.user);
   const [submit, setSubmit] = useState(false);
   const [contentEmptyHint, setContentEmptyHint] = useState(false);
   const { id } = useParams();
@@ -42,7 +41,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
 
     const newComment = {
       playlist: id,
-      user: loginUser._id,
+      user: currentUser._id,
       content: content,
       rating: rating,
       newAvgRating: newAvgRating,
@@ -51,9 +50,9 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
     const newCommentDetails = {
       ...newComment,
       user: {
-        _id: loginUser._id,
-        userName: loginUser.userName,
-        img: recentImg ? recentImg : loginUser.img,
+        _id: currentUser._id,
+        userName: currentUser.userName,
+        img: currentUser.img,
       },
     };
     setComments([newCommentDetails, ...comments]);
@@ -70,11 +69,11 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
 
   return (
     <div className={`m-0 p-0`}>
-      {loginUser && (
+      {currentUser && (
         <div className={`row w-100 m-0 mt-2`}>
           <div className="col-2">
             <img
-              src={recentImg ? recentImg : loginUser.img}
+              src={currentUser.img}
               width={50}
               className={`rounded-circle`}
             />
@@ -97,7 +96,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
 
       <div className={`row w-100 p-0 m-0 mt-2`}>
         <div className="col">
-          {loginUser ? (
+          {currentUser ? (
             <textarea
               required
               value={content}
@@ -115,7 +114,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
             ></textarea>
           )}
 
-          {loginUser && (
+          {currentUser && (
             <div className={`mt-1 row w-100`}>
               {contentEmptyHint && (
                 <p className={`mb-0 text-warning`}>
@@ -153,7 +152,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
               </div>
             </div>
           )}
-          {!loginUser && (
+          {!currentUser && (
             <div className={`mt-1 row w-100`}>
               <div
                 className={`col d-flex align-items-center justify-content-center`}

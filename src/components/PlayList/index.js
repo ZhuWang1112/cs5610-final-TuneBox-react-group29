@@ -7,20 +7,27 @@ import { BiAddToQueue } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  findPlaylists as findPlaylistsService,
+  deletePlaylist,
+} from "../../services/playlist-service";
+import {
   findPlaylistsThunk,
   createPlaylistThunk,
-  deletePlaylistThunk
+  deletePlaylistThunk,
 } from "../../services/thunks/playlist-thunk";
 import {
   createPlaylist,
-  deletePlaylist,
+  // deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
-
+import { updateProfileSongs } from "../../reducers/like-reducer";
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-  const { playlists } = useSelector((state) => state.playlist);
+  const { currentUser } = useSelector((state) => state.user);
+  const { profileSongs } = useSelector((state) => state.likedSong);
+  console.log("likedSongs: profileSong", profileSongs);
+  const [playlists, setPlaylists] = useState(null);
+  // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
     navigate(`/playlist/${playlist_id}`);
@@ -28,12 +35,8 @@ const PlayList = ({ isSelf }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [playlistPerPage] = useState(3);
-  const indexOfLastExercise = currentPage * playlistPerPage;
-  const indexOfFirstExercise = indexOfLastExercise - playlistPerPage;
-  const currentExercises = playlists.slice(
-    indexOfFirstExercise,
-    indexOfLastExercise
-  );
+  const indexOfLastPlaylist = currentPage * playlistPerPage;
+  const indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
   const paginate = (event, value) => {
     setCurrentPage(value);
 
@@ -44,31 +47,41 @@ const PlayList = ({ isSelf }) => {
     const curPlaylist = playlists.length;
     const newName = `My Playlist ${curPlaylist + 1}`;
     const newPlaylist = {
-      user: loginUser._id,
+      user: currentUser._id,
       playListName: newName,
       description: "",
       songs: [],
       isDefault: false,
       img: "/images/playlist-cover.jpeg",
+      rating: 0,
     };
     dispatch(
       createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
-    );
+    ).then((res) => setPlaylists((prev) => [...prev, res.payload]));
   };
-
-  const deletePlaylistById = (id) => {
-    dispatch(deletePlaylistThunk(id));
+  const findPlaylists = async (uid) => {
+    const data = await findPlaylistsService(uid);
+    setPlaylists(data);
+  };
+  const deletePlaylistById = async (playlist) => {
+    setPlaylists((prev) => prev.filter((p) => p._id !== playlist._id));
+    const updatedLikedObj = await deletePlaylist(playlist);
+    console.log("updatedLiked", updatedLikedObj);
+    // update profileSong
+    dispatch(updateProfileSongs(updatedLikedObj.likedSongs));
+    // UPDATE LIKLEDSONG
   };
 
   useEffect(() => {
-    if (!loginUser && !uid) return;
-    dispatch(findPlaylistsThunk(uid ? uid : loginUser._id));
+    if (!currentUser && !uid) return;
+    findPlaylists(uid ? uid : currentUser._id);
+    // dispatch(findPlaylistsThunk(uid ? uid : currentUser._id));
   }, [uid]);
 
   return (
     <div className={`playlist-container me-0`}>
       <h4 className={`text-white`}>Playlists</h4>
-      {(uid || loginUser) && (
+      {(uid || currentUser) && playlists && (
         <div className={`mt-3 playlist-item-box`}>
           <Stack
             direction="row"
@@ -87,15 +100,17 @@ const PlayList = ({ isSelf }) => {
               </div>
             )}
             {playlists.length > 0 &&
-              currentExercises.map((item, idx) => (
-                <PlayListItem
-                  key={idx + (currentPage - 1) * playlistPerPage}
-                  playlist={item}
-                  handleClick={handleClick}
-                  deletePlaylist={deletePlaylistById}
-                  isSelf={isSelf}
-                />
-              ))}
+              playlists
+                .slice(indexOfFirstPlaylist, indexOfLastPlaylist)
+                .map((item, idx) => (
+                  <PlayListItem
+                    key={idx + (currentPage - 1) * playlistPerPage}
+                    playlist={item}
+                    handleClick={handleClick}
+                    deletePlaylist={deletePlaylistById}
+                    isSelf={isSelf}
+                  />
+                ))}
             {playlists.length === 0 && (
               <div
                 className={`no-playlist d-flex justify-content-center align-items-center`}

@@ -5,17 +5,14 @@ import LikeSongItem from "./LikeSongItem.js";
 import LikeSongDetail from "./LikeSongDetail.js";
 import { findLikedSongs } from "../../services/like-service.js";
 import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { findProfileSongsThunk } from "../../services/thunks/like-thunk.js";
 const LikeSongs = () => {
   const { uid } = useParams();
-  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
-  const [songs, setSongs] = useState(null);
-  const findSongs = async (id) => {
-    const data = await findLikedSongs(id);
-    setSongs(data);
-  };
-  useEffect(() => {
-    findSongs(uid ? uid : loginUser._id);
-  }, [uid]);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentProfile } = useSelector((state) => state.profile);
+  const { profileSongs } = useSelector((state) => state.likedSong);
 
   const displayNum = 6;
   const data = [
@@ -37,7 +34,7 @@ const LikeSongs = () => {
         </div>
         <div className={`col p-0 d-flex justify-content-end`}>
           {data.length > displayNum && (
-            <Link to={`/song/${uid ? uid : loginUser._id}`}>
+            <Link to={`/song/${uid ? uid : currentUser._id}`}>
               <p className={`text-warning mb-0`}>View More</p>
             </Link>
           )}
@@ -45,10 +42,11 @@ const LikeSongs = () => {
       </div>
 
       <div className={`d-flex mt-3 like-song-container`}>
-        {/* {songs && songs.map((song) => <LikeSongItem song={song} />)} */}
-        {data.slice(0, displayNum).map((item) => (
+        {profileSongs &&
+          profileSongs.map((song) => <LikeSongItem song={song} />)}
+        {/* {data.slice(0, displayNum).map((item) => (
           <LikeSongItem song={item} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
