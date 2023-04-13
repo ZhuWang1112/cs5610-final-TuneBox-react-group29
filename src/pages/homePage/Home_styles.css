@@ -1,0 +1,28 @@
+.wd-home-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wd-home-card-container {
+    display: none;
+}
+
+@media (max-width: 575.98px) {
+    .wd-home-card-container:nth-child(-n + 3) {
+        display: inline-block;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .wd-home-card-container:nth-child(-n + 5) {
+        display: inline-block;
+    }
+}
+
+@media (min-width: 768px) {
+    .wd-home-card-container {
+        display: inline-block;
+    }
+}
