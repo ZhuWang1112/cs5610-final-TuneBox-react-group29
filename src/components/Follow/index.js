@@ -10,14 +10,11 @@ import {
   updateFolloweeThunk,
   checkFolloweeThunk,
 } from "../../services/thunks/follow-thunk";
-const Follow = ({ isSelf }) => {
+const Follow = () => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
   const dispatch = useDispatch();
 
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const handleFollow = (id) => {
     dispatch(
@@ -30,8 +27,15 @@ const Follow = ({ isSelf }) => {
   const { uid } = useParams();
 
   useEffect(() => {
-    dispatch(checkFolloweeThunk({ loginUser: loginUser._id, uid: uid }));
+    if (!uid && !loginUser) return;
+    dispatch(
+      checkFolloweeThunk({
+        loginUser: loginUser ? loginUser._id : null,
+        uid: uid ? uid : loginUser._id,
+      })
+    );
   }, [uid]);
+
   return (
     <div className={`mt-5 pe-5 `}>
       <h4 className={`text-white`}>Follows</h4>
@@ -42,7 +46,8 @@ const Follow = ({ isSelf }) => {
             follow={follow}
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}
-            isSelf={isSelf}
+            isSelf={uid ? false : true}
+            isLogin={loginUser ? true : false}
           />
         ))}
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,8 +6,13 @@ import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
 import { findUser, updateUser } from "../../services/user-service";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
-import { updateProfile } from "../../reducers/user-reducer";
+import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
+import FollowUserGuest from "./FollowUserGuest";
+import Button from "react-bootstrap/Button";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Overlay from "react-bootstrap/Overlay";
 import {
   ref,
   uploadBytesResumable,
@@ -17,29 +22,37 @@ import {
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/profile-avatar.jpeg";
-const ProfileBanner = ({ isSelf }) => {
+const ProfileBanner = () => {
   const { uid } = useParams();
   const dispatch = useDispatch();
   const [hasFollow, setHasFollow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const user = useSelector((state) => state.user);
-
-  const [email, setEmail] = useState(user.email);
-  const [url, setUrl] = useState(user.img);
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  let { currentProfile } = useSelector((state) => state.profile);
+  console.log("currentProfile", currentProfile);
+  if (!currentProfile) {
+    currentProfile = { email: null, img: null };
+  }
+  const [email, setEmail] = useState(currentProfile.email);
+  const [url, setUrl] = useState(currentProfile.img);
   const [avatarFile, setAvatarFile] = useState(null);
 
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
+    if (res.length === 0) return;
     const followeeList = res[0].followeeList;
     const index = followeeList.indexOf(targetUser);
     setHasFollow(index === -1 ? false : true);
   };
+
   const handleFollow = () => {
+    if (!loginUser) {
+      setShow(!show);
+      return;
+    }
     setHasFollow(!hasFollow);
     dispatch(
       updateFolloweeThunk({
@@ -53,7 +66,7 @@ const ProfileBanner = ({ isSelf }) => {
     if (!file) {
       return;
     }
-    removeImageFromFirebase(user.img, defaultFile);
+    removeImageFromFirebase(currentProfile.img, defaultFile);
     const storageRef = ref(storage, `/files/${file.name}`);
     // progress can be paused and resumed. It also exposes progress updates.
     // Receives the storage reference and the file to upload.
@@ -73,7 +86,7 @@ const ProfileBanner = ({ isSelf }) => {
           setUrl(url);
           localStorage.setItem("recent-user-img", url);
           updateUser({
-            _id: uid,
+            _id: loginUser._id,
             email: email,
             img: url,
           });
@@ -84,14 +97,14 @@ const ProfileBanner = ({ isSelf }) => {
 
   const handleSubmit = () => {
     const newProfile = {
-      _id: uid,
+      _id: loginUser._id,
       email: email,
       img: url,
     };
     dispatch(updateProfile(newProfile));
 
     // update profile into firebase
-    if (url !== user.img) {
+    if (url !== currentProfile.img) {
       handleUploadFirebase(avatarFile);
     } else {
       updateUser(newProfile);
@@ -114,38 +127,45 @@ const ProfileBanner = ({ isSelf }) => {
     const newUrl = URL.createObjectURL(event.target.files[0]);
     setUrl(newUrl);
     setAvatarFile(event.target.files[0]);
-    // setProfile_({ ...profile_, avatar: url });
   };
 
   const handleCancel = () => {
-    setEmail(user.email);
+    setEmail(currentProfile.email);
     setIsEdit(false);
-    setUrl(user.img);
+    setUrl(currentProfile.img);
   };
 
   useEffect(() => {
-    checkIsFollow(loginUser._id, uid);
-  }, [uid, loginUser]);
+    console.log("render");
+    if (!loginUser && !uid) return;
+    checkIsFollow(loginUser ? loginUser._id : null, uid ? uid : loginUser._id);
+  }, [uid]);
 
   return (
     <div>
-      {user && (
+      {currentProfile && (
         <div className={`d-flex justify-content-start position-relative`}>
           <img
             src={`/images/profile_banner.jpg`}
-            width="90%"
-            height="300px"
+            width={`${loginUser || uid ? `90%` : `100%`}`}
+            height="320px"
             className={`m-0 rounded-5`}
           />
-          <img
-            src={url}
-            width="100px"
-            className={`position-absolute avatar-position rounded-circle`}
-          />
-          <h5 className={`position-absolute text-white username-position`}>
-            {user.userName}
-          </h5>
-          {isSelf && (
+
+          {(uid || loginUser) && (
+            <>
+              <img
+                src={url}
+                width="100px"
+                className={`position-absolute avatar-position rounded-circle`}
+              />
+              <h5 className={`position-absolute text-white username-position`}>
+                {currentProfile.userName}
+              </h5>
+            </>
+          )}
+
+          {loginUser && !uid && (
             <>
               {isEdit && (
                 <>
@@ -197,7 +217,7 @@ const ProfileBanner = ({ isSelf }) => {
               {!isEdit && (
                 <>
                   <p className={`position-absolute text-muted email-position`}>
-                    {user.email}
+                    {currentProfile.email}
                   </p>
                   <button
                     className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
@@ -209,15 +229,54 @@ const ProfileBanner = ({ isSelf }) => {
               )}
             </>
           )}
-          {!isSelf && !hasFollow && (
-            <button
-              className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
-              onClick={() => handleFollow()}
-            >
-              + Follow
-            </button>
+          {!uid && !loginUser && (
+            <div className={``}>
+              <FollowUserGuest />
+            </div>
           )}
-          {!isSelf && hasFollow && (
+
+          {uid && !hasFollow && (
+            <>
+              <button
+                ref={target}
+                className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
+                onClick={() => handleFollow()}
+              >
+                + Follow
+              </button>
+              <Overlay target={target.current} show={show} placement="bottom">
+                {(props) => (
+                  <Tooltip
+                    // id="overlay-example"
+                    {...props}
+                    className={`toolkit-like`}
+                  >
+                    <div className={`w-100 d-block`}>
+                      <h5 className={`text-nowrap`}>Explore your friends!</h5>
+                      <p className={`toolkit-like-text mb-2 float-start`}>
+                        <a
+                          href={`/login`}
+                          className={`toolkit-like-text text-warning`}
+                        >
+                          Login
+                        </a>{" "}
+                        to Follow
+                      </p>
+                    </div>
+                    <div className={` toolkit-like-text mt-3 mb-1`}>
+                      <button
+                        className={`btn btn-secondary p-1`}
+                        onClick={() => setShow(false)}
+                      >
+                        Not Now
+                      </button>
+                    </div>
+                  </Tooltip>
+                )}
+              </Overlay>
+            </>
+          )}
+          {uid && hasFollow && (
             <button
               className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
               onClick={() => handleFollow()}

@@ -64,7 +64,7 @@ const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
       <RiDeleteBinFill
         size={25}
         className={`position-absolute comment-delete-icon p-0`}
-        onClick={() => handleDelete(comment._id)}
+        onClick={() => handleDelete(comment)}
       />
     </div>
   );

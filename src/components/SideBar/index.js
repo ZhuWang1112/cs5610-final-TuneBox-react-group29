@@ -17,14 +17,6 @@ const SideBar = () => {
   const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
 
   const navigate = useNavigate();
-  const handleProfile = () => {
-    localStorage.getItem("currentUser") === null
-      ? navigate(`profile/default`)
-      : navigate(
-          `profile/${JSON.parse(localStorage.getItem("currentUser"))._id}`
-        );
-  };
-
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const [login, setLogin] = useState(false);
 
@@ -70,7 +62,7 @@ const SideBar = () => {
 
       <div
         className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
-        onClick={() => handleProfile()}
+        onClick={() => navigate(`/profile`)}
       >
         <div className={`row d-flex align-items-center`}>
           <div className={`col-3`}>

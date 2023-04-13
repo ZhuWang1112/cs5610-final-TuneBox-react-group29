@@ -3,12 +3,12 @@ import "./index.css";
 import ProfileBanner from "../ProfileBanner";
 import PlayList from "../PlayList";
 import Comment from "../Comment";
-const ProfileMiddle = ({ isSelf }) => {
+const ProfileMiddle = ({ isSelf, isLogin }) => {
   return (
     <div className={`profile-middle-bg`}>
-      <ProfileBanner key={Date.now()} isSelf={isSelf} />
-      <PlayList isSelf={isSelf} />
-      {isSelf && <Comment />}
+      <ProfileBanner key={Date.now()} />
+      {(isLogin || !isSelf) && <PlayList isSelf={isSelf} />}
+      {isSelf && isLogin && <Comment />}
     </div>
   );
 };

@@ -10,39 +10,45 @@ import {logoutThunk} from "../services/users/users-thunks";
 
 import { findUser } from "../services/user-service";
 
-import { updateProfile } from "../reducers/user-reducer";
+import { updateProfile } from "../reducers/profile-reducer";
+import { findProfileThunk } from "../services/thunks/profile-thunk";
 
 const Profile = () => {
   const { uid } = useParams();
-  let loginUser = localStorage.getItem("currentUser");
-  if (loginUser) {
-    loginUser = JSON.parse(loginUser);
-  }
-
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const dispatch = useDispatch();
+  const [profile, setProfile] = useState(null);
 
-  const [login, setLogin] = useState(null);
   const fetchUser = async (uid) => {
-    const user = await findUser(uid);
-    setLogin(user);
-    dispatch(updateProfile(user));
+    const response = await dispatch(
+      findProfileThunk(uid ? uid : loginUser._id)
+    );
+    setProfile(response.payload);
   };
 
   useEffect(() => {
-    if (loginUser) {
+    if (uid || loginUser) {
       fetchUser(uid);
+    } else {
+      setProfile({});
     }
   }, [uid]);
 
   return (
     <div className={"row"}>
-      <div className={"col-8 ps-0 pe-0"}>
-        {login && <ProfileMiddle isSelf={uid === loginUser._id} />}
+      <div className={`${loginUser || uid ? `col-8` : `col`} ps-0 pe-0`}>
+        {profile && (
+          <ProfileMiddle
+            isSelf={uid ? false : true}
+            isLogin={loginUser ? true : false}
+          />
+        )}
       </div>
-      <div className={"col ps-0 pe-0"}>
-        {login && <ProfileRight isSelf={uid === loginUser._id} />}
-      </div>
-      {uid === "default" && <div className={`text-white`}>Please login</div>}
+      {(loginUser || uid) && (
+        <div className={"col ps-0 pe-0"}>
+          {profile && <ProfileRight isSelf={uid ? false : true} />}
+        </div>
+      )}
     </div>
   );
 };

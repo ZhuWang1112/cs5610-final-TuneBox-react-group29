@@ -1,10 +1,10 @@
 import './App.css';
 import React, { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from "react-router";
-import NavBar from "./components/NavBar";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
+import {BrowserRouter} from "react-router-dom";
+import {Routes, Route} from "react-router";
+import NavBar from './components/NavBar';
+import Home from './pages/homePage/Home';
+import Register from './pages/Register';
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
@@ -15,6 +15,8 @@ import Playlist from "./pages/Playlist";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import AllHotArtist from "./pages/homePage/AllHotArtist";
+import AllHotAlbum from "./pages/homePage/AllHotAlbum";
 
 function App() {
   return (
@@ -31,10 +33,13 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:uid" element={<Profile />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="/playlist/:id" element={<Playlist />} />
+              <Route path="/hot/artist/all" element={<AllHotArtist/>} />
+              <Route path="/hot/album/all" element={<AllHotAlbum/>} />
             </Routes>
           </div>
         </div>

@@ -19,11 +19,13 @@ import {
 } from "../../services/thunks/playlist-thunk.js";
 import "./index.css";
 
-const PlayListDetail = ({ playlist }) => {
+const PlayListDetail = ({ playlist, setPlaylist }) => {
   const { songs } = useSelector((state) => state.likedSong);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
+  const loginId = loginUser ? loginUser._id : null;
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
+  const [playlistRating, setPlaylistRating] = useState(playlist.rating);
   const dispatch = useDispatch();
 
   let showDelete;
@@ -65,7 +67,6 @@ const PlayListDetail = ({ playlist }) => {
     createSongPlaylist(loginUser._id, songId, pid);
   };
 
-  const addToPlaylist = async (songId) => {};
   const fetchLoginUserPlaylists = async (uid) => {
     let myPlaylists = await findPlaylists(uid);
     myPlaylists = myPlaylists.filter((p) => p._id !== playlist._id);
@@ -73,16 +74,20 @@ const PlayListDetail = ({ playlist }) => {
   };
 
   useEffect(() => {
-    dispatch(checkSongsThunk({ user: loginUser._id, pid: playlist._id }));
-  }, [playlist._id]);
+    dispatch(checkSongsThunk({ user: loginId, pid: playlist._id })).then(() => {
+    });
+  }, [playlist._id, loginId]);
 
   useEffect(() => {
     if (loginUser) {
       fetchLoginUserPlaylists(loginUser._id);
     }
-  }, [loginUser && loginUser._id]);
+  }, [loginId]);
   return (
     <div className={`mt-3 ms-3 me-3 position-relative`}>
+      <h4 className={`text-white position-absolute playlist-rating`}>
+        {Math.round(playlist.rating * 10) / 10} rating
+      </h4>
       <h4 className={`text-white position-absolute song-num-pos`}>
         {songs.length} songs
       </h4>
@@ -116,14 +121,13 @@ const PlayListDetail = ({ playlist }) => {
               </div>
             )}
 
-            {playlistsOption &&
+            {(playlistsOption || !loginUser) &&
               songs.map((item, idx) => (
                 <PlayListDetailItem
                   key={item._id}
                   id={idx}
                   song={item}
                   isSelf={loginUser && loginUser._id === playlist.user}
-                  showDelete={showDelete}
                   playlistsOption={playlistsOption}
                   handleUnLikeClick={handleUnLikeClick}
                   handleAddToPlaylist={handleAddToPlaylist}
@@ -133,7 +137,7 @@ const PlayListDetail = ({ playlist }) => {
           </div>
         </div>
         <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
-          <CommentPanel />
+          <CommentPanel pRating={playlist.rating} setPlaylist={setPlaylist} />
         </div>
       </div>
     </div>

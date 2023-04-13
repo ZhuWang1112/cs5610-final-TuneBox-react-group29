@@ -16,6 +16,7 @@ import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 const defaultFile = "/images/playlist-cover.jpeg";
 const PlaylistBanner = ({ playlist }) => {
   const { id } = useParams();
+  const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const [playlistName, setPlaylistName] = useState(playlist.playListName);
   const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
   const [edit, setEdit] = useState(false);
@@ -138,14 +139,16 @@ const PlaylistBanner = ({ playlist }) => {
             {playlistName}
           </h1>
 
-          {!playlist.isDefault && (
-            <button
-              className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
-              onClick={() => handleEdit()}
-            >
-              Edit
-            </button>
-          )}
+          {loginUser &&
+            playlist.user === loginUser._id &&
+            !playlist.isDefault && (
+              <button
+                className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
+                onClick={() => handleEdit()}
+              >
+                Edit
+              </button>
+            )}
 
           <h4 className={`text-muted position-absolute playlist-desc-pos`}>
             {playlistDesc === "" ? "Add your description..." : playlistDesc}

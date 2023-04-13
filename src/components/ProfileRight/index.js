@@ -6,7 +6,7 @@ const ProfileRight = ({ isSelf }) => {
     <div>
       {isSelf && <Premium />}
 
-      <Follow isSelf={isSelf} />
+      <Follow />
     </div>
   );
 };
