@@ -37,6 +37,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-show-more-text": "^1.6.2",
+    "react-slick": "^0.29.0",
     "react-star-ratings": "^2.3.0",
     "react-toastify": "^9.1.2",
     "react-tooltip": "^5.11.1",
@@ -45,6 +46,7 @@
     "rsuite": "^5.31.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

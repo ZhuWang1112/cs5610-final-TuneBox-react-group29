@@ -20,12 +20,30 @@ const Home = () => {
         dispatch(hotUserThunk());
     }, []);
 
-    const displayArtists = artists.slice(0, 6);
-    const displayAlbum = albums.slice(0, 6);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        // Clean up event listener on unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    let num = Math.floor(windowWidth / 250);
+
+
+    const displayArtists = artists.slice(0, num);
+    const displayAlbum = albums.slice(0, num);
     return (
         <div className={"m-2"}>
             <div  className={"text-white"} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h2 className={"mb-2"} style={{color: "gold"}}>Recommended Artists</h2>
+                {/*<p>current window width：{num}px</p>*/}
                 <div>
                     <ArrowRightAltIcon />
                     <Link to={"/hot/artist/all"} className={"m-3"}>View More</Link>
@@ -34,7 +52,7 @@ const Home = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {displayArtists.map((artist) => (
-                    <div key={artist.rank} style={{ flex: '1 0 16.666%', maxWidth: '16.666%' }}>
+                    <div key={artist.rank} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={artist} type={"artist"}/>
                     </div>
                 ))}
@@ -50,19 +68,19 @@ const Home = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {displayAlbum.map((album) => (
-                    <div key={album.rank} style={{ flex: '1 0 16.666%', maxWidth: '16.666%' }}>
+                    <div key={album.rank} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={album} type={"album"}/>
                     </div>
                 ))}
             </div>
 
             <div  className={"text-white mt-5"} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <h2 className={"mb-2"} >Recommended Playlist</h2>
+                <h2 className={"mb-2"} >Recommended Playlists</h2>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {playlists.map((playlist) => (
-                    <div key={playlist._id} style={{ flex: '1 0 20%', maxWidth: '20%' }}>
+                    <div key={playlist._id} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={playlist} type={"playlist"}/>
                     </div>
                 ))}
@@ -74,7 +92,7 @@ const Home = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {users.map((user) => (
-                    <div key={user._id} style={{ flex: '1 0 20%', maxWidth: '20%' }}>
+                    <div key={user._id} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={user} type={"user"}/>
                     </div>
                 ))}

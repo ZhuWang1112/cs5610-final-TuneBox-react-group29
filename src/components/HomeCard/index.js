@@ -21,7 +21,7 @@ const HomeCard = ({ item, type }) => {
         <Card
           className="wd-card-container wd-card-content"
           style={{
-            width: type === "user" || type === "playlist" ? "13rem" : "10rem",
+            width: "10rem",
           }}
           onClick={handleClick}
         >
@@ -49,13 +49,13 @@ const HomeCard = ({ item, type }) => {
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
               <Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>
-                  Creator: {item.user.userName}
+                  {item.user.userName}
               </Link>
               </Card.Text>
             )}
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
-                Desc: {item.description}
+                {item.description}
               </Card.Text>
             )}
               {type === "playlist" && (
