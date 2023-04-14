@@ -1,5 +1,5 @@
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 export const hotArtists = async () => {
     const response = await axios.get("http://localhost:4000/api/home/topmusic");
     return response.data;
@@ -9,12 +9,10 @@ export const hotAlbums = async () => {
     return response.data;
 }
 export const hotPlaylists = async () => {
-    const uid = JSON.parse(localStorage.getItem("currentUser"))._id;
-    const response = await axios.get(`http://localhost:4000/api/home/topplaylists/${uid}`);
+    const response = await axios.get(`http://localhost:4000/api/home/topplaylists`);
     return response.data;
 }
 export const hotUsers = async () => {
-    const uid = JSON.parse(localStorage.getItem("currentUser"))._id;
-    const response = await axios.get(`http://localhost:4000/api/home/topusers/${uid}`);
+    const response = await axios.get(`http://localhost:4000/api/home/topusers`);
     return response.data;
 }

@@ -43,7 +43,7 @@ const HomeCard = ({ item, type }) => {
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
               <Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>
-                  {item.user.userName}
+                  Creator: {item.user.userName}
               </Link>
               </Card.Text>
             )}
