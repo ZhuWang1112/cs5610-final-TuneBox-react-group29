@@ -7,14 +7,20 @@
     width: 90%;
 }
 .song-play-icon {
-    bottom: 95px;
-    right: 32px;
+    bottom: 93px;
+    right: 40px;
     border-radius: 50%;
     background-color: green;
-    transition: opacity 0.3s;
 }
 
-.song-item-card:hover {
-    opacity: 0.5;
-    transition: opacity 0.3s;
+.song-item-card {
+    width: 120px;
+}
+.song-remove-icon {
+    right: 2px;
+    top: -10px;
+    color: gray
+}
+.song-remove-icon:hover {
+    color: red;
 }
