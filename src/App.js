@@ -3,9 +3,8 @@ import React, { useEffect } from "react";
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import NavBar from './components/NavBar';
-import Footer from "./components/Footer";
-import Home from "./pages/homePage/Home";
-import Register from "./pages/Register";
+import Home from './pages/homePage/Home';
+import Register from './pages/Register';
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
@@ -45,7 +44,6 @@ function App() {
               <Route path="/hot/album/all" element={<AllHotAlbum />} />
               <Route path="/song/:uid" element={<LikeSongDetail />} />
             </Routes>
-            <Footer />
           </div>
         </div>
       </BrowserRouter>
