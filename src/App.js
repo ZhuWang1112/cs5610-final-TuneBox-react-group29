@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import Home from './pages/homePage/Home';
 import Register from './pages/Register';
 import Login from "./pages/Login";
