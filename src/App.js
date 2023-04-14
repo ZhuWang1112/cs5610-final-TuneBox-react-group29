@@ -30,20 +30,24 @@ function App() {
           </div>
           <div className={"col p-0 m-0"}>
             <NavBar />
-            <Routes>
-              <Route path="/*" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:uid" element={<Profile />} />
-              <Route path="/premium" element={<Premium />} />
-              <Route path="/admin/*" element={<Admin />} />
-              <Route path="/playlist/:id" element={<Playlist />} />
-              <Route path="/hot/artist/all" element={<AllHotArtist />} />
-              <Route path="/hot/album/all" element={<AllHotAlbum />} />
-              <Route path="/song/:uid" element={<LikeSongDetail />} />
-            </Routes>
+            <div className={`page-min-height`}>
+              <Routes>
+                <Route path="/*" element={<Home />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/:uid" element={<Profile />} />
+                <Route path="/premium" element={<Premium />} />
+                <Route path="/admin/*" element={<Admin />} />
+                <Route path="/playlist/:id" element={<Playlist />} />
+                <Route path="/hot/artist/all" element={<AllHotArtist />} />
+                <Route path="/hot/album/all" element={<AllHotAlbum />} />
+                <Route path="/song/:uid" element={<LikeSongDetail />} />
+              </Routes>
+            </div>
+
+            <Footer />
           </div>
         </div>
       </BrowserRouter>

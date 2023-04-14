@@ -45,3 +45,7 @@ body {
 .bg {
   background-color: black;
 }
+
+.page-min-height {
+  min-height: 100vh;
+}
