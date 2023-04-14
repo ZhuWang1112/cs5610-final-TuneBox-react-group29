@@ -21,7 +21,7 @@ const HomeCard = ({ item, type }) => {
         <Card
           className="wd-card-container wd-card-content"
           style={{
-            width: type === "user" || type === "playlist" ? "13rem" : "10rem",
+            width: "10rem",
           }}
           onClick={handleClick}
         >
@@ -35,21 +35,27 @@ const HomeCard = ({ item, type }) => {
           </div>
           <Card.Body>
             {type === "album" && (
-              <Card.Title className={"wd-card"}>{item.title}</Card.Title>
+              <Card.Title className={"wd-card"}>
+                  <Link to={`/album/${item._id}`} className={"wd-link"}>{item.title}</Link>
+                  {/*{item.title}*/}
+              </Card.Title>
             )}
             {type === "album" && (
-              <Card.Text className={"wd-card"}>{item.artist}</Card.Text>
+              <Card.Text className={"wd-card"}>
+                  <Link to={`/artist/${item.artist._id}`} className={"wd-link"}>{item.artist}</Link>
+                  {/*{item.artist}*/}
+              </Card.Text>
             )}
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
               <Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>
-                  Creator: {item.user.userName}
+                  {item.user.userName}
               </Link>
               </Card.Text>
             )}
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
-                Desc: {item.description}
+                {item.description}
               </Card.Text>
             )}
               {type === "playlist" && (
