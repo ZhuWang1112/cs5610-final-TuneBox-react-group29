@@ -35,10 +35,16 @@ const HomeCard = ({ item, type }) => {
           </div>
           <Card.Body>
             {type === "album" && (
-              <Card.Title className={"wd-card"}>{item.title}</Card.Title>
+              <Card.Title className={"wd-card"}>
+                  <Link to={`/album/${item._id}`} className={"wd-link"}>{item.title}</Link>
+                  {/*{item.title}*/}
+              </Card.Title>
             )}
             {type === "album" && (
-              <Card.Text className={"wd-card"}>{item.artist}</Card.Text>
+              <Card.Text className={"wd-card"}>
+                  <Link to={`/artist/${item.artist._id}`} className={"wd-link"}>{item.artist}</Link>
+                  {/*{item.artist}*/}
+              </Card.Text>
             )}
             {type === "playlist" && (
               <Card.Text className={"wd-card"}>
