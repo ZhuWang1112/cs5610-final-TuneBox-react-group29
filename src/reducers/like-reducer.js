@@ -35,9 +35,14 @@ const likeSlice = createSlice({
       ];
     },
     updateProfileSongs(state, action) {
-      const songsToBeDeleted = action.payload.map((s) => s.toString());
+      const songsToKeep = action.payload.map((s) => s.toString());
       state.profileSongs = state.profileSongs.filter((s) =>
-        songsToBeDeleted.includes(s._id.toString())
+        songsToKeep.includes(s._id.toString())
+      );
+    },
+    deleteProfileSongs(state, action) {
+      state.profileSongs = state.profileSongs.filter(
+        (song) => song._id !== action.payload
       );
     },
   },
@@ -62,6 +67,10 @@ const likeSlice = createSlice({
   },
 });
 
-export const { updateLikeSong, deleteLikeSong, updateProfileSongs } =
-  likeSlice.actions;
+export const {
+  updateLikeSong,
+  deleteLikeSong,
+  updateProfileSongs,
+  deleteProfileSongs,
+} = likeSlice.actions;
 export default likeSlice.reducer;

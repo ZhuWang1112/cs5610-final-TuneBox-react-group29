@@ -119,32 +119,34 @@ const PlayList = ({ isSelf }) => {
               </div>
             )}
           </Stack>
-          <div className={`me-3`}>
-            <Pagination
-              color="warning"
-              shape="rounded"
-              defaultPage={1}
-              count={Math.ceil(playlists.length / playlistPerPage)}
-              page={currentPage}
-              onChange={paginate}
-              size="large"
-              className={`pagination-style float-end p-0`}
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  color: "#333",
-                },
-                "& .Mui-selected": {
-                  color: "white",
-                },
-                "& .MuiPaginationItem-root:not(.Mui-selected)": {
-                  color: "#ccc",
-                },
-                "& .MuiPaginationItem-icon": {
-                  color: "gold",
-                },
-              }}
-            />
-          </div>
+          {playlists.length > 0 && (
+            <div className={`me-3`}>
+              <Pagination
+                color="warning"
+                shape="rounded"
+                defaultPage={1}
+                count={Math.ceil(playlists.length / playlistPerPage)}
+                page={currentPage}
+                onChange={paginate}
+                size="large"
+                className={`pagination-style float-end p-0`}
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    color: "#333",
+                  },
+                  "& .Mui-selected": {
+                    color: "white",
+                  },
+                  "& .MuiPaginationItem-root:not(.Mui-selected)": {
+                    color: "#ccc",
+                  },
+                  "& .MuiPaginationItem-icon": {
+                    color: "gold",
+                  },
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
