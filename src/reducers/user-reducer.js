@@ -12,7 +12,7 @@ const {
 } = require("../services/users/users-thunks");
 
 const initialState = {
-  currentUser: null,
+  currentUser: JSON.parse(window.localStorage.getItem("currentUser")) || null,
   users: [],
 };
 

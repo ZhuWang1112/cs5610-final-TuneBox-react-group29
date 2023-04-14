@@ -18,6 +18,7 @@ import store from "./redux/store";
 import AllHotArtist from "./pages/homePage/AllHotArtist";
 import AllHotAlbum from "./pages/homePage/AllHotAlbum";
 import LikeSongDetail from "./components/LikeSongs/LikeSongDetail";
+import axios from "axios";
 
 function App() {
   return (

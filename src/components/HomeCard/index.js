@@ -1,9 +1,20 @@
 import Card from "react-bootstrap/Card";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import "./index.css";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 const HomeCard = ({ item, type }) => {
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const handleClick = () => {
+        if (type === "album") {
+            <Navigate to={`/album/${item._id}`} />
+        } else if (type === "playlist") {
+            <Navigate to={`/playlist/${item._id}`} />
+        } else if (type === "artist") {
+            <Navigate to={`/artist/${item._id}`} />
+        }
+    }
 
     return (
       <div className={"m-2"}>
@@ -12,6 +23,7 @@ const HomeCard = ({ item, type }) => {
           style={{
             width: type === "user" || type === "playlist" ? "13rem" : "10rem",
           }}
+          onClick={handleClick}
         >
           <Card.Img
             variant="top"
@@ -29,13 +41,10 @@ const HomeCard = ({ item, type }) => {
               <Card.Text className={"wd-card"}>{item.artist}</Card.Text>
             )}
             {type === "playlist" && (
-              <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
-            )}
-            {type === "playlist" && (
               <Card.Text className={"wd-card"}>
-                <Link to={`/profile/${item.user._id}`}>
-                  {item.user.userName}
-                </Link>
+              <Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>
+                  Creator: {item.user.userName}
+              </Link>
               </Card.Text>
             )}
             {type === "playlist" && (
@@ -43,8 +52,15 @@ const HomeCard = ({ item, type }) => {
                 Desc: {item.description}
               </Card.Text>
             )}
+              {type === "playlist" && (
+                  <Card.Title className={"wd-card"}>Rating: {item.rating}</Card.Title>
+              )}
             {type === "user" && (
-              <Card.Title className={"wd-card"}>{item.userName}</Card.Title>
+              <Card.Title className={"wd-card"}>
+              <Link className={"wd-link"} to={(currentUser !== null && item._id === currentUser._id) ? `/profile` : `/profile/${item._id}`}>
+                  {item.userName}
+              </Link>
+              </Card.Title>
             )}
             {type === "artist" && (
               <Card.Title className={"wd-card"}>{item.artist}</Card.Title>
