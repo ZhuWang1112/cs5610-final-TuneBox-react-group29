@@ -4,6 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 const HistoryPanelItem = ({ comment }) => {
   const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);
+
   return (
     <div className={`row w-100 p-0 m-0 pt-1`}>
       <div
@@ -22,7 +23,15 @@ const HistoryPanelItem = ({ comment }) => {
         onClick={() => setShowAll(!showAll)}
       >
         {showAll && <div className={``}>{comment.content}</div>}
-        {!showAll && <div className={`comment-content`}>{comment.content}</div>}
+        {!showAll && (
+          <div
+            className={`comment-content ${
+              comment.user.isVip ? `text-warning` : `text-white`
+            }`}
+          >
+            {comment.content}
+          </div>
+        )}
       </div>
 
       <div className={`col d-flex align-items-start pe-0`}>

@@ -23,6 +23,7 @@ import { updateProfileSongs } from "../../reducers/like-reducer";
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const { profileSongs } = useSelector((state) => state.likedSong);
   console.log("likedSongs: profileSong", profileSongs);
@@ -44,6 +45,10 @@ const PlayList = ({ isSelf }) => {
   };
 
   const addPlaylist = () => {
+    if (!currentUser.isVip && playlists.length >= 3) {
+      setShow(true);
+      return;
+    }
     const curPlaylist = playlists.length;
     const newName = `My Playlist ${curPlaylist + 1}`;
     const newPlaylist = {
@@ -79,8 +84,38 @@ const PlayList = ({ isSelf }) => {
   }, [uid]);
 
   return (
-    <div className={`playlist-container me-0`}>
-      <h4 className={`text-white`}>Playlists</h4>
+    <div className={`playlist-container me-0 position-relative`}>
+      <h4 className={`text-white col`}>Playlists</h4>
+      {show && (
+        <>
+          <div
+            className={`col text-white position-absolute upgrade-title p-3 rounded-3 bg-primary fw-bold`}
+          >
+            Enjoy your Premium Journey!
+            <div className={`text-white upgrade-text`}>
+              Upgrade your account to create more playlists.
+            </div>
+            <div className={`mt-2`}>
+              <button
+                className={`btn not-now-btn float-end`}
+                onClick={() => setShow(false)}
+              >
+                Not now
+              </button>
+              <button
+                className={` login-btn rounded-pill float-end`}
+                onClick={() => {
+                  setShow(false);
+                  navigate("/login");
+                }}
+              >
+                Log in
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       {(uid || currentUser) && playlists && (
         <div className={`mt-3 playlist-item-box`}>
           <Stack
