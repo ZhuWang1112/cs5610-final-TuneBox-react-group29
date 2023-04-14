@@ -57,7 +57,7 @@ const Home = () => {
             </div>
 
             <div  className={"text-white mt-5"} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <h2 className={"mb-2"} >Top5 Popular Playlist</h2>
+                <h2 className={"mb-2"} >Recommended Playlist</h2>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
