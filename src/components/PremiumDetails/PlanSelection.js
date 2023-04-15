@@ -6,12 +6,12 @@ import { RiVipDiamondFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import Payment from "./Payment";
-const PlanSelection = ({ setPlan, setPayment }) => {
+const PlanSelection = ({ setPlan, setPayment, setShow, setNumber }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  const [show, setShow] = useState();
-  const [number, setNumber] = useState(null);
-  const [welcome, setWelcome] = useState(true);
+  console.log("currentUser: ", currentUser);
+  //   const [show, setShow] = useState();
+  //   const [number, setNumber] = useState(null);
   const handleSelect = (id) => {
     setPlan(true);
     setShow(true);
@@ -25,49 +25,22 @@ const PlanSelection = ({ setPlan, setPayment }) => {
   };
   return (
     <div
-      className={`premium-function-div d-flex align-items-center justify-content-center row p-0 m-0 mt-5`}
+      className={`premuim-plan-div d-flex align-items-center justify-content-center row p-0 m-0 mt-3 rounded-5`}
     >
-      <div className={`premium-function-card col-10 rounded-5`}>
-        {!currentUser && (
-          <div>
-            <div
-              className={`d-flex justify-content-center mt-3 align-items-center row w-100`}
-            >
-              <h3 classname={`text-white fw-bold`}>
-                Please login to choose your plan
-              </h3>
-            </div>
-            <div
-              className={`premium-function-text mt-3 text-muted d-flex justify-content-center`}
-            >
-              <button
-                className={`btn btn-light fw-bold`}
-                onClick={() => navigate("/login")}
-              >
-                Log in
-              </button>
-              <button
-                className={`btn text-muted`}
-                onClick={() => navigate("/home")}
-              >
-                Browse more
-              </button>
-            </div>
-          </div>
-        )}
+      <div className={`premium-plan-card col-10 rounded-5`}>
         {currentUser && (
           <div>
             <div
               className={`d-flex justify-content-center mt-3 align-items-center`}
             >
-              <h3 classname={`text-white fw-bold`}>Choose your plan</h3>
+              <h3 className={`text-white fw-bold`}>Choose your plan</h3>
             </div>
             <div
               className={`row mt-5 d-flex align-items-center justify-content-center plan-hint`}
             >
               <div className={`col`}></div>
               <div
-                className={`col-3 p-0s d-flex align-items-center justify-content-center`}
+                className={`col-3 p-0 d-flex align-items-center justify-content-center fw-bold`}
               >
                 Monthly
               </div>
@@ -77,10 +50,10 @@ const PlanSelection = ({ setPlan, setPayment }) => {
                 <h4 className={`mb-0 d-flex`}>$ 8.90 </h4> / month
               </div>
               <div
-                className={`col-3 p-0 d-flex align-items-center justify-content-center`}
+                className={`col-2 p-0 d-flex align-items-center justify-content-center`}
               >
                 <button
-                  className={`btn btn-primary text-white fw-bold`}
+                  className={`select-btn text-white fw-bold`}
                   onClick={() => handleSelect(0)}
                 >
                   Select
@@ -90,9 +63,11 @@ const PlanSelection = ({ setPlan, setPayment }) => {
             <div
               className={`row mt-5 d-flex align-items-center justify-content-center plan-hint`}
             >
-              <div className={`col p-0 text-warning`}>Most popular </div>
+              <div className={`col p-0 text-warning ms-3 fw-bold`}>
+                Most popular{" "}
+              </div>
               <div
-                className={`col-3  p-0 d-flex align-items-center justify-content-center`}
+                className={`col-3  p-0 d-flex align-items-center justify-content-center  fw-bold`}
               >
                 Quarterly
               </div>
@@ -102,10 +77,10 @@ const PlanSelection = ({ setPlan, setPayment }) => {
                 <h4 className={`mb-0 d-flex`}>$ 6.90 </h4> / month
               </div>
               <div
-                className={`col-3 p-0 d-flex align-items-center justify-content-center`}
+                className={`col-2 p-0 d-flex align-items-center justify-content-center`}
               >
                 <button
-                  className={`btn btn-primary text-white fw-bold`}
+                  className={`select-btn text-white fw-bold`}
                   onClick={() => handleSelect(1)}
                 >
                   Select
@@ -115,11 +90,11 @@ const PlanSelection = ({ setPlan, setPayment }) => {
             <div
               className={`row mt-5 d-flex align-items-center justify-content-center plan-hint`}
             >
-              <div className={`col p-0 text-warning plan-hint`}>
+              <div className={`col p-0 text-warning plan-hint ms-3 fw-bold`}>
                 Best value{" "}
               </div>
               <div
-                className={`col-3 p-0 d-flex align-items-center justify-content-center`}
+                className={`col-3 p-0 d-flex align-items-center justify-content-center fw-bold`}
               >
                 Annual
               </div>
@@ -129,32 +104,16 @@ const PlanSelection = ({ setPlan, setPayment }) => {
                 <h4 className={`mb-0 d-flex`}>$ 4.50 </h4> / month
               </div>
               <div
-                className={`col-3 p-0 d-flex align-items-center justify-content-center`}
+                className={`col-2 p-0 d-flex align-items-center justify-content-center`}
               >
                 <button
-                  className={`btn btn-primary text-white fw-bold`}
+                  className={`select-btn text-white fw-bold`}
                   onClick={() => handleSelect(2)}
                 >
                   Select
                 </button>
               </div>
             </div>
-          </div>
-        )}
-        {currentUser && show && (
-          <Payment
-            number={number}
-            setShow={setShow}
-            setPlan={setPlan}
-            setWelcome={setWelcome}
-            setPayment={setPayment}
-          />
-        )}
-        {currentUser && welcome && (
-          <div
-            className={`row w-100 mt-5 d-flex align-items-center justify-content-center text-warning welcome-div`}
-          >
-            <h3>Enjoy your preimum journey!</h3>
           </div>
         )}
       </div>

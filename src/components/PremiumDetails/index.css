@@ -8,11 +8,22 @@
     font-weight: bold;
 }
 .premium-function-div {
-    height: 700px;
+    height: 500px;
     width: 100%;
-    /* background-color: gray; */
+    background-color: gray;
 }
 .premium-function-card {
+    height: 90%;
+    width: 100%;
+    /* background-color: orange */
+}
+.premuim-plan-div {
+    height: 500px;
+    width: 100%;
+    /* background-color: #9876c5; */
+    background-color: #0080ff;
+}
+.premium-plan-card {
     height: 90%;
     width: 100%;
     /* background-color: orange; */
@@ -31,4 +42,33 @@
 }
 .welcome-div {
     height: 300px;
+}
+.unsubscribe-div {
+    height: 500px;
+    width: 100%;
+     background-color: orange;
+}
+.login-hint-div {
+height: 300px;
+    width: 100%;
+    /* background-color: orange; */
+}
+.premum-bg {
+    width: 95%;
+    /* background-color: orange; */
+    /* opacity: 0.8; */
+}
+.premium-function-inner-div {
+    width:90%;
+    background-color: gray;
+}
+.select-btn {
+    background-color: orange;
+    border: 0;
+    border-radius: 6px;
+    padding: 5px 10px 5px 10px;
+}
+.payment-div{
+width:100%;
+background-color: orange;
 }

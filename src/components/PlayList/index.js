@@ -66,6 +66,7 @@ const PlayList = ({ isSelf }) => {
   };
   const findPlaylists = async (uid) => {
     const data = await findPlaylistsService(uid);
+    console.log("playlist in profile", data);
     setPlaylists(data);
   };
   const deletePlaylistById = async (playlist) => {
@@ -106,10 +107,10 @@ const PlayList = ({ isSelf }) => {
                 className={` login-btn rounded-pill float-end`}
                 onClick={() => {
                   setShow(false);
-                  navigate("/login");
+                  navigate("/premium");
                 }}
               >
-                Log in
+                Upgrade
               </button>
             </div>
           </div>

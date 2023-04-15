@@ -6,78 +6,60 @@ import { RiVipDiamondFill } from "react-icons/ri";
 const PremiumFunction = () => {
   return (
     <div
-      className={`premium-function-div d-flex align-items-center justify-content-center row p-0 m-0 mt-5`}
+      className={`premium-function-div d-flex align-items-center justify-content-center row p-0 m-0 mt-3 rounded-5`}
     >
-      <div className={`premium-function-card col-8 rounded-5`}>
+      <div className={`premium-function-card col-9 rounded-5`}>
         <div
-          className={`d-flex justify-content-center mt-3 align-items-center row w-100`}
+          className={`d-flex justify-content-start mt-3 align-items-center row m-3`}
         >
-          <div className={`col-2 d-flex justify-content-center text-warning`}>
+          <div className={`col-2 d-flex justify-content-start text-warning`}>
             <RiVipDiamondFill size={30} />
           </div>
           <div className={`col`}>
-            <h3 classname={`text-white fw-bold`}>Upgrade to premium</h3>
+            <h3 className={`text-white fw-bold`}>Upgrade to premium</h3>
           </div>
         </div>
-        <div className={`premium-function-text mt-3 text-muted`}>
-          <p className={`mb-0`}>You can get a lot more out of it.</p>
-          <p>Upgrading to premium. Get all features:</p>
+        <div className={`premium-function-text mt-3 text-warning`}>
+          <h5 className={`mb-0`}>You can get a lot more out of it.</h5>
+          <h5>Upgrading to premium. Get all features:</h5>
         </div>
         <div className={`d-flex justify-content-center`}>
           <div
-            className="premium-function-item mt-5"
+            className="premium-function-item mt-3"
             //   onClick={handleClick}
           >
-            <Card.Body>
-              <Card.Text>
-                <div className={"d-flex align-items-center"}>
-                  <AiFillCheckCircle size={30} className={`text-success`} />{" "}
-                  <h5 className={`p-0 m-0 ms-2`}>
-                    No limitation on Playlist numbers
-                  </h5>
-                </div>
-              </Card.Text>
-              <Card.Text>
-                <div className={"d-flex align-items-center"}>
-                  <AiFillCheckCircle size={30} className={`text-success`} />{" "}
-                  <h5 className={`p-0 m-0 ms-2`}>
-                    No limitation on Favorite song numbers
-                  </h5>
-                </div>
-              </Card.Text>
-              <Card.Text>
-                <div className={"d-flex align-items-center"}>
-                  <AiFillCheckCircle size={30} className={`text-success`} />{" "}
-                  <h5 className={`p-0 m-0 ms-2`}>
-                    Make your comments more distinct
-                  </h5>
-                </div>
-              </Card.Text>
-              <Card.Text>
-                <div className={"d-flex align-items-center"}>
-                  <AiFillCheckCircle size={30} className={`text-success`} />{" "}
-                  <h5 className={`p-0 m-0 ms-2`}>
-                    Recommendation of top artists
-                  </h5>
-                </div>
-              </Card.Text>
-              <Card.Text>
-                <div className={"d-flex align-items-center"}>
-                  <AiFillCheckCircle size={30} className={`text-success`} />{" "}
-                  <h5 className={`p-0 m-0 ms-2`}>
-                    Recommendation of top albums
-                  </h5>
-                </div>
-              </Card.Text>
-            </Card.Body>
+            <div className={"d-flex align-items-center mt-3 mb-3"}>
+              <AiFillCheckCircle size={30} className={`text-success`} />{" "}
+              <h5 className={`p-0 m-0 ms-2`}>
+                No limitation on Playlist numbers
+              </h5>
+            </div>
+
+            <div className={"d-flex align-items-center mt-3 mb-3"}>
+              <AiFillCheckCircle size={30} className={`text-success`} />{" "}
+              <h5 className={`p-0 m-0 ms-2`}>
+                No limitation on Favorite song numbers
+              </h5>
+            </div>
+
+            <div className={"d-flex align-items-center mt-3 mb-3"}>
+              <AiFillCheckCircle size={30} className={`text-success`} />{" "}
+              <h5 className={`p-0 m-0 ms-2`}>
+                Make your comments more distinct
+              </h5>
+            </div>
+
+            <div className={"d-flex align-items-center mt-3 mb-3"}>
+              <AiFillCheckCircle size={30} className={`text-success`} />{" "}
+              <h5 className={`p-0 m-0 ms-2`}>Recommendation of top artists</h5>
+            </div>
+
+            <div className={"d-flex align-items-center mt-3 mb-3"}>
+              <AiFillCheckCircle size={30} className={`text-success`} />{" "}
+              <h5 className={`p-0 m-0 ms-2`}>Recommendation of top albums</h5>
+            </div>
           </div>
         </div>
-
-        {/* <div className={`d-flex justify-items-center bg-primary`}>
-          <div className={`premium-function-item text-dark`}>
-            <h5>No limitation on Playlist numbers</h5>
-          </div>
-        </div> */}
       </div>
     </div>
   );

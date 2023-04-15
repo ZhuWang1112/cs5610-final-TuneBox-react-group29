@@ -6,14 +6,6 @@ const Premium = () => {
   return (
     <div className={`text-white`}>
       <PremiumDetails />
-      {/* <div className={`row`}>
-        <div className={`col`}>
-          <PremiumFunction />
-        </div>
-        <div className={`col`}>
-          <PlanSelection />
-        </div>
-      </div> */}
     </div>
   );
 };
