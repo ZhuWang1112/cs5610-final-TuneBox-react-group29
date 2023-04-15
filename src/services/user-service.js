@@ -10,3 +10,8 @@ export const updateUser = async (user) => {
   const response = await axios.put(`${USER_API}/admin/${user._id}`, user);
   return response.data;
 };
+
+export const checkLogin = async (user) => {
+  const response = await axios.get(`${USER_API}/checkLogin/${user._id}`);
+  return response.data;
+}

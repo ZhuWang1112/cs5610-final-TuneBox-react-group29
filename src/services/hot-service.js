@@ -1,11 +1,15 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
 export const hotArtists = async () => {
+    console.log("hotArtists")
     const response = await axios.get("http://localhost:4000/api/home/topmusic");
+    console.log("data:!!" + response.data);
     return response.data;
 }
 export const hotAlbums = async () => {
+    console.log("hotArtists")
     const response = await axios.get("http://localhost:4000/api/home/topalbum");
+    console.log("data:!!" + response.data);
     return response.data;
 }
 export const hotPlaylists = async () => {

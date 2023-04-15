@@ -1,0 +1,42 @@
+.promo-container {
+    background-color: #1F1F1F;
+    border: 2px solid #FFD700;
+    border-radius: 10px;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 10px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(255, 215, 0, 0.3);
+}
+
+.promo-container h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.promo-container p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.promo-container button {
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.promo-container button:hover {
+    background-color: #FFDB58;
+}

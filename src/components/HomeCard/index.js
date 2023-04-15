@@ -1,18 +1,20 @@
 import Card from "react-bootstrap/Card";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import "./index.css";
-import {Link, Navigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const HomeCard = ({ item, type }) => {
+    const navigate = useNavigate();
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const handleClick = () => {
         if (type === "album") {
-            <Navigate to={`/album/${item._id}`} />
+            navigate("/album/" + item._id);
         } else if (type === "playlist") {
-            <Navigate to={`/playlist/${item._id}`} />
+            navigate("/playlist/" + item._id);
         } else if (type === "artist") {
-            <Navigate to={`/artist/${item._id}`} />
+            navigate("/artist/" + item._id);
         }
     }
 
@@ -59,7 +61,7 @@ const HomeCard = ({ item, type }) => {
               </Card.Text>
             )}
               {type === "playlist" && (
-                  <Card.Title className={"wd-card"}>Rating: {item.rating}</Card.Title>
+                  <Card.Title className={"wd-card"}>Rating: {item.rating.toFixed(2)}</Card.Title>
               )}
             {type === "user" && (
               <Card.Title className={"wd-card"}>
