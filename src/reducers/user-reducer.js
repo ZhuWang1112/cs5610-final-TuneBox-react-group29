@@ -9,6 +9,7 @@ const {
   logoutThunk,
   profileThunk,
   registerThunk,
+  updateUserNonAdminThunk,
 } = require("../services/users/users-thunks");
 
 const initialState = {
@@ -22,6 +23,10 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: {
     [updateUserThunk.fulfilled]: (state, action) => {
+      console.log("updated user: ", action.payload);
+      state.currentUser = action.payload;
+    },
+    [updateUserNonAdminThunk.fulfilled]: (state, action) => {
       console.log("updated user: ", action.payload);
       state.currentUser = action.payload;
     },

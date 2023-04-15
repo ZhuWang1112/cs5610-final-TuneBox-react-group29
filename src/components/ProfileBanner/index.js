@@ -4,7 +4,10 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
 import { findUser, updateUser } from "../../services/user-service";
-import { updateUserThunk } from "../../services/users/users-thunks";
+import {
+  updateUserNonAdminThunk,
+  updateUserThunk,
+} from "../../services/users/users-thunks";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
@@ -87,7 +90,7 @@ const ProfileBanner = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setUrl(url);
           dispatch(
-            updateUserThunk({
+            updateUserNonAdminThunk({
               _id: currentUser._id,
               email: email,
               img: url,
@@ -109,7 +112,7 @@ const ProfileBanner = () => {
     if (url !== currentProfile.img) {
       handleUploadFirebase(avatarFile);
     } else {
-      dispatch(updateUserThunk(newProfile));
+      dispatch(updateUserNonAdminThunk(newProfile));
     }
 
     setIsEdit(false);
