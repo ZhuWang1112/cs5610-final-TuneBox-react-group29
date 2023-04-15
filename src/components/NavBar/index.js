@@ -16,6 +16,13 @@ const NavBar = () => {
     const checkLoginStatus = async () => {
       const response = await checkLogin(loginUser);
       setLogin(response.login);
+      /**
+       * If the user is not logged in, remove the currentUser and defaultPlaylist from localStorage
+       */
+      if (!response.login) {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("defaultPlaylist");
+      }
     };
     checkLoginStatus().then(r => console.log(r));
   }, [loginUser]);
