@@ -5,6 +5,7 @@ import Pagination from '../Pagination/Pagination';
 import SpecificUser from "../SpecificUser";
 import axios from "axios";
 const API_BASE = 'http://localhost:4000/api';
+axios.defaults.withCredentials = true;
 
 const UserTable = () => {
     const [users, setUsers] = useState([]);
@@ -31,17 +32,12 @@ const UserTable = () => {
     }, []);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await fetch(`${API_BASE}/users/admin/pagination?page=${currentPage}&limit=${usersPerPage}`);
-            const data = await response.json();
-            console.log(data);
-            setUsers(data);
-            // const totalCountResponse = await fetch('https://jsonplaceholder.typicode.com/users');
-            // const totalCountData = await totalCountResponse.headers.get('X-Total-Count');
-            setTotalCount(14);
-            // console.log(totalCountResponse);
-        };
-        fetchUsers();
+        axios.get(`${API_BASE}/users/admin/pagination?page=${currentPage}&limit=${usersPerPage}`)
+            .then(response => {
+                setUsers(response.data);
+            }).catch(error => {
+            console.error(error);
+            });
     }, [currentPage, usersPerPage]);
 
     const handlePageChange = (page) => {
@@ -63,25 +59,21 @@ const UserTable = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`${API_BASE}/users/admin/${editingUser._id}`, {
-            method: 'PUT',
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-        const data = await response.json();
-        console.log(data);
-        setUsers(users.map((user) => (user._id === editingUser._id ? data : user)));
-        setEditingUser(null);
-        setFormData({
-            userName: '',
-            email: '',
-            gender: '',
-            isAdmin: false,
-            isVip: false,
-            isDeleted: false,
-        });
+        await axios.put(`${API_BASE}/users/admin/${editingUser._id}`, formData)
+            .then(response => {
+                setUsers(users.map((user) => (user._id === editingUser._id ? response.data : user)));
+                setEditingUser(null);
+                setFormData({
+                    userName: '',
+                    email: '',
+                    gender: '',
+                    isAdmin: false,
+                    isVip: false,
+                    isDeleted: false,
+                });
+            }).catch(error => {
+                console.error(error);
+            });
     };
 
     const handleEdit = (user) => {
@@ -99,13 +91,13 @@ const UserTable = () => {
     const handleDelete = async (id) => {
         const confirmed = window.confirm('Are you sure you want to delete this user? It may lead to exceptions in the collection {follow}, so be careful !!');
         if (confirmed) {
-            const response = await fetch(`${API_BASE}/users/admin/${id}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                setUsers(users.filter((user) => user._id !== id));
-                setTotalCount(totalCount - 1);
-            }
+            await axios.delete(`${API_BASE}/users/admin/${id}`)
+                .then(response => {
+                    setUsers(users.filter((user) => user._id !== id));
+                    setTotalCount(totalCount - 1);
+                }).catch(error => {
+                    console.error(error);
+                });
         }
     };
 

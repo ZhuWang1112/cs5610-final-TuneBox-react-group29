@@ -4,6 +4,7 @@ import "./index.css";
 import { loginThunk, logoutThunk } from "../../services/users/users-thunks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import {checkLogin} from "../../services/user-service";
 const NavBar = () => {
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const [login, setLogin] = useState(false);
@@ -11,7 +12,12 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLogin(loginUser ? true : false);
+    // setLogin(loginUser ? true : false);
+    const checkLoginStatus = async () => {
+      const response = await checkLogin(loginUser);
+      setLogin(response.login);
+    };
+    checkLoginStatus().then(r => console.log(r));
   }, [loginUser]);
 
   return (

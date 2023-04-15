@@ -41,6 +41,9 @@ const Home = () => {
 
     const displayArtists = artists.slice(0, num);
     const displayAlbum = albums.slice(0, num);
+    const displayPlaylist = playlists.slice(0, num);
+    const displayUsers = users.slice(0, num);
+
     return (
         <div className={"m-2"}>
             {error && <UpgradeBanner/>}
@@ -84,7 +87,7 @@ const Home = () => {
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {playlists.map((playlist) => (
+                {displayPlaylist.map((playlist) => (
                     <div key={playlist._id} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={playlist} type={"playlist"}/>
                     </div>
@@ -96,7 +99,7 @@ const Home = () => {
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {users.map((user) => (
+                {displayUsers.map((user) => (
                     <div key={user._id} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                         <HomeCard item={user} type={"user"}/>
                     </div>

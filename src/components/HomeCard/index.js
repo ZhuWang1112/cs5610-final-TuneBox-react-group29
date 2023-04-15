@@ -61,7 +61,7 @@ const HomeCard = ({ item, type }) => {
               </Card.Text>
             )}
               {type === "playlist" && (
-                  <Card.Title className={"wd-card"}>Rating: {item.rating}</Card.Title>
+                  <Card.Title className={"wd-card"}>Rating: {item.rating.toFixed(2)}</Card.Title>
               )}
             {type === "user" && (
               <Card.Title className={"wd-card"}>
