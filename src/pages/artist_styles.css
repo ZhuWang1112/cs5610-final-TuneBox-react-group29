@@ -1,0 +1,44 @@
+.wd-gray-text {
+    color: #7F7F7F;
+    font-size: 1.2rem;
+}
+
+.wd-name {
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.wd-check-circle {
+  color: #6495ED;
+}
+
+
+.wd-image-container {
+   position: relative;
+}
+
+.wd-text-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  margin: 0;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.inner-img img {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rounded-icon {
+  border-radius: 50%;
+}
