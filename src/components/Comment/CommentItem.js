@@ -15,7 +15,7 @@ const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
 
         <div className={`text-white col`}>
           <div className={`row w-100 d-flex align-items-center`}>
-            <span className={`text-white d-inline col-3`}>
+            <span className={`text-white d-inline col-5`}>
               <div
                 className={`fw-bold visit-playlist`}
                 onClick={() => visitPlaylist(comment.playlist)}

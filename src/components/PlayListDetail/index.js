@@ -86,10 +86,14 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   }, [loginId]);
   return (
     <div className={`mt-3 ms-3 me-3 position-relative`}>
-      <h4 className={`text-white position-absolute playlist-rating`}>
+      <h4
+        className={`text-white position-absolute playlist-rating d-none d-xl-block`}
+      >
         {Math.round(playlist.rating * 10) / 10} rating
       </h4>
-      <h4 className={`text-white position-absolute song-num-pos`}>
+      <h4
+        className={`text-white position-absolute song-num-pos d-none d-xl-block`}
+      >
         {songs.length} songs
       </h4>
       <div className={`row`}>
@@ -98,10 +102,16 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
             <div className={`col-4`}>
               <h5 className={`fw-fold text-white`}># TITLE</h5>
             </div>
-            <div className={`col-2 text-muted ps-0`}>
+            <div
+              className={`${
+                currentUser && currentUser._id === playlist.user
+                  ? `col-2`
+                  : `col-3`
+              } text-muted ps-0`}
+            >
               <BsFillPersonLinesFill size={30} />
             </div>
-            <div className={`col-2 text-muted ps-0`}>
+            <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
               <AiOutlineFieldTime size={30} />
             </div>
             <div className={`col-2`}></div>
@@ -137,7 +147,9 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
               ))}
           </div>
         </div>
-        <div className={`col-4 comment-panel-container me-3 rounded-3 p-0`}>
+        <div
+          className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none d-lg-block`}
+        >
           <CommentPanel pRating={playlist.rating} setPlaylist={setPlaylist} />
         </div>
       </div>

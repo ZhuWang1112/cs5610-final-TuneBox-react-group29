@@ -44,7 +44,11 @@ const Profile = () => {
 
   return (
     <div className={"row"}>
-      <div className={`${loginUser || uid ? `col-8` : `col`} ps-0 pe-0`}>
+      <div
+        className={`${
+          loginUser || uid ? `col-xxl-8 col-xl-8 col-lg-9 col` : `col`
+        }`}
+      >
         {profile && (
           <ProfileMiddle
             isSelf={uid ? false : true}
@@ -53,7 +57,7 @@ const Profile = () => {
         )}
       </div>
       {(loginUser || uid) && (
-        <div className={"col ps-0 pe-0"}>
+        <div className={"col d-none d-lg-block"}>
           {profile && <ProfileRight isSelf={uid ? false : true} />}
         </div>
       )}

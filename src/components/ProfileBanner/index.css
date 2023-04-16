@@ -12,7 +12,7 @@
 }
 .edit-position {
     top: 330px;
-    right: 100px;
+    right: 20px;
 }
 .input-email {
     width: 200px;
@@ -23,13 +23,13 @@ left: 195px;
 }
 .save-position {
     top: 330px;
-    right: 190px;
+    right: 20px;
     width: 80px;
 }
 
 .cancel-position {
-top: 330px;
-    right: 100px;
+top: 380px;
+    right: 20px;
     width: 80px;
 }
 
@@ -109,4 +109,12 @@ top: 500px;
     width: 100px;
     height: 100px;
     background-color: grey;
+}
+.profile-banner-toolkit-div {
+     height: 100px;
+    width: 230px;
+    right: -10px;
+    top: 380px;
+    background-color: orange;
+    z-index: 2
 }

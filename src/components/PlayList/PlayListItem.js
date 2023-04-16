@@ -8,7 +8,7 @@ const PlayListItem = ({ playlist, handleClick, deletePlaylist, isSelf }) => {
       <img
         src={playlist.img}
         className={`rounded-3`}
-        width={`200px`}
+        width={`180px`}
         onClick={() => handleClick(playlist._id)}
       />
       {isSelf && !playlist.isDefault && (

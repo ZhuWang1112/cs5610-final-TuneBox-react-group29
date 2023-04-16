@@ -4,10 +4,11 @@ import { AiFillStar } from "react-icons/ai";
 const HistoryPanelItem = ({ comment }) => {
   const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);
+
   return (
     <div className={`row w-100 p-0 m-0 pt-1`}>
       <div
-        className={`col-2 p-0 comment-hover-color`}
+        className={`col-2 p-0 comment-hover-color ms-2`}
         onClick={() => navigate(`/profile/${comment.user._id}`)}
       >
         <div className={`d-flex justify-content-center`}>
@@ -17,15 +18,20 @@ const HistoryPanelItem = ({ comment }) => {
           <p className={`mb-0`}>{comment.user.userName}</p>
         </div>
       </div>
-      <div
-        className={`col-8 p-0 ms-2 me-0`}
-        onClick={() => setShowAll(!showAll)}
-      >
+      <div className={`col p-0 ms-2 me-0`} onClick={() => setShowAll(!showAll)}>
         {showAll && <div className={``}>{comment.content}</div>}
-        {!showAll && <div className={`comment-content`}>{comment.content}</div>}
+        {!showAll && (
+          <div
+            className={`comment-content ${
+              comment.user.isVip ? `text-warning` : `text-white`
+            }`}
+          >
+            {comment.content}
+          </div>
+        )}
       </div>
 
-      <div className={`col d-flex align-items-start pe-0`}>
+      <div className={`col-2 d-flex align-items-start pe-0`}>
         {comment.rating} <AiFillStar className={`text-warning mt-1 ms-1`} />
       </div>
       <hr className={`mt-2`} />

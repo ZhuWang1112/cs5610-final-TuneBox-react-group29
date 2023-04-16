@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import LikeSongItem from "./LikeSongItem.js";
@@ -12,7 +12,7 @@ const LikeSongs = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { currentProfile } = useSelector((state) => state.profile);
-  const { profileSongs } = useSelector((state) => state.likedSong);
+  let { profileSongs } = useSelector((state) => state.likedSong);
 
   const handleRemoveSong = async (song) => {
     dispatch(deleteProfileSongs(song._id));
@@ -23,8 +23,8 @@ const LikeSongs = () => {
       playlistId: null,
     });
   };
-  const displayNum = 6;
-  const data = [
+
+  let data = [
     { id: 1 },
     { id: 2 },
     { id: 3 },
@@ -35,6 +35,25 @@ const LikeSongs = () => {
     { id: 8 },
     { id: 9 },
   ];
+  const [windowWidth, setWindowWidth] = useState(
+    window.innerWidth > 760 ? 760 : window.innerWidth
+  );
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth > 760 ? 760 : window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  let displayNum = Math.floor(windowWidth / 150);
+  data = data.slice(0, displayNum);
+
   return (
     <div className={`mt-5 pt-5`}>
       <div className={`row song-outer-container`}>
@@ -52,7 +71,13 @@ const LikeSongs = () => {
         )}
       </div>
 
-      <div className={`d-flex mt-3 like-song-container`}>
+      <div
+        className={`d-flex mt-3 like-song-container`}
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         {profileSongs &&
           profileSongs.length > 0 &&
           profileSongs.map((song) => (
@@ -62,7 +87,7 @@ const LikeSongs = () => {
               isSelf={uid ? false : true}
             />
           ))}
-        {/* {data.slice(0, displayNum).map((item) => (
+        {/* {data.map((item) => (
           <LikeSongItem song={item} />
         ))} */}
 

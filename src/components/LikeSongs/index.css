@@ -1,10 +1,10 @@
 .like-song-container {
-    width: 90%;
+    width: 95%;
     max-width: 900px;
     flex-wrap: wrap;
 }
 .song-outer-container {
-    width: 90%;
+    width: 95%;
 }
 .song-play-icon {
     bottom: 93px;

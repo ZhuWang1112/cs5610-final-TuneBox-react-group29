@@ -116,7 +116,9 @@ const PlaylistBanner = ({ playlist }) => {
 
   const handleCancel = () => {
     setPlaylistName(playlist.playListName);
-    setPlaylistDesc(playlist.description);
+    setPlaylistDesc(
+      playlist.description === undefined ? "" : playlist.description
+    );
     setUrl(playlist.img);
     setEdit(false);
   };
@@ -137,7 +139,7 @@ const PlaylistBanner = ({ playlist }) => {
       {!edit && (
         <>
           <h1
-            className={`text-white position-absolute playlist-cover-text-pos`}
+            className={`text-white position-absolute playlist-cover-text-pos d-none d-md-block`}
           >
             {playlistName}
           </h1>
@@ -146,15 +148,19 @@ const PlaylistBanner = ({ playlist }) => {
             playlist.user === currentUser._id &&
             !playlist.isDefault && (
               <button
-                className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3`}
+                className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
                 onClick={() => handleEdit()}
               >
                 Edit
               </button>
             )}
 
-          <h4 className={`text-muted position-absolute playlist-desc-pos`}>
-            {playlistDesc === "" ? "Add your description..." : playlistDesc}
+          <h4
+            className={`text-muted position-absolute playlist-desc-pos d-none d-lg-block`}
+          >
+            {playlistDesc === "" || playlistDesc === undefined
+              ? "Add your description..."
+              : playlistDesc}
           </h4>
         </>
       )}
@@ -168,17 +174,18 @@ const PlaylistBanner = ({ playlist }) => {
             type="text"
             placeholder="Type the playlist name..."
             value={playlistName}
+            size={1}
             onChange={(e) => handleNameChange(e)}
           />
           <button
-            className={`btn btn-dark border border-danger position-absolute playlist-confirm-pos rounded-pill ps-3 pe-3`}
+            className={`btn btn-dark border border-danger position-absolute playlist-confirm-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
             onClick={() => handleConfirm()}
           >
             Confirm
           </button>
 
           <button
-            className={`btn btn-dark border border-warning position-absolute playlist-cancel-pos rounded-pill ps-3 pe-3`}
+            className={`btn btn-dark border border-warning position-absolute playlist-cancel-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
             onClick={() => handleCancel()}
           >
             Cancel

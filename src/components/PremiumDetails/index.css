@@ -1,0 +1,74 @@
+.premium-banner {
+    height: 200px;
+    width: 100%;
+    /* background-color: gray; */
+}
+.premium-banner-text{
+    font-size: larger;
+    font-weight: bold;
+}
+.premium-function-div {
+    height: 500px;
+    width: 100%;
+    background-color: gray;
+}
+.premium-function-card {
+    height: 90%;
+    width: 100%;
+    /* background-color: orange */
+}
+.premuim-plan-div {
+    height: 500px;
+    width: 100%;
+    /* background-color: #9876c5; */
+    background-color: #0080ff;
+}
+.premium-plan-card {
+    height: 90%;
+    width: 100%;
+    /* background-color: orange; */
+}
+.premium-function-text {
+    font-size: large;
+}
+.premium-function-item {
+    width: 100%;
+}
+.plan-hint {
+    font-size: large;
+}
+.plan-hint-total {
+    font-size: larger
+}
+.welcome-div {
+    height: 300px;
+}
+.unsubscribe-div {
+    height: 500px;
+    width: 100%;
+     background-color: orange;
+}
+.login-hint-div {
+height: 300px;
+    width: 100%;
+    /* background-color: orange; */
+}
+.premum-bg {
+    width: 95%;
+    /* background-color: orange; */
+    /* opacity: 0.8; */
+}
+.premium-function-inner-div {
+    width:90%;
+    background-color: gray;
+}
+.select-btn {
+    background-color: orange;
+    border: 0;
+    border-radius: 6px;
+    padding: 5px 10px 5px 10px;
+}
+.payment-div{
+width:100%;
+background-color: orange;
+}

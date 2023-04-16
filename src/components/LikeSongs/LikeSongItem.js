@@ -13,7 +13,7 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
     setIsHovering(false);
   };
   return (
-    <div className={`mx-3 mt-3 position-relative`}>
+    <div className={`mx-2 mt-3 position-relative`}>
       {isSelf && (
         <div className={`position-absolute song-remove-icon p-0`}>
           <MdRemoveCircle size={25} onClick={() => handleRemoveSong(song)} />
