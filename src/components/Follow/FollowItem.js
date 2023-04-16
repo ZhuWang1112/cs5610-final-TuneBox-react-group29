@@ -4,10 +4,12 @@ import { useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { MdRemoveCircle, MdAddCircle } from "react-icons/md";
 import Overlay from "react-bootstrap/Overlay";
 const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [showName, setShowName] = useState(false);
   const target = useRef(null);
   const visitOtherProfile = () => {
     console.log(`visit  /profile/${follow._id}`);
@@ -27,44 +29,55 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   return (
     <div className={`mt-2 row p-3`}>
       <div
-        className={`${
-          isSelf ? `col-2` : `col-3 ms-3`
-        } d-flex align-items-center`}
+        className={`col-lg-7 col-xl-2 col-2 ms-3 d-flex align-items-center justify-content-center position-relative`}
       >
         <img
           src={follow.img}
           width={`70px`}
           className={`rounded-pill`}
           onClick={() => visitOtherProfile()}
+          onMouseOver={() => setShowName(true)}
+          onMouseOut={() => setShowName(false)}
         />
+        {showName && (
+          <div className={`position-absolute name-hint`}>{follow.userName}</div>
+        )}
       </div>
-      <div
-        className={`${
-          isSelf ? `col-5` : `col`
-        } ms-3 ps-3 d-flex align-items-center`}
-      >
-        <div>
+      <div className={`col-4 ms-3 ps-3 d-none d-xl-block`}>
+        <div className={``}>
           <div className={`fw-bold text-white`}>{follow.userName}</div>
           <div className={`text-muted`}>{follow.playlistsCount} playlists</div>
         </div>
       </div>
       <div className={`col d-flex align-items-center justify-content-end`}>
         {isSelf || isFollow_ ? (
-          <button
-            className={`btn btn-danger fw-bold`}
-            onClick={() => handleFollowWithStateChange()}
-          >
-            Unfollow
-          </button>
+          <>
+            <button
+              className={`btn btn-danger fw-bold d-none d-xl-block`}
+              onClick={() => handleFollowWithStateChange()}
+            >
+              Unfollow
+            </button>
+            <MdRemoveCircle
+              size={30}
+              className={`text-danger d-block d-xl-none`}
+              onClick={() => handleFollowWithStateChange()}
+            />
+          </>
         ) : (
           <>
             <button
               ref={target}
-              className={`btn btn-primary fw-bold`}
+              className={`btn btn-primary fw-bold  d-none d-xl-block`}
               onClick={() => handleFollowWithStateChange()}
             >
               Follow
             </button>
+            <MdAddCircle
+              size={30}
+              className={`text-primary d-block d-xl-none`}
+              onClick={() => handleFollowWithStateChange()}
+            />
             <Overlay target={target.current} show={show} placement="left">
               {(props) => (
                 <Tooltip

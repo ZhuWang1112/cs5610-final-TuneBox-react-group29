@@ -1,7 +1,13 @@
 .follow-container {
     height: 500px;
     background-color: #25232f;
-    margin-right: 30px;
+    margin-right: 20px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+.name-hint {
+    height: 30px;
+    bottom: 60px;
+    left: 80px;
+    color: gray
 }

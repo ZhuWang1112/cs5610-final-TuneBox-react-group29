@@ -27,13 +27,13 @@ const SideBar = () => {
 
   return (
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
-      <div className={`d-none d-lg-block`}>
+      <div className={`d-none d-xxl-block`}>
         <div className={`d-flex justify-content-center`}>
           <h2 className={`text-white mt-5 fw-bold`}>TuneBox</h2>
         </div>
       </div>
       <div
-        className={`d-flex justify-content-center align-items-center d-block d-lg-none`}
+        className={`d-flex justify-content-center align-items-center d-block d-xxl-none`}
       >
         <SiMusicbrainz size={30} className={`text-white mt-3`} />
       </div>
@@ -49,7 +49,7 @@ const SideBar = () => {
               height={`50px`}
             />
           </div>
-          <div className={`col-8 d-none d-lg-block`}>
+          <div className={`col-8 d-none d-xxl-block`}>
             <span className={`navbar-text`}>Home</span>
           </div>
         </div>
@@ -62,7 +62,7 @@ const SideBar = () => {
           <div className={`col p-0`}>
             <AiOutlineSearch className={`float-end p-0`} size={25} />
           </div>
-          <div className={`col-8 d-none d-lg-block`}>
+          <div className={`col-8 d-none d-xxl-block`}>
             <span className={`navbar-text`}>Search</span>
           </div>
         </div>
@@ -76,7 +76,7 @@ const SideBar = () => {
           <div className={`col p-0`}>
             <FaRegUser className={`float-end p-0`} size={25} />
           </div>
-          <div className={`col-8 d-none d-lg-block`}>
+          <div className={`col-8 d-none d-xxl-block`}>
             <span className={`navbar-text`}>Profile</span>
           </div>
         </div>
@@ -93,7 +93,7 @@ const SideBar = () => {
                 size={25}
               />
             </div>
-            <div className={`col-8 d-none d-lg-block`}>
+            <div className={`col-8 d-none d-xxl-block`}>
               <span className={`navbar-text`}>Admin</span>
             </div>
           </div>

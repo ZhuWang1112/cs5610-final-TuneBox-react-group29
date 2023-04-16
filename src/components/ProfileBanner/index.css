@@ -12,7 +12,7 @@
 }
 .edit-position {
     top: 330px;
-    right: 100px;
+    right: 20px;
 }
 .input-email {
     width: 200px;
@@ -23,13 +23,13 @@ left: 195px;
 }
 .save-position {
     top: 330px;
-    right: 190px;
+    right: 20px;
     width: 80px;
 }
 
 .cancel-position {
-top: 330px;
-    right: 100px;
+top: 380px;
+    right: 20px;
     width: 80px;
 }
 

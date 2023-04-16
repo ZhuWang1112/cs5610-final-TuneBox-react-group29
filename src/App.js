@@ -26,7 +26,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <div className={"row bg"}>
-          <div className={"col-2 pe-0"}>
+          <div className={"col-xxl-2 col-1 pe-0"}>
             <SideBar />
           </div>
           <div className={"col p-0 m-0"}>

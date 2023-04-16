@@ -35,7 +35,7 @@ const Follow = () => {
   }, [uid]);
 
   return (
-    <div className={`mt-5 pe-5 `}>
+    <div className={`mt-5 pe-3 `}>
       <h4 className={`text-white`}>Follows</h4>
       <div className={`follow-container rounded-3`}>
         {followeeList.map((follow, idx) => (

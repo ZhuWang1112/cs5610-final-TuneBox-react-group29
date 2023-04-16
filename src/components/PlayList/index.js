@@ -35,13 +35,11 @@ const PlayList = ({ isSelf }) => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [playlistPerPage] = useState(3);
-  const indexOfLastPlaylist = currentPage * playlistPerPage;
-  const indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
+  // const [playlistPerPage] = useState(3);
+  // const indexOfLastPlaylist = currentPage * playlistPerPage;
+  // const indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
   const paginate = (event, value) => {
     setCurrentPage(value);
-
-    window.scrollTo({ top: 1800, behavior: "smooth" });
   };
 
   const addPlaylist = () => {
@@ -84,6 +82,27 @@ const PlayList = ({ isSelf }) => {
     // dispatch(findPlaylistsThunk(uid ? uid : currentUser._id));
   }, [uid]);
 
+  const [windowWidth, setWindowWidth] = useState(
+    window.innerWidth > 750 ? 750 : window.innerWidth
+  );
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth > 750 ? 750 : window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  let playlistPerPage = Math.floor(windowWidth / 250);
+  console.log("windowWidth: ", windowWidth);
+  let indexOfLastPlaylist = currentPage * playlistPerPage;
+  let indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
+
   return (
     <div className={`playlist-container me-0 position-relative`}>
       <h4 className={`text-white col`}>Playlists</h4>
@@ -121,7 +140,7 @@ const PlayList = ({ isSelf }) => {
         <div className={`mt-3 playlist-item-box`}>
           <Stack
             direction="row"
-            sx={{ gap: { lg: "20px", xs: "10px" } }}
+            sx={{ gap: { xl: "10px", lg: "20px", xs: "5px" } }}
             flexWrap="wrap"
             justifyContent="start"
             className={`ms-0 me-0`}
@@ -156,7 +175,7 @@ const PlayList = ({ isSelf }) => {
             )}
           </Stack>
           {playlists.length > 0 && (
-            <div className={`me-3`}>
+            <div className={`mt-3 me-3`}>
               <Pagination
                 color="warning"
                 shape="rounded"

@@ -5,7 +5,6 @@ const ProfileRight = ({ isSelf }) => {
   return (
     <div>
       {isSelf && <Premium />}
-
       <Follow />
     </div>
   );

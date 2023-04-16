@@ -155,7 +155,7 @@ const ProfileBanner = () => {
         <div className={`d-flex justify-content-start position-relative`}>
           <img
             src={`/images/profile_banner.jpg`}
-            width={`${currentUser || uid ? `90%` : `100%`}`}
+            width={`100%`}
             height="320px"
             className={`m-0 rounded-5`}
           />
