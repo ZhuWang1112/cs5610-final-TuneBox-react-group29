@@ -98,7 +98,6 @@ const PlayList = ({ isSelf }) => {
     };
   }, []);
   let playlistPerPage = Math.floor(windowWidth / 250);
-  console.log("windowWidth: ", windowWidth);
   let indexOfLastPlaylist = currentPage * playlistPerPage;
   let indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
 
