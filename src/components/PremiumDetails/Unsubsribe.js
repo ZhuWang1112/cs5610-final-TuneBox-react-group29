@@ -14,7 +14,7 @@ const Unsubsribe = ({ setPlan, setPayment }) => {
     <div
       className={`unsubscribe-div d-flex align-items-center justify-content-center row p-0 m-0 mt-3 rounded-5`}
     >
-      <div className={`col-8`}>
+      <div className={`col col-lg-11 col-xl-9 col-xxl-8`}>
         <h1>Pro</h1>
         <p>Unlimited playlist and songs numbers </p>
         <p>Latest recommendation for albums and artists</p>

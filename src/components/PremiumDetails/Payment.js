@@ -8,16 +8,16 @@ import {
   RiMoneyDollarCircleFill,
   RiMoneyCnyCircleFill,
 } from "react-icons/ri";
-import { BsCreditCardFill } from "react-icons/bs";
+
 const Payment = ({ number, setShow, setPlan, setPayment }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleCheckout = () => {
     setShow(false);
-    // setWelcome(true);
     setPayment(true);
     dispatch(updateUserNonAdminThunk({ ...currentUser, isVip: true }));
   };
+
   return (
     <div
       className={`payment-div d-flex align-items-center justify-content-center row p-0 m-0 rounded-5`}
@@ -32,27 +32,27 @@ const Payment = ({ number, setShow, setPlan, setPayment }) => {
           <div
             className={`row mt-5 d-flex align-items-center justify-content-center`}
           >
-            <div className={`col d-flex align-items-center`}>
-              <RiSecurePaymentFill size={50} className={`ms-2 text-success`} />
+            <div
+              className={`col d-none d-lg-block p-0 d-flex align-items-center`}
+            >
+              <RiSecurePaymentFill size={50} className={`ms-1 text-success`} />
               <RiMoneyPoundCircleFill
                 size={50}
-                className={`ms-2 text-danger`}
+                className={`ms-1 text-danger`}
               />
               <RiMoneyDollarCircleFill
                 size={50}
-                className={`ms-2 text-primary`}
+                className={`ms-1 text-primary`}
               />
-              <RiMoneyCnyCircleFill size={50} className={`ms-2 text-muted`} />
+              <RiMoneyCnyCircleFill size={50} className={`ms-1 text-muted`} />
             </div>
             <div
-              className={`col-3 p-0 d-flex align-items-center justify-content-end fw-bold text-danger plan-hint-total`}
+              className={`col col-lg-4 col-xl-4 col-xxl-4 p-0 d-flex align-items-center justify-content-center`}
             >
-              Total
-            </div>
-            <div
-              className={`col-4 p-0 d-flex align-items-center justify-content-center`}
-            >
-              <h4 className={`mb-0 d-flex`}>
+              <h4 className={`fw-bold text-danger plan-hint-total mb-0`}>
+                Total
+              </h4>
+              <h4 className={`mb-0 d-flex ms-3`}>
                 $ {Math.round(number * 100) / 100}
               </h4>
             </div>

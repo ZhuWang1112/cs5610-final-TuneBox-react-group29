@@ -22,9 +22,9 @@ const PremiumDetails = () => {
   return (
     <div>
       <div className={`premium-banner row`}>
-        <div className={`col-3`}></div>
+        <div className={`d-none d-lg-block col-lg-2 col-3`}></div>
         <div className={`col row w-100 d-flex align-items-center`}>
-          <div className={`col`}>
+          <div className={`col p-0`}>
             <div
               className={`mb-3 mt-3 d-flex align-items-center justify-content-center`}
             >
@@ -43,7 +43,7 @@ const PremiumDetails = () => {
               />
             </div>
           </div>
-          <div className={`col`}>
+          <div className={`col-4 p-0`}>
             <div
               className={`mb-3 mt-3 d-flex align-items-center justify-content-center`}
             >
@@ -62,7 +62,7 @@ const PremiumDetails = () => {
               />
             </div>
           </div>
-          <div className={`col`}>
+          <div className={`col p-0`}>
             <div
               className={`mb-3 mt-3 d-flex align-items-center justify-content-center`}
             >
@@ -82,14 +82,16 @@ const PremiumDetails = () => {
             </div>
           </div>
         </div>
-        <div className={`col-3`}></div>
+        <div className={`d-none d-lg-block col-3`}></div>
       </div>
       <div className={`d-flex justify-content-center`}>
         <div className={`row premum-bg rounded-5 m-0`}>
-          <div className={`col p-0`}>
+          <div className={`col p-0 d-none d-md-block`}>
             <PremiumFunction />
           </div>
-          <div className={`col-7 p-0`}>
+          <div
+            className={`col-xxl-7 col-xl-6 p-0 col-lg-6 col-md-7 col-sm-10 col-10`}
+          >
             {currentUser && !currentUser.isVip && (
               <PlanSelection
                 setPlan={setPlan}
@@ -133,8 +135,10 @@ const PremiumDetails = () => {
       </div>
       <div className={`d-flex justify-content-center`}>
         <div className={`row premum-bg rounded-5 m-0`}>
-          <div className={`col`}></div>
-          <div className={`col-7 p-0`}>
+          <div className={`col p-0 d-none d-md-block`}></div>
+          <div
+            className={`col-xxl-7 col-xl-6 p-0 col-lg-6 col-md-7 col-sm-10 col-10`}
+          >
             {currentUser && show && (
               <Payment
                 number={number}
