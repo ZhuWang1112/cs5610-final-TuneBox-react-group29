@@ -12,14 +12,27 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // work version
   useEffect(() => {
     setLogin(loginUser ? true : false);
-    // const checkLoginStatus = async () => {
-    //   const response = await checkLogin(loginUser);
-    //   setLogin(response.login);
-    // };
-    // checkLoginStatus().then(r => console.log(r));
   }, [loginUser]);
+
+  // [TODO] seems that it not totally work, let's roll back to another version first
+  // useEffect(() => {
+  //   // setLogin(loginUser ? true : false);
+  //   const checkLoginStatus = async () => {
+  //     const response = await checkLogin(loginUser);
+  //     setLogin(response.login);
+  //     /**
+  //      * If the user is not logged in, remove the currentUser and defaultPlaylist from localStorage
+  //      */
+  //     if (!response.login) {
+  //       localStorage.removeItem("currentUser");
+  //       localStorage.removeItem("defaultPlaylist");
+  //     }
+  //   };
+  //   checkLoginStatus().then((r) => console.log(r));
+  // }, [loginUser]);
 
   return (
     <div
@@ -27,13 +40,13 @@ const NavBar = () => {
         "navbar-bg me-0 d-flex justify-content-end align-items-center pe-5"
       }
     >
-      {(!login || (login && currentUser && !currentUser.isVip)) && (
+      {(!login || (login && loginUser && !loginUser.isVip)) && (
         <Link to="/premium" className={`text-warning pt-2 navbar-text mx-3`}>
           <span>Premium</span>
         </Link>
       )}
 
-      {login && currentUser && currentUser.isVip && (
+      {login && loginUser && loginUser.isVip && (
         <Link to="/premium" className={`text-warning pt-2 navbar-text mx-3`}>
           <span>Unsubscribe</span>
         </Link>
