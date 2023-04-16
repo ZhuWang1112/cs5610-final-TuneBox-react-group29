@@ -26,7 +26,9 @@ const Playlist = () => {
 
   return (
     <div>
-      {playlist && <PlaylistBanner playlist={playlist} />}
+      {playlist && (
+        <PlaylistBanner playlist={playlist} setPlaylist={setPlaylist} />
+      )}
       {playlist && (
         <PlayListDetail playlist={playlist} setPlaylist={setPlaylist} />
       )}

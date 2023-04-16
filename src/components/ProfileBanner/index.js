@@ -39,7 +39,7 @@ const ProfileBanner = () => {
   if (!currentProfile) {
     currentProfile = { email: null, img: null };
   }
-  const [email, setEmail] = useState(currentProfile.email);
+  const [email, setEmail] = useState(currentUser ? currentUser.email : null);
   const [url, setUrl] = useState(currentProfile.img);
   const [avatarFile, setAvatarFile] = useState(null);
 
@@ -93,7 +93,7 @@ const ProfileBanner = () => {
           dispatch(
             updateUserNonAdminThunk({
               _id: currentUser._id,
-              email: email,
+              email: email === "" ? currentUser.email : email,
               img: url,
             })
           );
@@ -103,9 +103,14 @@ const ProfileBanner = () => {
   };
 
   const handleSubmit = () => {
+    let newEmail = email;
+    if (email === "") {
+      setEmail(currentUser.email);
+      newEmail = currentUser.email;
+    }
     const newProfile = {
       _id: currentUser._id,
-      email: email,
+      email: newEmail,
       img: url,
     };
     dispatch(updateProfile(newProfile));

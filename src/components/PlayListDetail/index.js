@@ -118,15 +118,17 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
             <div className={`text-white upgrade-text`}>
               Upgrade your account to add more songs.
             </div>
-            <div className={`mt-2`}>
+            <div
+              className={`mt-2 d-flex align-items-center justify-content-end`}
+            >
               <button
-                className={`btn not-now-btn float-end`}
+                className={`btn not-now-btn`}
                 onClick={() => setShowUpgrade(false)}
               >
                 Not now
               </button>
               <button
-                className={` login-btn rounded-pill float-end`}
+                className={` login-btn rounded-pill`}
                 onClick={() => {
                   setShowUpgrade(false);
                   navigate("/premium");

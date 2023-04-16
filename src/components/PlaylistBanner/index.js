@@ -16,7 +16,8 @@ import {
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/playlist-cover.jpeg";
-const PlaylistBanner = ({ playlist }) => {
+const PlaylistBanner = ({ playlist, setPlaylist }) => {
+  console.log("playlist in PlaylistBanner", playlist);
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -61,7 +62,7 @@ const PlaylistBanner = ({ playlist }) => {
             description: playlistDesc,
             img: url,
           };
-          playlist.img = url;
+          setPlaylist(newPlaylist);
           updatePlaylistService(newPlaylist);
         });
       }
@@ -95,7 +96,11 @@ const PlaylistBanner = ({ playlist }) => {
   };
 
   const handleConfirm = (e) => {
-    const newName = playlistName === "" ? playlist.playListName : playlistName;
+    let newName = playlistName;
+    if (playlistName === "") {
+      newName = playlist.playListName;
+      setPlaylistName(playlist.playListName);
+    }
     const newPlaylist = {
       ...playlist,
       playListName: newName,
@@ -106,6 +111,7 @@ const PlaylistBanner = ({ playlist }) => {
     if (url !== playlist.img) {
       handleUploadFirebase(avatarFile);
     } else {
+      setPlaylist(newPlaylist);
       updatePlaylistService(newPlaylist);
     }
 
