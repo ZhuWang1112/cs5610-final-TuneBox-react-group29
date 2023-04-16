@@ -27,7 +27,7 @@ const Payment = ({ number, setShow, setPlan, setPayment }) => {
           <div
             className={`d-flex justify-content-center mt-3 align-items-center`}
           >
-            <h3 classname={`text-white fw-bold`}>Your Billing information</h3>
+            <h3 className={`text-white fw-bold`}>Your Billing information</h3>
           </div>
           <div
             className={`row mt-5 d-flex align-items-center justify-content-center`}
