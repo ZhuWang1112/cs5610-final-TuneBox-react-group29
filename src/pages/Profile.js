@@ -12,7 +12,10 @@ import { findUser } from "../services/user-service";
 
 import { updateProfile } from "../reducers/profile-reducer";
 import { findProfileThunk } from "../services/thunks/profile-thunk";
-import { findUserByIdThunk } from "../services/users/users-thunks";
+import {
+  findUserByIdThunk,
+  findCurrentUserThunk,
+} from "../services/users/users-thunks";
 import { findProfileSongsThunk } from "../services/thunks/like-thunk";
 const Profile = () => {
   const { uid } = useParams();
@@ -35,7 +38,7 @@ const Profile = () => {
     }
     // fetch current login user
     if (loginUser) {
-      dispatch(findUserByIdThunk(loginUser._id));
+      dispatch(findCurrentUserThunk());
     }
     // fetch current profile
     fetchProfile(uid);

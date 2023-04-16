@@ -177,7 +177,7 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
             )}
 
             {(playlistsOption || !currentUser) &&
-              songsNumber &&
+              ((currentUser && songsNumber) || !currentUser) &&
               songs.map((item, idx) => (
                 <PlayListDetailItem
                   key={item._id + playlist._id}
