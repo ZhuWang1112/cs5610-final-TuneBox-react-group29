@@ -16,8 +16,10 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
     navigate(`/profile/${follow._id}`);
   };
 
+
   const [isFollow_, setIsFollow] = useState(isFollow);
-  // console.log("isFollow_: ", isFollow_);
+  console.log("isFollow: ", isFollow);
+  console.log("isFollow_: ", isFollow_);
   const handleFollowWithStateChange = () => {
     if (!isLogin) {
       setShow(!show);
@@ -43,14 +45,16 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
           <div className={`position-absolute name-hint`}>{follow.userName}</div>
         )}
       </div>
-      <div className={`col-4 ms-3 ps-3 d-none d-xl-block`}>
+      <div
+        className={`col-4 ms-3 ps-3 d-none d-xl-flex d-flex align-items-center`}
+      >
         <div className={``}>
           <div className={`fw-bold text-white`}>{follow.userName}</div>
           <div className={`text-muted`}>{follow.playlistsCount} playlists</div>
         </div>
       </div>
       <div className={`col d-flex align-items-center justify-content-end`}>
-        {isSelf || isFollow_ ? (
+        {isLogin && (isSelf || isFollow_) ? (
           <>
             <button
               className={`btn btn-danger fw-bold d-none d-xl-block`}

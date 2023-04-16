@@ -14,6 +14,8 @@ const Follow = () => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  console.log("currentUser in follow", currentUser);
+  console.log("checkFollowee in follow", checkFollowee);
   const handleFollow = (id) => {
     dispatch(
       updateFolloweeThunk({
@@ -40,7 +42,7 @@ const Follow = () => {
       <div className={`follow-container rounded-3`}>
         {followeeList.map((follow, idx) => (
           <FollowItem
-            key={follow._id}
+            key={follow._id + uid}
             follow={follow}
             isFollow={checkFollowee[idx]}
             handleFollow={handleFollow}
