@@ -40,7 +40,9 @@ const ProfileBanner = () => {
     currentProfile = { email: null, img: null };
   }
   const [email, setEmail] = useState(currentUser ? currentUser.email : null);
-  const [url, setUrl] = useState(currentProfile.img);
+  const [url, setUrl] = useState(currentUser.img);
+  console.log("url in profile", url);
+  console.log("profile: ", currentUser.img);
   const [avatarFile, setAvatarFile] = useState(null);
 
   const checkIsFollow = async (loginUser, targetUser) => {

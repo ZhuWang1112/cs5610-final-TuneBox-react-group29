@@ -19,6 +19,7 @@ import {
   createPlaylist,
   // deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
+import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
 import { updateProfileSongs } from "../../reducers/like-reducer";
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
@@ -72,12 +73,19 @@ const PlayList = ({ isSelf }) => {
     console.log("updatedLiked", updatedLikedObj);
     // update profileSong
     dispatch(updateProfileSongs(updatedLikedObj.likedSongs));
-    // UPDATE LIKLEDSONG
+    // update playlistcnt of user
+    dispatch(
+      updateUserNonAdminThunk({
+        _id: playlist.user,
+        playlistsCount: playlists.length - 1,
+      })
+    );
   };
 
   useEffect(() => {
     if (!currentUser && !uid) return;
     findPlaylists(uid ? uid : currentUser._id);
+    setCurrentPage(1);
     // dispatch(findPlaylistsThunk(uid ? uid : currentUser._id));
   }, [uid]);
 
