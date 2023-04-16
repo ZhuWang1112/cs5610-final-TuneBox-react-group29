@@ -11,7 +11,7 @@ function Search() {
 
   const searchPlaylistsRapidAPI = async () => {
     const response = await getPlaylists(search);
-    const currentData = JSON.parse(localStorage.getItem("currentData"));
+    const currentData = JSON.parse(localStorage.getItem("currentPlatlistData"));
     console.log("???", currentData["playlists"]["items"][0]["data"])
       console.log("!!!", currentData["playlists"])
     // console.log("???", currentData["playlists"][1])

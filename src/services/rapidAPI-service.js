@@ -53,8 +53,8 @@ export const getPlaylists = async (playlistsName) => {
 
     await axios.request(options).then(function (response) {
         console.log(" rapidapi-serivce: ",response.data);
-        localStorage.clear();
-        localStorage.setItem("currentData", JSON.stringify(response.data))
+        // localStorage.clear();
+        localStorage.setItem("currentPlatlistData", JSON.stringify(response.data))
         // console.log(response.data);
         return response.data
     }).catch(function (error) {
