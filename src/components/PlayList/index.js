@@ -30,7 +30,7 @@ const PlayList = ({ isSelf }) => {
   // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
-    navigate(`/playlist/${playlist_id}`);
+    navigate(`/details/playlist/${playlist_id}`);
   };
 
   const [currentPage, setCurrentPage] = useState(1);

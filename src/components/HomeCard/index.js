@@ -12,7 +12,7 @@ const HomeCard = ({ item, type }) => {
         if (type === "album") {
             navigate("/album/" + item._id);
         } else if (type === "playlist") {
-            navigate("/playlist/" + item._id);
+            navigate("/details/playlist/" + item._id);
         } else if (type === "artist") {
             navigate("/artist/" + item._id);
         }

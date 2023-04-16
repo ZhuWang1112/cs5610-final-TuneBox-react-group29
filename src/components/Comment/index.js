@@ -24,7 +24,7 @@ const Comment = () => {
     deleteCommentService(commentObj);
   };
   const visitPlaylist = (pid) => {
-    navitate(`/playlist/${pid}`);
+    navitate(`/details/playlist/${pid}`);
   };
   useEffect(() => {
     if (!loginId) return;
