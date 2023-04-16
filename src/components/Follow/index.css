@@ -11,3 +11,14 @@
     left: 80px;
     color: gray
 }
+.toolkit-div {
+    height: 100px;
+    width: 230px;
+    right: 20px;
+    top: 40px;
+    background-color: orange;
+    z-index: 2
+}
+.not-now:hover {
+    cursor:pointer
+}

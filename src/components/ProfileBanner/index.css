@@ -110,3 +110,11 @@ top: 500px;
     height: 100px;
     background-color: grey;
 }
+.profile-banner-toolkit-div {
+     height: 100px;
+    width: 230px;
+    right: -10px;
+    top: 380px;
+    background-color: orange;
+    z-index: 2
+}

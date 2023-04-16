@@ -65,3 +65,11 @@ color:gray;
 .overflow-hidden-format {
     overflow: hidden;
 }
+.like-toolkit-div {
+    height: 100px;
+    width: 230px;
+    right: -100px;
+    top: 40px;
+    background-color: orange;
+    z-index: 2
+}

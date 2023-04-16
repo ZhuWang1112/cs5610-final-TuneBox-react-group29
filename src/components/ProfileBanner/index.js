@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
 import { findUser, updateUser } from "../../services/user-service";
@@ -29,6 +29,7 @@ const defaultFile = "/images/profile-avatar.jpeg";
 const ProfileBanner = () => {
   const { uid } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [hasFollow, setHasFollow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [show, setShow] = useState(false);
@@ -199,7 +200,6 @@ const ProfileBanner = () => {
                   <MdAddAPhoto
                     className={`position-absolute avatar-icon`}
                     size={30}
-                    // ref={hiddenFileInput}
                     onClick={handleImgClick}
                   />
                   <input
@@ -245,45 +245,39 @@ const ProfileBanner = () => {
           )}
 
           {uid && !hasFollow && (
-            <>
+            <div className={``}>
               <button
-                ref={target}
                 className={`btn btn-muted border border-warning position-absolute edit-position text-white`}
                 onClick={() => handleFollow()}
               >
                 + Follow
               </button>
-              <Overlay target={target.current} show={show} placement="bottom">
-                {(props) => (
-                  <Tooltip
-                    // id="overlay-example"
-                    {...props}
-                    className={`toolkit-like`}
+              {show && (
+                <div
+                  className={`profile-banner-toolkit-div position-absolute rounded-3`}
+                >
+                  <h5 className={`text-white fw-bold m-2`}>
+                    Explore more friends!
+                  </h5>
+                  <div
+                    className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                   >
-                    <div className={`w-100 d-block`}>
-                      <h5 className={`text-nowrap`}>Explore your friends!</h5>
-                      <p className={`toolkit-like-text mb-2 float-start`}>
-                        <a
-                          href={`/login`}
-                          className={`toolkit-like-text text-warning`}
-                        >
-                          Login
-                        </a>{" "}
-                        to Follow
-                      </p>
-                    </div>
-                    <div className={` toolkit-like-text mt-3 mb-1`}>
-                      <button
-                        className={`btn btn-secondary p-1`}
-                        onClick={() => setShow(false)}
-                      >
-                        Not Now
-                      </button>
-                    </div>
-                  </Tooltip>
-                )}
-              </Overlay>
-            </>
+                    <button
+                      className={`btn btn-light p-1`}
+                      onClick={() => navigate("/login")}
+                    >
+                      Log in
+                    </button>
+                    <p
+                      className={`text-muted mb-0 ms-3 not-now`}
+                      onClick={() => setShow(false)}
+                    >
+                      Not Now
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
           {uid && hasFollow && (
             <button

@@ -95,7 +95,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
       )}
 
       <div className={`row w-100 p-0 m-0 mt-2`}>
-        <div className="col">
+        <div className="col p-0">
           {currentUser ? (
             <textarea
               required

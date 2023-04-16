@@ -11,6 +11,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
+import "./index.css";
 const PlayListDetailItem = ({
   id,
   song,
@@ -49,11 +50,15 @@ const PlayListDetailItem = ({
           </h5>
         </div>
         <div
-          className={`col-2 text-muted ps-0 d-none d-xl-flex d-flex align-items-center`}
+          className={`col-2 text-muted p-0 d-none d-xl-flex d-flex align-items-center`}
         >
           <h5 className={`text-muted fw-fold m-0`}>{song.duration}</h5>
         </div>
-        <div className={`col-1 d-flex align-items-center p-0`}>
+        <div
+          className={`${
+            isSelf ? `col-1` : `col-2`
+          } d-flex align-items-center justify-content-start p-0`}
+        >
           {checkSong[id] && (
             <AiFillHeart
               size={iconSize}
@@ -65,53 +70,40 @@ const PlayListDetailItem = ({
             <>
               {!playlistsOption && (
                 <>
-                  <>
-                    <div ref={target} onClick={() => setShow(!show)}>
+                  <div className={`position-relative`}>
+                    <div onClick={() => setShow(!show)}>
                       <AiOutlineHeart
                         size={iconSize}
                         className={`text-muted`}
                         // onClick={() => handleUnLikeClick(id, song._id)}
                       />
                     </div>
-                    <Overlay
-                      target={target.current}
-                      show={show}
-                      placement="right"
-                    >
-                      {(props) => (
-                        <Tooltip
-                          // id="overlay-example"
-                          {...props}
-                          className={`toolkit-like`}
+                    {show && (
+                      <div
+                        className={`like-toolkit-div position-absolute rounded-3`}
+                      >
+                        <h5 className={`text-white fw-bold m-2`}>
+                          Enjoy your Journey!
+                        </h5>
+                        <div
+                          className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                         >
-                          <div className={`w-100 d-block`}>
-                            <h5 className={`text-nowrap`}>
-                              Enjoy your Journey!
-                            </h5>
-                            <p className={`toolkit-like-text mb-2 float-start`}>
-                              <a
-                                href={`/login`}
-                                className={`toolkit-like-text text-warning`}
-                              >
-                                Login
-                              </a>{" "}
-                              to add songs
-                            </p>
-                          </div>
-                          {/* <div className={``}> */}
-                          <div className={` toolkit-like-text mt-3 mb-1`}>
-                            <button
-                              className={`btn btn-secondary p-1`}
-                              onClick={() => setShow(false)}
-                            >
-                              Not Now
-                            </button>
-                          </div>
-                          {/* </div> */}
-                        </Tooltip>
-                      )}
-                    </Overlay>
-                  </>
+                          <button
+                            className={`btn btn-light p-1`}
+                            onClick={() => navigate("/login")}
+                          >
+                            Log in
+                          </button>
+                          <p
+                            className={`text-muted mb-0 ms-3 not-now`}
+                            onClick={() => setShow(false)}
+                          >
+                            Not Now
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
 
@@ -142,11 +134,11 @@ const PlayListDetailItem = ({
             </>
           )}
         </div>
-        <div className={`col-1 d-flex align-items-center ps-0`}>
+        <div className={`col-1 d-flex align-items-center p-0`}>
           <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
         </div>
         {isSelf && playlistsOption && checkSong[id] && (
-          <div className={`col-2 d-flex align-items-center`}>
+          <div className={`col-2 d-flex align-items-center p-0`}>
             <Dropdown id="playlists">
               <Dropdown.Toggle
                 variant="warning"

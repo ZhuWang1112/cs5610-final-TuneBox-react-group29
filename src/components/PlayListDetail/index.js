@@ -102,7 +102,13 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
             <div className={`col-4`}>
               <h5 className={`fw-fold text-white`}># TITLE</h5>
             </div>
-            <div className={`col-2 text-muted ps-0`}>
+            <div
+              className={`${
+                currentUser && currentUser._id === playlist.user
+                  ? `col-2`
+                  : `col-3`
+              } text-muted ps-0`}
+            >
               <BsFillPersonLinesFill size={30} />
             </div>
             <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
