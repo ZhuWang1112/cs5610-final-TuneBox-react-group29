@@ -30,21 +30,30 @@ const PlayListDetailItem = ({
   const target = useRef(null);
   const navigate = useNavigate();
   return (
-    <div className={`mt-3 ms-3 me-3`}>
-      <div className={`row`}>
-        <div className={`col-4`}>
-          <img src={song.img} height={`50px`} width={`50px`} />
-          <h5 className={`ms-3 text-white fw-fold d-inline`}>
+    <div className={`mt-3`}>
+      <div className={`row w-100 p-0 m-0`}>
+        <div className={`col-4 p-0 d-flex align-items-center`}>
+          <img
+            src={song.img}
+            height={`50px`}
+            width={`50px`}
+            className={`d-none d-md-inline`}
+          />
+          <h5 className={`ms-2 text-white fw-fold d-inline`}>
             {song.songName}
           </h5>
         </div>
-        <div className={`col-2 text-muted d-flex align-items-center ps-0`}>
-          <h5 className={`text-white fw-fold d-inline`}>{song.artist}</h5>
+        <div className={`col text-muted d-flex align-items-center p-0`}>
+          <h5 className={`text-white fw-fold d-inline overflow-hidden-format`}>
+            {song.artist}
+          </h5>
         </div>
-        <div className={`col-2 text-muted d-flex align-items-center ps-0`}>
-          <h5 className={`text-muted fw-fold`}>{song.duration}</h5>
+        <div
+          className={`col-2 text-muted ps-0 d-none d-xl-flex d-flex align-items-center`}
+        >
+          <h5 className={`text-muted fw-fold m-0`}>{song.duration}</h5>
         </div>
-        <div className={`col d-flex align-items-center ps-0`}>
+        <div className={`col-1 d-flex align-items-center p-0`}>
           {checkSong[id] && (
             <AiFillHeart
               size={iconSize}
@@ -133,11 +142,11 @@ const PlayListDetailItem = ({
             </>
           )}
         </div>
-        <div className={`col d-flex align-items-center ps-0`}>
+        <div className={`col-1 d-flex align-items-center ps-0`}>
           <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
         </div>
         {isSelf && playlistsOption && checkSong[id] && (
-          <div className={`col d-flex align-items-center`}>
+          <div className={`col-2 d-flex align-items-center`}>
             <Dropdown id="playlists">
               <Dropdown.Toggle
                 variant="warning"

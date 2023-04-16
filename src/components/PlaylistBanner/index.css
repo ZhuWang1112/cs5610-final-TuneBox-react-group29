@@ -14,12 +14,12 @@
     top: 285px;
 }
 .playlist-cover-text-pos {
-    left: 400px;
+    left: 350px;
     top: 60px;
     font-size: 60px;
 }
 .playlist-edit-pos {
-    right: 70px;
+    right: 30px;
     top: 20px;
 }
 .playlist-num-pos {
@@ -27,19 +27,19 @@
     bottom: 30px;
 }
 .playlist-confirm-pos {
-    right: 150px;
+    right: 120px;
     top: 20px;
 }
 .playlist-cancel-pos {
-    right: 60px;
+    right: 30px;
     top: 20px;
 }
 .playlist-desc-pos {
-    left: 400px;
+    left: 350px;
     top: 170px;
 }
 .playlist-name-input {
-    width: 700px;
+    width: 500px;
 }
 
 input[type="text"], textarea {

@@ -2,6 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 const {
   findAllUsersThunk,
   findUserByIdThunk,
+  findCurrentUserThunk,
   createUserThunk,
   deleteUserThunk,
   updateUserThunk,

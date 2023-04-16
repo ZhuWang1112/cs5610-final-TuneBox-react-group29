@@ -6,7 +6,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
 import { findCommentsByPlaylist } from "../../services/comment-service.js";
-
+import { AiFillCheckCircle, AiOutlineClear } from "react-icons/ai";
 const CommentPanel = ({ pRating, setPlaylist }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
@@ -60,7 +60,6 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
 
   const fetchComments = async (pid) => {
     const data = await findCommentsByPlaylist(pid);
-    console.log("data: ", data);
     setComments(data);
   };
   useEffect(() => {
@@ -75,6 +74,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
             <img
               src={currentUser.img}
               width={50}
+              height={50}
               className={`rounded-circle`}
             />
           </div>
@@ -122,7 +122,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
                 </p>
               )}
               <div
-                className={`col d-flex align-items-center justify-content-center`}
+                className={`col d-flex align-items-center justify-content-center p-0`}
               >
                 {submit && (
                   <>
@@ -136,19 +136,29 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
                   </>
                 )}
               </div>
-              <div className={`col`}>
+              <div className={`col p-0`}>
                 <button
-                  className="rounded-pill btn btn-danger float-end mt-1 ps-3 pe-3 fw-bold"
+                  className="rounded-pill btn btn-danger float-end mt-1 ps-3 pe-3 fw-bold d-none d-xl-block"
                   onClick={() => handleClear()}
                 >
                   Clear
                 </button>
+                <AiOutlineClear
+                  size={30}
+                  className={`float-end mt-1 fw-bold d-block d-xl-none text-danger`}
+                  onClick={() => handleClear()}
+                />
                 <button
-                  className="rounded-pill btn btn-primary float-end mt-1 ps-3 pe-3 fw-bold me-3"
+                  className="rounded-pill btn btn-primary float-end mt-1 ps-3 pe-3 fw-bold d-none d-xl-block"
                   onClick={() => handleSubmit()}
                 >
                   Submit
                 </button>
+                <AiFillCheckCircle
+                  size={30}
+                  className={`float-end mt-1 fw-bold d-block d-xl-none text-primary`}
+                  onClick={() => handleSubmit()}
+                />
               </div>
             </div>
           )}

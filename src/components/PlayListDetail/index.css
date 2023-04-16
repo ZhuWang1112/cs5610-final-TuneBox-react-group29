@@ -36,11 +36,11 @@ max-height: 3.5em;
 }
 
 .song-num-pos {
-    right: 50px;
+    right: 20px;
     top: -90px;
 }
 .playlist-rating {
-    right: 50px;
+    right: 20px;
     top: -120px;
 }
 
@@ -61,4 +61,7 @@ color:gray;
     text-decoration: none;
     text-decoration-line: none;
     color: gray;
+}
+.overflow-hidden-format {
+    overflow: hidden;
 }

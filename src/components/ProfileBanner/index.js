@@ -165,6 +165,7 @@ const ProfileBanner = () => {
               <img
                 src={uid ? currentProfile.img : url}
                 width="100px"
+                height="100px"
                 className={`position-absolute avatar-position rounded-circle`}
               />
               <h5 className={`position-absolute text-white username-position`}>
