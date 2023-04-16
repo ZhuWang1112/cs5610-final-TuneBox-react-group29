@@ -18,8 +18,6 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
 
 
   const [isFollow_, setIsFollow] = useState(isFollow);
-  console.log("isFollow: ", isFollow);
-  console.log("isFollow_: ", isFollow_);
   const handleFollowWithStateChange = () => {
     if (!isLogin) {
       setShow(!show);

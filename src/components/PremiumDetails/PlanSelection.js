@@ -9,9 +9,7 @@ import Payment from "./Payment";
 const PlanSelection = ({ setPlan, setPayment, setShow, setNumber }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  console.log("currentUser: ", currentUser);
-  //   const [show, setShow] = useState();
-  //   const [number, setNumber] = useState(null);
+
   const handleSelect = (id) => {
     setPlan(true);
     setShow(true);

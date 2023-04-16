@@ -122,8 +122,7 @@ const PlaylistBanner = ({ playlist }) => {
     setUrl(playlist.img);
     setEdit(false);
   };
-  console.log("description: ", playlist);
-  console.log("currentUser: ", currentUser);
+
   return (
     <div className={`position-relative`}>
       <img

@@ -22,8 +22,6 @@ const PlayListDetailItem = ({
   handleAddToPlaylist,
   handleMovePlaylist,
 }) => {
-  console.log("playlistsOption, ", playlistsOption);
-  console.log("isSelf", isSelf);
   const { checkSong } = useSelector((state) => state.likedSong);
   const iconSize = 25;
   const renderTooltip = (props) => <Tooltip {...props}>Login to like</Tooltip>;

@@ -14,8 +14,6 @@ const Follow = () => {
   const { followeeList, checkFollowee } = useSelector((state) => state.follow);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
-  console.log("currentUser in follow", currentUser);
-  console.log("checkFollowee in follow", checkFollowee);
   const handleFollow = (id) => {
     dispatch(
       updateFolloweeThunk({

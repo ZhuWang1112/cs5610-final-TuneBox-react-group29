@@ -26,7 +26,6 @@ const PlayList = ({ isSelf }) => {
   const [show, setShow] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const { profileSongs } = useSelector((state) => state.likedSong);
-  console.log("likedSongs: profileSong", profileSongs);
   const [playlists, setPlaylists] = useState(null);
   // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
