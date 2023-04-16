@@ -2,8 +2,8 @@ import "./index.css";
 
 const Footer = () => {
   return (
-    <div className="footer row w-100 mt-5">
-      <div className="fLists col-8">
+    <div className="footer row w-100 mt-5 p-0">
+      <div className="fLists col col-xxl-8 col-xl-9 col-lg-10 col-md-10 ">
         <ul>
           <li>
             <b className="fTitle">SITE</b>
@@ -18,7 +18,7 @@ const Footer = () => {
             <a href="#">Contact Us</a>
           </li>
           <li>
-            <a href="#">Site Guidelines</a>
+            <a href="#">Guidelines</a>
           </li>
         </ul>
         <ul>
@@ -40,11 +40,6 @@ const Footer = () => {
               Digital Accessibility
             </a>
           </li>
-          <li>
-            <a href="https://oag.ca.gov/privacy/ccpa#:~:text=Businesses%20that%20sell%20personal%20information,order%20to%20submit%20your%20request.">
-              CA Do Not Sell My Personal Information
-            </a>
-          </li>
         </ul>
         <ul>
           <li>
@@ -54,15 +49,13 @@ const Footer = () => {
             <a href="https://www.northeastern.edu/">Northeastern University</a>
           </li>
           <li>
-            <a href="https://www.khoury.northeastern.edu/">
-              Khoury College of Computer Science
-            </a>
+            <a href="https://www.khoury.northeastern.edu/">Khoury College</a>
           </li>
         </ul>
       </div>
       <hr />
       <div className="copyright">
-        Copyright © 2023 TuneBox - CS5610 Group 29 · All Rights Reserved
+        Copyright © 2023 TuneBox · All Rights Reserved
       </div>
     </div>
   );
