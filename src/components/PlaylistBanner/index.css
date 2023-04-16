@@ -57,3 +57,10 @@ input[type="text"], textarea {
     left: 205px;
     top: 115px;
 }
+.arrow-back-icon {
+    left: 10px;
+    top: 10px;
+}
+.arrow-back-icon:hover {
+    cursor:pointer
+}

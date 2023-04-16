@@ -73,3 +73,8 @@ color:gray;
     background-color: orange;
     z-index: 2
 }
+.upgrade-in-playlist-div {
+    right:0;
+    z-index: 2;
+    top:-270px;
+}

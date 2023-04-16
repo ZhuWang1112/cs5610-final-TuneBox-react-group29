@@ -1,3 +1,5 @@
+import { findUserById } from "../services/users/users-service";
+
 const { createSlice } = require("@reduxjs/toolkit");
 const {
   findAllUsersThunk,
@@ -14,7 +16,7 @@ const {
 } = require("../services/users/users-thunks");
 
 const initialState = {
-  currentUser: JSON.parse(window.localStorage.getItem("currentUser")) || null,
+  currentUser: null,
   users: [],
 };
 
@@ -34,7 +36,10 @@ const usersSlice = createSlice({
     [findUserByIdThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
-
+    [findCurrentUserThunk.fulfilled]: (state, action) => {
+      console.log("findCurrentUserThunk", action.payload);
+      state.currentUser = action.payload;
+    },
     [loginThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },

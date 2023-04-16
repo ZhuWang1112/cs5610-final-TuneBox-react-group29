@@ -1,7 +1,7 @@
 import * as userService from "./users-service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { findDefaultPlaylistByUser } from "../playlist-service";
-import { updateUserNonAdmin } from "../user-service";
+import { updateUserNonAdmin, findCurrentUser } from "../user-service";
 export const findAllUsersThunk = createAsyncThunk("users/findAll", async () => {
   const users = await userService.findAllUsers();
   return users;
@@ -15,6 +15,13 @@ export const findUserByIdThunk = createAsyncThunk(
   }
 );
 
+export const findCurrentUserThunk = createAsyncThunk(
+  "users/findCurrentUser",
+  async () => {
+    const response = await findCurrentUser();
+    return response;
+  }
+);
 // export const createUserThunk = createAsyncThunk("users/create", async (user) => {
 //   const response = await userService.createUser(user);
 //   return response.data;

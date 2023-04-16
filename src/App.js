@@ -41,7 +41,7 @@ function App() {
                 <Route path="/profile/:uid" element={<Profile />} />
                 <Route path="/premium" element={<Premium />} />
                 <Route path="/admin/*" element={<Admin />} />
-                <Route path="/playlist/:id" element={<Playlist />} />
+                <Route path="/details/playlist/:id" element={<Playlist />} />
                 <Route path="/hot/artist/all" element={<AllHotArtist />} />
                 <Route path="/hot/album/all" element={<AllHotAlbum />} />
                 <Route path="/song/:uid" element={<LikeSongDetail />} />

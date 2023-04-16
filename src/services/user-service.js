@@ -6,6 +6,11 @@ export const findUser = async (userId) => {
   return response.data;
 };
 
+export const findCurrentUser = async () => {
+  const response = await axios.get(`${USER_API}/currentUser`);
+  return response.data;
+};
+
 export const updateUserNonAdmin = async (user) => {
   const response = await axios.put(`${USER_API}/${user._id}`, user);
   return response.data;

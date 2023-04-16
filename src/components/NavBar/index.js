@@ -40,13 +40,13 @@ const NavBar = () => {
         "navbar-bg me-0 d-flex justify-content-end align-items-center pe-5"
       }
     >
-      {(!login || (login && loginUser && !loginUser.isVip)) && (
+      {(!login || (login && currentUser && !currentUser.isVip)) && (
         <Link to="/premium" className={`text-warning pt-2 navbar-text mx-3`}>
           <span>Premium</span>
         </Link>
       )}
 
-      {login && loginUser && loginUser.isVip && (
+      {login && currentUser && currentUser.isVip && (
         <Link to="/premium" className={`text-warning pt-2 navbar-text mx-3`}>
           <span>Unsubscribe</span>
         </Link>

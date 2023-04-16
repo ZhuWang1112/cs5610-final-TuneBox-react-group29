@@ -5,6 +5,7 @@ import HomeCard from '../../components/HomeCard';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import {Link} from "react-router-dom";
 import UpgradeBanner from "../../components/UpgradeBanner";
+import { findCurrentUserThunk } from "../../services/users/users-thunks";
 
 const Home = () => {
     const {artists} = useSelector((state) => state.hot);
@@ -20,6 +21,7 @@ const Home = () => {
         dispatch(hotAlbumThunk());
         dispatch(hotPlaylistThunk());
         dispatch(hotUserThunk());
+        dispatch(findCurrentUserThunk());
     }, []);
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);

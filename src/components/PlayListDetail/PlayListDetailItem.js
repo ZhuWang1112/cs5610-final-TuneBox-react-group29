@@ -24,10 +24,10 @@ const PlayListDetailItem = ({
 }) => {
   const { checkSong } = useSelector((state) => state.likedSong);
   const iconSize = 25;
-  const renderTooltip = (props) => <Tooltip {...props}>Login to like</Tooltip>;
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const navigate = useNavigate();
+
   return (
     <div className={`mt-3`}>
       <div className={`row w-100 p-0 m-0`}>
@@ -73,7 +73,6 @@ const PlayListDetailItem = ({
                       <AiOutlineHeart
                         size={iconSize}
                         className={`text-muted`}
-                        // onClick={() => handleUnLikeClick(id, song._id)}
                       />
                     </div>
                     {show && (

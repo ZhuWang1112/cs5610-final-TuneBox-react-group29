@@ -5,12 +5,14 @@ import PlayListDetailItem from "./PlayListDetailItem";
 import CommentPanel from "./CommentPanel";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updateLike } from "../../services/like-service.js";
 import { updateLikeSong, deleteLikeSong } from "../../reducers/like-reducer.js";
 import {
   deleteSongPlaylist,
   createSongPlaylist,
+  findSongNumberByUserId,
 } from "../../services/songPlaylist-service.js";
 import { findPlaylists } from "../../services/playlist-service.js";
 import {
@@ -25,9 +27,13 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   const loginId = currentUser ? currentUser._id : null;
   const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
+  const [songsNumber, setSongsNumber] = useState(null);
   const [playlistRating, setPlaylistRating] = useState(playlist.rating);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const SONG_LIMITATION_FOR_REGULAR_USER = 1;
+  console.log("currentUser in playlist", currentUser);
   let showDelete;
   if (!currentUser || currentUser._id !== playlist.user) {
     showDelete = false;
@@ -53,6 +59,10 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
 
   const handleAddToPlaylist = async (id, pid, songId) => {
     if (!currentUser) return;
+    if (!currentUser.isVip && songsNumber >= SONG_LIMITATION_FOR_REGULAR_USER) {
+      setShowUpgrade(true);
+      return;
+    }
     dispatch(updateLikeSong(id));
     updateLike({
       user: currentUser._id,
@@ -71,6 +81,9 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
     let myPlaylists = await findPlaylists(uid);
     myPlaylists = myPlaylists.filter((p) => p._id !== playlist._id);
     setPlaylistsOption(myPlaylists);
+    // find how many songs current user likes
+    const songNumbersOfLoginUser = await findSongNumberByUserId(uid);
+    setSongsNumber(songNumbersOfLoginUser);
   };
 
   useEffect(() => {
@@ -96,6 +109,37 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
       >
         {songs.length} songs
       </h4>
+      {showUpgrade && (
+        <>
+          <div
+            className={`col text-white position-absolute upgrade-in-playlist-div p-3 rounded-3 bg-primary fw-bold`}
+          >
+            Enjoy your Premium Journey!
+            <div className={`text-white upgrade-text`}>
+              Upgrade your account to add more songs.
+            </div>
+            <div
+              className={`mt-2 d-flex align-items-center justify-content-end`}
+            >
+              <button
+                className={`btn not-now-btn`}
+                onClick={() => setShowUpgrade(false)}
+              >
+                Not now
+              </button>
+              <button
+                className={` login-btn rounded-pill`}
+                onClick={() => {
+                  setShowUpgrade(false);
+                  navigate("/premium");
+                }}
+              >
+                Upgrade
+              </button>
+            </div>
+          </div>
+        </>
+      )}
       <div className={`row`}>
         <div className={`col`}>
           <div className={`row`}>
@@ -133,9 +177,10 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
             )}
 
             {(playlistsOption || !currentUser) &&
+              ((currentUser && songsNumber) || !currentUser) &&
               songs.map((item, idx) => (
                 <PlayListDetailItem
-                  key={item._id}
+                  key={item._id + playlist._id}
                   id={idx}
                   song={item}
                   isSelf={currentUser && currentUser._id === playlist.user}

@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updatePlaylist as updatePlaylistService } from "../../services/playlist-service.js";
 import { MdAddAPhoto } from "react-icons/md";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router";
 import {
   ref,
   uploadBytesResumable,
@@ -14,8 +16,10 @@ import {
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/playlist-cover.jpeg";
-const PlaylistBanner = ({ playlist }) => {
+const PlaylistBanner = ({ playlist, setPlaylist }) => {
+  console.log("playlist in PlaylistBanner", playlist);
   const { id } = useParams();
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [playlistName, setPlaylistName] = useState(playlist.playListName);
   const [playlistDesc, setPlaylistDesc] = useState(playlist.description);
@@ -58,7 +62,7 @@ const PlaylistBanner = ({ playlist }) => {
             description: playlistDesc,
             img: url,
           };
-          playlist.img = url;
+          setPlaylist(newPlaylist);
           updatePlaylistService(newPlaylist);
         });
       }
@@ -92,7 +96,11 @@ const PlaylistBanner = ({ playlist }) => {
   };
 
   const handleConfirm = (e) => {
-    const newName = playlistName === "" ? playlist.playListName : playlistName;
+    let newName = playlistName;
+    if (playlistName === "") {
+      newName = playlist.playListName;
+      setPlaylistName(playlist.playListName);
+    }
     const newPlaylist = {
       ...playlist,
       playListName: newName,
@@ -103,6 +111,7 @@ const PlaylistBanner = ({ playlist }) => {
     if (url !== playlist.img) {
       handleUploadFirebase(avatarFile);
     } else {
+      setPlaylist(newPlaylist);
       updatePlaylistService(newPlaylist);
     }
 
@@ -123,8 +132,16 @@ const PlaylistBanner = ({ playlist }) => {
     setEdit(false);
   };
 
+  const handleBackClick = () => {
+    navigate(-1); // Navigate back on arrow click
+  };
   return (
     <div className={`position-relative`}>
+      <BsFillArrowLeftCircleFill
+        onClick={handleBackClick}
+        size={30}
+        className={`position-absolute text-warning arrow-back-icon`}
+      />
       <img
         src={`/images/playlist-banner.jpeg`}
         height={`250px`}

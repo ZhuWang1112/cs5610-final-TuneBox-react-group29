@@ -13,6 +13,11 @@ export const deleteSongPlaylist = async (userId, songId) => {
   return response.data;
 };
 
+export const findSongNumberByUserId = async (userId) => {
+  const response = await axios.get(`${SONG_PLAYLIST_API}/songNumber/${userId}`);
+  return response.data;
+};
+
 export const createSongPlaylist = async (userId, songId, playlistId) => {
   const response = await axios.post(SONG_PLAYLIST_API, {
     userId: userId,
