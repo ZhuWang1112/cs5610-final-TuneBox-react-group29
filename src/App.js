@@ -20,6 +20,7 @@ import AllHotArtist from "./pages/homePage/AllHotArtist";
 import AllHotAlbum from "./pages/homePage/AllHotAlbum";
 import LikeSongDetail from "./components/LikeSongs/LikeSongDetail";
 import axios from "axios";
+import MediaPlayer from "./components/MediaPlayer";
 
 function App() {
   return (
@@ -47,9 +48,12 @@ function App() {
                 <Route path="/song/:uid" element={<LikeSongDetail />} />
               </Routes>
             </div>
-
             <Footer />
           </div>
+        </div>
+        <div></div>
+        <div className={"wd-mediaPlayer"}>
+          <MediaPlayer />
         </div>
       </BrowserRouter>
     </Provider>
