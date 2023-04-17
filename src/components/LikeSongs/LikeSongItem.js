@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { MdRemoveCircle } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
+import { getTrackThunk } from "../../services/thunks/track-thunk";
 import "./index.css";
+
 const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const dispatch = useDispatch();
+  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  const track = useSelector((state) => state.currentTrack.track);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -11,6 +18,13 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
 
   const handleMouseOut = () => {
     setIsHovering(false);
+  };
+  const handlePlay = () => {
+    if (track.apiSongId === song.apiSongId) {
+      dispatch(updateIsPlaying(!isPlaying));
+    } else {
+      dispatch(getTrackThunk(song));
+    }
   };
   return (
     <div className={`mx-2 mt-3 position-relative song-item-div`}>
@@ -31,6 +45,7 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
             <AiFillPlayCircle
               className={`position-absolute song-play-icon text-dark`}
               size={40}
+              onClick={() => handlePlay()}
             />
           )}
         </div>
