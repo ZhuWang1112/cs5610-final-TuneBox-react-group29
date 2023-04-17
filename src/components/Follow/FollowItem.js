@@ -81,9 +81,7 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
             />
             {show && (
               <div className={`toolkit-div position-absolute rounded-3`}>
-                <h5 className={`text-white fw-bold m-2`}>
-                  Explore more friends!
-                </h5>
+                <h5 className={`text-white fw-bold m-2`}>Explore friends!</h5>
                 <div
                   className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                 >

@@ -52,12 +52,16 @@ const PlayListDetailItem = ({
             width={`50px`}
             className={`d-none d-md-inline`}
           />
-          <h5 className={`ms-2 text-white fw-fold d-inline`}>
+          <h5
+            className={`ms-1 text-white fw-fold d-inline playlist-detail-songname text-nowrap`}
+          >
             {song.songName}
           </h5>
         </div>
         <div className={`col text-muted d-flex align-items-center p-0`}>
-          <h5 className={`text-white fw-fold d-inline overflow-hidden-format`}>
+          <h5
+            className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap`}
+          >
             {song.artist}
           </h5>
         </div>

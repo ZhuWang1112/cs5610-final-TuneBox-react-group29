@@ -28,6 +28,15 @@ const PlayList = ({ isSelf }) => {
   const { currentUser } = useSelector((state) => state.user);
   const { profileSongs } = useSelector((state) => state.likedSong);
   const [playlists, setPlaylists] = useState(null);
+  const [playlistPerPage, setPlaylistPerPage] = useState(
+    window.innerWidth > 1630
+      ? 4
+      : window.innerWidth > 750
+      ? 3
+      : window.innerWidth > 559
+      ? 2
+      : 1
+  );
   // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
@@ -94,7 +103,16 @@ const PlayList = ({ isSelf }) => {
   );
 
   const handleResize = () => {
-    setWindowWidth(window.innerWidth > 750 ? 750 : window.innerWidth);
+    // setWindowWidth(window.innerWidth > 750 ? 750 : window.innerWidth);
+    setPlaylistPerPage(
+      window.innerWidth > 1630
+        ? 4
+        : window.innerWidth > 750
+        ? 3
+        : window.innerWidth > 559
+        ? 2
+        : 1
+    );
   };
 
   useEffect(() => {
@@ -105,7 +123,7 @@ const PlayList = ({ isSelf }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  let playlistPerPage = Math.floor(windowWidth / 250);
+  // let playlistPerPage = Math.floor(windowWidth / 250);
   let indexOfLastPlaylist = currentPage * playlistPerPage;
   let indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
 

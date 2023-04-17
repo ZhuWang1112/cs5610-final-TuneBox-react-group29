@@ -44,3 +44,9 @@
 .visit-playlist:hover {
     color: orange;
 }
+.visit-playlist {
+    height: 1.5em;
+    width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

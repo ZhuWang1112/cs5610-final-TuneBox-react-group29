@@ -15,15 +15,17 @@ const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
 
         <div className={`text-white col`}>
           <div className={`row w-100 d-flex align-items-center`}>
-            <span className={`text-white d-inline col-5`}>
+            <div className={`text-white d-inline col-6`}>
               <div
-                className={`fw-bold visit-playlist`}
+                className={`fw-bold visit-playlist text-nowrap`}
                 onClick={() => visitPlaylist(comment.playlist)}
               >
                 {comment.playListName}
               </div>
-              <div className={`text-muted`}>{comment.userName}</div>
-            </span>
+              <div className={`text-muted visit-playlist text-nowrap`}>
+                {comment.userName}
+              </div>
+            </div>
             <span className={`d-inline col`}>
               <StarRatings
                 rating={comment.rating}

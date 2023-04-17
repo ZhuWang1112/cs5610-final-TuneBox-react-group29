@@ -34,13 +34,34 @@ const LikeSongs = () => {
     { id: 7 },
     { id: 8 },
     { id: 9 },
+    { id: 10 },
+    { id: 11 },
+    { id: 12 },
   ];
   const [windowWidth, setWindowWidth] = useState(
     window.innerWidth > 760 ? 760 : window.innerWidth
   );
+  const [displayNum, setDisplayNum] = useState(
+    window.innerWidth > 1575
+      ? 6
+      : window.innerWidth > 1055
+      ? 5
+      : window.innerWidth > 630
+      ? 4
+      : 3
+  );
 
   const handleResize = () => {
-    setWindowWidth(window.innerWidth > 760 ? 760 : window.innerWidth);
+    // setWindowWidth(window.innerWidth > 760 ? 760 : window.innerWidth);
+    setDisplayNum(
+      window.innerWidth > 1575
+        ? 6
+        : window.innerWidth > 1055
+        ? 5
+        : window.innerWidth > 630
+        ? 4
+        : 3
+    );
   };
 
   useEffect(() => {
@@ -51,7 +72,7 @@ const LikeSongs = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  let displayNum = Math.floor(windowWidth / 150);
+  // let displayNum = Math.floor(windowWidth / 150);
   data = data.slice(0, displayNum);
 
   return (
@@ -88,7 +109,11 @@ const LikeSongs = () => {
             />
           ))}
         {/* {data.map((item) => (
-          <LikeSongItem song={item} />
+          <LikeSongItem
+            song={item}
+            handleRemoveSong={handleRemoveSong}
+            isSelf={uid ? false : true}
+          />
         ))} */}
 
         {profileSongs && profileSongs.length === 0 && (

@@ -1,18 +1,20 @@
 .like-song-container {
-    width: 95%;
-    max-width: 900px;
+    width: 100%;
     flex-wrap: wrap;
 }
 .song-outer-container {
-    width: 95%;
+    width: 100%;
 }
 .song-play-icon {
-    bottom: 93px;
-    right: 40px;
+    bottom: 99px;
+    right: 45px;
     border-radius: 50%;
     background-color: green;
 }
-
+.song-item-div {
+    width: 130px;
+   
+}
 .song-item-card {
     width: 120px;
 }
@@ -23,4 +25,15 @@
 }
 .song-remove-icon:hover {
     color: red;
+}
+.song-item-name {
+    width: 130px;
+    overflow: hidden;
+     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.song-item-artist {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -68,16 +68,24 @@ const NavBar = () => {
         </>
       )}
       {login && (
-        <Link to="/login" className={`text-muted pt-2 navbar-text mx-3`}>
-          <span
-            onClick={() => {
-              dispatch(logoutThunk());
-              navigate("/login");
-            }}
-          >
-            Logout
-          </span>
-        </Link>
+        <>
+          {currentUser && (
+            <h5 className={`m-0 text-warning ms-3 welcome-cell text-nowrap`}>
+              Hi {currentUser.userName}
+            </h5>
+          )}
+
+          <Link to="/login" className={`text-muted pt-2 navbar-text mx-3`}>
+            <span
+              onClick={() => {
+                dispatch(logoutThunk());
+                navigate("/login");
+              }}
+            >
+              Logout
+            </span>
+          </Link>
+        </>
       )}
     </div>
   );

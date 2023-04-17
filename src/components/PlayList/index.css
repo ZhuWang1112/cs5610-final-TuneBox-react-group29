@@ -6,6 +6,9 @@
     width: 100%;
     margin: 0px;
 }
+.playlist-item-div {
+    width: 180px;
+}
 .remove-icon {
     right: 5px;
 }
@@ -16,6 +19,11 @@
 }
 .add-icon:hover {
     color: orange;
+}
+.playlist-name {
+    width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .playlist-name:hover {
     color: orange;

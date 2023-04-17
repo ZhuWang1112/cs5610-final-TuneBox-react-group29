@@ -108,7 +108,7 @@ const PremiumDetails = () => {
                 className={`login-hint-div d-flex align-items-center justify-content-center row p-0 m-0 mt-5`}
               >
                 <div
-                  className={`d-flex justify-content-center mt-3 align-items-center col-8`}
+                  className={`d-flex justify-content-center mt-3 align-items-center col`}
                 >
                   <h3 className={`text-white fw-bold`}>
                     Please login to choose your plan
