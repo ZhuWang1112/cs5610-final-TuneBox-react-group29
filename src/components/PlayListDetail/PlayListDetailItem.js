@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BsFillPlayCircleFill } from "react-icons/bs";
+import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { BsThreeDotsVertical, BsFillFolderSymlinkFill } from "react-icons/bs";
@@ -12,6 +12,9 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
 import "./index.css";
+import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import {getTrackThunk} from "../../services/thunks/track-thunk";
+import {FaRegPauseCircle, FaRegPlayCircle} from "react-icons/fa";
 const PlayListDetailItem = ({
   id,
   song,
@@ -27,6 +30,17 @@ const PlayListDetailItem = ({
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  const track = useSelector((state) => state.currentTrack.track);
+
+  const handlePlay = () => {
+    if (track.apiSongId === song.apiSongId) {
+      dispatch(updateIsPlaying(!isPlaying));
+    } else {
+        dispatch(getTrackThunk(song));
+    }
+  }
 
   return (
     <div className={`mt-3`}>
@@ -131,8 +145,8 @@ const PlayListDetailItem = ({
             </>
           )}
         </div>
-        <div className={`col-1 d-flex align-items-center p-0`}>
-          <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
+        <div className={`col-1 d-flex align-items-center p-0`} onClick={handlePlay}>
+          {isPlaying && track.apiSongId === song.apiSongId ? <BsFillPauseCircleFill size={iconSize} className={`text-success`} /> : <BsFillPlayCircleFill size={iconSize} className={`text-success`} />}
         </div>
         {isSelf && playlistsOption && checkSong[id] && (
           <div className={`col-2 d-flex align-items-center p-0`}>

@@ -45,6 +45,15 @@ body {
 .bg {
   background-color: black;
 }
+.wd-mediaPlayer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 85px;
+  background-color: rgb(24,24,24);
+  z-index: 999;
+}
 
 .page-min-height {
   min-height: 100vh;
