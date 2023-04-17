@@ -9,3 +9,7 @@
 .navbar-text {
   font-size: large;
 }
+
+.sidebar-profile-tab {
+  cursor: pointer;
+}
