@@ -28,6 +28,7 @@ height: 300px;
 
 .comment-hover-color:hover {
 color: orange;
+cursor: pointer;
 }
 .comment-content {
 max-height: 3.5em; 
@@ -77,4 +78,19 @@ color:gray;
     right:0;
     z-index: 2;
     top:-270px;
+}
+.comment-user-name-div {
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.playlist-detail-songname {
+    width: 135px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.playlist-detail-artist {
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

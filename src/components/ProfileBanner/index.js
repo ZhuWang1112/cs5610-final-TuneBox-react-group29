@@ -40,7 +40,9 @@ const ProfileBanner = () => {
     currentProfile = { email: null, img: null };
   }
   const [email, setEmail] = useState(currentUser ? currentUser.email : null);
-  const [url, setUrl] = useState(currentProfile.img);
+  const [url, setUrl] = useState(
+    currentUser ? currentUser.img : "/images/profile-avatar.jpeg"
+  );
   const [avatarFile, setAvatarFile] = useState(null);
 
   const checkIsFollow = async (loginUser, targetUser) => {
@@ -261,9 +263,7 @@ const ProfileBanner = () => {
                 <div
                   className={`profile-banner-toolkit-div position-absolute rounded-3`}
                 >
-                  <h5 className={`text-white fw-bold m-2`}>
-                    Explore more friends!
-                  </h5>
+                  <h5 className={`text-white fw-bold m-2`}>Explore friends!</h5>
                   <div
                     className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                   >

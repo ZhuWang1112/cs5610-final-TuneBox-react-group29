@@ -151,6 +151,7 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
         src={url}
         className={`rounded-3 position-absolute playlist-cover-pos`}
         width={`200px`}
+        height={`200px`}
       />
 
       {!edit && (
@@ -185,7 +186,7 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
       {edit && (
         <>
           <input
-            className="form-control control-input me-2 position-absolute playlist-cover-text-pos playlist-name-input"
+            className="form-control control-input me-2 position-absolute playlist-cover-text-pos playlist-name-input d-none d-lg-block"
             id="playlist-cover-text"
             name="playlist-cover-text"
             type="text"
@@ -209,7 +210,7 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
           </button>
 
           <textarea
-            className="form-control control-input me-2 position-absolute playlist-desc-pos playlist-name-input"
+            className="form-control control-input me-2 position-absolute playlist-desc-pos playlist-name-input d-none d-lg-block"
             id="playlist-cover-desc"
             name="playlist-cover-desc"
             type="text"

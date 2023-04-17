@@ -15,7 +15,9 @@ import { useNavigate } from "react-router";
 const SideBar = () => {
   const { pathname } = useLocation();
   const paths = pathname.split("/");
-  const active = paths[2] === "" || paths[2] === undefined ? "home" : paths[2];
+  console.log("paths: ", paths);
+  const active = paths[1] === "" || paths[1] === undefined ? "home" : paths[1];
+  console.log("active: ", active);
 
   const navigate = useNavigate();
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -29,20 +31,22 @@ const SideBar = () => {
     <ul className={"list-unstyled wd-navbar sidebar-bg mb-0"}>
       <div className={`d-none d-xxl-block`}>
         <div className={`d-flex justify-content-center`}>
-          <h2 className={`text-white mt-5 fw-bold`}>TuneBox</h2>
+          <h2 className={`text-white mt-5 mb-5 fw-bold`}>TuneBox</h2>
         </div>
       </div>
       <div
-        className={`d-flex justify-content-center align-items-center d-block d-xxl-none`}
+        className={`d-flex justify-content-center align-items-center d-block d-xxl-none ms-2`}
       >
-        <SiMusicbrainz size={30} className={`text-white mt-3`} />
+        <SiMusicbrainz size={30} className={`text-white mt-5 mb-5`} />
       </div>
       <Link
         to="/home"
-        className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-5`}
+        className={`list-group-item d-flex align-items-center justify-content-center fw-bold pt-3 pb-3 ${
+          active === `home` ? `bg-warning text-white` : `text-muted`
+        }`}
       >
         <div className={`row d-flex align-items-center`}>
-          <div className={`col p-0`}>
+          <div className={`col p-0 ms-2`}>
             <AiOutlineHome
               className={`float-end p-0`}
               size={25}
@@ -56,10 +60,12 @@ const SideBar = () => {
       </Link>
       <Link
         to="/search"
-        className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
+        className={`list-group-item d-flex align-items-center justify-content-center fw-bold pt-3 pb-3 ${
+          active === `search` ? `bg-warning text-white` : `text-muted`
+        }`}
       >
         <div className={`row d-flex align-items-center`}>
-          <div className={`col p-0`}>
+          <div className={`col p-0 ms-2`}>
             <AiOutlineSearch className={`float-end p-0`} size={25} />
           </div>
           <div className={`col-8 d-none d-xxl-block`}>
@@ -69,11 +75,13 @@ const SideBar = () => {
       </Link>
 
       <div
-        className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
+        className={`list-group-item d-flex align-items-center justify-content-center fw-bold sidebar-profile-tab pt-3 pb-3 ${
+          active === `profile` ? `bg-warning text-white` : `text-muted`
+        }`}
         onClick={() => navigate(`/profile`)}
       >
         <div className={`row d-flex align-items-center`}>
-          <div className={`col p-0`}>
+          <div className={`col p-0 ms-2`}>
             <FaRegUser className={`float-end p-0`} size={25} />
           </div>
           <div className={`col-8 d-none d-xxl-block`}>
@@ -84,10 +92,12 @@ const SideBar = () => {
       {login && loginUser && loginUser.isAdmin && (
         <Link
           to="/admin/dashboard"
-          className={`list-group-item d-flex align-items-center justify-content-center text-muted fw-bold mt-3`}
+          className={`list-group-item d-flex align-items-center justify-content-center fw-bold pt-3 pb-3 ${
+            active === `admin` ? `bg-warning text-white` : `text-muted`
+          }`}
         >
           <div className={`row d-flex align-items-center`}>
-            <div className={`col p-0`}>
+            <div className={`col p-0 ms-2`}>
               <MdOutlineAdminPanelSettings
                 className={`float-end p-0`}
                 size={25}
