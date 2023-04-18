@@ -51,7 +51,7 @@ const PlaylistsTable = () => {
                         <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Description</th>
+                            <th scope="col" className="d-none d-lg-table-cell">Description</th>
                             <th scope="col">Creator</th>
                             <th scope="col">Songs</th>
                             <th scope="col">Actions</th>
@@ -62,7 +62,7 @@ const PlaylistsTable = () => {
                             return (
                                 <tr key={playlist._id}>
                                     <td>{playlist.playListName}</td>
-                                    <td>{playlist.description}</td>
+                                    <td className="d-none d-lg-table-cell">{playlist.description}</td>
                                     <td>{playlist.user.userName}</td>
                                     <td>{playlist.songs.length}</td>
                                     <td>
