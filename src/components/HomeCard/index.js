@@ -93,10 +93,8 @@ const HomeCard = ({ item, type }) => {
 
           {type === "song" && (
             <>
-              {/* <Card.Title className={"wd-card"}>{item.songName}</Card.Title>
-                <Card.Text className={"wd-card"}>{item.artist}</Card.Text> */}
-              <Card.Title className={"wd-card"}>songName</Card.Title>
-              <Card.Text className={"wd-card"}>artist</Card.Text>
+              <Card.Title className={"wd-card"}>{item.songName}</Card.Title>
+              <Card.Text className={"wd-card"}>{item.artist}</Card.Text>
             </>
           )}
         </Card.Body>

@@ -34,27 +34,27 @@ export const findPlaylistDetailsThunk = createAsyncThunk(
   }
 );
 
-export const findSongsThunk = createAsyncThunk(
-  "profile/findSongsThunk",
-  async (playlist) => {
-    const songs = await service.findSongs(playlist);
-    return songs;
-  }
-);
+// export const findSongsThunk = createAsyncThunk(
+//   "profile/findSongsThunk",
+//   async (playlist) => {
+//     const songs = await service.findSongs(playlist);
+//     return songs;
+//   }
+// );
 
-export const checkSongsThunk = createAsyncThunk(
-  "profile/checkSongsThunk",
-  async ({ user, pid }) => {
-    const response = await service.checkSongs(user, pid);
-    console.log("checkSongsThunk response, ", response);
-    return response;
-  }
-);
+// export const checkSongsThunk = createAsyncThunk(
+//   "profile/checkSongsThunk",
+//   async ({ user, pid }) => {
+//     const response = await service.checkSongs(user, pid);
+//     console.log("checkSongsThunk response, ", response);
+//     return response;
+//   }
+// );
 
-export const findSongsPlaylistThunk = createAsyncThunk(
-  "profile/findSongsPlaylistThunk",
-  async (pid) => {
-    const songPlaylist = await findSongsByPlaylistId(pid);
-    return songPlaylist;
-  }
-);
+// export const findSongsPlaylistThunk = createAsyncThunk(
+//   "profile/findSongsPlaylistThunk",
+//   async (pid) => {
+//     const songPlaylist = await findSongsByPlaylistId(pid);
+//     return songPlaylist;
+//   }
+// );

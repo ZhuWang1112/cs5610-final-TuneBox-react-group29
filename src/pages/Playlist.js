@@ -7,6 +7,7 @@ import {
   findUserByIdThunk,
   findCurrentUserThunk,
 } from "../services/users/users-thunks";
+import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 import { useDispatch, useSelector } from "react-redux";
 const Playlist = () => {
   const { id } = useParams();
@@ -25,6 +26,7 @@ const Playlist = () => {
       return;
     }
     dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
   }, [id]);
 
   return (

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import HomeCard from "../../components/HomeCard";
 import React, { useEffect, useState } from "react";
 import { findLikedSongs } from "../../services/like-service";
+import { findLikedSongsByUser } from "../../services/songPlaylist-service";
 // import LikeSongItem from "./LikeSongItem";
 
 const LikeSongDetail = () => {
@@ -16,24 +17,15 @@ const LikeSongDetail = () => {
     navigate(-1); // Navigate back on arrow click
   };
   const findSongs = async (id) => {
-    const data = await findLikedSongs(id);
+    // const data = await findLikedSongs(id);
+    const data = await findLikedSongsByUser(id);
+    console.log("data in LikeSongDetail", data);
     setSongs(data);
   };
   useEffect(() => {
     findSongs(uid ? uid : currentUser._id);
   }, [uid]);
 
-  const data = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
-    { id: 8 },
-    { id: 9 },
-  ];
   return (
     <div className={"m-2"}>
       <div
@@ -47,12 +39,12 @@ const LikeSongDetail = () => {
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {songs &&
-          data.map((song) => (
+          songs.map((song) => (
             <div
               key={song.id}
               style={{ flex: "1 0 16.666%", maxWidth: "16.666%" }}
             >
-              <HomeCard item={song} type={"song"} />
+              <HomeCard item={song.songId} type={"song"} />
             </div>
           ))}
       </div>
