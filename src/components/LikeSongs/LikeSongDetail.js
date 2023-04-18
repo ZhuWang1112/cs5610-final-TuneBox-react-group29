@@ -22,9 +22,26 @@ const LikeSongDetail = () => {
     console.log("data in LikeSongDetail", data);
     setSongs(data);
   };
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
   useEffect(() => {
-    findSongs(uid ? uid : currentUser._id);
-  }, [uid]);
+     findSongs(uid ? uid : currentUser._id);
+   }, [uid]);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  let num = Math.floor(windowWidth / 250);
 
   return (
     <div className={"m-2"}>
@@ -42,7 +59,7 @@ const LikeSongDetail = () => {
           songs.map((song) => (
             <div
               key={song.id}
-              style={{ flex: "1 0 16.666%", maxWidth: "16.666%" }}
+              style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
             >
               <HomeCard item={song.songId} type={"song"} />
             </div>
