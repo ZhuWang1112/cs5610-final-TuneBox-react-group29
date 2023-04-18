@@ -14,11 +14,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [cellphone, setCellphone] = useState("");
 
   const register = async () => {
       try {
         localStorage.clear();
-        await dispatch(registerThunk({ userName, password, email, gender }));
+        await dispatch(registerThunk({ userName, password, email, cellphone, gender }));
         // navigate("/login");
         await dispatch(loginThunk({ userName, password })).then((res) => {
           // console.log("user info: ", window.localStorage.getItem("currentUser"));
@@ -65,6 +66,17 @@ const Register = () => {
                   setEmail(e.target.value);
                 }}
                 required={true}
+            />
+          </div>
+
+          <div >
+            What's your cellphone?
+            <input
+                placeholder="Enter your cellphone"
+                value={cellphone}
+                onChange={(e) => {
+                  setCellphone(e.target.value);
+                }}
             />
           </div>
 
