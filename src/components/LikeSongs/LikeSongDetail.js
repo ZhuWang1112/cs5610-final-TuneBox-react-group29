@@ -3,7 +3,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeCard from "../../components/HomeCard";
 import React, { useEffect, useState } from "react";
-import { findLikedSongs } from "../../services/like-service";
 import { findLikedSongsByUser } from "../../services/songPlaylist-service";
 // import LikeSongItem from "./LikeSongItem";
 

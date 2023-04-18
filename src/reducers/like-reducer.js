@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { findProfileSongsThunk } from "../services/thunks/like-thunk";
 import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 
 const likeSlice = createSlice({
@@ -21,28 +20,8 @@ const likeSlice = createSlice({
       console.log("addLikeSong", [...state.likedSongs, action.payload]);
       state.likedSongs = [...state.likedSongs, action.payload];
     },
-
-    // updateProfileSongs(state, action) {
-    //   const songsToKeep = action.payload.map((s) => s.toString());
-    //   state.profileSongs = state.profileSongs.filter((s) =>
-    //     songsToKeep.includes(s._id.toString())
-    //   );
-    // },
-    // deleteProfileSongs(state, action) {
-    //   state.profileSongs = state.profileSongs.filter(
-    //     (song) => song._id !== action.payload
-    //   );
-    // },
   },
   extraReducers: {
-    // [findProfileSongsThunk.fulfilled]: (state, { payload }) => {
-    //   state.profileSongs = payload;
-    // },
-    // [checkSongsThunk.fulfilled]: (state, { payload }) => {
-    //   console.log("payload in checkSongsThunk, ", payload);
-    //   state.songs = payload.songs;
-    //   state.checkSong = payload.checkSong;
-    // },
     [findCurrentUserSongsThunk.fulfilled]: (state, { payload }) => {
       console.log("payload in findCurrentUserSongsThunk, ", payload);
       state.likedSongs = payload;
@@ -50,11 +29,6 @@ const likeSlice = createSlice({
   },
 });
 
-export const {
-  updateLikeSong,
-  deleteLikeSong,
-  // updateProfileSongs,
-  // deleteProfileSongs,
-  addLikeSong,
-} = likeSlice.actions;
+export const { updateLikeSong, deleteLikeSong, addLikeSong } =
+  likeSlice.actions;
 export default likeSlice.reducer;
