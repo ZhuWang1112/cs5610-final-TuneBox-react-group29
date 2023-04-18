@@ -19,14 +19,29 @@ import {
   createPlaylist,
   // deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
-import { updateProfileSongs } from "../../reducers/like-reducer";
+import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
+import {
+  updateLikeSong,
+} from "../../reducers/like-reducer";
+
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const { profileSongs } = useSelector((state) => state.likedSong);
+  // const { profileSongs } = useSelector((state) => state.likedSong);
+  // const [profileSongs, setProfileSongs] = useState(null);
+  const { likedSongs } = useSelector((state) => state.likedSong);
   const [playlists, setPlaylists] = useState(null);
+  const [playlistPerPage, setPlaylistPerPage] = useState(
+    window.innerWidth > 1630
+      ? 4
+      : window.innerWidth > 750
+      ? 3
+      : window.innerWidth > 559
+      ? 2
+      : 1
+  );
   // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
@@ -70,14 +85,21 @@ const PlayList = ({ isSelf }) => {
     setPlaylists((prev) => prev.filter((p) => p._id !== playlist._id));
     const updatedLikedObj = await deletePlaylist(playlist);
     console.log("updatedLiked", updatedLikedObj);
-    // update profileSong
-    dispatch(updateProfileSongs(updatedLikedObj.likedSongs));
-    // UPDATE LIKLEDSONG
+    // update likeSong
+    dispatch(updateLikeSong(updatedLikedObj));
+    // update playlistcnt of user
+    dispatch(
+      updateUserNonAdminThunk({
+        _id: playlist.user,
+        playlistsCount: playlists.length - 1,
+      })
+    );
   };
 
   useEffect(() => {
     if (!currentUser && !uid) return;
     findPlaylists(uid ? uid : currentUser._id);
+    setCurrentPage(1);
     // dispatch(findPlaylistsThunk(uid ? uid : currentUser._id));
   }, [uid]);
 
@@ -86,7 +108,16 @@ const PlayList = ({ isSelf }) => {
   );
 
   const handleResize = () => {
-    setWindowWidth(window.innerWidth > 750 ? 750 : window.innerWidth);
+    // setWindowWidth(window.innerWidth > 750 ? 750 : window.innerWidth);
+    setPlaylistPerPage(
+      window.innerWidth > 1630
+        ? 4
+        : window.innerWidth > 750
+        ? 3
+        : window.innerWidth > 559
+        ? 2
+        : 1
+    );
   };
 
   useEffect(() => {
@@ -97,7 +128,7 @@ const PlayList = ({ isSelf }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  let playlistPerPage = Math.floor(windowWidth / 250);
+  // let playlistPerPage = Math.floor(windowWidth / 250);
   let indexOfLastPlaylist = currentPage * playlistPerPage;
   let indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
 

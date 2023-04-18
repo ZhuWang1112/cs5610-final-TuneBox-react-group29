@@ -9,3 +9,8 @@
 .navbar-text {
   text-decoration: none;
 }
+.welcome-cell {
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

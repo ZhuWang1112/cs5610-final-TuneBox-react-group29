@@ -4,8 +4,9 @@ import ProfileBanner from "../ProfileBanner";
 import PlayList from "../PlayList";
 import Comment from "../Comment";
 import LikeSongs from "../LikeSongs";
-
+import { useParams } from "react-router";
 const ProfileMiddle = ({ isSelf, isLogin }) => {
+  const { uid } = useParams();
   return (
     <div className={`profile-middle-bg`}>
       <ProfileBanner />

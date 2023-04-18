@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BsFillPlayCircleFill } from "react-icons/bs";
+import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { BsThreeDotsVertical, BsFillFolderSymlinkFill } from "react-icons/bs";
@@ -12,9 +12,12 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
 import "./index.css";
+import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import {getTrackThunk} from "../../services/thunks/track-thunk";
+import {FaRegPauseCircle, FaRegPlayCircle} from "react-icons/fa";
 const PlayListDetailItem = ({
-  id,
   song,
+  isLike,
   isSelf,
   playlistsOption,
   handleUnLikeClick,
@@ -22,49 +25,69 @@ const PlayListDetailItem = ({
   handleAddToPlaylist,
   handleMovePlaylist,
 }) => {
-  const { checkSong } = useSelector((state) => state.likedSong);
+  console.log("song in detail: ", song);
+  const [like, setLike] = useState(isLike);
   const iconSize = 25;
   const [show, setShow] = useState(false);
-  const target = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // playing status -- boolean
+  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  // current song
+  const track = useSelector((state) => state.currentTrack.track);
+
+  const handlePlay = () => {
+    if (track.apiSongId === song.songId.apiSongId) {
+      dispatch(updateIsPlaying(!isPlaying));
+    } else {
+      dispatch(getTrackThunk(song.songId));
+    }
+  };
 
   return (
     <div className={`mt-3`}>
       <div className={`row w-100 p-0 m-0`}>
         <div className={`col-4 p-0 d-flex align-items-center`}>
           <img
-            src={song.img}
+            src={song.songId.img}
             height={`50px`}
             width={`50px`}
             className={`d-none d-md-inline`}
           />
-          <h5 className={`ms-2 text-white fw-fold d-inline`}>
-            {song.songName}
+          <h5
+            className={`ms-1 text-white fw-fold d-inline playlist-detail-songname text-nowrap`}
+          >
+            {song.songId.songName}
           </h5>
         </div>
         <div className={`col text-muted d-flex align-items-center p-0`}>
-          <h5 className={`text-white fw-fold d-inline overflow-hidden-format`}>
-            {song.artist}
+          <h5
+            className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap`}
+          >
+            {song.songId.artist}
           </h5>
         </div>
         <div
           className={`col-2 text-muted p-0 d-none d-xl-flex d-flex align-items-center`}
         >
-          <h5 className={`text-muted fw-fold m-0`}>{song.duration}</h5>
+          <h5 className={`text-muted fw-fold m-0`}>{song.songId.duration}</h5>
         </div>
         <div
           className={`${
             isSelf ? `col-1` : `col-2`
           } d-flex align-items-center justify-content-start p-0`}
         >
-          {checkSong[id] && (
+          {like && (
             <AiFillHeart
               size={iconSize}
               className={`text-danger`}
-              onClick={() => handleUnLikeClick(id, song._id)}
+              onClick={() => {
+                setLike(false);
+                handleUnLikeClick(song.songId._id);
+              }}
             />
           )}
-          {!checkSong[id] && (
+          {!like && (
             <>
               {!playlistsOption && (
                 <>
@@ -118,7 +141,8 @@ const PlayListDetailItem = ({
                       {playlistsOption.map((p) => (
                         <Dropdown.Item
                           onClick={() => {
-                            handleAddToPlaylist(id, p._id, song._id);
+                            // setLike(true);
+                            handleAddToPlaylist(p._id, song.songId, setLike);
                           }}
                         >
                           Add to {p.playListName}
@@ -131,10 +155,17 @@ const PlayListDetailItem = ({
             </>
           )}
         </div>
-        <div className={`col-1 d-flex align-items-center p-0`}>
-          <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
+        <div
+          className={`col-1 d-flex align-items-center p-0`}
+          onClick={handlePlay}
+        >
+          {isPlaying && track.apiSongId === song.songId.apiSongId ? (
+            <BsFillPauseCircleFill size={iconSize} className={`text-success`} />
+          ) : (
+            <BsFillPlayCircleFill size={iconSize} className={`text-success`} />
+          )}
         </div>
-        {isSelf && playlistsOption && checkSong[id] && (
+        {isSelf && playlistsOption && like && (
           <div className={`col-2 d-flex align-items-center p-0`}>
             <Dropdown id="playlists">
               <Dropdown.Toggle
@@ -151,7 +182,7 @@ const PlayListDetailItem = ({
                 {playlistsOption.map((p) => (
                   <Dropdown.Item
                     onClick={() => {
-                      handleMovePlaylist(id, p._id, song._id);
+                      handleMovePlaylist(p._id, song.songId._id);
                     }}
                   >
                     Move to {p.playListName}

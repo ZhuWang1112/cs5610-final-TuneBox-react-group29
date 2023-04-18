@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import {loginThunk, registerThunk} from "../services/users/users-thunks";
 import {initFollowThunk} from "../services/thunks/follow-thunk";
 import * as service from "../services/follow-service";
-import {initLikeThunk} from "../services/thunks/like-thunk";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -16,33 +15,62 @@ const Register = () => {
   const [gender, setGender] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const register = async () => {
-      try {
-        localStorage.clear();
-        await dispatch(registerThunk({ userName, password, email, cellphone, gender }));
-        // navigate("/login");
-        await dispatch(loginThunk({ userName, password })).then((res) => {
-          // console.log("user info: ", window.localStorage.getItem("currentUser"));
-          const user_id = JSON.parse(window.localStorage.getItem("currentUser"))._id;
-          navigate(`/home?_id=${user_id}`);
-        });
-        const user_id = JSON.stringify(JSON.parse(window.localStorage.getItem("currentUser"))._id);
-        dispatch(initFollowThunk( user_id ))
-        dispatch(initLikeThunk(user_id))
 
-      } catch (error) {
-        console.log(error);
-        alert("something is wrong!")
-      }
+  // const addPlaylist = () => {
+  //   if (!currentUser.isVip && playlists.length >= 3) {
+  //     setShow(true);
+  //     return;
+  //   }
+  //   const curPlaylist = playlists.length;
+  //   const newName = `My Playlist ${curPlaylist + 1}`;
+  //   const newPlaylist = {
+  //     user: currentUser._id,
+  //     playListName: newName,
+  //     description: "",
+  //     songs: [],
+  //     isDefault: false,
+  //     img: "/images/playlist-cover.jpeg",
+  //     rating: 0,
+  //   };
+  //   dispatch(
+  //     createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
+  //   ).then((res) => setPlaylists((prev) => [...prev, res.payload]));
+  // };
+
+
+  const register = async () => {
+    try {
+      localStorage.clear();
+      await dispatch(registerThunk({ userName, password, email, gender }));
+      // navigate("/login");
+      await dispatch(loginThunk({ userName, password })).then((res) => {
+        // console.log("user info: ", window.localStorage.getItem("currentUser"));
+        const user_id = JSON.parse(
+          window.localStorage.getItem("currentUser")
+        )._id;
+        navigate(`/home?_id=${user_id}`);
+      });
+      const user_id = JSON.parse(
+        window.localStorage.getItem("currentUser")
+      )._id;
+      dispatch(initFollowThunk(user_id));
+      // add one default playlist for user
+
+      // dispatch(initLikeThunk(user_id))
+    } catch (error) {
+      console.log(error);
+      alert("something is wrong!");
+    }
   };
 
   return (
-      <div >
-        <h1 >Sign up for free to start listening.</h1>
-        <p >or</p>
+    <div>
+      <h1>Sign up for free to start listening.</h1>
+      <p>or</p>
 
-        <div  >
-          <h2 >Sign up with your email address*</h2>
+      <div>
+        <h2>Sign up with your email address*</h2>
+
 
           <div >
             What should we call you?
@@ -121,8 +149,8 @@ const Register = () => {
           <p  style={{ fontSize: "1.6rem" }}>
             Have an account? <Link to="/login"> Log in.</Link>
           </p>
-        </div>
       </div>
+    </div>
   );
 };
 
