@@ -3,10 +3,12 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import "./index.css";
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
+import { getTrackThunk } from "../../services/thunks/track-thunk";
 const HomeCard = ({ item, type }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   // change to read currentUser from redux since the info of currentUser may be updated
   const { currentUser } = useSelector((state) => state.user);
@@ -17,6 +19,17 @@ const HomeCard = ({ item, type }) => {
       navigate("/details/playlist/" + item._id);
     } else if (type === "artist") {
       navigate("/artist/" + item._id);
+    }
+  };
+
+  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  const track = useSelector((state) => state.currentTrack.track);
+  const handlePlay = () => {
+    if (type !== "song") return;
+    if (track.apiSongId === item.apiSongId) {
+      dispatch(updateIsPlaying(!isPlaying));
+    } else {
+      dispatch(getTrackThunk(item));
     }
   };
 
@@ -35,7 +48,7 @@ const HomeCard = ({ item, type }) => {
           src={item.img}
         />
         <div className="wd-play-button">
-          <PlayArrowIcon />
+          <PlayArrowIcon onClick={() => handlePlay()} />
         </div>
         <Card.Body>
           {type === "album" && (

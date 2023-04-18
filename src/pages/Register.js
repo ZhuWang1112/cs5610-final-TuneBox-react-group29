@@ -14,6 +14,27 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
 
+  // const addPlaylist = () => {
+  //   if (!currentUser.isVip && playlists.length >= 3) {
+  //     setShow(true);
+  //     return;
+  //   }
+  //   const curPlaylist = playlists.length;
+  //   const newName = `My Playlist ${curPlaylist + 1}`;
+  //   const newPlaylist = {
+  //     user: currentUser._id,
+  //     playListName: newName,
+  //     description: "",
+  //     songs: [],
+  //     isDefault: false,
+  //     img: "/images/playlist-cover.jpeg",
+  //     rating: 0,
+  //   };
+  //   dispatch(
+  //     createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
+  //   ).then((res) => setPlaylists((prev) => [...prev, res.payload]));
+  // };
+
   const register = async () => {
     try {
       localStorage.clear();
@@ -30,6 +51,8 @@ const Register = () => {
         window.localStorage.getItem("currentUser")
       )._id;
       dispatch(initFollowThunk(user_id));
+      // add one default playlist for user
+
       // dispatch(initLikeThunk(user_id))
     } catch (error) {
       console.log(error);
