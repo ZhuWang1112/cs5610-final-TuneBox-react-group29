@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 // import styles from "./Register_styles.css";
 import {loginThunk, registerThunk} from "../services/users/users-thunks";
 import {initFollowThunk} from "../services/thunks/follow-thunk";
-import * as service from "../services/follow-service";
+import { createPlaylistThunk } from "../services/thunks/playlist-thunk";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -16,26 +16,17 @@ const Register = () => {
   const [cellphone, setCellphone] = useState("");
 
 
-  // const addPlaylist = () => {
-  //   if (!currentUser.isVip && playlists.length >= 3) {
-  //     setShow(true);
-  //     return;
-  //   }
-  //   const curPlaylist = playlists.length;
-  //   const newName = `My Playlist ${curPlaylist + 1}`;
-  //   const newPlaylist = {
-  //     user: currentUser._id,
-  //     playListName: newName,
-  //     description: "",
-  //     songs: [],
-  //     isDefault: false,
-  //     img: "/images/playlist-cover.jpeg",
-  //     rating: 0,
-  //   };
-  //   dispatch(
-  //     createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
-  //   ).then((res) => setPlaylists((prev) => [...prev, res.payload]));
-  // };
+  const addPlaylist = (userId) => {
+    const newPlaylist = {
+      user: userId,
+      playListName: `Default`,
+      description: "",
+      isDefault: true,
+      img: "/images/playlist-cover.jpeg",
+      rating: 0,
+    };
+    dispatch(createPlaylistThunk({ playlist: newPlaylist, cnt: 1 }));
+  };
 
 
   const register = async () => {
@@ -55,8 +46,7 @@ const Register = () => {
       )._id;
       dispatch(initFollowThunk(user_id));
       // add one default playlist for user
-
-      // dispatch(initLikeThunk(user_id))
+      addPlaylist(user_id);
     } catch (error) {
       console.log(error);
       alert("something is wrong!");
