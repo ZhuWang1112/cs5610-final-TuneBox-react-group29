@@ -4,6 +4,7 @@ import {AiOutlinePause, AiOutlinePlaySquare} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {getTrackThunk} from "../../services/thunks/track-thunk";
 import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import "./index.css";
 const MediaPlayer = () => {
 
     // const song = {
@@ -28,9 +29,14 @@ const MediaPlayer = () => {
         }
     }, [isPlaying]);
 
-    // useEffect(() => {
-    //     dispatch(getTrackThunk(song));
-    // }, [song]);
+    useEffect(() => {
+        // This is to switch the song,
+        // but it needs to add (if statement) to prevent the default song playing automatically when the page is refreshed
+        if (song.img) {
+            audioRef.current.play();
+        }
+    },[song]);
+
     const handlePlay = () => {
         dispatch(updateIsPlaying(true));
         audioRef.current.play();
@@ -57,16 +63,22 @@ const MediaPlayer = () => {
         audioRef.current.volume = newVolume;
     };
 
+    const handleAudioEnded = () => {
+        dispatch(updateIsPlaying(false));
+    };
+
     return (
         <div className={"row text-white"}>
             <div className={"col-2"}>
                 <div className={"row"}>
                     <div className={"col-6"}>
-                        <img src={song.img} alt="Song Cover" style={{ height: '85px' }} />
+                        {song.img && <img src={song.img} alt="Song Cover" style={{ height: '85px' }} />}
                     </div>
-                    <div className={"col-6 pt-2"}>
-                        <h4>{song.songName}</h4>
-                        <div>{song.artistName}</div>
+                    <div className={"col-6 p-0 m-0 pt-2 "} >
+                        <div className="wd-scrolling-text">
+                            {song.songName}
+                        </div>
+                        <div style={{ color: 'darkgray', fontSize: 'small' }}>{song.artistName}</div>
                     </div>
                 </div>
             </div>
@@ -113,7 +125,7 @@ const MediaPlayer = () => {
                     />
                 </div>
             </div>
-            <audio ref={audioRef} src={song.mp3Url} onTimeUpdate={handleTimeUpdate} />
+            <audio ref={audioRef} src={song.mp3Url} onTimeUpdate={handleTimeUpdate} onEnded={handleAudioEnded}/>
         </div>
     );
     function formatTime(time) {

@@ -1,0 +1,18 @@
+.wd-scrolling-text {
+    white-space: nowrap;
+    position: relative;
+    max-width: 100%;
+    /*overflow: hidden;*/
+    /*animation: scrolling 8s linear infinite;*/
+    /*animation-delay: 2s;*/
+
+}
+
+/*@keyframes scrolling {*/
+/*    -20%, 80% {*/
+/*        transform: translateX(50%);*/
+/*    }*/
+/*    50%{*/
+/*        transform: translateX(-20%);*/
+/*    }*/
+/*}*/

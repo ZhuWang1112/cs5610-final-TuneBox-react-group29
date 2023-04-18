@@ -10,6 +10,7 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import {Link} from "react-router-dom";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import {useEffect, useState} from "react";
@@ -49,34 +50,36 @@ const DashboardPlaylistsTable = () => {
         });
     },[]);
 
-
-
     return (
         <div className={"mb-5"}>
-            <h4 style={{color:"white"}}><LibraryMusicIcon /> Recent Playlists</h4>
+            <h4 style={{ color: "white" }}>
+                <LibraryMusicIcon /> Recent Playlists
+            </h4>
             <div>
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell align="center">Creator</StyledTableCell>
-                                <StyledTableCell align="center">songs</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <StyledTableRow key={row._id}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {row.playListName}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">{row.user.userName}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.songs.length}</StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <Box maxWidth="100%">
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 700, maxWidth: '100%' }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Name</StyledTableCell>
+                                    <StyledTableCell align="center">Creator</StyledTableCell>
+                                    <StyledTableCell align="center">songs</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <StyledTableRow key={row._id}>
+                                        <StyledTableCell component="th" scope="row">
+                                            {row.playListName}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">{row.user.userName}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.songs.length}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
             </div>
             <div>
                 <Link to="/admin/playlists" className={"float-end"}>
@@ -84,7 +87,6 @@ const DashboardPlaylistsTable = () => {
                 </Link>
             </div>
         </div>
-
     );
 }
 
