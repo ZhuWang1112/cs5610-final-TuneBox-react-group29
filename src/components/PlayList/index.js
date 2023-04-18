@@ -20,13 +20,18 @@ import {
   // deletePlaylist,
 } from "../../reducers/playlist-reducer.js";
 import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
-import { updateProfileSongs } from "../../reducers/like-reducer";
+import {
+  updateLikeSong,
+} from "../../reducers/like-reducer";
+
 const PlayList = ({ isSelf }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const { profileSongs } = useSelector((state) => state.likedSong);
+  // const { profileSongs } = useSelector((state) => state.likedSong);
+  // const [profileSongs, setProfileSongs] = useState(null);
+  const { likedSongs } = useSelector((state) => state.likedSong);
   const [playlists, setPlaylists] = useState(null);
   const [playlistPerPage, setPlaylistPerPage] = useState(
     window.innerWidth > 1630
@@ -80,8 +85,8 @@ const PlayList = ({ isSelf }) => {
     setPlaylists((prev) => prev.filter((p) => p._id !== playlist._id));
     const updatedLikedObj = await deletePlaylist(playlist);
     console.log("updatedLiked", updatedLikedObj);
-    // update profileSong
-    dispatch(updateProfileSongs(updatedLikedObj.likedSongs));
+    // update likeSong
+    dispatch(updateLikeSong(updatedLikedObj));
     // update playlistcnt of user
     dispatch(
       updateUserNonAdminThunk({

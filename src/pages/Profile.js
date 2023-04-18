@@ -16,7 +16,7 @@ import {
   findUserByIdThunk,
   findCurrentUserThunk,
 } from "../services/users/users-thunks";
-import { findProfileSongsThunk } from "../services/thunks/like-thunk";
+import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 const Profile = () => {
   const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.user);
@@ -42,7 +42,8 @@ const Profile = () => {
     }
     // fetch current profile
     fetchProfile(uid);
-    dispatch(findProfileSongsThunk(uid ? uid : loginUser._id));
+    // dispatch(findProfileSongsThunk(uid ? uid : loginUser._id));
+    dispatch(findCurrentUserSongsThunk());
   }, [uid]);
 
   return (
