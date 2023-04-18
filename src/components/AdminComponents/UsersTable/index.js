@@ -118,10 +118,10 @@ const UserTable = () => {
             <table className="table wd-white">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th  className="d-none d-lg-table-cell">ID</th>
                     <th>userName</th>
-                    <th>email</th>
-                    <th>gender</th>
+                    <th  className="d-none d-lg-table-cell">email</th>
+                    <th className="d-none d-md-table-cell">gender</th>
                     <th>isAdmin</th>
                     <th>isVip</th>
                     <th>isDeleted</th>
@@ -130,10 +130,10 @@ const UserTable = () => {
                 <tbody>
                 {users.map((user) => (
                     <tr key={user._id}>
-                        <td>{user._id}</td>
+                        <td  className="d-none d-lg-table-cell">{user._id}</td>
                         <td>{user.userName}</td>
-                        <td>{user.email}</td>
-                        <td>{user.gender}</td>
+                        <td  className="d-none d-lg-table-cell">{user.email}</td>
+                        <td className="d-none d-md-table-cell">{user.gender}</td>
                         <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                         <td>{user.isVip ? 'Yes' : 'No'}</td>
                         <td>{user.isDeleted ? 'Yes' : 'No'}</td>

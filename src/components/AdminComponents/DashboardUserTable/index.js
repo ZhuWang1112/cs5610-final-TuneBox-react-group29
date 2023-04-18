@@ -51,16 +51,16 @@ const DashboardUserTable = () => {
     return (
         <div className={"mb-5"}>
             <h4 style={{color:"white"}}><PeopleAltIcon /> Recent Users</h4>
-            <div>
+            <div className="table-responsive">
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <Table aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">UserName</StyledTableCell>
-                                <StyledTableCell align="center">Email</StyledTableCell>
-                                <StyledTableCell align="center">Gender</StyledTableCell>
-                                <StyledTableCell align="center">playlistsCount</StyledTableCell>
-                                <StyledTableCell align="center">Join Date</StyledTableCell>
+                                <StyledTableCell align="center" className="d-none d-lg-table-cell">Email</StyledTableCell>
+                                <StyledTableCell align="center" >Gender</StyledTableCell>
+                                <StyledTableCell align="center" className="d-none d-md-table-cell">playlistsCount</StyledTableCell>
+                                <StyledTableCell align="center" className="d-none d-lg-table-cell">Join Date</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -69,10 +69,10 @@ const DashboardUserTable = () => {
                                     <StyledTableCell component="th" scope="row">
                                         {row.userName}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">{row.email}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.gender}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.playlistsCount}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.createTime}</StyledTableCell>
+                                    <StyledTableCell align="center" className="d-none d-lg-table-cell">{row.email}</StyledTableCell>
+                                    <StyledTableCell align="center" >{row.gender}</StyledTableCell>
+                                    <StyledTableCell align="center" className="d-none d-md-table-cell">{row.playlistsCount}</StyledTableCell>
+                                    <StyledTableCell align="center" className="d-none d-lg-table-cell">{row.createTime}</StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>
@@ -84,9 +84,7 @@ const DashboardUserTable = () => {
                     <Button variant="contained" color="primary">View More</Button>
                 </Link>
             </div>
-
         </div>
-
     );
 }
 export default DashboardUserTable;

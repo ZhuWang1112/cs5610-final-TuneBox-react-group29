@@ -71,10 +71,10 @@ const MediaPlayer = () => {
         <div className={"row text-white"}>
             <div className={"col-2"}>
                 <div className={"row"}>
-                    <div className={"col-6"}>
+                    <div className={" col-6 p-0 m-0"}>
                         {song.img && <img src={song.img} alt="Song Cover" style={{ height: '85px' }} />}
                     </div>
-                    <div className={"col-6 p-0 m-0 pt-2 "} >
+                    <div className={"d-none d-md-block col-6 p-0 m-0 pt-2 "} >
                         <div className="wd-scrolling-text">
                             {song.songName}
                         </div>
@@ -83,7 +83,7 @@ const MediaPlayer = () => {
                 </div>
             </div>
 
-            <div className={"col-8"} >
+            <div className={"col-7 col-lg-8"} >
                 <div style={{ display: 'flex', justifyContent: 'center' }} className={"mt-2"}>
                     <div onClick={isPlaying ? handlePause : handlePlay}>
                         {isPlaying ? <FaRegPauseCircle style={{ width: '32px', height: '32px'}}/> : <FaRegPlayCircle style={{ width: '32px', height: '32px'}}/>}
@@ -108,7 +108,7 @@ const MediaPlayer = () => {
                 </div>
             </div>
 
-            <div className="col-2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="col-3 col-lg-2 d-none d-md-block" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div>
                     <FaVolumeUp className={"m-3"}/>
                     <input

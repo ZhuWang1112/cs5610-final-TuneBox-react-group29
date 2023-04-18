@@ -5,7 +5,7 @@ import {getTrackThunk} from "../services/thunks/track-thunk";
 const song = {
     apiSongId: "1",
     mp3Url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    isPlaying: false,
+    // isPlaying: false,
     artist: '',
     songName: '',
     img: ''
@@ -28,7 +28,7 @@ const currentTrackSlice = createSlice({
             state.track.artistName = payload["tracks"][0]["artists"][0]["name"];
             state.track.apiSongId = payload["tracks"][0]["id"];
             state.isPlaying = true;
-            console.log("current artist: " + state.track.artistName);
+            // console.log("current artist: " + state.track.artistName);
 
             // // console.log("current payload: " + JSON.stringify(payload));
             // console.log("current Track: " + JSON.stringify(state.track));

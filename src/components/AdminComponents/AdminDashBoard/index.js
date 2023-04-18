@@ -73,7 +73,7 @@ const AdminDashboard = () => {
     };
 
     const doughnutChartOptions = {
-        aspectRatio: 3, // width / height
+        aspectRatio: 2, // width / height
         plugins: {
             tooltip: {
                 callbacks: {
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
 
     return (
         <>
-            <div className={"m-5 ms-2"}>
+            <div className="m-5 ms-2">
                 <div className={"mb-5"} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Card style={{ width: '15rem', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)'}}>
                         <Card.Body>
@@ -100,20 +100,20 @@ const AdminDashboard = () => {
                         </Card.Body>
                     </Card>
 
-                    <Card style={{ width: '15rem', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)'}}>
+                    <Card className={"d-none d-md-block"} style={{ width: '15rem', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)'}}>
                         <Card.Body>
                             <Card.Title><PersonIcon style={{color:'gold'}}/><span className={"m-2"}>Premium Users</span><span className={"float-end"}>{premiumUsersNum}</span></Card.Title>
                         </Card.Body>
                     </Card>
 
-                    <Card style={{ width: '15rem', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)'}}>
+                    <Card  className={"d-none d-lg-block"} style={{ width: '15rem', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)'}}>
                         <Card.Body>
                             <Card.Title><LibraryMusicIcon /><span className={"m-2"}>PlayLists</span><span className={"float-end"}>{playlistsNum}</span></Card.Title>
                         </Card.Body>
                     </Card>
                 </div>
                 <div className={"mb-5"} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{width:'50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <div className={"d-none d-sm-block"} style={{width:'50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <div>
                             <span style={{color:'gold', fontSize:'23px'}} className={"me-5"}><b>Premium Users</b></span>
                             <span style={{color:"white"}}><b>{premiumUsersNum}</b></span>
@@ -123,16 +123,16 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                     {/*chart*/}
-                    <div style={{width:'50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <div  className={"d-none d-lg-block"} style={{width:'50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <Doughnut data={doughnutChartData} options={doughnutChartOptions} />
                     </div>
                 </div>
-
-                <div className={"mt-5"}></div>
-                <DashboardUserTable/>
-                <DashboardPlaylistsTable/>
+                <div className="mt-5"></div>
+                <DashboardUserTable />
+                <DashboardPlaylistsTable />
             </div>
         </>
+
 
     );
 }

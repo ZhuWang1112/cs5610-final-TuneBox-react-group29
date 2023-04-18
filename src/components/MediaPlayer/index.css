@@ -5,14 +5,15 @@
     /*overflow: hidden;*/
     /*animation: scrolling 8s linear infinite;*/
     /*animation-delay: 2s;*/
+    /*z-index: -1;*/
 
 }
 
 /*@keyframes scrolling {*/
-/*    -20%, 80% {*/
+/*    0%, 100% {*/
 /*        transform: translateX(50%);*/
 /*    }*/
 /*    50%{*/
-/*        transform: translateX(-20%);*/
+/*        transform: translateX(0%);*/
 /*    }*/
 /*}*/
