@@ -1,0 +1,64 @@
+.song-container {
+    height: 350px;
+    overflow-y: auto;
+}
+.empty-song-cotainer {
+height: 300px;
+}
+.text-no-decoration {
+    text-decoration: none;
+}
+.comment-panel-container {
+    height:600px;
+    background-color:  #1f1f1f;
+}
+.react-rater {
+  display: inline-flex;
+  flex-direction: row;
+  /* color: yellow; */
+}
+.history-comment{
+    height: 350px;
+    width: 100%;
+    overflow-y: auto;
+}
+.history-commen-title {
+    font-size: 1.5em;
+}
+
+.comment-hover-color:hover {
+color: orange;
+}
+.comment-content {
+max-height: 3.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-num-pos {
+    right: 50px;
+    top: -90px;
+}
+.playlist-rating {
+    right: 50px;
+    top: -120px;
+}
+
+.show-more-playlist-option:hover {
+color:orange;
+}
+
+.show-more-playlist-option {
+color:gray;
+}
+
+.toolkit-like {
+    height: 80px;
+    width: 200px;
+}
+.toolkit-like-text {
+    font-size: 15px;
+    text-decoration: none;
+    text-decoration-line: none;
+    color: gray;
+}

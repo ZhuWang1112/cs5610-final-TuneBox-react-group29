@@ -12,6 +12,7 @@ import Search from "./pages/Search";
 import SideBar from "./components/SideBar";
 import Premium from "./pages/Premium";
 import Admin from "./pages/Admin";
+import Artist from "./pages/Artist";
 import Playlist from "./pages/Playlist";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/hot/artist/all" element={<AllHotArtist />} />
                 <Route path="/hot/album/all" element={<AllHotAlbum />} />
                 <Route path="/song/:uid" element={<LikeSongDetail />} />
+                <Route path="/artist/details/:name" element={<Artist />} />
               </Routes>
             </div>
             <Footer />
