@@ -35,10 +35,10 @@ const PlayListDetailItem = ({
   const track = useSelector((state) => state.currentTrack.track);
 
   const handlePlay = () => {
-    if (track.apiSongId === song.apiSongId) {
+    if (track.apiSongId === song.songId.apiSongId) {
       dispatch(updateIsPlaying(!isPlaying));
     } else {
-      dispatch(getTrackThunk(song));
+      dispatch(getTrackThunk(song.songId));
     }
   };
 
