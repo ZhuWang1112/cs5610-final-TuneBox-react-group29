@@ -9,11 +9,11 @@ const Admin = () => {
   return (
       <div>
           <AdminNav/>
-          <Routes>
-              <Route path="/dashboard" element={<AdminDashboard />} />
-              <Route path="/users" element={<AdminUsers />} />
-              <Route path="/playlists" element={<AdminPlaylists />} />
-          </Routes>
+              <Routes>
+                  <Route path="/dashboard" element={<AdminDashboard />} />
+                  <Route path="/users" element={<AdminUsers />} />
+                  <Route path="/playlists" element={<AdminPlaylists />} />
+              </Routes>
       </div>
   );
 }

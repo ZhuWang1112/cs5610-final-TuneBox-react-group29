@@ -6,9 +6,9 @@ const song = {
     apiSongId: "1",
     mp3Url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     isPlaying: false,
-    artist: 'Artist Name',
-    songName: 'Song Title',
-    img: 'https://example.com/song.jpg'
+    artist: '',
+    songName: '',
+    img: ''
 };
 
 const currentTrackSlice = createSlice({

@@ -31,7 +31,9 @@ const PlayListDetailItem = ({
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // playing status -- boolean
   const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  // current song
   const track = useSelector((state) => state.currentTrack.track);
 
   const handlePlay = () => {
