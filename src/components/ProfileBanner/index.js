@@ -24,6 +24,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
+import { current } from "immer";
 
 const defaultFile = "/images/profile-avatar.jpeg";
 const ProfileBanner = () => {
@@ -40,6 +41,9 @@ const ProfileBanner = () => {
     currentProfile = { email: null, img: null };
   }
   const [email, setEmail] = useState(currentUser ? currentUser.email : null);
+  const [phone, setPhone] = useState(
+    currentUser ? currentUser.cellphone : null
+  );
   const [url, setUrl] = useState(
     currentUser ? currentUser.img : "/images/profile-avatar.jpeg"
   );
@@ -96,6 +100,7 @@ const ProfileBanner = () => {
             updateUserNonAdminThunk({
               _id: currentUser._id,
               email: email === "" ? currentUser.email : email,
+              cellphone: phone === "" ? currentUser.cellphone : phone,
               img: url,
             })
           );
@@ -106,13 +111,19 @@ const ProfileBanner = () => {
 
   const handleSubmit = () => {
     let newEmail = email;
+    let newPhone = phone;
     if (email === "") {
       setEmail(currentUser.email);
       newEmail = currentUser.email;
     }
+    if (phone === "") {
+      setPhone(currentUser.cellphone);
+      newPhone = currentUser.cellphone;
+    }
     const newProfile = {
       _id: currentUser._id,
       email: newEmail,
+      cellphone: newPhone,
       img: url,
     };
     dispatch(updateProfile(newProfile));
@@ -146,10 +157,10 @@ const ProfileBanner = () => {
     setEmail(currentProfile.email);
     setIsEdit(false);
     setUrl(currentProfile.img);
+    setPhone(currentProfile.cellphone);
   };
 
   useEffect(() => {
-    console.log("render");
     if (!currentUser && !uid) return;
     checkIsFollow(
       currentUser ? currentUser._id : null,
@@ -187,17 +198,38 @@ const ProfileBanner = () => {
               {isEdit && (
                 <>
                   <div
-                    className={`input-email position-absolute email-input-position`}
+                    className={`input-email position-absolute email-input-position d-flex align-items-center`}
                   >
+                    <label htmlFor={`profile-email`} className={`text-warning`}>
+                      Email
+                    </label>
                     <input
-                      className="form-control"
-                      id={"email"}
-                      name={"name"}
+                      className="form-control profile-info-edit ms-3"
+                      id={"profile-email"}
+                      name={"email"}
                       type="text"
                       placeholder={"Email"}
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div
+                    className={`input-email position-absolute phone-input-position d-flex align-items-center`}
+                  >
+                    <label htmlFor={`profile-phone`} className={`text-warning`}>
+                      Phone
+                    </label>
+                    <input
+                      className="form-control profile-info-edit ms-2"
+                      id={"profile-phone"}
+                      name={"phone"}
+                      type="text"
+                      placeholder={"Phone"}
+                      value={phone}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
                       }}
                     />
                   </div>
@@ -232,8 +264,15 @@ const ProfileBanner = () => {
               )}
               {!isEdit && (
                 <>
-                  <p className={`position-absolute text-muted email-position`}>
+                  <p
+                    className={`position-absolute text-muted email-position p-0 m-0`}
+                  >
                     {currentProfile.email}
+                  </p>
+                  <p
+                    className={`position-absolute text-muted phone-position m-0`}
+                  >
+                    {currentProfile.cellphone}
                   </p>
                   <button
                     className={`btn btn-muted border border-warning position-absolute edit-position text-white`}

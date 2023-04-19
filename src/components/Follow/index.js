@@ -38,16 +38,24 @@ const Follow = () => {
     <div className={`mt-5 pe-3 `}>
       <h4 className={`text-white`}>Follows</h4>
       <div className={`follow-container rounded-3`}>
-        {followeeList.map((follow, idx) => (
-          <FollowItem
-            key={follow._id + uid}
-            follow={follow}
-            isFollow={checkFollowee[idx]}
-            handleFollow={handleFollow}
-            isSelf={uid ? false : true}
-            isLogin={currentUser ? true : false}
-          />
-        ))}
+        {followeeList.length === 0 && (
+          <div
+            className={`empty-followeeList-div text-muted d-flex justify-content-center align-items-center`}
+          >
+            <h5>Empty FolloweeList</h5>
+          </div>
+        )}
+        {followeeList.length > 0 &&
+          followeeList.map((follow, idx) => (
+            <FollowItem
+              key={follow._id + uid}
+              follow={follow}
+              isFollow={checkFollowee[idx]}
+              handleFollow={handleFollow}
+              isSelf={uid ? false : true}
+              isLogin={currentUser ? true : false}
+            />
+          ))}
       </div>
     </div>
   );

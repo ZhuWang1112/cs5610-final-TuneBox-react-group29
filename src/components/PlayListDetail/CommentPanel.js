@@ -95,23 +95,37 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
       )}
 
       <div className={`row w-100 p-0 m-0 mt-2`}>
-        <div className="col p-0">
+        <div className="col p-2">
           {currentUser ? (
-            <textarea
-              required
-              value={content}
-              rows={2}
-              placeholder="Leave your comments..."
-              className="form-control border-0"
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea>
+            <div>
+              <label htmlFor="comment" className={`text-warning`}>
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                type="text"
+                required
+                value={content}
+                rows={2}
+                placeholder="Leave your comments..."
+                className="form-control border-0 comment-panel-div"
+                onChange={(e) => setContent(e.target.value)}
+              ></textarea>
+            </div>
           ) : (
-            <textarea
-              readOnly
-              rows={2}
-              placeholder="Login in to edit your comments..."
-              className="form-control border-0"
-            ></textarea>
+            <div>
+              <label htmlFor="comment" className={`text-warning`}>
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                type="text"
+                readOnly
+                rows={2}
+                placeholder="Login in to edit your comments..."
+                className="form-control border-0 comment-panel-div"
+              ></textarea>
+            </div>
           )}
 
           {currentUser && (

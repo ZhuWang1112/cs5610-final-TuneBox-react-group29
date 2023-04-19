@@ -94,3 +94,9 @@ color:gray;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.comment-panel-div {
+    background-color: white !important;
+}
+textarea[type="text"]:focus{
+    border: 3px solid #555;
+}

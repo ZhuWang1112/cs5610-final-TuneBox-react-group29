@@ -5,6 +5,9 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+.empty-followeeList-div {
+    height: 500px;
+}
 .name-hint {
     height: 30px;
     bottom: 60px;
