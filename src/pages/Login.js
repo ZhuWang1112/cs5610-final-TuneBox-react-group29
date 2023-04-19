@@ -31,10 +31,10 @@ const Login = () => {
     <div className={`register-div position-relative`}>
       <div className={`p-5 row w-100 p-0 ms-5`}>
         <div
-          className={`register-window-div col-9 col-md-7 col-lg-6 col-xl-5 xxl-5`}
+          className={`register-window-div col-9 col-md-7 col-lg-6 col-xl-5 xxl-5 mt-5`}
         >
-          <div className={`mt-3`}>
-            <div className={`mt-3`}>
+          <div className={`mt-5`}>
+            <div className={`mt-5`}>
               <h1 className={`text-white fw-bold`}>Welcome Back!</h1>
 
               <div className={`mt-5`}>
