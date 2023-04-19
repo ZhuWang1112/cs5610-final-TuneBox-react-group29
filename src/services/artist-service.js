@@ -6,8 +6,6 @@ const CLOUD_ALBUM_API = "http://localhost:4000/api/remoteApi/albums"
 
 // http://localhost:4000/api/artist/detailsPlayList/Taylor Swift
 export const findArtistDetails = async (api) => {
-  //console.log("**************************************");
-  //console.log(api);
   const response = await axios.get(`${PLAYLIST_API}/${api}`);
   //const response = await axios.get("http://localhost:4000/api/artist/artistSongs/06HL4z0CvFAxyc27GXpf02");
   return response.data;
