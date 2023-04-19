@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { getPlaylists } from "../../../services/rapidAPI-service.js";
+import { getAlbums } from "../../../services/rapidAPI-service.js";
 // import HomeCard from "../../HomeCard";
 import SearchCard from "../SearchCard";
 
 function SearchRemoteAlbums() {
-    const navigate = useNavigate();
-    const [search, setSearch] = useState(null);
-    const [results, setResults] = useState({});
+    // const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+    const [results, setResults] = useState([]);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -23,14 +23,15 @@ function SearchRemoteAlbums() {
         };
     }, []);
 
-    const searchPlaylistsRapidAPI = async () => {
-        const response = await getPlaylists(search);
-        const currentData = JSON.parse(localStorage.getItem("currentPlatlistData"));
-        console.log("???", currentData["playlists"]["items"][0]["data"])
-        console.log("!!!", currentData["playlists"])
+    const searchAlbumsRapidAPI = async () => {
+        const response = await getAlbums(search);
+        // const currentData = JSON.parse(localStorage.getItem("currentPlatlistData"));
+        // console.log("???", currentData["playlists"]["items"][0]["data"])
+        // console.log("!!!", currentData["playlists"])
         // console.log("???", currentData["playlists"][1])
         // setResults(response);
-        await setResults(currentData["playlists"]);
+        console.log("response: ", response);
+        setResults(response);
     };
 
     let num = Math.floor(windowWidth / 250);
@@ -38,7 +39,7 @@ function SearchRemoteAlbums() {
     return (
         <div>
 
-            <button onClick={searchPlaylistsRapidAPI} className="float-end btn btn-primary">
+            <button onClick={searchAlbumsRapidAPI} className="float-end btn btn-primary">
                 Search
             </button>
             <input
@@ -62,12 +63,11 @@ function SearchRemoteAlbums() {
                 {/*        </td>*/}
                 {/*))}*/}
 
-                {results["items"] && results["items"].map((playlist) => (
-                    <div key={playlist["data"]["uri"]} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
-                        <SearchCard item={playlist} type={"playlist"}/>
+                {results && results.map((album) => (
+                    <div key={album.apiAlbumId} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
+                        <SearchCard item={album} type={"album"}/>
                     </div>
                 ))}
-
 
             </div>
 
