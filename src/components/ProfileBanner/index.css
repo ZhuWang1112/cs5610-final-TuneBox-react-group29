@@ -10,6 +10,10 @@
     left: 200px;
     top: 350px;
 }
+.phone-position {
+    left: 200px;
+    top: 380px;
+}
 .edit-position {
     top: 330px;
     right: 20px;
@@ -20,6 +24,10 @@
 .email-input-position{
 left: 195px;
     top: 345px;
+}
+.phone-input-position {
+    left: 195px;
+    top:395px;
 }
 .save-position {
     top: 330px;
@@ -117,4 +125,11 @@ top: 500px;
     top: 380px;
     background-color: orange;
     z-index: 2
+}
+.profile-info-edit {
+    background-color: white !important;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
 }

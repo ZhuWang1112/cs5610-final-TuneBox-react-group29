@@ -16,7 +16,12 @@ const SideBar = () => {
   const { pathname } = useLocation();
   const paths = pathname.split("/");
   console.log("paths: ", paths);
-  const active = paths[1] === "" || paths[1] === undefined ? "home" : paths[1];
+  const active =
+    paths[1] === "" || paths[1] === undefined
+      ? "home"
+      : paths.length === 3 && paths[1] === "profile"
+      ? "none"
+      : paths[1];
   console.log("active: ", active);
 
   const navigate = useNavigate();
