@@ -1,4 +1,5 @@
 import axios from "axios";
+import data from "bootstrap/js/src/dom/data";
 // const NAPSTER_API = "https://api.napster.com/v2.2";
 // const NAPSTER_KEY = process.env.REACT_APP_NAPSTER_KEY;
 
@@ -34,13 +35,13 @@ import axios from "axios";
 //     // return response.data.search.data;
 // };
 
-export const getPlaylists = async (playlistsName) => {
+export const getAlbums = async (albumName) => {
     const options = {
         method: 'GET',
         url: 'https://spotify23.p.rapidapi.com/search/',
         params: {
-            q: `${playlistsName}`,
-            type: 'playlists',
+            q: `${albumName}`,
+            type: 'albums',
             offset: '0',
             limit: '70',
             numberOfTopResults: '5'
@@ -51,17 +52,28 @@ export const getPlaylists = async (playlistsName) => {
         }
     };
 
-    await axios.request(options).then(function (response) {
-        console.log(" rapidapi-serivce: ",response.data);
-        // localStorage.clear();
-        localStorage.setItem("currentPlatlistData", JSON.stringify(response.data))
-        // console.log(response.data);
-        return response.data
-    }).catch(function (error) {
+    try {
+        const response = await axios.request(options);
+        let albums = [];
+        let n = response.data.albums.totalCount;
+        if (n > 70) n = 70;
+        for (let i = 0; i < n; i++) {
+            albums[i] = {
+                apiAlbumId: response.data.albums.items[i].data.uri.split(':')[2],
+                title: response.data.albums.items[i].data.name,
+                img: response.data.albums.items[i].data.coverArt.sources[0].url,
+                date: response.data.albums.items[i].data.date.year,
+                artistName: response.data.albums.items[i].data.artists.items[0].profile.name,
+                apiArtistId: response.data.albums.items[i].data.artists.items[0].uri.split(':')[2],
+            }
+        }
+        return albums;
+    } catch (error) {
         console.error(error);
-        return
-    });
+        return []; // return empty array if error
+    }
 };
+
 
 
 export const getArtists = async (artistsName) => {

@@ -11,9 +11,9 @@ const SearchCard = ({ item, type }) => {
     // change to read currentUser from redux since the info of currentUser may be updated
     const { currentUser } = useSelector((state) => state.user);
     const handleClick = () => {
-        if (type === "playlist") {
-            localStorage.setItem("DetailSinglePlatlist", JSON.stringify(item))
-            navigate("/details/playlist/" + item["data"]["uri"].split(":")[2]);
+        if (type === "album") {
+            // localStorage.setItem("DetailSinglePlatlist", JSON.stringify(item))
+            navigate("/details/album/" + item.apiAlbumId);
         } else if (type === "track") {
             localStorage.setItem("DetailSingleTrack", JSON.stringify(item))
             navigate("/details/track/" + item["data"]["uri"].split(":")[2]);
@@ -32,19 +32,20 @@ const SearchCard = ({ item, type }) => {
                 }}
                 onClick={handleClick}
             >
-                {type === "playlist" && (
+                {type === "album" && (
                     <Card.Img
                         variant="top"
                         className={"wd-card-img-custom "}
                         src={
-                            item["data"]["images"] &&
-                            item["data"]["images"].items &&
-                            item["data"]["images"].items[0] &&
-                            item["data"]["images"].items[0].sources &&
-                            item["data"]["images"].items[0].sources[0] &&
-                            item["data"]["images"].items[0].sources[0].url
-                                ? item["data"]["images"].items[0].sources[0].url
-                                : "./question.png"
+                        item.img
+                            // item["data"]["images"] &&
+                            // item["data"]["images"].items &&
+                            // item["data"]["images"].items[0] &&
+                            // item["data"]["images"].items[0].sources &&
+                            // item["data"]["images"].items[0].sources[0] &&
+                            // item["data"]["images"].items[0].sources[0].url
+                            //     ? item["data"]["images"].items[0].sources[0].url
+                            //     : "./question.png"
                         }
                     />
                 )}
@@ -99,9 +100,28 @@ const SearchCard = ({ item, type }) => {
                     {/*    </Card.Text>*/}
                     {/*)}*/}
 
-                    {type === "playlist" && (
+                    {type === "album" && (
+                        <Card.Title className={"wd-card"}>
+                            {item.title}
+                            {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
+                            {/*    {item.user.userName}*/}
+                            {/*</Link>*/}
+                        </Card.Title>
+                    )}
+
+                    {type === "album" && (
                         <Card.Text className={"wd-card"}>
-                            {item.data.name}
+                            <Link to={`/details/artist/${item.apiArtistId}`} className={"wd-link"}>
+                                {item.artistName}
+                            </Link>
+                            {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
+                            {/*    {item.user.userName}*/}
+                            {/*</Link>*/}
+                        </Card.Text>
+                    )}
+                    {type === "album" && (
+                        <Card.Text className={"wd-card"}>
+                            {item.date}
                             {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
                             {/*    {item.user.userName}*/}
                             {/*</Link>*/}
