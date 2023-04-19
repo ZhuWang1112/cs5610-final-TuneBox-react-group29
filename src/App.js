@@ -47,7 +47,7 @@ function App() {
                 <Route path="/hot/artist/all" element={<AllHotArtist />} />
                 <Route path="/hot/album/all" element={<AllHotAlbum />} />
                 <Route path="/song/:uid" element={<LikeSongDetail />} />
-                <Route path="/artist/details/:name" element={<Artist />} />
+                <Route path="/artist/details/:api" element={<Artist />} />
               </Routes>
             </div>
             <Footer />

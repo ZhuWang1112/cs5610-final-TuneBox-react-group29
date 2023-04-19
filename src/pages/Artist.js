@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { findArtistDetails  } from "../services/artist-service";
+import { findArtistDetails, findArtistDetailsOnCloud } from "../services/artist-service";
 import ArtistPlayListDetail from "../components/ArtistPlayListDetail";
 import "./artist_styles.css";
 
@@ -17,29 +17,36 @@ import {
 import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 
 const Artist = () => {
-    const { name } = useParams();
+    const { api } = useParams();
     const dispatch = useDispatch();
     const [playlist, setPlaylist] = useState(null);
     const [artist, setArtist] = useState({});
+    const [artistAlbum, setArtistAlbum] = useState({});
     const loginUser = JSON.parse(localStorage.getItem("currentUser"));
     const { currentUser } = useSelector((state) => state.user);
 
-    const getArtistDetails = async (name) => {
-        const res = await findArtistDetails(name);
+    const getArtistDetails = async (api) => {
+        const res = await findArtistDetails(api);
         setArtist(res.artist);
       };
 
-    const getPlaylistDetails = async (name) => {
-        const res = await findArtistDetails(name);
+    const getPlaylistDetails = async (api) => {
+        const res = await findArtistDetails(api);
         setPlaylist(res.playlist);
     };
 
+    const getArtistAlbums = async (api) => {
+        const res = await findArtistDetailsOnCloud(api);
+        setArtistAlbum(res);
+    };
+
    useEffect(() => {
-        getArtistDetails(name);
-        getPlaylistDetails(name);
+        getArtistDetails(api);
+        getPlaylistDetails(api);
+        getArtistAlbums(api);
         dispatch(findCurrentUserThunk());
         dispatch(findCurrentUserSongsThunk());
-   }, [name]);
+   }, [api]);
 
    return (
        <div>
