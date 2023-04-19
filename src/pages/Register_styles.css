@@ -122,3 +122,56 @@
 /*    width: 45rem;*/
 /*    margin: 1rem 0 1.5rem 0;*/
 /*}*/
+
+.register-div {
+    height: 100vh;
+    width: 100%;
+}
+.register-window-div {
+    height: 100%;
+    z-index: 2;
+    /* width: 80% !important; */
+    /* background-color: white; */
+}
+.register-pic-div {
+ /* background-image: url("../images/music-icon.jpeg");
+    background-repeat: no-repeat;
+    background-size: contain; */
+}
+
+.register-control-input {
+    font: inherit;
+    background-color: lightgray;
+    border-radius: 4px;
+    border: 0px;
+    width: 20px;
+    text-align: left;
+    padding: 0.25rem;
+}
+.form-control {
+    /* width: 80% !important; */
+    background-color: #323644 !important;
+    border: 0px !important;
+    /* color: white !important; */
+
+}
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+.already-have-account {
+    font-size: 1em;
+}
+.register-img-circle {
+    width: 100px;
+    left: 500px;
+    top: 120px;
+   
+}
+.register-img-band {
+    width: 100px;
+    right: 1200px;
+    bottom: -200px;
+    transform: rotate(-20deg);
+    z-index: 0;
+    opacity: 0.5;
+}
