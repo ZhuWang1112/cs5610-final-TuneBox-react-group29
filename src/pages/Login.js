@@ -1,8 +1,8 @@
 import { useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./Login_styles.css";
-import {loginThunk} from "../services/users/users-thunks";
+import "./Login_styles.css";
+import { loginThunk } from "../services/users/users-thunks";
 
 const Login = () => {
   // const [email, setEmail] = useState("");
@@ -12,67 +12,100 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const handleLogin = async (e) => {
-      try {
-        localStorage.clear();
-        dispatch(loginThunk({ userName, password })).then((res) => {
-          console.log("user info: ", window.localStorage.getItem("currentUser"));
-          const userID = JSON.parse(window.localStorage.getItem("currentUser"))._id;
-          navigate(`/home?_id=${userID}`);
-        });
-      } catch (err) {
-          console.log("err", err)
-      }
+    try {
+      localStorage.clear();
+      dispatch(loginThunk({ userName, password })).then((res) => {
+        console.log("user info: ", window.localStorage.getItem("currentUser"));
+        const userID = JSON.parse(
+          window.localStorage.getItem("currentUser")
+        )._id;
+        navigate(`/home?_id=${userID}`);
+      });
+    } catch (err) {
+      console.log("err", err);
+    }
   };
 
   return (
-    <div className={styles.container}>
-        <div  className={styles.form_container}>
-          <div className={styles.input_container}>
-          Enter your userName
-            <input
-              placeholder="Enter your userName"
-              name="userName"
+    <div className={`register-div position-relative`}>
+      <div className={`p-5 row w-100 p-0 ms-5`}>
+        <div
+          className={`register-window-div col-9 col-md-7 col-lg-6 col-xl-5 xxl-5 mt-5`}
+        >
+          <div className={`mt-5`}>
+            <div className={`mt-5`}>
+              <h1 className={`text-white fw-bold`}>Welcome Back!</h1>
 
-              value={userName}
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-              required={true}
-            />
+              <div className={`mt-5`}>
+                <label
+                  htmlFor="login-userName"
+                  className="mt-2 text-warning fw-bold mb-2"
+                >
+                  UserName
+                </label>
+                <input
+                  id="login-userName"
+                  name="userName"
+                  placeholder="Enter your userName"
+                  value={userName}
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                  }}
+                  type="text"
+                  required={true}
+                  className={`form-control register-control-input fw-bold text-white`}
+                />
+              </div>
+
+              <div className={`mt-3`}>
+                <label
+                  htmlFor="login-password"
+                  className="mt-2 text-warning fw-bold mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  id="login-password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  type="password"
+                  required={true}
+                  className={`form-control register-control-input fw-bold text-white`}
+                />
+              </div>
+
+              <div className={`mt-5 d-flex justify-content-center `}>
+                <button
+                  type="button"
+                  onClick={handleLogin}
+                  className={`btn btn-warning text-white fw-bold`}
+                >
+                  Login
+                </button>
+              </div>
+              <div
+                className={`mt-5 d-flex justify-content-center already-have-account text-muted`}
+              >
+                <p>
+                  Don't have an account?{" "}
+                  <Link to="/register" style={{ textDecoration: "none" }}>
+                    {" "}
+                    Register for free
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
-
-
-          <div className={styles.input_container}>
-              Enter your password
-            <input
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              type="password"
-              required={true}
-            />
-          </div>
-
-          <p className={styles.forgot_password}>Forgot your password?</p>
-
-          <div className={styles.form_bottom}>
-            <button
-              type="button" onClick={handleLogin}
-            >LOG IN</button>
-          </div>
-
         </div>
-        <h1 className={styles.dont_have_account}>Don't have an account?</h1>
-
-        <Link to="/signup">
-          <button className={styles.outline_btn}>sign up for TuneBox</button>
-        </Link>
-
+      </div>
+      <div className={`position-absolute login-img-band`}>
+        <img src={`/images/welcome-2.avif`} height={"800px"} width={"800px"} />
+      </div>
     </div>
   );
 };

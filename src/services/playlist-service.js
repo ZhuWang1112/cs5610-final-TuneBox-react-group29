@@ -40,12 +40,6 @@ export const updatePlaylist = async (playlist) => {
   return response.data;
 };
 
-export const checkSongs = async (userId, playlistId) => {
-  console.log(`${PLAYLIST_API}/${userId}/${playlistId}`);
-  const response = await axios.get(`${PLAYLIST_API}/${userId}/${playlistId}`);
-  return response.data;
-};
-
 export const findDefaultPlaylistByUser = async (userId) => {
   const response = await axios.get(`${PLAYLISTDEFAULT_API}/${userId}`);
   console.log("response in finddefault: ", response.data);
