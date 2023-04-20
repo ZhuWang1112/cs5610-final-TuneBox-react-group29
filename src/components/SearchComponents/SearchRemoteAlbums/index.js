@@ -56,6 +56,7 @@ function SearchRemoteAlbums() {
       </button>
       <input
         className="form-control w-75"
+        style={{ color: 'white' }}
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}

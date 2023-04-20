@@ -19,7 +19,6 @@ function SearchRemoteTracks() {
 
     useEffect(() => {
         window.addEventListener("resize", handleResize);
-
         // Clean up event listener on unmount
         return () => {
             window.removeEventListener("resize", handleResize);
@@ -31,12 +30,10 @@ function SearchRemoteTracks() {
     }, []);
 
     const searchTracksRapidAPI = async () => {
+        localStorage.removeItem('currentTrackData');
         const response = await getTracks(search);
         const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
-        // console.log("???", currentData["playlists"]["items"][0]["data"])
-        // console.log("!!!", currentData["playlists"])
-        console.log("???", currentData["tracks"]);
-        // setResults(response);
+        // console.log("???", currentData["tracks"]);
         await setResults(currentData["tracks"]);
     };
 
@@ -52,24 +49,13 @@ function SearchRemoteTracks() {
             </button>
             <input
                 className="form-control w-75"
+                style={{ color: 'white' }}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
 
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {/*{results["items"] &&*/}
-                {/*    results["items"].map((playlist) => (*/}
-                {/*        <td key={playlist["data"]["uri"]}>*/}
-                {/*            <Link to={`https://open.spotify.com/playlist/${playlist["data"]["images"].items[0].sources[0].url.split(":")[2]}`}>*/}
-                {/*                <img*/}
-                {/*                    src={playlist["data"]["images"].items[0].sources[0].url}*/}
-                {/*                />*/}
-                {/*                <h3>{playlist.data.name}</h3>*/}
-                {/*            </Link>*/}
-                {/*            /!*<h3>{playlist.data.name}</h3>*!/*/}
-                {/*        </td>*/}
-                {/*))}*/}
 
                 {results["items"] &&
                     results["items"].map((track) => (
@@ -82,25 +68,7 @@ function SearchRemoteTracks() {
                     ))}
             </div>
 
-            {/*<h2>Remote Tracks</h2>*/}
-            {/*<div className="table-responsive">*/}
-            {/*  <table className="table">*/}
-            {/*    <tbody>*/}
-            {/*    <tr>*/}
-            {/*      {results.tracks &&*/}
-            {/*          results.tracks[items].map((track) => (*/}
-            {/*              <td>*/}
-            {/*                <h3>{track.data.name}</h3>*/}
-            {/*                {track.id}*/}
-            {/*                <Link to={track.data.uri}>Song's Link</Link>*/}
-            {/*              </td>*/}
-            {/*          ))}*/}
-            {/*    </tr>*/}
-            {/*    </tbody>*/}
-            {/*  </table>*/}
-            {/*</div>*/}
 
-            {/*<div>{results["playlists"]}</div>*/}
         </div>
     );
 }

@@ -7,7 +7,6 @@ function SearchLocalPlaylists() {
     const [search, setSearch] = useState("");
     const [results, setResults] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
     const dispatch = useDispatch();
 
     const handleResize = () => {
@@ -40,6 +39,7 @@ function SearchLocalPlaylists() {
             </button>
             <input
                 className="form-control w-75"
+                style={{ color: 'white' }}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

@@ -7,7 +7,6 @@ function SearchLocalSongs() {
     const [search, setSearch] = useState("");
     const [results, setResults] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
     const dispatch = useDispatch();
 
     const handleResize = () => {
@@ -16,7 +15,6 @@ function SearchLocalSongs() {
 
     useEffect(() => {
         window.addEventListener('resize', handleResize);
-
         // Clean up event listener on unmount
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -40,6 +38,7 @@ function SearchLocalSongs() {
             </button>
             <input
                 className="form-control w-75"
+                style={{ color: 'white' }}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

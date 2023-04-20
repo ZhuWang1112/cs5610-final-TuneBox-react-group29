@@ -45,24 +45,14 @@ function SearchRemoteArtists() {
             </button>
             <input
                 className="form-control w-75"
+                style={{ color: 'white' }}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
 
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {/*{results["items"] &&*/}
-                {/*    results["items"].map((playlist) => (*/}
-                {/*        <td key={playlist["data"]["uri"]}>*/}
-                {/*            <Link to={`https://open.spotify.com/playlist/${playlist["data"]["images"].items[0].sources[0].url.split(":")[2]}`}>*/}
-                {/*                <img*/}
-                {/*                    src={playlist["data"]["images"].items[0].sources[0].url}*/}
-                {/*                />*/}
-                {/*                <h3>{playlist.data.name}</h3>*/}
-                {/*            </Link>*/}
-                {/*            /!*<h3>{playlist.data.name}</h3>*!/*/}
-                {/*        </td>*/}
-                {/*))}*/}
+
 
                 {results &&
                     results.map((artist) => (
@@ -75,25 +65,7 @@ function SearchRemoteArtists() {
                     ))}
             </div>
 
-            {/*<h2>Remote Tracks</h2>*/}
-            {/*<div className="table-responsive">*/}
-            {/*  <table className="table">*/}
-            {/*    <tbody>*/}
-            {/*    <tr>*/}
-            {/*      {results.tracks &&*/}
-            {/*          results.tracks[items].map((track) => (*/}
-            {/*              <td>*/}
-            {/*                <h3>{track.data.name}</h3>*/}
-            {/*                {track.id}*/}
-            {/*                <Link to={track.data.uri}>Song's Link</Link>*/}
-            {/*              </td>*/}
-            {/*          ))}*/}
-            {/*    </tr>*/}
-            {/*    </tbody>*/}
-            {/*  </table>*/}
-            {/*</div>*/}
 
-            {/*<div>{results["playlists"]}</div>*/}
         </div>
     );
 }

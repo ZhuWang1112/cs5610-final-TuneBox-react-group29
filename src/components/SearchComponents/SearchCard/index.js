@@ -217,9 +217,6 @@ const SearchCard = ({ item, type }) => {
               {type === "local-song" && (
                   <Card.Text className={"wd-card"}>
                       {item.artist}
-                      {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                      {/*    {item.user.userName}*/}
-                      {/*</Link>*/}
                   </Card.Text>
               )}
 
@@ -230,12 +227,6 @@ const SearchCard = ({ item, type }) => {
             {type === "artist" && (
               <Card.Title className={"wd-card"}>{item.artistName}</Card.Title>
             )}
-
-              {/*{isPlaying && track.apiSongId === item.apiSongId ? (*/}
-              {/*    <BsFillPauseCircleFill size={iconSize} className={`text-success`} />*/}
-              {/*) : (*/}
-              {/*    <BsFillPlayCircleFill size={iconSize} className={`text-success`} />*/}
-              {/*)}*/}
 
 
           </Card.Body>
