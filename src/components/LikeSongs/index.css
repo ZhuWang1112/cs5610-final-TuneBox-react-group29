@@ -37,3 +37,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.artist-see-more-div {
+    color: gray
+}
+.artist-see-more-div:hover {
+    color: orange;
+    cursor: pointer;
+}

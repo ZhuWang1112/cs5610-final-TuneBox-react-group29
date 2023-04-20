@@ -54,3 +54,6 @@
     color: inherit;
     text-decoration: underline;
 }
+.artist-click-format:hover {
+    cursor:pointer;
+}
