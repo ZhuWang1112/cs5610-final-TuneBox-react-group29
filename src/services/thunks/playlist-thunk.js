@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as service from "../playlist-service";
 import { updateUserNonAdmin } from "../user-service";
 import { findSongsByPlaylistId } from "../songPlaylist-service";
+import * as searchLocalService from "../search-localAPI-service";
 
 export const findPlaylistsThunk = createAsyncThunk(
   "profile/Playlists",
@@ -32,4 +33,14 @@ export const findPlaylistDetailsThunk = createAsyncThunk(
     const playlist = await service.findPlaylistDetails(playlistId);
     return playlist;
   }
+);
+
+export const searchPlaylistThunk = createAsyncThunk(
+    "api/playlist",
+    async (name) => {
+        const response = await searchLocalService.searchPlaylists(name)
+        console.log("playlist-thunk: ", response)
+        window.localStorage.setItem("localPlaylists", JSON.stringify(response.data));
+        return response.data;
+    }
 );

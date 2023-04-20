@@ -30,7 +30,7 @@ const Register = () => {
   const register = async () => {
     try {
       localStorage.clear();
-      await dispatch(registerThunk({ userName, password, email, gender }));
+      await dispatch(registerThunk({ userName, password, email, cellphone,gender }));
       // navigate("/login");
       await dispatch(loginThunk({ userName, password })).then((res) => {
         // console.log("user info: ", window.localStorage.getItem("currentUser"));

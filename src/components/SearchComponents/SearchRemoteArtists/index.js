@@ -6,7 +6,7 @@ import SearchCard from "../SearchCard";
 
 function SearchRemoteArtists() {
     const navigate = useNavigate();
-    const [search, setSearch] = useState(null);
+    const [search, setSearch] = useState("");
     const [results, setResults] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 

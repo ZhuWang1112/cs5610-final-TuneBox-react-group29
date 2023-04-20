@@ -17,6 +17,15 @@ const SearchNav = () => {
                 <li className="nav-item">
                     <a className="nav-link wd-nav" href="/search/search-remote-tracks"><span className={`${active === 'search-remote-tracks' ? 'wd-active' : ''}`}>Cloud Tracks</span></a>
                 </li>
+                <li className="nav-item">
+                    <a className="nav-link wd-nav" href="/search/search-local-playlists"><span className={`${active === 'search-local-playlists' ? 'wd-active' : ''}`}>Local Playlists</span></a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link wd-nav" href="/search/search-local-artists"><span className={`${active === 'search-local-artists' ? 'wd-active' : ''}`}>Local Artists</span></a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link wd-nav" href="/search/search-local-songs"><span className={`${active === 'search-local-songs' ? 'wd-active' : ''}`}>Local Songs</span></a>
+                </li>
             </ul>
         </>
     );

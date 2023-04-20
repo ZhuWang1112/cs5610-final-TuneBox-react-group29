@@ -20,6 +20,12 @@ const SearchCard = ({ item, type }) => {
         } else if (type === "artist") {
             localStorage.setItem("DetailSingleArtist", JSON.stringify(item))
             navigate("/details/artist/" + item["data"]["uri"].split(":")[2]);
+        } else if (type === "local-artist") {
+            localStorage.setItem("LocalDetailSingleArtist", JSON.stringify(item))
+            navigate("/details/artist/" + item["_id"]);
+        }  else if (type === "local-playlist") {
+            localStorage.setItem("LocalDetailSinglePlaylist", JSON.stringify(item))
+            navigate("/details/playlist/" + item["_id"]);
         }
     };
 
@@ -79,9 +85,27 @@ const SearchCard = ({ item, type }) => {
                     />
                 )}
 
-                {/*<div className="wd-play-button">*/}
-                {/*    <PlayArrowIcon />*/}
-                {/*</div>*/}
+                {type === "local-artist" && (
+                    <Card.Img
+                        variant="top"
+                        className={"wd-card-img-custom "}
+                        src={
+                            item["img"] ? item["img"] : "./question.png"
+                        }
+                    />
+                )}
+
+                {type === "local-playlist" && (
+                    <Card.Img
+                        variant="top"
+                        className={"wd-card-img-custom "}
+                        src={
+                            item["img"] ? item["img"] : "./question.png"
+                        }
+                    />
+                )}
+
+
                 <Card.Body>
                     {/*{type === "album" && (*/}
                     {/*    <Card.Title className={"wd-card"}>*/}
@@ -107,6 +131,11 @@ const SearchCard = ({ item, type }) => {
                             {/*</Link>*/}
                         </Card.Text>
                     )}
+
+                    {type === "local-artist" && (
+                        <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
+                    )}
+
                     {/*{type === "playlist" && (*/}
                     {/*    <Card.Text className={"wd-card"}>{item.description}</Card.Text>*/}
                     {/*)}*/}
@@ -133,6 +162,10 @@ const SearchCard = ({ item, type }) => {
 
                     {type === "artist" && (
                         <Card.Title className={"wd-card"}>{item.data.profile.name}</Card.Title>
+                    )}
+
+                    {type === "local-artist" && (
+                        <Card.Title className={"wd-card"}>{item.name}</Card.Title>
                     )}
 
                     {type === "track" && (
