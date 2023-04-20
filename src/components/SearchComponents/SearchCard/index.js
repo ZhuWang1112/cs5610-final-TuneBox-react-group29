@@ -50,55 +50,55 @@ const SearchCard = ({ item, type }) => {
                     />
                 )}
 
-                {type === "artist" && (
-                    <Card.Img
-                        variant="top"
-                        className={"wd-card-img-custom "}
-                        src={
-                            item["data"]["visuals"] &&
-                            item["data"]["visuals"].avatarImage &&
-                            item["data"]["visuals"].avatarImage.sources[0] &&
-                            item["data"]["visuals"].avatarImage.sources[0].url
-                            ? item["data"]["visuals"].avatarImage.sources[0].url
-                            : "./question.png"
-                        }
-                    />
-                )}
+          {type === "artist" && (
+            <Card.Img
+              variant="top"
+              className={"wd-card-img-custom "}
+              src={
+                item["data"]["visuals"] &&
+                item["data"]["visuals"].avatarImage &&
+                item["data"]["visuals"].avatarImage.sources[0] &&
+                item["data"]["visuals"].avatarImage.sources[0].url
+                  ? item["data"]["visuals"].avatarImage.sources[0].url
+                  : "./question.png"
+              }
+            />
+          )}
 
-                {type === "track" && (
-                    <Card.Img
-                        variant="top"
-                        className={"wd-card-img-custom "}
-                        src={
-                            item["data"]["albumOfTrack"] &&
-                            item["data"]["albumOfTrack"]["coverArt"] &&
-                            item["data"]["albumOfTrack"]["coverArt"].sources[0] &&
-                            item["data"]["albumOfTrack"]["coverArt"].sources[0].url
-                            ? item["data"]["albumOfTrack"]["coverArt"].sources[0].url
-                            : "./question.png"
-                        }
-                    />
-                )}
+          {type === "track" && (
+            <Card.Img
+              variant="top"
+              className={"wd-card-img-custom "}
+              src={
+                item["data"]["albumOfTrack"] &&
+                item["data"]["albumOfTrack"]["coverArt"] &&
+                item["data"]["albumOfTrack"]["coverArt"].sources[0] &&
+                item["data"]["albumOfTrack"]["coverArt"].sources[0].url
+                  ? item["data"]["albumOfTrack"]["coverArt"].sources[0].url
+                  : "./question.png"
+              }
+            />
+          )}
 
-                {/*<div className="wd-play-button">*/}
-                {/*    <PlayArrowIcon />*/}
-                {/*</div>*/}
-                <Card.Body>
-                    {/*{type === "album" && (*/}
-                    {/*    <Card.Title className={"wd-card"}>*/}
-                    {/*        <Link to={`details/album/${item.data.name}`} className={"wd-link"}>*/}
-                    {/*            {item.data.name}*/}
-                    {/*        </Link>*/}
-                    {/*    </Card.Title>*/}
-                    {/*)}*/}
-                    {/*{type === "album" && (*/}
-                    {/*    <Card.Text className={"wd-card"}>*/}
-                    {/*        <Link to={`details/artist/${item.data.artist["items"][0]["profile"]["name"]}`} className={"wd-link"}>*/}
-                    {/*            {item.data.artist["items"][0]["profile"]["name"]}*/}
-                    {/*        </Link>*/}
-                    {/*        /!*{item.artist}*!/*/}
-                    {/*    </Card.Text>*/}
-                    {/*)}*/}
+          {/*<div className="wd-play-button">*/}
+          {/*    <PlayArrowIcon />*/}
+          {/*</div>*/}
+          <Card.Body>
+            {/*{type === "album" && (*/}
+            {/*    <Card.Title className={"wd-card"}>*/}
+            {/*        <Link to={`details/album/${item.data.name}`} className={"wd-link"}>*/}
+            {/*            {item.data.name}*/}
+            {/*        </Link>*/}
+            {/*    </Card.Title>*/}
+            {/*)}*/}
+            {/*{type === "album" && (*/}
+            {/*    <Card.Text className={"wd-card"}>*/}
+            {/*        <Link to={`details/artist/${item.data.artist["items"][0]["profile"]["name"]}`} className={"wd-link"}>*/}
+            {/*            {item.data.artist["items"][0]["profile"]["name"]}*/}
+            {/*        </Link>*/}
+            {/*        /!*{item.artist}*!/*/}
+            {/*    </Card.Text>*/}
+            {/*)}*/}
 
                     {type === "album" && (
                         <Card.Title className={"wd-card"}>
@@ -136,41 +136,42 @@ const SearchCard = ({ item, type }) => {
                     {/*    </Card.Title>*/}
                     {/*)}*/}
 
-                    {/*{type === "user" && (*/}
-                    {/*    <Card.Title className={"wd-card"}>*/}
-                    {/*        <Link*/}
-                    {/*            className={"wd-link"}*/}
-                    {/*            to={*/}
-                    {/*                currentUser !== null && item._id === currentUser._id*/}
-                    {/*                    ? `/profile`*/}
-                    {/*                    : `/profile/${item._id}`*/}
-                    {/*            }*/}
-                    {/*        >*/}
-                    {/*            {item.userName}*/}
-                    {/*        </Link>*/}
-                    {/*    </Card.Title>*/}
-                    {/*)}*/}
+            {/*{type === "user" && (*/}
+            {/*    <Card.Title className={"wd-card"}>*/}
+            {/*        <Link*/}
+            {/*            className={"wd-link"}*/}
+            {/*            to={*/}
+            {/*                currentUser !== null && item._id === currentUser._id*/}
+            {/*                    ? `/profile`*/}
+            {/*                    : `/profile/${item._id}`*/}
+            {/*            }*/}
+            {/*        >*/}
+            {/*            {item.userName}*/}
+            {/*        </Link>*/}
+            {/*    </Card.Title>*/}
+            {/*)}*/}
 
-                    {type === "artist" && (
-                        <Card.Title className={"wd-card"}>{item.data.profile.name}</Card.Title>
-                    )}
+            {type === "artist" && (
+              <Card.Title className={"wd-card"}>
+                {item.data.profile.name}
+              </Card.Title>
+            )}
 
-                    {type === "track" && (
-                        <Card.Title className={"wd-card"}>{item.data.name}</Card.Title>
-                    )}
+            {type === "track" && (
+              <Card.Title className={"wd-card"}>{item.data.name}</Card.Title>
+            )}
 
-
-                {/*    {type === "track" && (*/}
-                {/*        <>*/}
-                {/*            /!* <Card.Title className={"wd-card"}>{item.songName}</Card.Title>*/}
-                {/*<Card.Text className={"wd-card"}>{item.artist}</Card.Text> *!/*/}
-                {/*            <Card.Title className={"wd-card"}>songName</Card.Title>*/}
-                {/*            <Card.Text className={"wd-card"}>artist</Card.Text>*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                </Card.Body>
-            </Card>
-        </div>
+            {/*    {type === "track" && (*/}
+            {/*        <>*/}
+            {/*            /!* <Card.Title className={"wd-card"}>{item.songName}</Card.Title>*/}
+            {/*<Card.Text className={"wd-card"}>{item.artist}</Card.Text> *!/*/}
+            {/*            <Card.Title className={"wd-card"}>songName</Card.Title>*/}
+            {/*            <Card.Text className={"wd-card"}>artist</Card.Text>*/}
+            {/*        </>*/}
+            {/*    )}*/}
+          </Card.Body>
+        </Card>
+      </div>
     );
 };
 export default SearchCard;

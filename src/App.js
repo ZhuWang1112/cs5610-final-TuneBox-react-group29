@@ -14,6 +14,7 @@ import Premium from "./pages/Premium";
 import Admin from "./pages/Admin";
 import Artist from "./pages/Artist";
 import Playlist from "./pages/Playlist";
+import AlbumDetail from "./pages/AlbumDetail";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/premium" element={<Premium />} />
                 <Route path="/admin/*" element={<Admin />} />
                 <Route path="/details/playlist/:id" element={<Playlist />} />
+                <Route path="/details/album/:id" element={<AlbumDetail />} />
                 <Route path="/hot/artist/all" element={<AllHotArtist />} />
                 <Route path="/hot/album/all" element={<AllHotAlbum />} />
                 <Route path="/song/:uid" element={<LikeSongDetail />} />
