@@ -6,21 +6,22 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 const SearchCard = ({ item, type }) => {
     const navigate = useNavigate();
-
     // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     // change to read currentUser from redux since the info of currentUser may be updated
     const { currentUser } = useSelector((state) => state.user);
     const handleClick = () => {
-        if (type === "album") {
-            // localStorage.setItem("DetailSinglePlatlist", JSON.stringify(item))
-            navigate("/details/album/" + item.apiAlbumId);
-        } else if (type === "track") {
-            localStorage.setItem("DetailSingleTrack", JSON.stringify(item))
-            navigate("/details/track/" + item["data"]["uri"].split(":")[2]);
-        } else if (type === "artist") {
-            localStorage.setItem("DetailSingleArtist", JSON.stringify(item))
-            navigate("/details/artist/" + item["data"]["uri"].split(":")[2]);
-        }
+      if (type === "album") {
+        // localStorage.setItem("DetailSinglePlatlist", JSON.stringify(item))
+        navigate("/details/album/" + item.apiAlbumId, {
+          state: { title: item.title },
+        });
+      } else if (type === "track") {
+        localStorage.setItem("DetailSingleTrack", JSON.stringify(item));
+        navigate("/details/track/" + item["data"]["uri"].split(":")[2]);
+      } else if (type === "artist") {
+        localStorage.setItem("DetailSingleArtist", JSON.stringify(item));
+        navigate("/details/artist/" + item["data"]["uri"].split(":")[2]);
+      }
     };
 
     return (

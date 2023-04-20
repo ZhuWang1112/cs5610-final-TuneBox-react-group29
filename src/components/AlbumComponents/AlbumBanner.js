@@ -43,12 +43,12 @@ const AlbumBanner = ({ title, artist, img, songNumber }) => {
         {songNumber} songs
       </h5>
       <h1
-        className={`text-white position-absolute playlist-cover-text-pos-non-edit d-none d-md-block`}
+        className={`text-white position-absolute playlist-cover-text-pos-non-edit d-none d-lg-block`}
       >
         {title}
       </h1>
       <h4
-        className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-md-block`}
+        className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}
       >
         {artist}
       </h4>
