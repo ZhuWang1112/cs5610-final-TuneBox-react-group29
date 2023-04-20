@@ -98,6 +98,7 @@ const ProfileBanner = () => {
           setUrl(url);
           dispatch(
             updateUserNonAdminThunk({
+              ...currentUser,
               _id: currentUser._id,
               email: email === "" ? currentUser.email : email,
               cellphone: phone === "" ? currentUser.cellphone : phone,
@@ -122,6 +123,7 @@ const ProfileBanner = () => {
     }
     const newProfile = {
       _id: currentUser._id,
+      ...currentUser,
       email: newEmail,
       cellphone: newPhone,
       img: url,
