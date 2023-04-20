@@ -62,3 +62,13 @@ color:gray;
     text-decoration-line: none;
     color: gray;
 }
+.artist-song-detail-songname {
+    width: 185px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.artist-song-detail-artist {
+    width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} 

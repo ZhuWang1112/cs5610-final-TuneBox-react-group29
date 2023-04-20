@@ -3,10 +3,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { getTracks } from "../../../services/rapidAPI-service.js";
 // import HomeCard from "../../HomeCard";
 import SearchCard from "../SearchCard";
+import { findCurrentUserThunk } from "../../../services/users/users-thunks";
+import { useDispatch } from "react-redux";
 
 function SearchRemoteTracks() {
     const navigate = useNavigate();
-    const [search, setSearch] = useState("");
+    const dispatch = useDispatch();
+    const [search, setSearch] = useState(null);
     const [results, setResults] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -15,12 +18,16 @@ function SearchRemoteTracks() {
     };
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
 
         // Clean up event listener on unmount
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener("resize", handleResize);
         };
+    }, []);
+
+    useEffect(() => {
+        dispatch(findCurrentUserThunk());
     }, []);
 
     const searchTracksRapidAPI = async () => {
@@ -28,7 +35,7 @@ function SearchRemoteTracks() {
         const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
         // console.log("???", currentData["playlists"]["items"][0]["data"])
         // console.log("!!!", currentData["playlists"])
-        console.log("???", currentData["tracks"])
+        console.log("???", currentData["tracks"]);
         // setResults(response);
         await setResults(currentData["tracks"]);
     };
@@ -37,8 +44,10 @@ function SearchRemoteTracks() {
 
     return (
         <div>
-
-            <button onClick={searchTracksRapidAPI} className="float-end btn btn-primary">
+            <button
+                onClick={searchTracksRapidAPI}
+                className="float-end btn btn-primary"
+            >
                 Search
             </button>
             <input
@@ -48,7 +57,7 @@ function SearchRemoteTracks() {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {/*{results["items"] &&*/}
                 {/*    results["items"].map((playlist) => (*/}
                 {/*        <td key={playlist["data"]["uri"]}>*/}
@@ -62,13 +71,15 @@ function SearchRemoteTracks() {
                 {/*        </td>*/}
                 {/*))}*/}
 
-                {results["items"] && results["items"].map((track) => (
-                    <div key={track["data"]["uri"]} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
-                        <SearchCard item={track} type={"track"}/>
-                    </div>
-                ))}
-
-
+                {results["items"] &&
+                    results["items"].map((track) => (
+                        <div
+                            key={track["data"]["uri"]}
+                            style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
+                        >
+                            <SearchCard item={track} type={"track"} />
+                        </div>
+                    ))}
             </div>
 
             {/*<h2>Remote Tracks</h2>*/}
@@ -88,7 +99,6 @@ function SearchRemoteTracks() {
             {/*    </tbody>*/}
             {/*  </table>*/}
             {/*</div>*/}
-
 
             {/*<div>{results["playlists"]}</div>*/}
         </div>

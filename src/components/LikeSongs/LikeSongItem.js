@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { MdRemoveCircle } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
 import { getTrackThunk } from "../../services/thunks/track-thunk";
 import "./index.css";
@@ -9,6 +10,7 @@ import "./index.css";
 const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
   const [isHovering, setIsHovering] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
   const track = useSelector((state) => state.currentTrack.track);
 
@@ -55,15 +57,12 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
         <h5 className={`text-white text-nowrap song-item-name`}>
           {song.songName}
         </h5>
-        {/* <div className={`text-white text-nowrap`}>
-          Song Name Name Song Name Name
-        </div> */}
       </div>
-      <div className={`d-flex justify-content-start`}>
-        <p className={`mb-0 text-muted text-nowrap song-item-artist`}>
-          {song.artist}
-        </p>
-        {/* <p className={`m-0 text-muted`}>Artist</p> */}
+      <div
+        className={`d-flex justify-content-start artist-see-more-div`}
+        onClick={() => navigate(`/artist/details/${song.apiArtistId}`)}
+      >
+        <p className={`mb-0 text-nowrap song-item-artist`}>{song.artist}</p>
       </div>
     </div>
   );
