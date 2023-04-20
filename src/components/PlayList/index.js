@@ -24,7 +24,7 @@ import {
   updateLikeSong,
 } from "../../reducers/like-reducer";
 
-const PlayList = ({ isSelf }) => {
+const PlayList = ({ isSelf, setComments }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -94,6 +94,8 @@ const PlayList = ({ isSelf }) => {
         playlistsCount: playlists.length - 1,
       })
     );
+    // update comments of user
+    setComments((prev) => prev.filter((p) => p.playlist !== playlist._id));
   };
 
   useEffect(() => {
