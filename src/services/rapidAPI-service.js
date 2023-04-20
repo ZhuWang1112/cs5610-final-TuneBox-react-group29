@@ -93,19 +93,29 @@ export const getArtists = async (artistsName) => {
     },
   };
 
-  await axios
-    .request(options)
-    .then(function (response) {
-      console.log(" rapidapi-serivce-artists: ", response.data);
-      // localStorage.clear();
-      localStorage.setItem("currentArtistData", JSON.stringify(response.data));
-      // console.log(response.data);
-      return response.data;
-    })
-    .catch(function (error) {
-      console.error(error);
-      return;
+  try {
+    const response = await axios.request(options);
+    console.log("response in getartist", response.data.artists);
+    let n = response.data.artists.totalCount;
+    if (n > 70) n = 70;
+    const artists = response.data.artists.items.slice(0, n).map((item) => {
+      return {
+        apiArtistId: item.data.uri.split(":")[2],
+        artistName: item.data.profile.name,
+        img:
+          item.data.visuals &&
+          item.data.visuals.avatarImage &&
+          item.data.visuals.avatarImage.sources &&
+          item.data.visuals.avatarImage.sources.length > 0
+            ? item.data.visuals.avatarImage.sources[0].url
+            : "",
+      };
     });
+    return artists;
+  } catch (error) {
+    console.error(error);
+    return []; // return empty array if error
+  }
 };
 
 export const getTracks = async (tracksName) => {
