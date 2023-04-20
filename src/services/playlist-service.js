@@ -1,10 +1,14 @@
 import axios from "axios";
+import { updateUserNonAdmin } from "./user-service";
 const PLAYLIST_API = "http://localhost:4000/api/playlists";
 const PLAYLISTDEFAULT_API = "http://localhost:4000/api/playlistsdefault";
 
-export const createPlaylist = async (playlist) => {
-  console.log("added playlist", playlist);
-  const response = await axios.post(PLAYLIST_API, playlist);
+export const createPlaylist = async (obj) => {
+  console.log("added playlist", obj.playlist);
+  const response = await axios.post(PLAYLIST_API, obj.playlist);
+  console.log("new playlist: ", response.data);
+  // increase playlistCount in user table
+  updateUserNonAdmin({ _id: obj.playlist.user, playlistsCount: obj.cnt });
   return response.data;
 };
 

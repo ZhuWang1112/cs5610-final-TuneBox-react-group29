@@ -8,28 +8,19 @@ import {
 } from "../../services/comment-service";
 import { useSelector } from "react-redux";
 
-const Comment = () => {
+const Comment = ({ comments, setComments }) => {
   const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;
-  const [comments, setCommments] = useState([]);
   const navitate = useNavigate();
 
-  const findComments = async (id) => {
-    const data = await findCommentService(id);
-    setCommments(data);
-  };
   const handleDelete = (commentObj) => {
-    setCommments((prev) => prev.filter((p) => p._id !== commentObj._id));
+    setComments((prev) => prev.filter((p) => p._id !== commentObj._id));
     deleteCommentService(commentObj);
   };
   const visitPlaylist = (pid) => {
     navitate(`/details/playlist/${pid}`);
   };
-  useEffect(() => {
-    if (!loginId) return;
-    findComments(currentUser._id);
-  }, [loginId]);
 
   return (
     <div className={`comment-container`}>
