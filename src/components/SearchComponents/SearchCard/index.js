@@ -7,7 +7,7 @@ import {updateIsPlaying} from "../../../reducers/currentTrack-reducer";
 import {getTrackThunk} from "../../../services/thunks/track-thunk";
 import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 import React, { useState } from "react";
-import {AiFillPlayCircle} from "react-icons/ai";
+import {AiFillHeart, AiFillPlayCircle} from "react-icons/ai";
 const SearchCard = ({ item, type }) => {
     const navigate = useNavigate();
     // change to read currentUser from redux since the info of currentUser may be updated
@@ -17,6 +17,7 @@ const SearchCard = ({ item, type }) => {
     // current song
     const track = useSelector((state) => state.currentTrack.track);
     const dispatch = useDispatch();
+    // const [like, setLike] = useState(isLike);
     const [isHovering, setIsHovering] = useState(false);
     const iconSize = 25;
 
@@ -99,6 +100,8 @@ const SearchCard = ({ item, type }) => {
                     onClick={() => handlePlay()}
                 />
             )}
+
+
 
           {type === "album" && (
             <Card.Img
@@ -230,6 +233,28 @@ const SearchCard = ({ item, type }) => {
 
 
           </Card.Body>
+            {type === "local-song" && (
+                <AiFillHeart
+                    size={iconSize}
+                    className={`text-danger`}
+                    onClick={() => {
+                        //reference: DetailItem
+                        // setLike(false);
+                        // handleUnLikeClick(song);
+                    }}
+                />
+            )}
+
+            {type === "track" && (
+                <AiFillHeart
+                    size={iconSize}
+                    className={`text-danger`}
+                    onClick={() => {
+                        // setLike(false);
+                        // handleUnLikeClick(song);
+                    }}
+                />
+            )}
         </Card>
       </div>
     );
