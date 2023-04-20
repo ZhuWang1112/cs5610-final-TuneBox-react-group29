@@ -10,21 +10,11 @@ import {
   findPlaylists as findPlaylistsService,
   deletePlaylist,
 } from "../../services/playlist-service";
-import {
-  findPlaylistsThunk,
-  createPlaylistThunk,
-  deletePlaylistThunk,
-} from "../../services/thunks/playlist-thunk";
-import {
-  createPlaylist,
-  // deletePlaylist,
-} from "../../reducers/playlist-reducer.js";
+import { createPlaylist } from "../../services/playlist-service";
 import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
-import {
-  updateLikeSong,
-} from "../../reducers/like-reducer";
+import { updateLikeSong } from "../../reducers/like-reducer";
 
-const PlayList = ({ isSelf }) => {
+const PlayList = ({ isSelf, setComments }) => {
   const { uid } = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -56,7 +46,7 @@ const PlayList = ({ isSelf }) => {
     setCurrentPage(value);
   };
 
-  const addPlaylist = () => {
+  const addPlaylist = async () => {
     if (!currentUser.isVip && playlists.length >= 3) {
       setShow(true);
       return;
@@ -72,15 +62,19 @@ const PlayList = ({ isSelf }) => {
       img: "/images/playlist-cover.jpeg",
       rating: 0,
     };
-    dispatch(
-      createPlaylistThunk({ playlist: newPlaylist, cnt: curPlaylist + 1 })
-    ).then((res) => setPlaylists((prev) => [...prev, res.payload]));
+    const response = await createPlaylist({
+      playlist: newPlaylist,
+      cnt: curPlaylist + 1,
+    });
+    setPlaylists((prev) => [...prev, response]);
   };
+
   const findPlaylists = async (uid) => {
     const data = await findPlaylistsService(uid);
     console.log("playlist in profile", data);
     setPlaylists(data);
   };
+
   const deletePlaylistById = async (playlist) => {
     setPlaylists((prev) => prev.filter((p) => p._id !== playlist._id));
     const updatedLikedObj = await deletePlaylist(playlist);
@@ -91,9 +85,12 @@ const PlayList = ({ isSelf }) => {
     dispatch(
       updateUserNonAdminThunk({
         _id: playlist.user,
+        ...currentUser,
         playlistsCount: playlists.length - 1,
       })
     );
+    // update comments of user
+    setComments((prev) => prev.filter((p) => p.playlist !== playlist._id));
   };
 
   useEffect(() => {
