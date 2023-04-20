@@ -1,14 +1,15 @@
 import Card from "react-bootstrap/Card";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import "./index.css";
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {updateIsPlaying} from "../../../reducers/currentTrack-reducer";
 import {getTrackThunk} from "../../../services/thunks/track-thunk";
+import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
+import React, { useState } from "react";
+import {AiFillPlayCircle} from "react-icons/ai";
 const SearchCard = ({ item, type }) => {
     const navigate = useNavigate();
-    // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     // change to read currentUser from redux since the info of currentUser may be updated
     const { currentUser } = useSelector((state) => state.user);
     // playing status -- boolean
@@ -16,19 +17,23 @@ const SearchCard = ({ item, type }) => {
     // current song
     const track = useSelector((state) => state.currentTrack.track);
     const dispatch = useDispatch();
-    const handleClick = () => {
+    const [isHovering, setIsHovering] = useState(false);
+    const iconSize = 25;
 
+    const handleMouseOver = () => {
+        setIsHovering(true);
+    };
+
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    };
+
+    // change route to details page
+    const handleClick = () => {
       if (type === "album") {
         navigate("/details/album/" + item.apiAlbumId, {
           state: { title: item.title },
         });
-      } else if (type === "track") {
-          if (track.apiSongId === item.apiSongId) {
-              //modify
-              dispatch(updateIsPlaying(!isPlaying));
-          } else {
-              dispatch(getTrackThunk(item)); //modify
-          }
       } else if (type === "artist") {
         navigate("/details/artist/" + item.apiArtistId, {
           state: { item },
@@ -39,14 +44,32 @@ const SearchCard = ({ item, type }) => {
       }  else if (type === "local-playlist") {
           localStorage.setItem("LocalDetailSinglePlaylist", JSON.stringify(item))
           navigate("/details/playlist/" + item["_id"]);
-      } else if (type === "local-song") {
-          if (track.apiSongId === item.apiSongId) {
-              //modify
-              dispatch(updateIsPlaying(!isPlaying));
-          } else {
-              dispatch(getTrackThunk(item)); //modify
-          }
       }
+    };
+
+    //play musics online: track is cloud, local-song is from DB
+    const handlePlay = () => {
+        if (type === "track" ) {
+            // console.log("track-card: ", item)
+            const newItem = item.data;
+            // newItem._id = newItem.id;
+            newItem.apiSongId = newItem.id;
+            if (track.apiSongId === newItem.apiSongId) {
+                dispatch(updateIsPlaying(!isPlaying));
+            } else {
+                // console.log("song!!! ", newItem)
+                dispatch(getTrackThunk(newItem));
+            }
+        } else if (type === "local-song") {
+            // console.log("local-song-card: ", item)
+            const newItem = item;
+            if (track.apiSongId === newItem._id) {
+                dispatch(updateIsPlaying(!isPlaying));
+            } else {
+                // console.log("song!!! ", newItem)
+                dispatch(getTrackThunk(newItem));
+            }
+        }
 
     };
 
@@ -58,21 +81,31 @@ const SearchCard = ({ item, type }) => {
             width: "10rem",
           }}
           onClick={handleClick}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
         >
+            {isHovering && type === "track" && (
+                <AiFillPlayCircle
+                    className={`position-absolute song-play-icon text-dark`}
+                    size={40}
+                    onClick={() => handlePlay()}
+                />
+            )}
+
+            {isHovering && type === "local-song" && (
+                <AiFillPlayCircle
+                    className={`position-absolute song-play-icon text-dark`}
+                    size={40}
+                    onClick={() => handlePlay()}
+                />
+            )}
+
           {type === "album" && (
             <Card.Img
               variant="top"
               className={"wd-card-img-custom "}
               src={
                 item.img
-                // item["data"]["images"] &&
-                // item["data"]["images"].items &&
-                // item["data"]["images"].items[0] &&
-                // item["data"]["images"].items[0].sources &&
-                // item["data"]["images"].items[0].sources[0] &&
-                // item["data"]["images"].items[0].sources[0].url
-                //     ? item["data"]["images"].items[0].sources[0].url
-                //     : "./question.png"
               }
             />
           )}
@@ -137,18 +170,12 @@ const SearchCard = ({ item, type }) => {
             {type === "album" && (
               <Card.Title className={"wd-card"}>
                 {item.title}
-                {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                {/*    {item.user.userName}*/}
-                {/*</Link>*/}
               </Card.Title>
             )}
 
               {type === "playlist" && (
                   <Card.Text className={"wd-card"}>
                       {item.data.name}
-                      {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                      {/*    {item.user.userName}*/}
-                      {/*</Link>*/}
                   </Card.Text>
               )}
 
@@ -171,18 +198,13 @@ const SearchCard = ({ item, type }) => {
                 >
                   {item.artistName}
                 </Link>
-                {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                {/*    {item.user.userName}*/}
-                {/*</Link>*/}
+
               </Card.Text>
             )}
 
             {type === "album" && (
               <Card.Text className={"wd-card"}>
                 {item.date}
-                {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                {/*    {item.user.userName}*/}
-                {/*</Link>*/}
               </Card.Text>
             )}
 
@@ -209,7 +231,11 @@ const SearchCard = ({ item, type }) => {
               <Card.Title className={"wd-card"}>{item.artistName}</Card.Title>
             )}
 
-
+              {/*{isPlaying && track.apiSongId === item.apiSongId ? (*/}
+              {/*    <BsFillPauseCircleFill size={iconSize} className={`text-success`} />*/}
+              {/*) : (*/}
+              {/*    <BsFillPlayCircleFill size={iconSize} className={`text-success`} />*/}
+              {/*)}*/}
 
 
           </Card.Body>

@@ -25,6 +25,7 @@ function SearchLocalArtists() {
 
     const searchArtistsLocal = async () => {
         // console.log("???", currentData["playlists"]["items"][0]["data"])
+        localStorage.removeItem('localArtists');
         await dispatch(searchArtistThunk( search ));
         const localArtists = JSON.parse(localStorage.getItem("localArtists"));
         await setResults(localArtists);
@@ -45,7 +46,7 @@ function SearchLocalArtists() {
             />
 
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {results._id  &&
+                    {results && results._id  &&
                         (<div key={results._id} style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}>
                             <SearchCard item={results} type="local-artist"/>
                         </div>)

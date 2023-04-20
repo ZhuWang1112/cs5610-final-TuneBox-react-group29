@@ -25,6 +25,7 @@ function SearchLocalPlaylists() {
 
     const searchPlaylistsLocal = async () => {
         // console.log("???", currentData["playlists"]["items"][0]["data"])
+        localStorage.removeItem('localPlaylists');
         await dispatch(searchPlaylistThunk( search ));
         const localPlaylists = JSON.parse(localStorage.getItem("localPlaylists"));
         await setResults(localPlaylists);

@@ -25,6 +25,7 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
     if (track.apiSongId === song.apiSongId) {
       dispatch(updateIsPlaying(!isPlaying));
     } else {
+        console.log("song!!! ", song)
       dispatch(getTrackThunk(song));
     }
   };
