@@ -53,9 +53,9 @@ const HomeCard = ({ item, type }) => {
         <Card.Body>
           {type === "album" && (
             <Card.Title className={"wd-card"}>
-                <Link to={`/album/${item._id}`} className={"wd-link"}>
-                  {item.title}
-                </Link>
+              <Link to={`/album/${item._id}`} className={"wd-link"}>
+                {item.title}
+              </Link>
             </Card.Title>
           )}
           {type === "album" && (
@@ -66,13 +66,20 @@ const HomeCard = ({ item, type }) => {
             </Card.Text>
           )}
           {type === "playlist" && (
-              <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
+            <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
           )}
           {type === "playlist" && (
             <Card.Text className={"wd-card"}>
               {/*{JSON.stringify(item.user)}*/}
-              <Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>
-                  {item.user.userName}
+              <Link
+                className={"wd-link"}
+                to={
+                  currentUser !== null && item.user._id === currentUser._id
+                    ? `/profile`
+                    : `/profile/${item.user._id}`
+                }
+              >
+                {item.user.userName}
               </Link>
             </Card.Text>
           )}
@@ -108,7 +115,12 @@ const HomeCard = ({ item, type }) => {
           {type === "song" && (
             <>
               <Card.Title className={"wd-card"}>{item.songName}</Card.Title>
-              <Card.Text className={"wd-card"}>{item.artist}</Card.Text>
+              <Card.Text
+                className={"wd-card artist-click-format"}
+                onClick={() => navigate(`/artist/details/${item.apiArtistId}`)}
+              >
+                {item.artist}
+              </Card.Text>
             </>
           )}
         </Card.Body>
