@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePlaylist } from "../../reducers/playlist-reducer.js";
+import { updatePlaylist as updatePlaylistService } from "../../services/playlist-service.js";
+import { MdAddAPhoto } from "react-icons/md";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router";
 
 const defaultFile = "/images/playlist-cover.jpeg";
 
-const AlbumBanner = ({ title, artist, img, songNumber }) => {
-  console.log("playlist in albumbanner", artist);
+const ArtistBanner = ({ artistName, img, albumNumber }) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -32,23 +36,16 @@ const AlbumBanner = ({ title, artist, img, songNumber }) => {
         width={`200px`}
         height={`200px`}
       />
-      <h5
-        className={`text-white position-absolute album-cover-song-num d-none d-md-block`}
-      >
-        {songNumber} songs
+      <h5 className={`text-white position-absolute album-cover-song-num`}>
+        {albumNumber} albums
       </h5>
       <h1
-        className={`text-white position-absolute album-cover-text-pos-non-edit d-none d-lg-block text-nowrap`}
+        className={`text-white position-absolute playlist-cover-text-pos-non-edit d-none d-md-block`}
       >
-        {title}
+        {artistName}
       </h1>
-      <h4
-        className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}
-      >
-        {artist}
-      </h4>
     </div>
   );
 };
 
-export default AlbumBanner;
+export default ArtistBanner;

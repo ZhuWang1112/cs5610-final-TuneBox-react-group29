@@ -7,11 +7,8 @@
     z-index: 2;
     top:-270px;
 }
-.album-cover-text-pos-non-edit {
-    left: 350px;
-    top: 50px;
-    font-size: 60px;
-    width: 900px;
+.album-title-div {
+     width: 90px; 
     overflow: hidden;
     text-overflow: ellipsis;
 }
