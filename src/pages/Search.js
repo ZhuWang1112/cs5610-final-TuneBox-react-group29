@@ -1,9 +1,5 @@
 import React from 'react'
-// import AdminNav from "../components/AdminComponents/AdminNav";
 import {Route, Routes} from "react-router";
-// import AdminDashboard from "../components/AdminComponents/AdminDashBoard";
-// import AdminUsers from "../components/AdminComponents/AdminUsers";
-// import AdminPlaylists from "../components/AdminComponents/AdminPlaylists";
 import SearchRemoteAlbums from "../components/SearchComponents/SearchRemoteAlbums/index.js"
 import SearchRemoteArtists from "../components/SearchComponents/SearchRemoteArtists/index.js";
 import SearchRemoteTracks from "../components/SearchComponents/SearchRemoteTracks/index.js";
@@ -22,7 +18,7 @@ const Search = () => {
                 <Route path="/search-remote-tracks" element={<SearchRemoteTracks />} />
                 <Route path="/search-local-artists" element={<SearchLocalArtists />} />
                 <Route path="/search-local-playlists" element={<SearchLocalPlaylists />} />
-                {/*<Route path="/search-local-songs" element={<SearchLocalSongs />} />*/}
+                <Route path="/search-local-songs" element={<SearchLocalSongs />} />
             </Routes>
         </div>
     );

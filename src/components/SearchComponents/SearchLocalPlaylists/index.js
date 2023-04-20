@@ -23,9 +23,9 @@ function SearchLocalPlaylists() {
         };
     }, []);
 
-    const searchArtistsLocal = async () => {
+    const searchPlaylistsLocal = async () => {
         // console.log("???", currentData["playlists"]["items"][0]["data"])
-        await dispatch(searchPlaylistThunk( {search} ));
+        await dispatch(searchPlaylistThunk( search ));
         const localPlaylists = JSON.parse(localStorage.getItem("localPlaylists"));
         await setResults(localPlaylists);
     };
@@ -34,7 +34,7 @@ function SearchLocalPlaylists() {
 
     return (
         <div>
-            <button onClick={searchArtistsLocal} className="float-end btn btn-primary">
+            <button onClick={searchPlaylistsLocal} className="float-end btn btn-primary">
                 Search
             </button>
             <input

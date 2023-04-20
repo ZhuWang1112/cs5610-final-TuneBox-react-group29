@@ -25,7 +25,7 @@ function SearchLocalArtists() {
 
     const searchArtistsLocal = async () => {
         // console.log("???", currentData["playlists"]["items"][0]["data"])
-        await dispatch(searchArtistThunk( {search} ));
+        await dispatch(searchArtistThunk( search ));
         const localArtists = JSON.parse(localStorage.getItem("localArtists"));
         await setResults(localArtists);
     };
