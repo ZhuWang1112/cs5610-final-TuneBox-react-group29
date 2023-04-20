@@ -1,0 +1,17 @@
+.album-cover-song-num {
+    bottom: 10px;
+    right: 30px;
+}
+.upgrade-in-album-div {
+    right:20px;
+    z-index: 2;
+    top:-270px;
+}
+.album-cover-text-pos-non-edit {
+    left: 350px;
+    top: 50px;
+    font-size: 60px;
+    width: 900px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

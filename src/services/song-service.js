@@ -9,3 +9,8 @@ export const findSongs = async (songList) => {
   });
   return response.data;
 };
+
+export const insertSongIfNotExist = async (song) => {
+  const response = await axios.put(`${SONG_API}`, song);
+  return response.data;
+};

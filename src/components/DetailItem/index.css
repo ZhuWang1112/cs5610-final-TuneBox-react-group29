@@ -100,3 +100,8 @@ color:gray;
 textarea[type="text"]:focus{
     border: 3px solid #555;
 }
+.album-detail-songname {
+    width: 220px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
-import PlayListDetailItem from "./PlayListDetailItem";
+// import PlayListDetailItem from "./PlayListDetailItem";
+import DetailItem from "../DetailItem";
 import CommentPanel from "./CommentPanel";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +13,7 @@ import {
   deleteLikeSong,
   addLikeSong,
 } from "../../reducers/like-reducer.js";
+
 import {
   deleteSongPlaylist,
   createSongPlaylist,
@@ -21,6 +23,7 @@ import {
 } from "../../services/songPlaylist-service.js";
 import { findPlaylists } from "../../services/playlist-service.js";
 import "./index.css";
+import { SONG_LIMITATION_FOR_REGULAR_USER } from "../../utils/URL";
 
 const PlayListDetail = ({ playlist, setPlaylist }) => {
   // const { songs } = useSelector((state) => state.likedSong);
@@ -37,7 +40,6 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const SONG_LIMITATION_FOR_REGULAR_USER = 1;
   console.log("currentUser in playlist", currentUser);
   let showDelete;
   if (!currentUser || currentUser._id !== playlist.user) {
@@ -46,16 +48,18 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
     showDelete = true;
   }
 
-  const handleUnLikeClick = async (songId) => {
+  const handleUnLikeClick = async (song) => {
     if (!currentUser) return;
     // update state in likedSong reducer
-    dispatch(deleteLikeSong(songId));
+    dispatch(deleteLikeSong(song.apiSongId));
     if (currentUser._id === playlist.user) {
       // remove the song from playlist in UI
-      setSongs((prev) => prev.filter((s) => s.songId._id !== songId));
+      setSongs((prev) =>
+        prev.filter((s) => s.songId.apiSongId !== song.apiSongId)
+      );
     }
 
-    deleteSongPlaylist(currentUser._id, songId);
+    deleteSongPlaylist(currentUser._id, song._id);
   };
 
   const handleAddToPlaylist = async (pid, songIdObj, setLike) => {
@@ -189,9 +193,10 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
                 {(playlistsOption || !currentUser) &&
                   ((currentUser && songsNumber !== null) || !currentUser) &&
                   songs.map((item, idx) => (
-                    <PlayListDetailItem
+                    <DetailItem
                       key={item._id + playlist._id}
-                      song={item}
+                      type="playlist"
+                      song={item.songId}
                       isLike={
                         likedSongs.filter(
                           (val, id) => val.apiSongId === item.songId.apiSongId

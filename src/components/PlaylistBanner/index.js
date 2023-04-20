@@ -157,7 +157,7 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
       {!edit && (
         <>
           <h1
-            className={`text-white position-absolute playlist-cover-text-pos d-none d-md-block`}
+            className={`text-white position-absolute playlist-cover-text-pos-non-edit d-none d-md-block`}
           >
             {playlistName}
           </h1>
@@ -174,7 +174,7 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
             )}
 
           <h4
-            className={`text-muted position-absolute playlist-desc-pos d-none d-lg-block`}
+            className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}
           >
             {playlistDesc === "" || playlistDesc === undefined
               ? "Add your description..."
@@ -185,16 +185,22 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
 
       {edit && (
         <>
-          <input
-            className="form-control control-input me-2 position-absolute playlist-cover-text-pos playlist-name-input d-none d-lg-block"
-            id="playlist-cover-text"
-            name="playlist-cover-text"
-            type="text"
-            placeholder="Type the playlist name..."
-            value={playlistName}
-            size={1}
-            onChange={(e) => handleNameChange(e)}
-          />
+          <div className={`position-absolute playlist-cover-text-pos`}>
+            <label htmlFor="playlist-cover-text" className={`text-warning`}>
+              Playlist Name
+            </label>
+            <input
+              className="form-control control-input me-2 playlist-name-input d-none d-lg-block"
+              id="playlist-cover-text"
+              name="playlist-cover-text"
+              type="text"
+              placeholder="Type the playlist name..."
+              value={playlistName}
+              size={1}
+              onChange={(e) => handleNameChange(e)}
+            />
+          </div>
+
           <button
             className={`btn btn-dark border border-danger position-absolute playlist-confirm-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
             onClick={() => handleConfirm()}
@@ -209,16 +215,21 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
             Cancel
           </button>
 
-          <textarea
-            className="form-control control-input me-2 position-absolute playlist-desc-pos playlist-name-input d-none d-lg-block"
-            id="playlist-cover-desc"
-            name="playlist-cover-desc"
-            type="text"
-            placeholder="Add your description..."
-            value={playlistDesc}
-            rows={2}
-            onChange={(e) => handleDescChange(e)}
-          />
+          <div className={`position-absolute playlist-desc-pos`}>
+            <label htmlFor="playlist-cover-desc" className={`text-warning`}>
+              Description
+            </label>
+            <textarea
+              className="form-control control-input me-2 playlist-desc-input d-none d-lg-block"
+              id="playlist-cover-desc"
+              name="playlist-cover-desc"
+              type="text"
+              placeholder="Add your description..."
+              value={playlistDesc}
+              rows={2}
+              onChange={(e) => handleDescChange(e)}
+            />
+          </div>
 
           <div
             className={`playlist-cover-cover rounded-3 position-absolute playlist-cover-pos bg-muted`}

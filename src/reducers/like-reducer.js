@@ -11,8 +11,10 @@ const likeSlice = createSlice({
 
     deleteLikeSong(state, action) {
       // delete the song from likedSongs
-      const _id = action.payload; // _id in song schema of local database
-      state.likedSongs = state.likedSongs.filter((song) => song._id !== _id);
+      const apiSongId = action.payload;
+      state.likedSongs = state.likedSongs.filter(
+        (song) => song.apiSongId !== apiSongId
+      );
     },
 
     addLikeSong(state, action) {

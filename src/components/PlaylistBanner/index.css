@@ -15,7 +15,11 @@
 }
 .playlist-cover-text-pos {
     left: 350px;
-    top: 60px;
+    top: 20px;
+}
+.playlist-cover-text-pos-non-edit {
+    left: 350px;
+    top: 50px;
     font-size: 60px;
 }
 .playlist-edit-pos {
@@ -36,10 +40,20 @@
 }
 .playlist-desc-pos {
     left: 350px;
+    top: 150px;
+}
+.playlist-desc-pos-non-edit {
+    left: 350px;
     top: 170px;
 }
 .playlist-name-input {
+    font-size: 60px;
     width: 500px;
+    background-color: white !important;
+}
+.playlist-desc-input {
+    width: 500px;
+    background-color: white !important;
 }
 
 input[type="text"], textarea {

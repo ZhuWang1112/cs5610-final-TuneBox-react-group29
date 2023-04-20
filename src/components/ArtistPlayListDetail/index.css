@@ -28,20 +28,19 @@ height: 300px;
 
 .comment-hover-color:hover {
 color: orange;
-cursor: pointer;
 }
 .comment-content {
-max-height: 3.5em; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+max-height: 3.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song-num-pos {
-    right: 20px;
+    right: 50px;
     top: -90px;
 }
 .playlist-rating {
-    right: 20px;
+    right: 50px;
     top: -120px;
 }
 
@@ -62,41 +61,4 @@ color:gray;
     text-decoration: none;
     text-decoration-line: none;
     color: gray;
-}
-.overflow-hidden-format {
-    overflow: hidden;
-}
-.like-toolkit-div {
-    height: 100px;
-    width: 230px;
-    right: -100px;
-    top: 40px;
-    background-color: orange;
-    z-index: 2
-}
-.upgrade-in-playlist-div {
-    right:0;
-    z-index: 2;
-    top:-270px;
-}
-.comment-user-name-div {
-    width: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.playlist-detail-songname {
-    width: 135px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.playlist-detail-artist {
-    width: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.comment-panel-div {
-    background-color: white !important;
-}
-textarea[type="text"]:focus{
-    border: 3px solid #555;
 }
