@@ -16,10 +16,11 @@ const LikeSongs = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { likedSongs } = useSelector((state) => state.likedSong);
   console.log("likedSongs in likedSongs", likedSongs);
+  console.log("currentUser in likedSongs", currentUser);
   const [profileSongs, setProfileSongs] = useState(null);
 
   const handleRemoveSong = async (song) => {
-    dispatch(deleteLikeSong(song._id));
+    dispatch(deleteLikeSong(song.apiSongId));
     deleteSongPlaylist(currentUser._id, song._id);
   };
 
