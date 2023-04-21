@@ -54,7 +54,6 @@ const Home = () => {
             {!error && <div>
                 <div  className={"text-white"} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <h2 className={"mb-2"} style={{color: "gold"}}>Recommended Artists</h2>
-                    {/*<p>current window width：{num}px</p>*/}
                     <div>
                         <ArrowRightAltIcon />
                         <Link to={"/hot/artist/all"} className={"m-3"}>View More</Link>
