@@ -17,6 +17,12 @@
     text-decoration: underline;
 }
 
+.upgrade-in-media-div {
+    left:20px;
+    z-index: 2;
+    top:-180px;
+    width: 300px;
+} 
 /*@keyframes scrolling {*/
 /*    0%, 100% {*/
 /*        transform: translateX(50%);*/

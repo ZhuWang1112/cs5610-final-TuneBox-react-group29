@@ -13,7 +13,9 @@ const HistoryPanelItem = ({ comment }) => {
         onClick={() =>
           navigate(
             `/profile${
-              comment.user._id === currentUser._id ? `` : `/${comment.user._id}`
+              !currentUser || comment.user._id !== currentUser._id
+                ? `/${comment.user._id}`
+                : ``
             }`
           )
         }

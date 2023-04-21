@@ -4,17 +4,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import HomeCard from "../../components/HomeCard";
 import React, { useEffect, useState } from "react";
 import { findLikedSongsByUser } from "../../services/songPlaylist-service";
+import { findCurrentUserThunk } from "../../services/users/users-thunks";
+import { findCurrentUserSongsThunk } from "../../services/thunks/like-thunk";
 // import LikeSongItem from "./LikeSongItem";
 
 const LikeSongDetail = () => {
   const { uid } = useParams();
   const [songs, setSongs] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
+  const { likedSongs } = useSelector((state) => state.likedSong);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1); // Navigate back on arrow click
   };
+  // console.log("uid: ", uid === currentUser._id);
   const findSongs = async (id) => {
     // const data = await findLikedSongs(id);
     const data = await findLikedSongsByUser(id);
@@ -29,8 +33,11 @@ const LikeSongDetail = () => {
   };
 
   useEffect(() => {
-     findSongs(uid ? uid : currentUser._id);
-   }, [uid]);
+    // fetch current login user
+    dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
+    findSongs(uid ? uid : currentUser._id);
+  }, [uid]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -54,15 +61,25 @@ const LikeSongDetail = () => {
         </h2>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {songs &&
-          songs.map((song) => (
-            <div
-              key={song.id}
-              style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
-            >
-              <HomeCard item={song.songId} type={"song"} />
-            </div>
-          ))}
+        {!currentUser || currentUser._id !== uid
+          ? songs &&
+            songs.map((song) => (
+              <div
+                key={song.id}
+                style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
+              >
+                <HomeCard item={song.songId} type={"song"} />
+              </div>
+            ))
+          : likedSongs &&
+            likedSongs.map((song) => (
+              <div
+                key={song.id}
+                style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
+              >
+                <HomeCard item={song} type={"song"} />
+              </div>
+            ))}
       </div>
     </div>
   );

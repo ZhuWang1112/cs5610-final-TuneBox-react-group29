@@ -83,3 +83,12 @@ input[type="text"], textarea {
 .arrow-back-icon:hover {
     cursor:pointer
 }
+.playlist-cover-name-pos {
+    right: 20px;
+    bottom: 10px;
+    color: white;
+}
+.playlist-cover-name-pos:hover {
+    color: orange;
+    cursor: pointer;
+}

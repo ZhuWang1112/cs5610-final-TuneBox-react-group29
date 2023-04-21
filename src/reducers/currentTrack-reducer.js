@@ -11,6 +11,12 @@ const song = {
     img: ''
 };
 
+const formatTime = (ms) => {
+  let minutes = Math.floor(ms / 60000);
+  let seconds = ((ms % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+};
+
 const currentTrackSlice = createSlice({
     name: "currentTrack",
     initialState: { track: song, isPlaying: null },

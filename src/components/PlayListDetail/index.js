@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { AiOutlineFieldTime } from "react-icons/ai";
+import { AiOutlineFieldTime, AiFillStar } from "react-icons/ai";
 // import PlayListDetailItem from "./PlayListDetailItem";
 import DetailItem from "../DetailItem";
 import CommentPanel from "./CommentPanel";
@@ -114,12 +114,13 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
       {songs && (
         <div className={`mt-3 ms-3 me-3 position-relative`}>
           <h4
-            className={`text-white position-absolute playlist-rating d-none d-xl-block`}
+            className={`text-white position-absolute playlist-rating d-none d-xl-flex`}
           >
-            {Math.round(playlist.rating * 10) / 10} rating
+            {Math.round(playlist.rating * 10) / 10}{" "}
+            <AiFillStar size={30} className={`text-warning`} />
           </h4>
           <h4
-            className={`text-white position-absolute song-num-pos d-none d-xl-block`}
+            className={`text-white position-absolute song-num-pos d-none d-xl-flex`}
           >
             {songs.length} songs
           </h4>
