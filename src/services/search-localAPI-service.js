@@ -16,9 +16,11 @@ export const searchPlaylists = (name) => {
     return response
 }
 
-export const searchSongs = (name) => {
-    const response = api.post(`http://localhost:4000/api/local-songs`, {name:name});
-    console.log("searchLocalSongsAPI: ", response)
-    return response
-}
+export const searchSongs = async (name) => {
+  const response = await api.post(`http://localhost:4000/api/local-songs`, {
+    name: name,
+  });
+  console.log("searchLocalSongsAPI: ", response.data);
+  return response.data;
+};
 

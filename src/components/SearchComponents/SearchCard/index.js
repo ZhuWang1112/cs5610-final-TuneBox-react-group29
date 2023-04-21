@@ -18,7 +18,11 @@ import {
   deleteSongPlaylist,
 } from "../../../services/songPlaylist-service";
 
+const defaultImg = "/images/question.png";
 const SearchCard = ({ item, type, setShowUpgrade }) => {
+  if (!item.img || item.img === undefined || item.img === "") {
+    item.img = "/images/question.png";
+  }
   const navigate = useNavigate();
   // change to read currentUser from redux since the info of currentUser may be updated
   const { currentUser } = useSelector((state) => state.user);
@@ -27,7 +31,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
   // current song
   const track = useSelector((state) => state.currentTrack.track);
   const dispatch = useDispatch();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const iconSize = 25;
   const { likedSongs } = useSelector((state) => state.likedSong);
@@ -112,7 +116,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
     const insertedArtist = await insertArtistIfNotExist({
       api: item.apiArtistId,
       name: item.artistName,
-      img: item.img,
+      img: item.img === "" ? defaultImg : item.img,
     });
     console.log("insertedArtist: ", insertedArtist);
     // insert the song to db if not exist
@@ -160,15 +164,16 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
+            // src={item.img === "" ? defaultImg : item.img}
             src={item.img}
           />
         )}
-
         {type === "artist" && (
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
-            src={item.img === "" ? "./question.png" : item.img}
+            // src={item.img === "" ? defaultImg : item.img}
+            src={item.img}
           />
         )}
 
@@ -182,7 +187,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
               item["data"]["albumOfTrack"]["coverArt"].sources[0] &&
               item["data"]["albumOfTrack"]["coverArt"].sources[0].url
                 ? item["data"]["albumOfTrack"]["coverArt"].sources[0].url
-                : "./question.png"
+                : defaultImg
             }
           />
         )}
@@ -191,7 +196,8 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
-            src={item["img"] ? item["img"] : "./question.png"}
+            // src={item["img"] ? item["img"] : defaultImg}
+            src={item.img}
           />
         )}
 
@@ -199,7 +205,8 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
-            src={item["img"] ? item["img"] : "./question.png"}
+            // src={item["img"] ? item["img"] : defaultImg}
+            src={item.img}
           />
         )}
 
@@ -207,7 +214,8 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
-            src={item["img"] ? item["img"] : "./question.png"}
+            // src={item["img"] ? item["img"] : defaultImg}
+            src={item.img}
           />
         )}
 
@@ -243,17 +251,6 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           )}
 
           {type === "album" && (
-            <Card.Text className={"wd-card"}>
-              <Link
-                to={`/details/artist/${item.apiArtistId}`}
-                className={"wd-link"}
-              >
-                {item.artistName}
-              </Link>
-            </Card.Text>
-          )}
-
-          {type === "album" && (
             <Card.Text className={"wd-card"}>{item.date}</Card.Text>
           )}
 
@@ -275,51 +272,52 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           )}
         </Card.Body>
 
-        {(type === "local-song" || type === "track") && currentUser ? (
-          likedSongs.filter((val, id) => val.apiSongId === item.apiSongId)
-            .length > 0 ? (
-            <AiFillHeart
-              size={25}
-              className={`text-danger`}
-              onClick={() => handleUnLike()}
-            />
+        {(type === "local-song" || type === "track") &&
+          (currentUser ? (
+            likedSongs.filter((val, id) => val.apiSongId === item.apiSongId)
+              .length > 0 ? (
+              <AiFillHeart
+                size={25}
+                className={`text-danger`}
+                onClick={() => handleUnLike()}
+              />
+            ) : (
+              <AiFillHeart
+                size={25}
+                className={`text-muted`}
+                onClick={() => handleLike()}
+              />
+            )
           ) : (
-            <AiFillHeart
-              size={25}
-              className={`text-muted`}
-              onClick={() => handleLike()}
-            />
-          )
-        ) : (
-          <div className={`position-relative`}>
-            <div onClick={() => setShow(!show)}>
-              <AiOutlineHeart size={iconSize} className={`text-muted`} />
-            </div>
-            {show && (
-              <div className={`like-toolkit-div position-absolute rounded-3`}>
-                <h5 className={`text-white fw-bold m-2`}>
-                  Enjoy your Journey!
-                </h5>
-                <div
-                  className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
-                >
-                  <button
-                    className={`btn btn-light p-1`}
-                    onClick={() => navigate("/login")}
-                  >
-                    Log in
-                  </button>
-                  <p
-                    className={`text-muted mb-0 ms-3 not-now`}
-                    onClick={() => setShow(false)}
-                  >
-                    Not Now
-                  </p>
-                </div>
+            <div className={`position-relative`}>
+              <div onClick={() => setShow(!show)}>
+                <AiOutlineHeart size={iconSize} className={`text-muted`} />
               </div>
-            )}
-          </div>
-        )}
+              {show && (
+                <div className={`like-toolkit-div position-absolute rounded-3`}>
+                  <h5 className={`text-white fw-bold m-2`}>
+                    Enjoy your Journey!
+                  </h5>
+                  <div
+                    className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
+                  >
+                    <button
+                      className={`btn btn-light p-1`}
+                      onClick={() => navigate("/login")}
+                    >
+                      Log in
+                    </button>
+                    <p
+                      className={`text-muted mb-0 ms-3 not-now`}
+                      onClick={() => setShow(false)}
+                    >
+                      Not Now
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
       </Card>
     </div>
   );

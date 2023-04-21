@@ -1,14 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {FaPlay, FaPause, FaVolumeUp, FaRegPlayCircle, FaRegPauseCircle} from 'react-icons/fa';
-import {
-  AiFillHeart,
-  AiOutlinePause,
-  AiOutlinePlaySquare,
-  AiOutlineHeart,
-} from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getTrackThunk } from "../../services/thunks/track-thunk";
 import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
 import { insertArtistIfNotExist } from "../../services/artist-service";
 import { insertSongIfNotExist } from "../../services/song-service";
@@ -17,13 +11,9 @@ import {
   deleteSongPlaylist,
 } from "../../services/songPlaylist-service";
 import { SONG_LIMITATION_FOR_REGULAR_USER } from "../../utils/URL";
-import {
-  updateLikeSong,
-  deleteLikeSong,
-  addLikeSong,
-} from "../../reducers/like-reducer.js";
+import { deleteLikeSong, addLikeSong } from "../../reducers/like-reducer.js";
 import "./index.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const MediaPlayer = () => {
   // const song = {
   //     mp3Url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
@@ -40,6 +30,7 @@ const MediaPlayer = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [volume, setVolume] = useState(1);
   const song = useSelector((state) => state.currentTrack.track);
+  console.log("song in currentTrack", song);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -116,7 +107,7 @@ const MediaPlayer = () => {
     // insert the artist to db if not exist [TODO] change img as artist img rather than album img
     const insertedArtist = await insertArtistIfNotExist({
       api: song.apiArtistId,
-      name: song.artist,
+      name: song.artistName,
       img: song.img,
     });
     console.log("insertedArtist: ", insertedArtist);
@@ -145,63 +136,67 @@ const MediaPlayer = () => {
           </div>
           <div className={"d-none d-md-block col-6 p-0 m-0 pt-2 "}>
             <div className="wd-scrolling-text">{song.songName}</div>
-            <div style={{ color: 'darkgray', fontSize: 'small' }}>
-                <Link to={`/details/artist/${song.apiArtistId}`} className={"wd-link"}>
-                    {song.artistName}
-                </Link>
+            <div style={{ color: "darkgray", fontSize: "small" }}>
+              <Link
+                to={`/details/artist/${song.apiArtistId}`}
+                className={"wd-link"}
+              >
+                {song.artistName}
+              </Link>
             </div>
-            {song.songName && currentUser ? (
-              <>
-                <div>
-                  {likedSongs.filter(
-                    (val, id) => val.apiSongId === song.apiSongId
-                  ).length > 0 ? (
-                    <AiFillHeart
-                      size={25}
-                      className={`text-danger`}
-                      onClick={() => handleUnLike()}
-                    />
-                  ) : (
-                    <AiFillHeart
-                      size={25}
-                      className={`text-muted`}
-                      onClick={() => handleLike()}
-                    />
+            {song.songName &&
+              (currentUser ? (
+                <>
+                  <div>
+                    {likedSongs.filter(
+                      (val, id) => val.apiSongId === song.apiSongId
+                    ).length > 0 ? (
+                      <AiFillHeart
+                        size={25}
+                        className={`text-danger`}
+                        onClick={() => handleUnLike()}
+                      />
+                    ) : (
+                      <AiFillHeart
+                        size={25}
+                        className={`text-muted`}
+                        onClick={() => handleLike()}
+                      />
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className={`position-relative`}>
+                  <div onClick={() => setShow(!show)}>
+                    <AiOutlineHeart size={25} className={`text-muted`} />
+                  </div>
+                  {show && (
+                    <div
+                      className={`like-toolkit-div-media position-absolute rounded-3`}
+                    >
+                      <h5 className={`text-white fw-bold m-2`}>
+                        Enjoy your Journey!
+                      </h5>
+                      <div
+                        className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
+                      >
+                        <button
+                          className={`btn btn-light p-1`}
+                          onClick={() => navigate("/login")}
+                        >
+                          Log in
+                        </button>
+                        <p
+                          className={`text-muted mb-0 ms-3 not-now`}
+                          onClick={() => setShow(false)}
+                        >
+                          Not Now
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </div>
-              </>
-            ) : (
-              <div className={`position-relative`}>
-                <div onClick={() => setShow(!show)}>
-                  <AiOutlineHeart size={25} className={`text-muted`} />
-                </div>
-                {show && (
-                  <div
-                    className={`like-toolkit-div-media position-absolute rounded-3`}
-                  >
-                    <h5 className={`text-white fw-bold m-2`}>
-                      Enjoy your Journey!
-                    </h5>
-                    <div
-                      className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
-                    >
-                      <button
-                        className={`btn btn-light p-1`}
-                        onClick={() => navigate("/login")}
-                      >
-                        Log in
-                      </button>
-                      <p
-                        className={`text-muted mb-0 ms-3 not-now`}
-                        onClick={() => setShow(false)}
-                      >
-                        Not Now
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+              ))}
           </div>
         </div>
       </div>

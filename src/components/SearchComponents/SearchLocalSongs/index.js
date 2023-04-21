@@ -8,7 +8,7 @@ import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
 
 function SearchLocalSongs() {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
   const [showUpgrade, setShowUpgrade] = useState(false);
@@ -32,10 +32,12 @@ function SearchLocalSongs() {
 
   const searchSongsLocal = async () => {
     // console.log("???", currentData["playlists"]["items"][0]["data"])
-    localStorage.removeItem("localSongs");
-    await dispatch(searchSongThunk(search));
-    const localSongs = JSON.parse(localStorage.getItem("localSongs"));
-    await setResults(localSongs);
+    // localStorage.removeItem("localSongs");
+    dispatch(searchSongThunk(search)).then((response) => {
+      setResults(response.payload);
+    });
+    // const localSongs = JSON.parse(localStorage.getItem("localSongs"));
+    // setResults(songs);
   };
 
   let num = Math.floor(windowWidth / 250);
@@ -54,17 +56,23 @@ function SearchLocalSongs() {
       />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {results && results._id && (
-          <div
-            key={results._id}
-            style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
-          >
-            <SearchCard
-              item={results}
-              type="local-song"
-              setShowUpgrade={setShowUpgrade}
-            />
-          </div>
+        {results &&
+          results.length > 0 &&
+          results.map((item, idx) => (
+            <div
+              key={item._id}
+              style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
+            >
+              <SearchCard
+                item={item}
+                type="local-song"
+                setShowUpgrade={setShowUpgrade}
+              />
+            </div>
+          ))}
+
+        {results && results.length === 0 && (
+          <p className={`text-white`}>Songs Not Found</p>
         )}
       </div>
       {showUpgrade && (
