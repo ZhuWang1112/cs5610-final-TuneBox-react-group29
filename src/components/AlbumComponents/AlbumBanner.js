@@ -2,10 +2,11 @@ import React from "react";
 import "./index.css";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router";
+import {Link} from "react-router-dom";
 
 const defaultFile = "/images/playlist-cover.jpeg";
 
-const AlbumBanner = ({ title, artist, img, songNumber }) => {
+const AlbumBanner = ({ title, artist, img, songNumber,apiArtistId}) => {
   console.log("playlist in albumbanner", artist);
   const navigate = useNavigate();
 
@@ -45,7 +46,9 @@ const AlbumBanner = ({ title, artist, img, songNumber }) => {
       <h4
         className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}
       >
-        {artist}
+          <Link to={`/details/artist/${apiArtistId}`} className={"wd-link"}>
+              {artist}
+          </Link>
       </h4>
     </div>
   );

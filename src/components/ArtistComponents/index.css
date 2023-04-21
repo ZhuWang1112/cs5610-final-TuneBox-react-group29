@@ -12,3 +12,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.wd-link {
+    color: inherit;
+    text-decoration: none;
+}
+.wd-link:hover {
+    color: inherit;
+    text-decoration: underline;
+}

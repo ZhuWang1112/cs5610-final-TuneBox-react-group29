@@ -50,6 +50,7 @@ const AlbumDetail = () => {
         artist={songs.length === 0 ? "Unknown" : songs[0].artist}
         img={songs.length === 0 ? "" : songs[0].img}
         songNumber={songs.length}
+        apiArtistId={songs.length === 0 ? "" : songs[0].apiArtistId}
       />
 
       <AlbumSongs songs={songs} />
