@@ -5,7 +5,7 @@ import "./index.css";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useSelector, useDispatch} from "react-redux";
-import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import {changeTrack, updateIsPlaying} from "../../reducers/currentTrack-reducer";
 import {getTrackThunk} from "../../services/thunks/track-thunk";
 import React from "react";
 
@@ -38,7 +38,7 @@ const HomeCard = ({item, type}) => {
         if (track.apiSongId === item.apiSongId) {
             dispatch(updateIsPlaying(!isPlaying));
         } else {
-            dispatch(getTrackThunk(item));
+            dispatch(changeTrack(item));
         }
     };
 
@@ -149,7 +149,7 @@ const HomeCard = ({item, type}) => {
                                 className={"wd-card artist-click-format"}
                                 onClick={() => navigate(`/details/artist/${item.apiArtistId}`)}
                             >
-                                {item.artist}
+                                {item.artistName}
                             </Card.Text>
                         </>
                     )}

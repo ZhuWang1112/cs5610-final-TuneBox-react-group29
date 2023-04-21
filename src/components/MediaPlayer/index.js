@@ -1,10 +1,11 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {FaPlay, FaPause, FaVolumeUp, FaRegPlayCircle, FaRegPauseCircle} from 'react-icons/fa';
 import {AiFillHeart, AiOutlinePause, AiOutlinePlaySquare} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {getTrackThunk} from "../../services/thunks/track-thunk";
 import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
 import "./index.css";
+import {Link} from "react-router-dom";
 const MediaPlayer = () => {
 
     // const song = {
@@ -78,7 +79,11 @@ const MediaPlayer = () => {
                         <div className="wd-scrolling-text">
                             {song.songName}
                         </div>
-                        <div style={{ color: 'darkgray', fontSize: 'small' }}>{song.artistName}</div>
+                        <div style={{ color: 'darkgray', fontSize: 'small' }}>
+                            <Link to={`/details/artist/${song.apiArtistId}`} className={"wd-link"}>
+                                {song.artistName || song.artist}
+                            </Link>
+                        </div>
                         {song.songName &&
                             <>
                                 <div>

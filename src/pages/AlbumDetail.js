@@ -47,7 +47,7 @@ const AlbumDetail = () => {
     <div className={`position-relative`}>
       <AlbumBanner
         title={title}
-        artist={songs.length === 0 ? "Unknown" : songs[0].artist}
+        artistName={songs.length === 0 ? "Unknown" : songs[0].artistName}
         img={songs.length === 0 ? "" : songs[0].img}
         songNumber={songs.length}
         apiArtistId={songs.length === 0 ? "" : songs[0].apiArtistId}

@@ -28,7 +28,7 @@ const Artist = () => {
 
     const getArtistDetails = async (api) => {
       const res = await findArtistDetails(api);
-      console.log("songs in artist", res.artist);
+      // console.log("songs in artist", res.artist);
       setArtist(res.artist);
       setSongs(res.songs);
     };
