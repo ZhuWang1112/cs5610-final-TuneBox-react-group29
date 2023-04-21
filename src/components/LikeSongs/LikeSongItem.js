@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
+import { AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai";
 import { MdRemoveCircle } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
 import { getTrackThunk } from "../../services/thunks/track-thunk";
 import "./index.css";
+import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 
 const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -45,11 +46,21 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
           <img src={song.img} width={110} height={110} />
           {/* <img src={`/images/comment-picture.png`} width={110} height={110} /> */}
           {isHovering && (
-            <AiFillPlayCircle
-              className={`position-absolute song-play-icon text-dark`}
-              size={40}
-              onClick={() => handlePlay()}
-            />
+              <>
+                  {isPlaying && track.apiSongId === song.apiSongId ? (
+                      <AiFillPauseCircle
+                          className={`position-absolute song-play-icon text-dark`}
+                          size={40}
+                          onClick={() => handlePlay()}
+                      />
+                  ) : (
+                      <AiFillPlayCircle
+                          className={`position-absolute song-play-icon text-dark`}
+                          size={40}
+                          onClick={() => handlePlay()}
+                      />
+                  )}
+              </>
           )}
         </div>
       </div>

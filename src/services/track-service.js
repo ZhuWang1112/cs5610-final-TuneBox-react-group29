@@ -12,3 +12,10 @@ export const getTracksByAlbumId = async (albumId) => {
   );
   return response.data;
 };
+
+export const getAlbumGeneralInfoByAlbumId = async (albumId) => {
+    const response = await axios.get(
+        `http://localhost:4000/api/remoteApi/albumInfo/${albumId}`
+    );
+    return response.data;
+}

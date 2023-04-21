@@ -22,3 +22,8 @@ export const insertArtistIfNotExist = async (artist) => {
   const response = await axios.put(`${ARTIST_API}`, artist);
   return response.data;
 };
+
+export const findArtistGeneralInfoById = async (artistId) => {
+    const response = await axios.get(`http://localhost:4000/api/remoteApi/artistInfo/${artistId}`);
+    return response.data;
+}

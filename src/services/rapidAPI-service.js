@@ -1,5 +1,7 @@
 import axios from "axios";
 import data from "bootstrap/js/src/dom/data";
+
+const key = "c7b52506acmshb5507c2e9ba0359p1f9b53jsn7116ade98629";
 // const NAPSTER_API = "https://api.napster.com/v2.2";
 // const NAPSTER_KEY = process.env.REACT_APP_NAPSTER_KEY;
 
@@ -47,7 +49,7 @@ export const getAlbums = async (albumName) => {
             numberOfTopResults: '5'
         },
         headers: {
-            'X-RapidAPI-Key': '72347ff321msh369939397882912p1fdb14jsn7f3b5a9e92f1',
+            'X-RapidAPI-Key': key,
             'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
         }
     };
@@ -88,7 +90,7 @@ export const getArtists = async (artistsName) => {
       numberOfTopResults: "5",
     },
     headers: {
-      "X-RapidAPI-Key": "72347ff321msh369939397882912p1fdb14jsn7f3b5a9e92f1",
+      "X-RapidAPI-Key": key,
       "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
     },
   };
@@ -130,7 +132,7 @@ export const getTracks = async (tracksName) => {
       numberOfTopResults: "5",
     },
     headers: {
-      "X-RapidAPI-Key": "72347ff321msh369939397882912p1fdb14jsn7f3b5a9e92f1",
+      "X-RapidAPI-Key": key,
       "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
     },
   };
