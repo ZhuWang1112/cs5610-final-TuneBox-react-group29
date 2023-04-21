@@ -20,7 +20,7 @@ const ArtistBanner = ({ artistName, img, albumNumber, bannerImg }) => {
     <div className={`position-relative`}>
         <div style={{ width: '100%', height: '250px', overflow: 'hidden' }}>
             <img
-                src={bannerImg}
+                src={bannerImg || `/images/playlist-banner.jpeg`}
                 style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(70%)'}}
             />
         </div>
