@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {FaPlay, FaPause, FaVolumeUp, FaRegPlayCircle, FaRegPauseCircle} from 'react-icons/fa';
-import {AiOutlinePause, AiOutlinePlaySquare} from "react-icons/ai";
+import {AiFillHeart, AiOutlinePause, AiOutlinePlaySquare} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {getTrackThunk} from "../../services/thunks/track-thunk";
 import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
@@ -79,6 +79,13 @@ const MediaPlayer = () => {
                             {song.songName}
                         </div>
                         <div style={{ color: 'darkgray', fontSize: 'small' }}>{song.artistName}</div>
+                        {song.songName &&
+                            <>
+                                <div>
+                                    <AiFillHeart/>
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
