@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 
 const defaultFile = "/images/playlist-cover.jpeg";
 
-const AlbumBanner = ({ title, artist, img, songNumber,apiArtistId}) => {
-  console.log("playlist in albumbanner", artist);
+const AlbumBanner = ({ title, artistName, img, songNumber,apiArtistId}) => {
+  // console.log("playlist in albumbanner", artist);
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -47,7 +47,7 @@ const AlbumBanner = ({ title, artist, img, songNumber,apiArtistId}) => {
         className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}
       >
           <Link to={`/details/artist/${apiArtistId}`} className={"wd-link"}>
-              {artist}
+              {artistName}
           </Link>
       </h4>
     </div>

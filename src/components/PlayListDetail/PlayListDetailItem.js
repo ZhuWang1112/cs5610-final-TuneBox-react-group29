@@ -12,7 +12,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
 import "./index.css";
-import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import {changeTrack, updateIsPlaying} from "../../reducers/currentTrack-reducer";
 import {getTrackThunk} from "../../services/thunks/track-thunk";
 import {FaRegPauseCircle, FaRegPlayCircle} from "react-icons/fa";
 const PlayListDetailItem = ({
@@ -40,7 +40,7 @@ const PlayListDetailItem = ({
     if (track.apiSongId === song.songId.apiSongId) {
       dispatch(updateIsPlaying(!isPlaying));
     } else {
-      dispatch(getTrackThunk(song.songId));
+      dispatch(changeTrack(song.songId));
     }
   };
 
@@ -64,7 +64,7 @@ const PlayListDetailItem = ({
           <h5
             className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap`}
           >
-            {song.songId.artist}
+            {song.songId.artistName}
           </h5>
         </div>
         <div

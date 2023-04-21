@@ -57,7 +57,7 @@ const AlbumSongs = ({ songs }) => {
     // insert the artist to db if not exist [TODO] change img as artist img rather than album img
     const insertedArtist = await insertArtistIfNotExist({
       api: song.apiArtistId,
-      name: song.artist,
+      name: song.artistName,
       img: song.img,
     });
     console.log("insertedArtist: ", insertedArtist);

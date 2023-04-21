@@ -11,7 +11,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
 import "./index.css";
-import {updateIsPlaying} from "../../reducers/currentTrack-reducer";
+import {changeTrack, updateIsPlaying} from "../../reducers/currentTrack-reducer";
 import { getTrackThunk } from "../../services/thunks/track-thunk";
 
 const ArtistPlayListDetailItem = ({
@@ -37,7 +37,7 @@ const ArtistPlayListDetailItem = ({
       //modify
       dispatch(updateIsPlaying(!isPlaying));
     } else {
-      dispatch(getTrackThunk(song)); //modify
+      dispatch(changeTrack(song)); //modify
     }
   };
 
@@ -61,7 +61,7 @@ const ArtistPlayListDetailItem = ({
           <h5
             className={`text-white fw-fold d-inline overflow-hidden-format artist-song-detail-artist text-nowrap`}
           >
-            {song.artist}
+            {song.artistName}
           </h5>
         </div>
         <div

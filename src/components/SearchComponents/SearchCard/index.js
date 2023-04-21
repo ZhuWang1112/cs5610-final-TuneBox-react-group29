@@ -3,7 +3,7 @@ import "./index.css";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {updateIsPlaying} from "../../../reducers/currentTrack-reducer";
+import {changeTrack, updateIsPlaying} from "../../../reducers/currentTrack-reducer";
 import {getTrackThunk} from "../../../services/thunks/track-thunk";
 import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 import React, {useState} from "react";
@@ -60,7 +60,7 @@ const SearchCard = ({item, type}) => {
                 dispatch(updateIsPlaying(!isPlaying));
             } else {
                 // console.log("song!!! ", newItem)
-                dispatch(getTrackThunk(newItem));
+                dispatch(changeTrack(newItem));
             }
         } else if (type === "local-song") {
             // console.log("local-song-card: ", item)
@@ -69,7 +69,7 @@ const SearchCard = ({item, type}) => {
                 dispatch(updateIsPlaying(!isPlaying));
             } else {
                 // console.log("song!!! ", newItem)
-                dispatch(getTrackThunk(newItem));
+                dispatch(changeTrack(newItem));
             }
         }
 
@@ -232,7 +232,7 @@ const SearchCard = ({item, type}) => {
 
                     {type === "local-song" && (
                         <Card.Text className={"wd-card"}>
-                            {item.artist}
+                            {item.artistName}
                             {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
                             {/*    {item.user.userName}*/}
                             {/*</Link>*/}
@@ -242,7 +242,7 @@ const SearchCard = ({item, type}) => {
 
                     {type === "local-song" && (
                         <Card.Text className={"wd-card"}>
-                            {item.artist}
+                            {item.artistName}
                         </Card.Text>
                     )}
                     {type === "artist" && (

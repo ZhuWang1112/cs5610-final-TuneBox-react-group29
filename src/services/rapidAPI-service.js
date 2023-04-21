@@ -1,7 +1,7 @@
 import axios from "axios";
 import data from "bootstrap/js/src/dom/data";
 
-const key = "c7b52506acmshb5507c2e9ba0359p1f9b53jsn7116ade98629";
+const key = "a36c07483emsh864414f2c3799b9p1943ffjsn02dd06330afc";
 // const NAPSTER_API = "https://api.napster.com/v2.2";
 // const NAPSTER_KEY = process.env.REACT_APP_NAPSTER_KEY;
 
@@ -120,7 +120,7 @@ export const getArtists = async (artistsName) => {
   }
 };
 
-export const getTracks = async (tracksName) => {
+export const getTracks = (tracksName) => {
   const options = {
     method: "GET",
     url: "https://spotify23.p.rapidapi.com/search/",
@@ -137,7 +137,7 @@ export const getTracks = async (tracksName) => {
     },
   };
 
-  axios
+   return axios
     .request(options)
     .then(function (response) {
       console.log(" rapidapi-serivce-tracks: ", response.data);

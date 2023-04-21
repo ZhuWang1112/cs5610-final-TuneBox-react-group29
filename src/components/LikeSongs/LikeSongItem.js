@@ -3,7 +3,7 @@ import { AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai";
 import { MdRemoveCircle } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
+import {changeTrack, updateIsPlaying} from "../../reducers/currentTrack-reducer";
 import { getTrackThunk } from "../../services/thunks/track-thunk";
 import "./index.css";
 import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
@@ -27,7 +27,7 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
       dispatch(updateIsPlaying(!isPlaying));
     } else {
         console.log("song!!! ", song)
-      dispatch(getTrackThunk(song));
+      dispatch(changeTrack(song));
     }
   };
   return (
@@ -74,7 +74,7 @@ const LikeSongItem = ({ song, handleRemoveSong, isSelf }) => {
         className={`d-flex justify-content-start artist-see-more-div`}
         onClick={() => navigate(`/artist/details/${song.apiArtistId}`)}
       >
-        <p className={`mb-0 text-nowrap song-item-artist`}>{song.artist}</p>
+        <p className={`mb-0 text-nowrap song-item-artist`}>{song.artistName}</p>
       </div>
     </div>
   );
