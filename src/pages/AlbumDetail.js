@@ -32,13 +32,8 @@ const AlbumDetail = () => {
   }
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(findCurrentUserSongsThunk());
-    }
-  }, [loginId]);
-
-  useEffect(() => {
     dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
     fetchSongsInAlbums(id);
     fetchAlbumGeneralInfoByAlbumId(id);
   }, [id]);

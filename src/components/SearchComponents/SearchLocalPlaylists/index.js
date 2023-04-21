@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SearchCard from "../SearchCard";
 import {useDispatch, useSelector} from "react-redux";
 import {searchPlaylistThunk} from "../../../services/thunks/playlist-thunk";
+import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
+import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 
 function SearchLocalPlaylists() {
     const [search, setSearch] = useState("");
@@ -20,6 +22,11 @@ function SearchLocalPlaylists() {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+    }, []);
+
+    useEffect(() => {
+      dispatch(findCurrentUserThunk());
+      dispatch(findCurrentUserSongsThunk());
     }, []);
 
     const searchPlaylistsLocal = async () => {

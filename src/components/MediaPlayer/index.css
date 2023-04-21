@@ -23,6 +23,15 @@
     top:-180px;
     width: 300px;
 } 
+
+.like-toolkit-div-media {
+    left:20px;
+    z-index: 2;
+    top:-180px;
+    width: 230px;
+    height: 100px;
+    background-color: orange;
+}
 /*@keyframes scrolling {*/
 /*    0%, 100% {*/
 /*        transform: translateX(50%);*/

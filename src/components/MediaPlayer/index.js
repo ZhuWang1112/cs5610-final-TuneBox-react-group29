@@ -1,7 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {FaPlay, FaPause, FaVolumeUp, FaRegPlayCircle, FaRegPauseCircle} from 'react-icons/fa';
-import {AiFillHeart, AiOutlinePause, AiOutlinePlaySquare} from "react-icons/ai";
-import {useDispatch, useSelector} from "react-redux";
+import {
+  AiFillHeart,
+  AiOutlinePause,
+  AiOutlinePlaySquare,
+  AiOutlineHeart,
+} from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getTrackThunk } from "../../services/thunks/track-thunk";
 import { updateIsPlaying } from "../../reducers/currentTrack-reducer";
@@ -36,8 +41,8 @@ const MediaPlayer = () => {
   const [volume, setVolume] = useState(1);
   const song = useSelector((state) => state.currentTrack.track);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
@@ -141,11 +146,11 @@ const MediaPlayer = () => {
           <div className={"d-none d-md-block col-6 p-0 m-0 pt-2 "}>
             <div className="wd-scrolling-text">{song.songName}</div>
             <div style={{ color: 'darkgray', fontSize: 'small' }}>
-                            <Link to={`/details/artist/${song.apiArtistId}`} className={"wd-link"}>
-                                {song.artistName || song.artist}
-                            </Link>
-                        </div>
-            {song.songName && (
+                <Link to={`/details/artist/${song.apiArtistId}`} className={"wd-link"}>
+                    {song.artistName}
+                </Link>
+            </div>
+            {song.songName && currentUser ? (
               <>
                 <div>
                   {likedSongs.filter(
@@ -165,6 +170,37 @@ const MediaPlayer = () => {
                   )}
                 </div>
               </>
+            ) : (
+              <div className={`position-relative`}>
+                <div onClick={() => setShow(!show)}>
+                  <AiOutlineHeart size={25} className={`text-muted`} />
+                </div>
+                {show && (
+                  <div
+                    className={`like-toolkit-div-media position-absolute rounded-3`}
+                  >
+                    <h5 className={`text-white fw-bold m-2`}>
+                      Enjoy your Journey!
+                    </h5>
+                    <div
+                      className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
+                    >
+                      <button
+                        className={`btn btn-light p-1`}
+                        onClick={() => navigate("/login")}
+                      >
+                        Log in
+                      </button>
+                      <p
+                        className={`text-muted mb-0 ms-3 not-now`}
+                        onClick={() => setShow(false)}
+                      >
+                        Not Now
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>
