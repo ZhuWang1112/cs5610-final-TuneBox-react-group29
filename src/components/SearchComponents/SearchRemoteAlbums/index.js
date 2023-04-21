@@ -4,18 +4,14 @@ import { getAlbums } from "../../../services/rapidAPI-service.js";
 // import HomeCard from "../../HomeCard";
 import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
+import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
 import { useDispatch } from "react-redux";
 function SearchRemoteAlbums() {
-
-
-
-
   // const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -45,6 +41,7 @@ function SearchRemoteAlbums() {
 
   useEffect(() => {
     dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
   }, []);
   return (
     <div>
@@ -56,7 +53,7 @@ function SearchRemoteAlbums() {
       </button>
       <input
         className="form-control w-75"
-        style={{ color: 'white' }}
+        style={{ color: "white" }}
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}

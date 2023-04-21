@@ -13,11 +13,14 @@ const Playlist = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState(null);
+  const [playlistUser, setPlaylistUser] = useState(null);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const { currentUser } = useSelector((state) => state.user);
   const getPlaylistDetails = async (id) => {
     const res = await findPlaylistDetails(id);
+    console.log("res in getPlaylistDetails", res);
     setPlaylist(res.playlist);
+    setPlaylistUser(res.user);
   };
 
   useEffect(() => {
@@ -31,8 +34,12 @@ const Playlist = () => {
 
   return (
     <div>
-      {playlist && (
-        <PlaylistBanner playlist={playlist} setPlaylist={setPlaylist} />
+      {playlist && playlistUser && (
+        <PlaylistBanner
+          playlistUser={playlistUser}
+          playlist={playlist}
+          setPlaylist={setPlaylist}
+        />
       )}
       {playlist && (
         <PlayListDetail playlist={playlist} setPlaylist={setPlaylist} />

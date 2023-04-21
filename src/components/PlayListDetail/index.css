@@ -1,5 +1,5 @@
 .song-container {
-    height: 350px;
+    height: 600px;
     overflow-y: auto;
 }
 .empty-song-cotainer {
@@ -38,11 +38,11 @@ max-height: 3.5em;
 
 .song-num-pos {
     right: 20px;
-    top: -90px;
+    top: -200px;
 }
 .playlist-rating {
     right: 20px;
-    top: -120px;
+    top: -160px;
 }
 
 .show-more-playlist-option:hover {

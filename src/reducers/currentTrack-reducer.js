@@ -3,12 +3,18 @@ import {getTrackThunk} from "../services/thunks/track-thunk";
 
 
 const song = {
-    apiSongId: "1",
-    mp3Url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    // isPlaying: false,
-    artist: '',
-    songName: '',
-    img: ''
+  apiSongId: "1",
+  mp3Url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  // isPlaying: false,
+  artistName: "",
+  songName: "",
+  img: "",
+};
+
+const formatTime = (ms) => {
+  let minutes = Math.floor(ms / 60000);
+  let seconds = ((ms % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 };
 
 const currentTrackSlice = createSlice({

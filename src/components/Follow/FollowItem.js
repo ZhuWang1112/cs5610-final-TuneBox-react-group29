@@ -34,6 +34,7 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
         <img
           src={follow.img}
           width={`70px`}
+          height={`70px`}
           className={`rounded-pill`}
           onClick={() => visitOtherProfile()}
           onMouseOver={() => setShowName(true)}

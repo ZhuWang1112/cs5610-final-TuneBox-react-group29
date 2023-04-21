@@ -6,11 +6,13 @@ import AdminDashboard from "../components/AdminComponents/AdminDashBoard";
 import AdminUsers from "../components/AdminComponents/AdminUsers";
 import AdminPlaylists from "../components/AdminComponents/AdminPlaylists";
 import { findCurrentUserThunk } from "../services/users/users-thunks";
+import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 
 const Admin = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
   }, []);
 
   return (

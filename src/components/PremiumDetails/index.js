@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import { FiUser } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
@@ -10,6 +10,8 @@ import PlanSelection from "./PlanSelection";
 import Unsubscribe from "./Unsubsribe.js";
 import { useNavigate } from "react-router";
 import Payment from "./Payment";
+import { findCurrentUserThunk } from "../../services/users/users-thunks";
+import { findCurrentUserSongsThunk } from "../../services/thunks/like-thunk.js";
 const PremiumDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +21,11 @@ const PremiumDetails = () => {
   const [payment, setPayment] = useState(currentUser && currentUser.isVip);
   const [show, setShow] = useState(false);
   const [number, setNumber] = useState(null);
+
+  useEffect(() => {
+    dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
+  }, []);
   return (
     <div>
       <div className={`premium-banner row`}>

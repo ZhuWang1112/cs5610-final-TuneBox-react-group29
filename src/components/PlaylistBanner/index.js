@@ -16,8 +16,7 @@ import {
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/playlist-cover.jpeg";
-const PlaylistBanner = ({ playlist, setPlaylist }) => {
-  console.log("playlist in PlaylistBanner", playlist);
+const PlaylistBanner = ({ playlistUser, playlist, setPlaylist }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -153,6 +152,20 @@ const PlaylistBanner = ({ playlist, setPlaylist }) => {
         width={`200px`}
         height={`200px`}
       />
+      <h5
+        className={`position-absolute playlist-cover-name-pos me-3 d-none d-xl-flex`}
+        onClick={() =>
+          navigate(
+            `/profile${
+              !currentUser || playlist.user !== currentUser._id
+                ? `/${playlist.user}`
+                : ``
+            }`
+          )
+        }
+      >
+        {playlistUser.name}
+      </h5>
 
       {!edit && (
         <>

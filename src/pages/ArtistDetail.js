@@ -3,6 +3,7 @@ import ArtistBanner from "../components/ArtistComponents/ArtistBanner";
 import ArtistAlbums from "../components/ArtistComponents/ArtistAlbums";
 import {findArtistDetailsOnCloud, findArtistGeneralInfoById} from "../services/artist-service";
 import { findCurrentUserThunk } from "../services/users/users-thunks.js";
+import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 import { useParams, useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -20,7 +21,7 @@ const ArtistDetail = () => {
   const fetchArtistGeneralInfoById = async (artistId) => {
     const artistInfo = await findArtistGeneralInfoById(artistId);
     setArtist(artistInfo);
-  }
+  };
   const fetchAlbumsInArtist = async (artistId) => {
     const data = await findArtistDetailsOnCloud(artistId);
     setAlbums(data);
@@ -28,6 +29,7 @@ const ArtistDetail = () => {
 
   useEffect(() => {
     dispatch(findCurrentUserThunk());
+    dispatch(findCurrentUserSongsThunk());
     fetchAlbumsInArtist(id);
     fetchArtistGeneralInfoById(id);
   }, [id]);

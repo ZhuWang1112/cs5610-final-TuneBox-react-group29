@@ -120,7 +120,7 @@ export const getArtists = async (artistsName) => {
   }
 };
 
-export const getTracks = (tracksName) => {
+export const getTracks = async (tracksName) => {
   const options = {
     method: "GET",
     url: "https://spotify23.p.rapidapi.com/search/",
@@ -137,7 +137,7 @@ export const getTracks = (tracksName) => {
     },
   };
 
-   return axios
+  return axios
     .request(options)
     .then(function (response) {
       console.log(" rapidapi-serivce-tracks: ", response.data);
