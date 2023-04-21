@@ -33,12 +33,12 @@ function SearchRemoteTracks() {
 
 
     const searchTracksRapidAPI = async () => {
-        localStorage.removeItem('currentTrackData');
+      localStorage.removeItem("currentTrackData");
         const response = await getTracks(search);
-        console.log("here!" + JSON.stringify(response))
-        const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
-        // console.log("???", currentData["tracks"]);
-        await setResults(currentData["tracks"]);
+      console.log("here!" + response);
+      const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
+      // console.log("???", currentData["tracks"]);
+      setResults(currentData["tracks"]);
     };
   let num = Math.floor(windowWidth / 250);
 

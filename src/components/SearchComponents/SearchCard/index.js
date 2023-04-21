@@ -20,48 +20,43 @@ import {
 
 const defaultImg = "/images/question.png";
 const SearchCard = ({ item, type, setShowUpgrade }) => {
-  if (!item.img || item.img === undefined || item.img === "") {
-    item.img = "/images/question.png";
-  }
-  const navigate = useNavigate();
-  // change to read currentUser from redux since the info of currentUser may be updated
-  const { currentUser } = useSelector((state) => state.user);
-  // playing status -- boolean
-  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
-  // current song
-  const track = useSelector((state) => state.currentTrack.track);
-  const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const iconSize = 25;
-  const { likedSongs } = useSelector((state) => state.likedSong);
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
-  // change route to details page
-  const handleClick = () => {
-    if (type === "album") {
-      navigate("/details/album/" + item.apiAlbumId, {
-        state: { title: item.title },
-      });
-    } else if (type === "artist") {
-      navigate("/details/artist/" + item.apiArtistId, {
-        state: { item },
-      });
-    } else if (type === "local-artist") {
-      localStorage.setItem("LocalDetailSingleArtist", JSON.stringify(item));
-      navigate("/artist/details/" + item["_id"]);
-    } else if (type === "local-playlist") {
-      localStorage.setItem("LocalDetailSinglePlaylist", JSON.stringify(item));
-      navigate("/details/playlist/" + item["_id"]);
+    console.log("item :", item);
+    if (!item.img || item.img === undefined || item.img === "") {
+      item.img = "/images/question.png";
     }
-  };
+    const navigate = useNavigate();
+    // change to read currentUser from redux since the info of currentUser may be updated
+    const { currentUser } = useSelector((state) => state.user);
+    // playing status -- boolean
+    const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+    // current song
+    const track = useSelector((state) => state.currentTrack.track);
+    const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
+    const iconSize = 25;
+    const { likedSongs } = useSelector((state) => state.likedSong);
+
+    const handleMouseOver = () => {
+      setIsHovering(true);
+    };
+
+    const handleMouseOut = () => {
+      setIsHovering(false);
+    };
+
+    // change route to details page
+    const handleClick = () => {
+      if (type === "album") {
+        navigate("/details/album/" + item.apiAlbumId);
+      } else if (type === "artist") {
+        navigate("/details/artist/" + item.apiArtistId);
+      } else if (type === "local-artist") {
+        navigate("/artist/details/" + item.api);
+      } else if (type === "local-playlist") {
+        navigate("/details/playlist/" + item["_id"]);
+      }
+    };
 
   //play musics online: track is cloud, local-song is from DB
   const handlePlay = () => {
@@ -160,15 +155,10 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
           />
         )}
 
-        {type === "album" && (
-          <Card.Img
-            variant="top"
-            className={"wd-card-img-custom "}
-            // src={item.img === "" ? defaultImg : item.img}
-            src={item.img}
-          />
-        )}
-        {type === "artist" && (
+        {(type === "album" ||
+          type === "artist" ||
+          type === "local-playlist" ||
+          type === "local-artist") && (
           <Card.Img
             variant="top"
             className={"wd-card-img-custom "}
@@ -189,24 +179,6 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
                 ? item["data"]["albumOfTrack"]["coverArt"].sources[0].url
                 : defaultImg
             }
-          />
-        )}
-
-        {type === "local-artist" && (
-          <Card.Img
-            variant="top"
-            className={"wd-card-img-custom "}
-            // src={item["img"] ? item["img"] : defaultImg}
-            src={item.img}
-          />
-        )}
-
-        {type === "local-playlist" && (
-          <Card.Img
-            variant="top"
-            className={"wd-card-img-custom "}
-            // src={item["img"] ? item["img"] : defaultImg}
-            src={item.img}
           />
         )}
 

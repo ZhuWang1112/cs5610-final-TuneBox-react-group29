@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useEffect, useRef} from "react";
 import {BrowserRouter, ScrollRestoration} from "react-router-dom";
-import {Routes, Route, useLocation, useNavigate} from "react-router";
+import { Routes, Route, useNavigate } from "react-router";
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Home from './pages/homePage/Home';

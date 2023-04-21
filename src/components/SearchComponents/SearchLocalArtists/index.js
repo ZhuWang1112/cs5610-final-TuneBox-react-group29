@@ -7,7 +7,7 @@ import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 
 function SearchLocalArtists() {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
 
@@ -30,10 +30,12 @@ function SearchLocalArtists() {
 
   const searchArtistsLocal = async () => {
     // console.log("???", currentData["playlists"]["items"][0]["data"])
-    localStorage.removeItem("localArtists");
-    await dispatch(searchArtistThunk(search));
-    const localArtists = JSON.parse(localStorage.getItem("localArtists"));
-    await setResults(localArtists);
+    // localStorage.removeItem("localArtists");
+    dispatch(searchArtistThunk(search)).then((response) => {
+      setResults(response.payload);
+    });
+    // const localArtists = JSON.parse(localStorage.getItem("localArtists"));
+    // await setResults(localArtists);
   };
 
   let num = Math.floor(windowWidth / 250);
@@ -55,12 +57,21 @@ function SearchLocalArtists() {
       />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {results && results._id && (
-          <div
-            key={results._id}
-            style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
-          >
-            <SearchCard item={results} type="local-artist" />
+        {results &&
+          results.length > 0 &&
+          results.map((item, id) => (
+            <div
+              key={item._id}
+              style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
+            >
+              <SearchCard item={item} type="local-artist" />
+            </div>
+          ))}
+        {results && results.length === 0 && (
+          <div className={`d-flex justify-content-center w-100`}>
+            <h5 className={`text-muted fw-bold mt-5`}>
+              No Related Artists Found
+            </h5>
           </div>
         )}
       </div>

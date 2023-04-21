@@ -72,7 +72,11 @@ function SearchLocalSongs() {
           ))}
 
         {results && results.length === 0 && (
-          <p className={`text-white`}>Songs Not Found</p>
+          <div className={`d-flex justify-content-center w-100`}>
+            <h5 className={`text-muted fw-bold mt-5`}>
+              No Related Songs Found
+            </h5>
+          </div>
         )}
       </div>
       {showUpgrade && (
