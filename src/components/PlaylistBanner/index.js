@@ -17,7 +17,6 @@ import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
 const defaultFile = "/images/playlist-cover.jpeg";
 const PlaylistBanner = ({ playlistUser, playlist, setPlaylist }) => {
-  console.log("playlistUser in banner", playlistUser);
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);

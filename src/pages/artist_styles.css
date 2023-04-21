@@ -42,3 +42,11 @@
 .rounded-icon {
   border-radius: 50%;
 }
+.artist-arrow-back-icon {
+    left: 10px;
+    top: 10px;
+    z-index: 2;
+}
+.artist-arrow-back-icon:hover {
+    cursor:pointer
+}
