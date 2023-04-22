@@ -53,6 +53,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
         _id: currentUser._id,
         userName: currentUser.userName,
         img: currentUser.img,
+        isVip: currentUser.isVip,
       },
     };
     setComments([newCommentDetails, ...comments]);
