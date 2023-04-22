@@ -100,7 +100,7 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
         const insertedArtist = await insertArtistIfNotExist({
             api: item.apiArtistId,
             name: item.artistName,
-            img: item.img === "" ? defaultImg : item.img,
+            img: item.img || defaultImg,
         });
         console.log("insertedArtist: ", insertedArtist);
         // insert the song to db if not exist
@@ -163,7 +163,7 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
                         variant="top"
                         className={"wd-card-img-custom "}
                         // src={item.img === "" ? defaultImg : item.img}
-                        src={item.img}
+                        src={item.img || defaultImg}
                     />
                 )}
 
@@ -172,7 +172,7 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
                         variant="top"
                         className={"wd-card-img-custom "}
                         src={
-                            item.img
+                            item.img || defaultImg
                         }
                     />
                 )}
@@ -182,7 +182,7 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
                         variant="top"
                         className={"wd-card-img-custom "}
                         // src={item["img"] ? item["img"] : defaultImg}
-                        src={item.img}
+                        src={item.img || defaultImg}
                     />
                 )}
 
