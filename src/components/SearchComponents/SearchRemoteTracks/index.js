@@ -12,7 +12,7 @@ function SearchRemoteTracks() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState(null);
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleResize = () => {
@@ -32,12 +32,14 @@ function SearchRemoteTracks() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
 
-  const searchTracksRapidAPI = async () => {
-    localStorage.removeItem("currentTrackData");
-    const response = await getTracks(search);
-    const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
-    setResults(currentData["tracks"]);
-  };
+    const searchTracksRapidAPI = async () => {
+      // localStorage.removeItem("currentTrackData");
+        const response = await getTracks(search);
+      // console.log("here!" + response);
+      // const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
+      // console.log("???", currentData["tracks"]);
+      setResults(response);
+    };
   let num = Math.floor(windowWidth / 250);
 
   return (
@@ -57,10 +59,10 @@ function SearchRemoteTracks() {
       />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {results["items"] &&
-          results["items"].map((track) => (
+        {results &&
+          results.map((track) => (
             <div
-              key={track["data"]["uri"]}
+              key={track.apiSongId}
               style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
             >
               <SearchCard item={track} type={"track"} />

@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {changeTrack, updateIsPlaying} from "../../../reducers/currentTrack-reducer";
-import {BsFillPauseCircleFill, BsFillPlayCircleFill} from "react-icons/bs";
 import React, {useState} from "react";
 import {AiFillHeart, AiFillPlayCircle} from "react-icons/ai";
 
@@ -17,12 +16,10 @@ import {
   createSongPlaylist,
   deleteSongPlaylist,
 } from "../../../services/songPlaylist-service";
+import {getTrackThunk} from "../../../services/thunks/track-thunk";
 
-const defaultImg = "/images/question.png";
 const SearchCard = ({ item, type, setShowUpgrade }) => {
-  if (!item.img || item.img === undefined || item.img === "") {
-    item.img = "/images/question.png";
-  }
+  const defaultImg = "/images/question.png";
   const navigate = useNavigate();
   // change to read currentUser from redux since the info of currentUser may be updated
   const { currentUser } = useSelector((state) => state.user);
@@ -60,13 +57,10 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
   //play musics online: track is cloud, local-song is from DB
   const handlePlay = () => {
     if (type === "track") {
-      const newItem = item.data;
-      // newItem._id = newItem.id;
-      newItem.apiSongId = newItem.id;
-      if (track.apiSongId === newItem.apiSongId) {
+      if (track.apiSongId === item.apiSongId) {
         dispatch(updateIsPlaying(!isPlaying));
       } else {
-        dispatch(changeTrack(newItem));
+        dispatch(getTrackThunk(item));
       }
     } else if (type === "local-song") {
       const newItem = item;
@@ -155,7 +149,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
             variant="top"
             className={"wd-card-img-custom "}
             // src={item.img === "" ? defaultImg : item.img}
-            src={item.img}
+            src={item.img || defaultImg}
           />
         )}
 
@@ -164,12 +158,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
             variant="top"
             className={"wd-card-img-custom "}
             src={
-              item["data"]["albumOfTrack"] &&
-              item["data"]["albumOfTrack"]["coverArt"] &&
-              item["data"]["albumOfTrack"]["coverArt"].sources[0] &&
-              item["data"]["albumOfTrack"]["coverArt"].sources[0].url
-                ? item["data"]["albumOfTrack"]["coverArt"].sources[0].url
-                : defaultImg
+              item.img || defaultImg
             }
           />
         )}
@@ -179,7 +168,7 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
             variant="top"
             className={"wd-card-img-custom "}
             // src={item["img"] ? item["img"] : defaultImg}
-            src={item.img}
+            src={item.img || defaultImg}
           />
         )}
 
