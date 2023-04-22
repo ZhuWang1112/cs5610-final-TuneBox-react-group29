@@ -63,7 +63,11 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
             if (track.apiSongId === item.apiSongId) {
                 dispatch(updateIsPlaying(!isPlaying));
             } else {
-                dispatch(getTrackThunk(item));
+                if (type === "track") {
+                    dispatch(getTrackThunk(item));
+                } else if (type === "local-song") {
+                    dispatch(changeTrack(item));
+                }
             }
     };
 

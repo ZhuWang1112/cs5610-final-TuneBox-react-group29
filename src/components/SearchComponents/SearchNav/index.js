@@ -20,7 +20,7 @@ const SearchNav = () => {
     const dispatch = useDispatch();
 
     const searchRapidAPI = async (e) => {
-        if (e.key !== "Enter") {
+        if (e.key !== "Enter" && (active === "search-remote-albums" || active === "search-remote-artists" || active === "search-remote-tracks")) {
             return;
         }
         let response = [];
