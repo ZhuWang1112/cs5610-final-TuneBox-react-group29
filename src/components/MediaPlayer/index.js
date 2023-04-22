@@ -132,7 +132,7 @@ const MediaPlayer = () => {
           </div>
           <div className={"d-none d-md-block col-6 p-0 m-0 pt-2 "}>
             <div className="wd-scrolling-text">{song.songName}</div>
-            <div style={{ color: "darkgray", fontSize: "small" }}>
+            <div className="wd-scrolling-text" style={{ color: "darkgray", fontSize: "small" }}>
               <Link
                 to={`/details/artist/${song.apiArtistId}`}
                 className={"wd-link"}
