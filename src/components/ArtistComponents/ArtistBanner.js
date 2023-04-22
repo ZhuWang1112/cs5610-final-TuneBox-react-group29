@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import { updatePlaylist as updatePlaylistService } from "../../services/playlist-service.js";
 import { MdAddAPhoto } from "react-icons/md";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";

@@ -20,64 +20,59 @@ import {
 
 const defaultImg = "/images/question.png";
 const SearchCard = ({ item, type, setShowUpgrade }) => {
-    console.log("item :", item);
-    if (!item.img || item.img === undefined || item.img === "") {
-      item.img = "/images/question.png";
+  if (!item.img || item.img === undefined || item.img === "") {
+    item.img = "/images/question.png";
+  }
+  const navigate = useNavigate();
+  // change to read currentUser from redux since the info of currentUser may be updated
+  const { currentUser } = useSelector((state) => state.user);
+  // playing status -- boolean
+  const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
+  // current song
+  const track = useSelector((state) => state.currentTrack.track);
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const iconSize = 25;
+  const { likedSongs } = useSelector((state) => state.likedSong);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
+  // change route to details page
+  const handleClick = () => {
+    if (type === "album") {
+      navigate("/details/album/" + item.apiAlbumId);
+    } else if (type === "artist") {
+      navigate("/details/artist/" + item.apiArtistId);
+    } else if (type === "local-artist") {
+      navigate("/artist/details/" + item.api);
+    } else if (type === "local-playlist") {
+      navigate("/details/playlist/" + item["_id"]);
     }
-    const navigate = useNavigate();
-    // change to read currentUser from redux since the info of currentUser may be updated
-    const { currentUser } = useSelector((state) => state.user);
-    // playing status -- boolean
-    const isPlaying = useSelector((state) => state.currentTrack.isPlaying);
-    // current song
-    const track = useSelector((state) => state.currentTrack.track);
-    const dispatch = useDispatch();
-    const [show, setShow] = useState(false);
-    const [isHovering, setIsHovering] = useState(false);
-    const iconSize = 25;
-    const { likedSongs } = useSelector((state) => state.likedSong);
-
-    const handleMouseOver = () => {
-      setIsHovering(true);
-    };
-
-    const handleMouseOut = () => {
-      setIsHovering(false);
-    };
-
-    // change route to details page
-    const handleClick = () => {
-      if (type === "album") {
-        navigate("/details/album/" + item.apiAlbumId);
-      } else if (type === "artist") {
-        navigate("/details/artist/" + item.apiArtistId);
-      } else if (type === "local-artist") {
-        navigate("/artist/details/" + item.api);
-      } else if (type === "local-playlist") {
-        navigate("/details/playlist/" + item["_id"]);
-      }
-    };
+  };
 
   //play musics online: track is cloud, local-song is from DB
   const handlePlay = () => {
     if (type === "track") {
-      // console.log("track-card: ", item)
       const newItem = item.data;
       // newItem._id = newItem.id;
       newItem.apiSongId = newItem.id;
       if (track.apiSongId === newItem.apiSongId) {
         dispatch(updateIsPlaying(!isPlaying));
       } else {
-        // console.log("song!!! ", newItem)
         dispatch(changeTrack(newItem));
       }
     } else if (type === "local-song") {
-      // console.log("local-song-card: ", item)
       const newItem = item;
       if (track.apiSongId === newItem._id) {
         dispatch(updateIsPlaying(!isPlaying));
       } else {
-        // console.log("song!!! ", newItem)
         dispatch(changeTrack(newItem));
       }
     }
@@ -113,17 +108,14 @@ const SearchCard = ({ item, type, setShowUpgrade }) => {
       name: item.artistName,
       img: item.img === "" ? defaultImg : item.img,
     });
-    console.log("insertedArtist: ", insertedArtist);
     // insert the song to db if not exist
     const insertedSong = await insertSongIfNotExist(item);
     // update state in likedSong reduce
     if (insertedSong.length > 0) {
       dispatch(addLikeSong(insertedSong[0]));
-      console.log("insertedSong: ", insertedSong);
       // insert the song-playlist pair into db
       // get default playlist
       const { _id } = JSON.parse(localStorage.getItem("defaultPlaylist"));
-      console.log("playlist id: ", _id);
       createSongPlaylist(currentUser._id, insertedSong[0]._id, _id);
     }
   };

@@ -15,7 +15,6 @@ const AlbumDetail = () => {
   const { id } = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const { likedSongs } = useSelector((state) => state.likedSong);
-  console.log("likedSongs in album", likedSongs);
   const loginId = currentUser ? currentUser._id : null;
   const dispatch = useDispatch();
   const [songs, setSongs] = useState([]);
@@ -23,7 +22,6 @@ const AlbumDetail = () => {
 
   const fetchSongsInAlbums = async (albumId) => {
     const data = await getTracksByAlbumId(albumId);
-    console.log("data in fetchSongsInAlbums", data);
     setSongs(data);
   };
   const fetchAlbumGeneralInfoByAlbumId = async (albumId) => {

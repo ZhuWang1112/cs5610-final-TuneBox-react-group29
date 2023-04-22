@@ -6,6 +6,7 @@ import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
 import { useDispatch } from "react-redux";
+import "./index.css";
 function SearchRemoteAlbums() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function SearchRemoteAlbums() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
   return (
-    <div>
+    <div className={`search-album`}>
       <button
         onClick={searchAlbumsRapidAPI}
         className="float-end btn btn-primary"

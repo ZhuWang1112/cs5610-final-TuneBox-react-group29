@@ -4,7 +4,6 @@ const SearchNav = () => {
     const { pathname } = useLocation();
     const paths = pathname.split("/");
     const active = paths[2];
-    // console.log("what???", active)
     return (
         <>
             <ul className="nav nav-pills pb-1">

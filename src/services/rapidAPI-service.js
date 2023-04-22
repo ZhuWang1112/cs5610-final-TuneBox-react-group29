@@ -97,7 +97,6 @@ export const getArtists = async (artistsName) => {
 
   try {
     const response = await axios.request(options);
-    console.log("response in getartist", response.data.artists);
     let n = response.data.artists.totalCount;
     if (n > 70) n = 70;
     const artists = response.data.artists.items.slice(0, n).map((item) => {
@@ -143,7 +142,6 @@ export const getTracks = async (tracksName) => {
       console.log(" rapidapi-serivce-tracks: ", response.data);
       // localStorage.clear();
       localStorage.setItem("currentTrackData", JSON.stringify(response.data));
-      // console.log(response.data);
       return response.data;
     })
     .catch(function (error) {

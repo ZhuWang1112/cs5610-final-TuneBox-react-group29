@@ -71,14 +71,12 @@ const PlayList = ({ isSelf, setComments }) => {
 
   const findPlaylists = async (uid) => {
     const data = await findPlaylistsService(uid);
-    console.log("playlist in profile", data);
     setPlaylists(data);
   };
 
   const deletePlaylistById = async (playlist) => {
     setPlaylists((prev) => prev.filter((p) => p._id !== playlist._id));
     const updatedLikedObj = await deletePlaylist(playlist);
-    console.log("updatedLiked", updatedLikedObj);
     // update likeSong
     dispatch(updateLikeSong(updatedLikedObj));
     // update playlistcnt of user

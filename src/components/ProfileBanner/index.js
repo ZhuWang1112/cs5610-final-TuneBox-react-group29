@@ -206,7 +206,7 @@ const ProfileBanner = () => {
                       Email
                     </label>
                     <input
-                      className="form-control profile-info-edit ms-3"
+                      className="form-control ms-3"
                       id={"profile-email"}
                       name={"email"}
                       type="text"

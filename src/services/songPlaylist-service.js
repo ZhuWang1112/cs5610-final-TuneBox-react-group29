@@ -29,13 +29,11 @@ export const createSongPlaylist = async (userId, songId, playlistId) => {
 
 export const findCurrentUserSongs = async () => {
   const response = await axios.get(`${SONG_PLAYLIST_API}`);
-  console.log("response song findCurrentUserSongs: ", response.data);
   return response.data;
 };
 
 export const findLikedSongsByUser = async (uid) => {
   const response = await axios.get(`${SONG_PLAYLIST_API}/user/${uid}`);
-  console.log("response song findLikedSongsByUser: ", response.data);
   return response.data;
 };
 

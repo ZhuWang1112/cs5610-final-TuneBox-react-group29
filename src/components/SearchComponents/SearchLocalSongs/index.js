@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { searchSongThunk } from "../../../services/thunks/song-thunk";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
+import "./index.css";
 
 function SearchLocalSongs() {
   const [search, setSearch] = useState("");
@@ -31,7 +32,6 @@ function SearchLocalSongs() {
   }, []);
 
   const searchSongsLocal = async () => {
-    // console.log("???", currentData["playlists"]["items"][0]["data"])
     // localStorage.removeItem("localSongs");
     dispatch(searchSongThunk(search)).then((response) => {
       setResults(response.payload);
@@ -43,7 +43,7 @@ function SearchLocalSongs() {
   let num = Math.floor(windowWidth / 250);
 
   return (
-    <div className={`position-relative`}>
+    <div className={`position-relative search-track-local`}>
       <button onClick={searchSongsLocal} className="float-end btn btn-primary">
         Search
       </button>

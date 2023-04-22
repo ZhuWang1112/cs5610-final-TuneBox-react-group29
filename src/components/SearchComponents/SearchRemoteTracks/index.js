@@ -6,6 +6,7 @@ import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
 import { useDispatch } from "react-redux";
+import "./index.css";
 
 function SearchRemoteTracks() {
   const navigate = useNavigate();
@@ -31,19 +32,16 @@ function SearchRemoteTracks() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
 
-
-    const searchTracksRapidAPI = async () => {
-      localStorage.removeItem("currentTrackData");
-        const response = await getTracks(search);
-      console.log("here!" + response);
-      const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
-      // console.log("???", currentData["tracks"]);
-      setResults(currentData["tracks"]);
-    };
+  const searchTracksRapidAPI = async () => {
+    localStorage.removeItem("currentTrackData");
+    const response = await getTracks(search);
+    const currentData = JSON.parse(localStorage.getItem("currentTrackData"));
+    setResults(currentData["tracks"]);
+  };
   let num = Math.floor(windowWidth / 250);
 
   return (
-    <div>
+    <div className={`search-tracks`}>
       <button
         onClick={searchTracksRapidAPI}
         className="float-end btn btn-primary"

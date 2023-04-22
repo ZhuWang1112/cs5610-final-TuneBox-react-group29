@@ -7,7 +7,6 @@ import CommentPanel from "./CommentPanel";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { updatePlaylist } from "../../reducers/playlist-reducer.js";
 import {
   updateLikeSong,
   deleteLikeSong,
@@ -29,7 +28,6 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   // const { songs } = useSelector((state) => state.likedSong);
   // likedSongs of current login user
   const { likedSongs } = useSelector((state) => state.likedSong);
-  console.log("likedSongs", likedSongs);
   const [songs, setSongs] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;
@@ -40,7 +38,7 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("currentUser in playlist", currentUser);
+
   let showDelete;
   if (!currentUser || currentUser._id !== playlist.user) {
     showDelete = false;
@@ -96,7 +94,6 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
 
   const fetchSongsInPlaylist = async (pid) => {
     const songs = await findSongsByPlaylistId(pid);
-    console.log("songs in fetchSongsInPlaylist ", songs);
     setSongs(songs);
   };
   useEffect(() => {

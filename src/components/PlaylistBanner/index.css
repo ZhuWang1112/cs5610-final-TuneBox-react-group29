@@ -54,11 +54,10 @@
 .playlist-name-input {
     font-size: 60px;
     width: 500px;
-    background-color: white !important;
 }
+
 .playlist-desc-input {
     width: 500px;
-    background-color: white !important;
 }
 
 input[type="text"], textarea {

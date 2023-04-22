@@ -19,13 +19,11 @@ const likeSlice = createSlice({
 
     addLikeSong(state, action) {
       const { _id, apiSongId } = action.payload;
-      console.log("addLikeSong", [...state.likedSongs, action.payload]);
       state.likedSongs = [...state.likedSongs, action.payload];
     },
   },
   extraReducers: {
     [findCurrentUserSongsThunk.fulfilled]: (state, { payload }) => {
-      console.log("payload in findCurrentUserSongsThunk, ", payload);
       state.likedSongs = payload;
     },
   },

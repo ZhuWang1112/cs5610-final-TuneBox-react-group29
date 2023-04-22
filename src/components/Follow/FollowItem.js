@@ -12,7 +12,6 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   const [showName, setShowName] = useState(false);
   const target = useRef(null);
   const visitOtherProfile = () => {
-    console.log(`visit  /profile/${follow._id}`);
     navigate(`/profile/${follow._id}`);
   };
 

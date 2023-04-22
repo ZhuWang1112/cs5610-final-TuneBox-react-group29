@@ -8,23 +8,19 @@ export const findFollowees = async (userId) => {
 };
 
 export const updateFollowee = async (followObj) => {
-  console.log("obj: ", followObj);
   const response = await axios.put(
     `${FOLLOW_API}/${followObj.user}`,
     followObj
   );
-  console.log("response.data: ", response.data);
   return response.data;
 };
 
 export const findFolloweeIds = async (userId) => {
   const response = await axios.get(`${FOLLOW_API}/${userId}`);
-  console.log("response.data in findFolloweeIds: ", response.data);
   return response.data;
 };
 
 export const checkFollowees = async (loginId, targetId) => {
-  console.log(`${FOLLOW_API}/${loginId}/${targetId}`);
   const response = await axios.get(`${FOLLOW_API}/${loginId}/${targetId}`);
   return response.data;
 };
