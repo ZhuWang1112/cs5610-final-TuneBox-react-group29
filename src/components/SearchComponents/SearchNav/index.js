@@ -9,6 +9,9 @@ import {
     updateSearchContent,
     updateSearchResults,
 } from "../../../reducers/search-reducer";
+import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
+import {searchPlaylistThunk} from "../../../services/thunks/playlist-thunk";
+import {searchSongThunk} from "../../../services/thunks/song-thunk";
 const SearchNav = () => {
     const { pathname } = useLocation();
     const paths = pathname.split("/");
@@ -24,12 +27,26 @@ const SearchNav = () => {
 
         if (active === "search-remote-albums") {
             response = await getAlbums(searchContent);
+            dispatch(updateSearchResults(response));
         } else if (active === "search-remote-artists") {
             response = await getArtists(searchContent);
+            dispatch(updateSearchResults(response));
         } else if (active === "search-remote-tracks") {
             response = await getTracks(searchContent);
+            dispatch(updateSearchResults(response));
+        } else if (active === "search-local-playlists") {
+            dispatch(searchPlaylistThunk(searchContent)).then((response) => {
+                dispatch(updateSearchResults(response.payload));
+            });
+        } else if (active === "search-local-artists") {
+            dispatch(searchArtistThunk(searchContent)).then((response) => {
+                dispatch(updateSearchResults(response.payload));
+            });
+        } else if (active === "search-local-songs") {
+            dispatch(searchSongThunk(searchContent)).then((response) => {
+                dispatch(updateSearchResults(response.payload));
+            });
         }
-        dispatch(updateSearchResults(response));
     };
 
     return (

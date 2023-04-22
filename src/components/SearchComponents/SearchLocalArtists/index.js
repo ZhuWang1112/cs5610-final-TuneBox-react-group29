@@ -4,11 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
+
 import "./index.css";
+import {getTracks} from "../../../services/rapidAPI-service";
+import {updateSearchResults} from "../../../reducers/search-reducer";
+
 
 function SearchLocalArtists() {
-  const [search, setSearch] = useState("");
-  const [results, setResults] = useState(null);
+    const {searchContent, searchResults} = useSelector(state => state.search);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
 
@@ -17,8 +20,13 @@ function SearchLocalArtists() {
   };
 
   useEffect(() => {
+
+          dispatch(searchArtistThunk(searchContent)).then((response) => {
+              dispatch(updateSearchResults(response.payload));
+          });
+
+
     window.addEventListener("resize", handleResize);
-    // Clean up event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -29,45 +37,24 @@ function SearchLocalArtists() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
 
-  const searchArtistsLocal = async () => {
-    // localStorage.removeItem("localArtists");
-    dispatch(searchArtistThunk(search)).then((response) => {
-      setResults(response.payload);
-    });
-    // const localArtists = JSON.parse(localStorage.getItem("localArtists"));
-    // await setResults(localArtists);
-  };
 
   let num = Math.floor(windowWidth / 250);
 
   return (
-    <div className={`search-artist-local`}>
-      <button
-        onClick={searchArtistsLocal}
-        className="float-end btn btn-primary"
-      >
-        Search
-      </button>
-      <input
-        className="form-control w-75"
-        style={{ color: "white" }}
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
 
+    <div className={`search-artist-local`}>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {results &&
-          results.length > 0 &&
-          results.map((item, id) => (
+        {searchResults &&
+            searchResults.length > 0 &&
+            searchResults.map((item, id) => (
             <div
-              key={item._id}
+              // key={item._id}
               style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
             >
               <SearchCard item={item} type="local-artist" />
             </div>
           ))}
-        {results && results.length === 0 && (
+        {searchResults && searchResults.length === 0 && (
           <div className={`d-flex justify-content-center w-100`}>
             <h5 className={`text-muted fw-bold mt-5`}>
               No Related Artists Found

@@ -42,7 +42,11 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
     };
 
     // change route to details page
-    const handleClick = () => {
+    const handleClick = (e) => {
+        if (e.target.tagName === "A") {
+            // if the click is on the link, do not navigate
+            return;
+        }
         if (type === "album") {
             navigate("/details/album/" + item.apiAlbumId);
         } else if (type === "artist") {
@@ -56,20 +60,11 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
 
     //play musics online: track is cloud, local-song is from DB
     const handlePlay = () => {
-        if (type === "track") {
             if (track.apiSongId === item.apiSongId) {
                 dispatch(updateIsPlaying(!isPlaying));
             } else {
                 dispatch(getTrackThunk(item));
             }
-        } else if (type === "local-song") {
-            const newItem = item;
-            if (track.apiSongId === newItem._id) {
-                dispatch(updateIsPlaying(!isPlaying));
-            } else {
-                dispatch(changeTrack(newItem));
-            }
-        }
     };
 
     const handleUnLike = () => {

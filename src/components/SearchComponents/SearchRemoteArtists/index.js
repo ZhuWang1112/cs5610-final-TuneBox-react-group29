@@ -3,13 +3,9 @@ import { getArtists} from "../../../services/rapidAPI-service.js";
 import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
 import "./index.css";
-=======
 import {useDispatch, useSelector} from "react-redux";
 import {updateSearchResults} from "../../../reducers/search-reducer";
->>>>>>> 3b3dbfd (change ui on search and finish the cloud part)
 function SearchRemoteArtists() {
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -38,25 +34,8 @@ function SearchRemoteArtists() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
   return (
-<<<<<<< HEAD
-    <div className={`search-artist`}>
-      <button
-        onClick={searchArtistsRapidAPI}
-        className="float-end btn btn-primary"
-      >
-        Search
-      </button>
-      <input
-        className="form-control w-75"
-        style={{ color: "white" }}
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
 
-=======
-    <div>
->>>>>>> 3b3dbfd (change ui on search and finish the cloud part)
+    <div className={`search-artist`}>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
           {/*<div className={"text-white"}> artists</div>*/}
         {searchResults &&

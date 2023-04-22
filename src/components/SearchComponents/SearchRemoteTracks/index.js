@@ -3,14 +3,9 @@ import {getArtists, getTracks} from "../../../services/rapidAPI-service.js";
 import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
 import "./index.css";
-
-=======
 import {useDispatch, useSelector} from "react-redux";
 import {updateSearchResults} from "../../../reducers/search-reducer";
->>>>>>> 3b3dbfd (change ui on search and finish the cloud part)
 function SearchRemoteTracks() {
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
