@@ -62,7 +62,7 @@ const SideBar = () => {
         </div>
       </Link>
       <Link
-        to="/search"
+        to="/search/search-remote-albums"
         className={`list-group-item d-flex align-items-center justify-content-center fw-bold pt-3 pb-3 ${
           active === `search` ? `bg-warning text-white` : `text-muted`
         }`}

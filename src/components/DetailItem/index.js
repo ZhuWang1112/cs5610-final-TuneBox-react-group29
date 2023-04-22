@@ -60,7 +60,7 @@ const DetailItem = ({
             className={`${type === "album" ? `` : `d-none d-md-inline`}`}
           />
           <h5
-            className={`ms-1 text-white fw-fold d-inline ${
+            className={`ms-1 text-white fw-fold d-inline mb-0 ${
               type === "album"
                 ? `album-detail-songname`
                 : `playlist-detail-songname`
@@ -72,7 +72,7 @@ const DetailItem = ({
         {type === "playlist" && (
           <div className={`col text-muted d-flex align-items-center p-0`}>
             <h5
-              className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap`}
+              className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap mb-0`}
             >
               {song.artistName ? song.artistName : "Unknown"}
             </h5>

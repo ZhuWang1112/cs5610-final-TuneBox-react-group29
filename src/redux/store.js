@@ -8,6 +8,7 @@ import userReducer from "../reducers/user-reducer.js";
 import hotReducer from "../reducers/hot-reducer";
 import artistReducer from "../reducers/artist-reducer";
 import currentTrackReducer from "../reducers/currentTrack-reducer";
+import searchReducer from "../reducers/search-reducer";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     hot: hotReducer,
     artist: artistReducer,
     currentTrack: currentTrackReducer,
+    search: searchReducer,
   },
 });
 

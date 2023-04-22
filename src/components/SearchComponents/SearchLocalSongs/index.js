@@ -6,10 +6,11 @@ import { searchSongThunk } from "../../../services/thunks/song-thunk";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
 import "./index.css";
+import {updateSearchResults} from "../../../reducers/search-reducer";
+
 
 function SearchLocalSongs() {
-  const [search, setSearch] = useState("");
-  const [results, setResults] = useState(null);
+  const {searchContent, searchResults} = useSelector(state => state.search);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
   const [showUpgrade, setShowUpgrade] = useState(false);
@@ -19,8 +20,12 @@ function SearchLocalSongs() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    dispatch(searchSongThunk(searchContent)).then((response) => {
+      dispatch(updateSearchResults(response.payload));
+    });
+
     window.addEventListener("resize", handleResize);
-    // Clean up event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -31,36 +36,18 @@ function SearchLocalSongs() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
 
-  const searchSongsLocal = async () => {
-    // localStorage.removeItem("localSongs");
-    dispatch(searchSongThunk(search)).then((response) => {
-      setResults(response.payload);
-    });
-    // const localSongs = JSON.parse(localStorage.getItem("localSongs"));
-    // setResults(songs);
-  };
 
   let num = Math.floor(windowWidth / 250);
 
   return (
-    <div className={`position-relative search-track-local`}>
-      <button onClick={searchSongsLocal} className="float-end btn btn-primary">
-        Search
-      </button>
-      <input
-        className="form-control w-75"
-        style={{ color: "white" }}
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
 
+    <div className={`position-relative search-track-local`}>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {results &&
-          results.length > 0 &&
-          results.map((item, idx) => (
+        {searchResults &&
+            searchResults.length > 0 &&
+            searchResults.map((item, idx) => (
             <div
-              key={item._id}
+              // key={item._id}
               style={{ flex: `1 0 ${100 / num}%`, maxWidth: `${100 / num}%` }}
             >
               <SearchCard
@@ -71,7 +58,7 @@ function SearchLocalSongs() {
             </div>
           ))}
 
-        {results && results.length === 0 && (
+        {searchResults && searchResults.length === 0 && (
           <div className={`d-flex justify-content-center w-100`}>
             <h5 className={`text-muted fw-bold mt-5`}>
               No Related Songs Found

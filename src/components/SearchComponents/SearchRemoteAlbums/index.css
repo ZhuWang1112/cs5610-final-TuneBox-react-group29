@@ -1,3 +1,10 @@
+
 .search-album {
     width: 90%;
+}
+
+.wd-nudge-up {
+    bottom: 5px;
+    left: 15px;
+    color: white;
 }
