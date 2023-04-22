@@ -175,16 +175,14 @@ const PlaylistBanner = ({ playlistUser, playlist, setPlaylist }) => {
             {playlistName}
           </h1>
 
-          {currentUser &&
-            playlist.user === currentUser._id &&
-            !playlist.isDefault && (
-              <button
-                className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
-                onClick={() => handleEdit()}
-              >
-                Edit
-              </button>
-            )}
+          {currentUser && playlist.user === currentUser._id && (
+            <button
+              className={`btn btn-dark border border-warning position-absolute playlist-edit-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
+              onClick={() => handleEdit()}
+            >
+              Edit
+            </button>
+          )}
 
           <h4
             className={`text-muted position-absolute playlist-desc-pos-non-edit d-none d-lg-block`}

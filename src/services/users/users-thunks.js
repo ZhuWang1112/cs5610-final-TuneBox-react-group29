@@ -50,6 +50,9 @@ export const updateUserNonAdminThunk = createAsyncThunk(
 
 export const loginThunk = createAsyncThunk("users/login", async (user) => {
   const response = await userService.login(user);
+  if (response.data === null) {
+    return null;
+  }
   window.localStorage.setItem("currentUser", JSON.stringify(response.data));
   const defaultPlaylist = await findDefaultPlaylistByUser(response.data._id);
   window.localStorage.setItem(

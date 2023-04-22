@@ -8,19 +8,25 @@ const Login = () => {
   // const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [showLoginError, setShowLoginError] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
+    setShowLoginError(false);
     try {
       localStorage.clear();
       dispatch(loginThunk({ userName, password })).then((res) => {
-        console.log("user info: ", window.localStorage.getItem("currentUser"));
-        const userID = JSON.parse(
-          window.localStorage.getItem("currentUser")
-        )._id;
-        navigate(`/home?_id=${userID}`);
+        const currentUser = window.localStorage.getItem("currentUser");
+        if (currentUser) {
+          const userID = JSON.parse(
+            window.localStorage.getItem("currentUser")
+          )._id;
+          navigate(`/home?_id=${userID}`);
+        } else {
+          setShowLoginError(true);
+        }
       });
     } catch (err) {
       console.log("err", err);
@@ -36,7 +42,13 @@ const Login = () => {
           <div className={`mt-5`}>
             <div className={`mt-5`}>
               <h1 className={`text-white fw-bold`}>Welcome Back!</h1>
-
+              {showLoginError && (
+                <div
+                  className={`position-absolute d-flex justify-content-center`}
+                >
+                  <h5 className={`text-danger`}>Authentication failed!</h5>
+                </div>
+              )}
               <div className={`mt-5`}>
                 <label
                   htmlFor="login-userName"
