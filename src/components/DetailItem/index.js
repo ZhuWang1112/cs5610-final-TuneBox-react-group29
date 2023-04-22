@@ -26,7 +26,6 @@ const DetailItem = ({
   handleAddToPlaylist,
   handleMovePlaylist,
 }) => {
-  //   console.log("song in detail: ", song);
   const [like, setLike] = useState(isLike);
   const iconSize = 25;
   const [show, setShow] = useState(false);
@@ -67,7 +66,7 @@ const DetailItem = ({
                 : `playlist-detail-songname`
             } text-nowrap`}
           >
-            {song.songName}
+            {song.songName ? song.songName : "Unknown"}
           </h5>
         </div>
         {type === "playlist" && (
@@ -75,7 +74,7 @@ const DetailItem = ({
             <h5
               className={`text-white fw-fold d-inline overflow-hidden-format playlist-detail-artist text-nowrap`}
             >
-              {song.artistName}
+              {song.artistName ? song.artistName : "Unknown"}
             </h5>
           </div>
         )}
@@ -87,7 +86,9 @@ const DetailItem = ({
               : `d-none d-xl-flex col-2`
           } d-flex align-items-center`}
         >
-          <h5 className={`text-muted fw-fold m-0`}>{song.duration}</h5>
+          <h5 className={`text-muted fw-fold m-0`}>
+            {song.duration ? song.duration : "unknown"}
+          </h5>
         </div>
         <div
           className={`${

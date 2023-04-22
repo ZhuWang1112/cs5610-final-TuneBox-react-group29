@@ -35,7 +35,6 @@ const Register = () => {
       );
       // navigate("/login");
       await dispatch(loginThunk({ userName, password })).then((res) => {
-        // console.log("user info: ", window.localStorage.getItem("currentUser"));
         const user_id = JSON.parse(
           window.localStorage.getItem("currentUser")
         )._id;
@@ -48,7 +47,6 @@ const Register = () => {
       // add one default playlist for user
       addPlaylist(user_id);
     } catch (error) {
-      console.log(error);
       alert("something is wrong!");
     }
   };

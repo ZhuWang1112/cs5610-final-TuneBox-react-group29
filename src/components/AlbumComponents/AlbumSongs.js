@@ -25,7 +25,6 @@ const AlbumSongs = ({ songs }) => {
   const { id } = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const { likedSongs } = useSelector((state) => state.likedSong);
-  console.log("likedSongs in album", likedSongs);
   const navigate = useNavigate();
   const loginId = currentUser ? currentUser._id : null;
   const [playlistsOption, setPlaylistsOption] = useState(null);
@@ -53,20 +52,17 @@ const AlbumSongs = ({ songs }) => {
       return;
     }
     setLike(true);
-    console.log("song in albumHandleAddToPlaylist", song);
     // insert the artist to db if not exist [TODO] change img as artist img rather than album img
     const insertedArtist = await insertArtistIfNotExist({
       api: song.apiArtistId,
       name: song.artistName,
       img: song.img,
     });
-    console.log("insertedArtist: ", insertedArtist);
     // insert the song to db if not exist
     const insertedSong = await insertSongIfNotExist(song);
     // update state in likedSong reduce
     if (insertedSong.length > 0) {
       dispatch(addLikeSong(insertedSong[0]));
-      console.log("insertedSong: ", insertedSong);
       // insert the song-playlist pair into db
       createSongPlaylist(currentUser._id, insertedSong[0]._id, pid);
     }

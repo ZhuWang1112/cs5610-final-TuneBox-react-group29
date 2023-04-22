@@ -38,8 +38,7 @@ export const findPlaylistDetailsThunk = createAsyncThunk(
 export const searchPlaylistThunk = createAsyncThunk(
     "api/local-playlists",
     async (name) => {
-        const response = await searchLocalService.searchPlaylists(name)
-        console.log("playlist-thunk: ", response);
+        const response = await searchLocalService.searchPlaylists(name);
         return response;
     }
 );

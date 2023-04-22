@@ -37,7 +37,6 @@ const followSlice = createSlice({
       state.followeeList = payload;
     },
     [checkFolloweeThunk.fulfilled]: (state, { payload }) => {
-      console.log("payload in checl: ", payload);
       state.followeeList = payload.followeeList;
       state.checkFollowee = payload.checkFollowee;
       state.isSelf = payload.isSelf;

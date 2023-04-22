@@ -15,8 +15,6 @@ const LikeSongs = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { likedSongs } = useSelector((state) => state.likedSong);
-  console.log("likedSongs in likedSongs", likedSongs);
-  console.log("currentUser in likedSongs", currentUser);
   const [profileSongs, setProfileSongs] = useState(null);
 
   const handleRemoveSong = async (song) => {
@@ -65,7 +63,6 @@ const LikeSongs = () => {
   };
   const fetchProfileSongs = async (uid) => {
     const songs = await findLikedSongsByUser(uid);
-    console.log("songs in profile", songs);
     setProfileSongs(songs);
   };
 

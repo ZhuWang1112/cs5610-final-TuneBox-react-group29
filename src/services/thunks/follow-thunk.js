@@ -17,18 +17,13 @@ export const updateFolloweeThunk = createAsyncThunk(
 export const checkFolloweeThunk = createAsyncThunk(
   "profile/checkFolloweeThunk",
   async (obj) => {
-    console.log("obj, ", obj);
     const response = await service.checkFollowees(obj.loginUser, obj.uid);
     return response;
   }
 );
 
 
-export const initFollowThunk = createAsyncThunk(
-    `follows`,
-    async (user_id) => {
-        // console.log("obj, ", user_id);
-        const response = await service.initFollowList(user_id);
-        return response;
-    }
-);
+export const initFollowThunk = createAsyncThunk(`follows`, async (user_id) => {
+  const response = await service.initFollowList(user_id);
+  return response;
+});

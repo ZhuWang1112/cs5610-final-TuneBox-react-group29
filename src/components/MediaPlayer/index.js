@@ -30,7 +30,6 @@ const MediaPlayer = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [volume, setVolume] = useState(1);
   const song = useSelector((state) => state.currentTrack.track);
-  console.log("song in currentTrack", song);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -110,17 +109,14 @@ const MediaPlayer = () => {
       name: song.artistName,
       img: song.img,
     });
-    console.log("insertedArtist: ", insertedArtist);
     // insert the song to db if not exist
     const insertedSong = await insertSongIfNotExist(song);
     // update state in likedSong reduce
     if (insertedSong.length > 0) {
       dispatch(addLikeSong(insertedSong[0]));
-      console.log("insertedSong: ", insertedSong);
       // insert the song-playlist pair into db
       // get default playlist
       const { _id } = JSON.parse(localStorage.getItem("defaultPlaylist"));
-      console.log("playlist id: ", _id);
       createSongPlaylist(currentUser._id, insertedSong[0]._id, _id);
     }
   };

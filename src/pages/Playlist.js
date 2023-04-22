@@ -18,7 +18,6 @@ const Playlist = () => {
   const { currentUser } = useSelector((state) => state.user);
   const getPlaylistDetails = async (id) => {
     const res = await findPlaylistDetails(id);
-    console.log("res in getPlaylistDetails", res);
     setPlaylist(res.playlist);
     setPlaylistUser(res.user);
   };

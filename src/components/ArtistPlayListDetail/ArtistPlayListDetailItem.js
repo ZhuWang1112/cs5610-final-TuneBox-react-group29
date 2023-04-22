@@ -21,7 +21,6 @@ const ArtistPlayListDetailItem = ({
   handleUnLikeClick,
   handleAddToPlaylist,
 }) => {
-  console.log("song in detail: ", song);
   const [like, setLike] = useState(isLike);
   const iconSize = 25;
   const [show, setShow] = useState(false);

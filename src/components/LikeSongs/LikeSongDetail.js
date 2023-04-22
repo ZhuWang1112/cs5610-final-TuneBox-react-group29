@@ -18,11 +18,9 @@ const LikeSongDetail = () => {
   const handleBackClick = () => {
     navigate(-1); // Navigate back on arrow click
   };
-  // console.log("uid: ", uid === currentUser._id);
   const findSongs = async (id) => {
     // const data = await findLikedSongs(id);
     const data = await findLikedSongsByUser(id);
-    console.log("data in LikeSongDetail", data);
     setSongs(data);
   };
 

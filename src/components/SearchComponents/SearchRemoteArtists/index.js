@@ -6,7 +6,7 @@ import SearchCard from "../SearchCard";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk.js";
 import { useDispatch } from "react-redux";
-
+import "./index.css";
 function SearchRemoteArtists() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function SearchRemoteArtists() {
     dispatch(findCurrentUserSongsThunk());
   }, []);
   return (
-    <div>
+    <div className={`search-artist`}>
       <button
         onClick={searchArtistsRapidAPI}
         className="float-end btn btn-primary"

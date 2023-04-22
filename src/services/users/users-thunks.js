@@ -65,18 +65,15 @@ export const loginThunk = createAsyncThunk("users/login", async (user) => {
 export const logoutThunk = createAsyncThunk("users/logout", async () => {
   window.localStorage.removeItem("currentUser");
   window.localStorage.removeItem("defaultPlaylist");
-  console.log("logoutThunk");
   await userService.logout();
 });
 
-export const registerThunk =  createAsyncThunk(
-    "users/register",
-    async (user) => {
-        console.log("new user: ", user)
-        const response = await userService.register(user);
-        console.log("users-thunk --- register response: ", response.data)
-        window.localStorage.setItem("currentUser", JSON.stringify(response.data));
-        return response.data;
-    }
+export const registerThunk = createAsyncThunk(
+  "users/register",
+  async (user) => {
+    const response = await userService.register(user);
+    window.localStorage.setItem("currentUser", JSON.stringify(response.data));
+    return response.data;
+  }
 );
 

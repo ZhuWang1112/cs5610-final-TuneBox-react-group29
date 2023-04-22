@@ -26,18 +26,15 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: {
     [updateUserThunk.fulfilled]: (state, action) => {
-      console.log("updated user: ", action.payload);
       state.currentUser = action.payload;
     },
     [updateUserNonAdminThunk.fulfilled]: (state, action) => {
-      console.log("updated user: ", action.payload);
       state.currentUser = action.payload;
     },
     [findUserByIdThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
     [findCurrentUserThunk.fulfilled]: (state, action) => {
-      console.log("findCurrentUserThunk", action.payload);
       state.currentUser = action.payload;
     },
     [loginThunk.fulfilled]: (state, action) => {

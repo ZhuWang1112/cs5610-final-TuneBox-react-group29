@@ -126,9 +126,6 @@ top: 500px;
     background-color: orange;
     z-index: 2
 }
-.profile-info-edit {
-    background-color: white !important;
-}
 
 input[type=text]:focus {
   border: 3px solid #555;

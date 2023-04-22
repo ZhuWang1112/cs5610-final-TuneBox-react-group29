@@ -41,121 +41,138 @@ const HomeCard = ({item, type}) => {
             dispatch(changeTrack(item));
         }
     };
+    const handleNavigateToArtist = (apiArtistId) => {
+      if (!apiArtistId) return;
+      navigate(`/details/artist/${apiArtistId}`);
+    };
 
     return (
-        <div className={"m-2"}>
-            <Card
-                className="wd-card-container wd-card-content"
-                style={{
-                    width: "10rem",
-                }}
-                onClick={handleClick}
-            >
-                <Card.Img
-                    variant="top"
-                    className={"wd-card-img-custom "}
-                    src={item.img}
+      <div className={"m-2"}>
+        <Card
+          className="wd-card-container wd-card-content"
+          style={{
+            width: "10rem",
+          }}
+          onClick={handleClick}
+        >
+          <Card.Img
+            variant="top"
+            className={"wd-card-img-custom "}
+            src={item.img}
+          />
+          {type === "song" && (
+            <>
+              {isPlaying && track.apiSongId === item.apiSongId ? (
+                <AiFillPauseCircle
+                  className={"wd-play-button"}
+                  size={40}
+                  onClick={() => handlePlay()}
                 />
-                {type === "song" && (
-                    <>
-                        {isPlaying && track.apiSongId === item.apiSongId ? (
-                            <AiFillPauseCircle
-                                className={"wd-play-button"}
-                                size={40}
-                                onClick={() => handlePlay()}
-                            />
-                        ) : (
-                            <AiFillPlayCircle
-                                className={"wd-play-button"}
-                                size={40}
-                                onClick={() => handlePlay()}
-                            />
-                        )}
-                    </>
-                        // <div className="wd-play-button">
-                        //     <PlayArrowIcon onClick={() => handlePlay()}/>
-                        // </div>
-                    )}
-                <Card.Body>
-                    {type === "album" && (
-                        <Card.Title className={"wd-card"}>
-                            <Link to={`/details/album/${item.apiAlbumId}`} className={"wd-link"}>
-                                {item.title}
-                            </Link>
-                        </Card.Title>
-                    )}
-                    {type === "album" && (
-                        <Card.Text className={"wd-card"}>
-                            <Link to={`/details/artist/${item.apiArtistId}`} className={"wd-link"}>
-                                {item.artistName}
-                            </Link>
-                        </Card.Text>
-                    )}
-                    {type === "playlist" && (
-                        <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
-                    )}
-                    {type === "playlist" && (
-                        <Card.Text className={"wd-card"}>
-                            {/*{JSON.stringify(item.user)}*/}
-                            <Link
-                                className={"wd-link"}
-                                to={
-                                    currentUser !== null && item.user._id === currentUser._id
-                                        ? `/profile`
-                                        : `/profile/${item.user._id}`
-                                }
-                            >
-                                {item.user.userName}
-                            </Link>
-                        </Card.Text>
-                    )}
-                    {type === "playlist" && (
-                        <Card.Text className={"wd-card"}>{item.description}</Card.Text>
-                    )}
-                    {type === "playlist" && (
-                        <Card.Title className={"wd-card"}>
-                            Rating: {item.rating.toFixed(2)}
-                        </Card.Title>
-                    )}
-                    {type === "user" && (
-                        <Card.Title className={"wd-card"}>
-                            <Link
-                                className={"wd-link"}
-                                to={
-                                    currentUser !== null && item._id === currentUser._id
-                                        ? `/profile`
-                                        : `/profile/${item._id}`
-                                }
-                            >
-                                {item.userName}
-                            </Link>
-                        </Card.Title>
-                    )}
-                    {type === "artist" && (
-                        <Card.Title className={"wd-card"}>
-                            <Link to={`/details/artist/${item.apiArtistId}`} className={"wd-link"}>
-                                {item.artistName}
-                            </Link>
-                        </Card.Title>
-                    )}
-                    {type === "artist" && type === "album" && (
-                        <Card.Text className={"wd-card"}>Rank: {item.rank}</Card.Text>
-                    )}
+              ) : (
+                <AiFillPlayCircle
+                  className={"wd-play-button"}
+                  size={40}
+                  onClick={() => handlePlay()}
+                />
+              )}
+            </>
+            // <div className="wd-play-button">
+            //     <PlayArrowIcon onClick={() => handlePlay()}/>
+            // </div>
+          )}
+          <Card.Body>
+            {type === "album" && (
+              <Card.Title className={"wd-card"}>
+                <Link
+                  to={`/details/album/${item.apiAlbumId}`}
+                  className={"wd-link"}
+                >
+                  {item.title}
+                </Link>
+              </Card.Title>
+            )}
+            {type === "album" && (
+              <Card.Text className={"wd-card"}>
+                <Link
+                  to={`/details/artist/${item.apiArtistId}`}
+                  className={"wd-link"}
+                >
+                  {item.artistName}
+                </Link>
+              </Card.Text>
+            )}
+            {type === "playlist" && (
+              <Card.Title className={"wd-card"}>{item.playListName}</Card.Title>
+            )}
+            {type === "playlist" && (
+              <Card.Text className={"wd-card"}>
+                {/*{JSON.stringify(item.user)}*/}
+                <Link
+                  className={"wd-link"}
+                  to={
+                    currentUser !== null && item.user._id === currentUser._id
+                      ? `/profile`
+                      : `/profile/${item.user._id}`
+                  }
+                >
+                  {item.user.userName}
+                </Link>
+              </Card.Text>
+            )}
+            {type === "playlist" && (
+              <Card.Text className={"wd-card"}>
+                {item.description ? item.description : "None"}
+              </Card.Text>
+            )}
+            {type === "playlist" && (
+              <Card.Title className={"wd-card"}>
+                Rating: {item.rating.toFixed(2)}
+              </Card.Title>
+            )}
+            {type === "user" && (
+              <Card.Title className={"wd-card"}>
+                <Link
+                  className={"wd-link"}
+                  to={
+                    currentUser !== null && item._id === currentUser._id
+                      ? `/profile`
+                      : `/profile/${item._id}`
+                  }
+                >
+                  {item.userName}
+                </Link>
+              </Card.Title>
+            )}
+            {type === "artist" && (
+              <Card.Title className={"wd-card"}>
+                <Link
+                  to={`/details/artist/${item.apiArtistId}`}
+                  className={"wd-link"}
+                >
+                  {item.artistName}
+                </Link>
+              </Card.Title>
+            )}
+            {type === "artist" && type === "album" && (
+              <Card.Text className={"wd-card"}>Rank: {item.rank}</Card.Text>
+            )}
 
-                    {type === "song" && (
-                        <>
-                            <Card.Title className={"wd-card"}>{item.songName}</Card.Title>
-                            <Card.Text
-                                className={"wd-card artist-click-format"}
-                                onClick={() => navigate(`/details/artist/${item.apiArtistId}`)}
-                            >
-                                {item.artistName}
-                            </Card.Text>
-                        </>
-                    )}
-                </Card.Body>
-            </Card>
-        </div>
+            {type === "song" && (
+              <>
+                <Card.Title className={"wd-card"}>
+                  {item.songName ? item.songName : "Unknown"}
+                </Card.Title>
+                <Card.Text
+                  className={"wd-card artist-click-format"}
+                  onClick={() => handleNavigateToArtist(item.apiArtistId)}
+                >
+                  {item.artistName ? item.artistName : "Unknown"}
+                </Card.Text>
+              </>
+            )}
+          </Card.Body>
+        </Card>
+      </div>
     );
 };
 export default HomeCard;

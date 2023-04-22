@@ -15,7 +15,6 @@ import { SONG_LIMITATION_FOR_REGULAR_USER } from "../../utils/URL";
 import "./index.css";
 
 const ArtistPlayListDetail = ({ songs }) => {
-  console.log("songs: ", songs);
   const { likedSongs } = useSelector((state) => state.likedSong);
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;
