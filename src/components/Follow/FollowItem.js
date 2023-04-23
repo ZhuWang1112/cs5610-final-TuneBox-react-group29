@@ -6,6 +6,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { MdRemoveCircle, MdAddCircle } from "react-icons/md";
 import Overlay from "react-bootstrap/Overlay";
+
 const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -14,7 +15,6 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   const visitOtherProfile = () => {
     navigate(`/profile/${follow._id}`);
   };
-
 
   const [isFollow_, setIsFollow] = useState(isFollow);
   const handleFollowWithStateChange = () => {
@@ -25,6 +25,7 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
     handleFollow(follow._id);
     setIsFollow(!isFollow_);
   };
+
   return (
     <div className={`mt-2 row p-3`}>
       <div

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import styles from "./Register_styles.css";
-import {loginThunk, registerThunk} from "../services/users/users-thunks";
-import {initFollowThunk} from "../services/thunks/follow-thunk";
+import { loginThunk, registerThunk } from "../services/users/users-thunks";
+import { initFollowThunk } from "../services/thunks/follow-thunk";
 import { createPlaylist } from "../services/playlist-service";
 import "./Register_styles.css";
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -5,7 +5,6 @@ import "./Login_styles.css";
 import { loginThunk } from "../services/users/users-thunks";
 
 const Login = () => {
-  // const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showLoginError, setShowLoginError] = useState(false);

@@ -14,24 +14,7 @@ import {
 const followSlice = createSlice({
   name: "follow",
   initialState: { followeeList: [], checkFollowee: [], isSelf: false },
-  reducers: {
-    createFollow(state, action) {
-      // const newFollow = {
-      //   _id: action.payload,
-      //   name: "random",
-      //   img: "profile-avatar.jpeg",
-      //   playlistNum: 0,
-      // };
-      // state.push(newFollow);
-    },
-
-    deleteFollow(state, action) {
-      // const index = state.findIndex(
-      //   (playlist) => playlist._id === action.payload
-      // );
-      // state.splice(index, 1);
-    },
-  },
+  reducers: {},
   extraReducers: {
     [findFolloweeThunk.fulfilled]: (state, { payload }) => {
       state.followeeList = payload;
@@ -49,5 +32,4 @@ const followSlice = createSlice({
   },
 });
 
-export const { createFollow, deleteFollow } = followSlice.actions;
 export default followSlice.reducer;

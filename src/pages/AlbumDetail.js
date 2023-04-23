@@ -6,12 +6,8 @@ import AlbumBanner from "../components/AlbumComponents/AlbumBanner";
 import AlbumSongs from "../components/AlbumComponents/AlbumSongs";
 import { findCurrentUserThunk } from "../services/users/users-thunks.js";
 import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
+
 const AlbumDetail = () => {
-  // const location = useLocation();
-  // let title = "UnKnown";
-  // if (location.state) {
-  //   title = location.state.title;
-  // }
   const { id } = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const { likedSongs } = useSelector((state) => state.likedSong);
@@ -27,7 +23,7 @@ const AlbumDetail = () => {
   const fetchAlbumGeneralInfoByAlbumId = async (albumId) => {
     const data = await getAlbumGeneralInfoByAlbumId(albumId);
     setTitle(data.albumName);
-  }
+  };
 
   useEffect(() => {
     dispatch(findCurrentUserThunk());
