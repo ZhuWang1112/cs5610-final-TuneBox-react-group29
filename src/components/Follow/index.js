@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FollowItem from "./FollowItem";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteFollow } from "../../reducers/follow-reducer";
 import { useParams } from "react-router";
 import { findFolloweeIds } from "../../services/follow-service";
 import "./index.css";
