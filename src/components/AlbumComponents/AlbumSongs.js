@@ -47,7 +47,10 @@ const AlbumSongs = ({ songs }) => {
 
   const albumHandleAddToPlaylist = async (pid, song, setLike) => {
     if (!currentUser) return;
-    if (!currentUser.isVip && songsNumber >= SONG_LIMITATION_FOR_REGULAR_USER) {
+    if (
+      !currentUser.isVip &&
+      likedSongs.length >= SONG_LIMITATION_FOR_REGULAR_USER
+    ) {
       setShowUpgrade(true);
       return;
     }

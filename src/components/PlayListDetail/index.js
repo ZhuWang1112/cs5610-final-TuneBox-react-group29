@@ -54,7 +54,16 @@ const PlayListDetail = ({ playlist, setPlaylist }) => {
   const handleAddToPlaylist = async (pid, songIdObj, setLike) => {
     if (!currentUser) return;
     const { _id } = songIdObj;
-    if (!currentUser.isVip && songsNumber >= SONG_LIMITATION_FOR_REGULAR_USER) {
+    console.log("songNumber", likedSongs.length);
+    console.log(
+      "SONG_LIMITATION_FOR_REGULAR_USE",
+      SONG_LIMITATION_FOR_REGULAR_USER
+    );
+    if (
+      !currentUser.isVip &&
+      likedSongs.length >= SONG_LIMITATION_FOR_REGULAR_USER
+    ) {
+      console.log("here");
       setShowUpgrade(true);
       return;
     }
