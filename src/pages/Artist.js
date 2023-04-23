@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { findArtistDetails, findArtistDetailsOnCloud } from "../services/artist-service";
+import { findArtistDetails } from "../services/artist-service";
 import ArtistPlayListDetail from "../components/ArtistPlayListDetail";
 import "./artist_styles.css";
 
@@ -14,10 +14,7 @@ import {
 } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 
-import {
-  findUserByIdThunk,
-  findCurrentUserThunk,
-} from "../services/users/users-thunks";
+import { findCurrentUserThunk } from "../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 
 const Artist = () => {
@@ -26,10 +23,12 @@ const Artist = () => {
   const dispatch = useDispatch();
   const [artist, setArtist] = useState(null);
   const [songs, setSongs] = useState([]);
-  const [artistAlbum, setArtistAlbum] = useState({});
-  const { likedSongs } = useSelector((state) => state.likedSong);
 
   const getArtistDetails = async (api) => {
+    if (api === "null") {
+      setSongs([]);
+      return;
+    }
     const res = await findArtistDetails(api);
     setArtist(res.artist);
     setSongs(res.songs);
@@ -41,8 +40,6 @@ const Artist = () => {
 
   useEffect(() => {
     getArtistDetails(api);
-    // getPlaylistDetails(api);
-    // getArtistAlbums(api);
     dispatch(findCurrentUserThunk());
     dispatch(findCurrentUserSongsThunk());
   }, [api]);
@@ -62,9 +59,9 @@ const Artist = () => {
             src={artist ? artist.img : "/images/playlist-cover.jpeg"}
           />
         </div>
-        <div class={`wd-text-container`}>
+        <div className={`wd-text-container`}>
           <FontAwesomeIcon className={`wd-check-circle`} icon={faCheckCircle} />
-          <sp /> Verified Artist
+          <span className={`mb-0 d-inline ms-2`}>Verified Artist </span>
           <div className={`row ps-3 wd-name`}>
             {artist ? artist.name : "Unknown"}
           </div>
@@ -86,6 +83,13 @@ const Artist = () => {
       </div>
 
       <div>{songs.length > 0 && <ArtistPlayListDetail songs={songs} />}</div>
+      <div>
+        {songs.length === 0 && (
+          <div className={`d-flex justify-content-center mt-5`}>
+            <h5 className={`text-muted fw-bold`}>Can't Find Songs</h5>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

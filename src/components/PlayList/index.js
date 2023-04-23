@@ -19,9 +19,6 @@ const PlayList = ({ isSelf, setComments }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  // const { profileSongs } = useSelector((state) => state.likedSong);
-  // const [profileSongs, setProfileSongs] = useState(null);
-  const { likedSongs } = useSelector((state) => state.likedSong);
   const [playlists, setPlaylists] = useState(null);
   const [playlistPerPage, setPlaylistPerPage] = useState(
     window.innerWidth > 1630
@@ -32,16 +29,12 @@ const PlayList = ({ isSelf, setComments }) => {
       ? 2
       : 1
   );
-  // const { playlists } = useSelector((state) => state.playlist);
   const dispatch = useDispatch();
   const handleClick = (playlist_id) => {
     navigate(`/details/playlist/${playlist_id}`);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  // const [playlistPerPage] = useState(3);
-  // const indexOfLastPlaylist = currentPage * playlistPerPage;
-  // const indexOfFirstPlaylist = indexOfLastPlaylist - playlistPerPage;
   const paginate = (event, value) => {
     setCurrentPage(value);
   };

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
-import { loginThunk, logoutThunk } from "../../services/users/users-thunks";
+import { logoutThunk } from "../../services/users/users-thunks";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { checkLogin } from "../../services/user-service";
 const NavBar = () => {
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const { currentUser } = useSelector((state) => state.user);
@@ -12,27 +11,9 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // work version
   useEffect(() => {
     setLogin(loginUser ? true : false);
   }, [loginUser]);
-
-  // [TODO] seems that it not totally work, let's roll back to another version first
-  // useEffect(() => {
-  //   // setLogin(loginUser ? true : false);
-  //   const checkLoginStatus = async () => {
-  //     const response = await checkLogin(loginUser);
-  //     setLogin(response.login);
-  //     /**
-  //      * If the user is not logged in, remove the currentUser and defaultPlaylist from localStorage
-  //      */
-  //     if (!response.login) {
-  //       localStorage.removeItem("currentUser");
-  //       localStorage.removeItem("defaultPlaylist");
-  //     }
-  //   };
-  //   checkLoginStatus().then((r) => console.log(r));
-  // }, [loginUser]);
 
   return (
     <div

@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineFieldTime, AiFillStar } from "react-icons/ai";
-// import PlayListDetailItem from "./PlayListDetailItem";
 import DetailItem from "../DetailItem";
 import CommentPanel from "./CommentPanel";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import {
-  updateLikeSong,
-  deleteLikeSong,
-  addLikeSong,
-} from "../../reducers/like-reducer.js";
+import { deleteLikeSong, addLikeSong } from "../../reducers/like-reducer.js";
 
 import {
   deleteSongPlaylist,
@@ -25,16 +19,13 @@ import "./index.css";
 import { SONG_LIMITATION_FOR_REGULAR_USER } from "../../utils/URL";
 
 const PlayListDetail = ({ playlist, setPlaylist }) => {
-  // const { songs } = useSelector((state) => state.likedSong);
   // likedSongs of current login user
   const { likedSongs } = useSelector((state) => state.likedSong);
   const [songs, setSongs] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;
-  const defaultPlaylist = JSON.parse(localStorage.getItem("defaultPlaylist"));
   const [playlistsOption, setPlaylistsOption] = useState(null);
   const [songsNumber, setSongsNumber] = useState(null);
-  const [playlistRating, setPlaylistRating] = useState(playlist.rating);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();

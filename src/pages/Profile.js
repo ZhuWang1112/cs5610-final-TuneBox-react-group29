@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ProfileBanner from "../components/ProfileBanner";
 import ProfileMiddle from "../components/ProfileMiddle";
 import ProfileRight from "../components/ProfileRight";
 import { useParams } from "react-router";
-
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logoutThunk } from "../services/users/users-thunks";
-
-import { findUser } from "../services/user-service";
-
-import { updateProfile } from "../reducers/profile-reducer";
 import { findProfileThunk } from "../services/thunks/profile-thunk";
-import {
-  findUserByIdThunk,
-  findCurrentUserThunk,
-} from "../services/users/users-thunks";
+import { findCurrentUserThunk } from "../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
+
 const Profile = () => {
   const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.user);

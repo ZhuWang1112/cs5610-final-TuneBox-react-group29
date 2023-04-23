@@ -29,9 +29,6 @@ const playlistSlice = createSlice({
     [findPlaylistsThunk.fulfilled]: (state, { payload }) => {
       state.playlists = payload;
     },
-    // [createPlaylistThunk.fulfilled]: (state, { payload }) => {
-    //   state.playlists.push(payload);
-    // },
     [deletePlaylistThunk.fulfilled]: (state, { payload }) => {
       state.playlists = payload;
     },

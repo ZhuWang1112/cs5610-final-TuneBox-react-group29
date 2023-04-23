@@ -2,21 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { createFollow, deleteFollow } from "../../reducers/follow-reducer";
-import { findUser, updateUser } from "../../services/user-service";
-import {
-  updateUserNonAdminThunk,
-  updateUserThunk,
-} from "../../services/users/users-thunks";
+import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
 import FollowUserGuest from "./FollowUserGuest";
-import Button from "react-bootstrap/Button";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Overlay from "react-bootstrap/Overlay";
 import {
   ref,
   uploadBytesResumable,
@@ -24,7 +15,6 @@ import {
   deleteObject,
 } from "firebase/storage";
 import storage, { removeImageFromFirebase } from "../../services/firebase.js";
-import { current } from "immer";
 
 const defaultFile = "/images/profile-avatar.jpeg";
 const ProfileBanner = () => {

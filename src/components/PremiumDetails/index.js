@@ -12,11 +12,11 @@ import { useNavigate } from "react-router";
 import Payment from "./Payment";
 import { findCurrentUserThunk } from "../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../services/thunks/like-thunk.js";
+
 const PremiumDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  const [account, setAccount] = useState(false);
   const [plan, setPlan] = useState(currentUser && currentUser.isVip);
   const [payment, setPayment] = useState(currentUser && currentUser.isVip);
   const [show, setShow] = useState(false);

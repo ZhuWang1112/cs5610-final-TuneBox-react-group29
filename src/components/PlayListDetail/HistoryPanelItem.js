@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { AiFillStar } from "react-icons/ai";
 import { useSelector } from "react-redux";
+
 const HistoryPanelItem = ({ comment }) => {
   const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);

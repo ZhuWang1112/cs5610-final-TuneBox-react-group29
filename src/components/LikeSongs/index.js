@@ -22,20 +22,6 @@ const LikeSongs = () => {
     deleteSongPlaylist(currentUser._id, song._id);
   };
 
-  let data = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
-    { id: 8 },
-    { id: 9 },
-    { id: 10 },
-    { id: 11 },
-    { id: 12 },
-  ];
   const [windowWidth, setWindowWidth] = useState(
     window.innerWidth > 760 ? 760 : window.innerWidth
   );
@@ -139,13 +125,6 @@ const LikeSongs = () => {
                 isSelf={uid ? false : true}
               />
             ))}
-        {/* {data.map((item) => (
-          <LikeSongItem
-            song={item}
-            handleRemoveSong={handleRemoveSong}
-            isSelf={uid ? false : true}
-          />
-        ))} */}
 
         {((uid && profileSongs && profileSongs.length === 0) ||
           (!uid && likedSongs && likedSongs.length === 0)) && (

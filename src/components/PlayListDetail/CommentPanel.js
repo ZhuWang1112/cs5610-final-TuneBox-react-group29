@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
 import { findCommentsByPlaylist } from "../../services/comment-service.js";
 import { AiFillCheckCircle, AiOutlineClear } from "react-icons/ai";
+
 const CommentPanel = ({ pRating, setPlaylist }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
