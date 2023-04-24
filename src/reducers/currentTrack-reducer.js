@@ -38,6 +38,8 @@ const currentTrackSlice = createSlice({
             state.track.songName =  payload["tracks"][0]["name"];
             state.track.artistName = payload["tracks"][0]["artists"][0]["name"];
             state.track.apiSongId = payload["tracks"][0]["id"];
+            state.track.duration = formatTime(payload["tracks"][0]["duration_ms"]);
+            state.track.apiArtistId = payload["tracks"][0]["artists"][0]["id"];
             state.isPlaying = true;
             // console.log("current artist: " + state.track.artistName);
 

@@ -1,18 +1,25 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./Login_styles.css";
 import { loginThunk } from "../services/users/users-thunks";
+import {cleanSearchReducer} from "../reducers/search-reducer";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showLoginError, setShowLoginError] = useState(false);
-
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  useEffect(() => {
+    if (!localStorage.getItem("currentUser")) {
+      dispatch(cleanSearchReducer());
+    }
+    }, []);
+
+  const handleLogin = async () => {
     setShowLoginError(false);
     try {
       localStorage.clear();
@@ -22,7 +29,8 @@ const Login = () => {
           const userID = JSON.parse(
             window.localStorage.getItem("currentUser")
           )._id;
-          navigate(`/home?_id=${userID}`);
+          // navigate(`/home?_id=${userID}`);
+          navigate(`/home`);
         } else {
           setShowLoginError(true);
         }
@@ -65,6 +73,11 @@ const Login = () => {
                   }}
                   type="text"
                   required={true}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleLogin();
+                    }
+                  }}
                   className={`form-control register-control-input fw-bold text-white`}
                 />
               </div>
@@ -87,6 +100,11 @@ const Login = () => {
                   type="password"
                   required={true}
                   className={`form-control register-control-input fw-bold text-white`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleLogin();
+                    }
+                  }}
                 />
               </div>
 

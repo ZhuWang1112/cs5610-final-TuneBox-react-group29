@@ -2,6 +2,8 @@ import * as userService from "./users-service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { findDefaultPlaylistByUser } from "../playlist-service";
 import { updateUserNonAdmin, findCurrentUser } from "../user-service";
+import {cleanSearchReducer} from "../../reducers/search-reducer";
+import {useDispatch} from "react-redux";
 export const findAllUsersThunk = createAsyncThunk("users/findAll", async () => {
   const users = await userService.findAllUsers();
   return users;
@@ -63,9 +65,12 @@ export const loginThunk = createAsyncThunk("users/login", async (user) => {
 });
 
 export const logoutThunk = createAsyncThunk("users/logout", async () => {
-  window.localStorage.removeItem("currentUser");
-  window.localStorage.removeItem("defaultPlaylist");
-  await userService.logout();
+    localStorage.clear();
+    const response = await userService.logout();
+    // window.location.reload();
+  // window.localStorage.removeItem("currentUser");
+  // window.localStorage.removeItem("defaultPlaylist");
+  return response.data;
 });
 
 export const registerThunk = createAsyncThunk(

@@ -29,7 +29,7 @@ const UserTable = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_BASE}/users/admin/count`)
+      .get(`${API_BASE}/users/admin/count/all`)
       .then((response) => {
         setTotalCount(response.data);
       })

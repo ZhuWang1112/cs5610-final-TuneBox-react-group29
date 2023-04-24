@@ -229,10 +229,13 @@ const SearchCard = ({item, type, setShowUpgrade}) => {
 
                     {type === "local-song" && (
                         <Card.Text className={"wd-card"}>
-                            {item.artistName}
-                            {/*<Link className={"wd-link"} to={(currentUser !== null && item.user._id === currentUser._id) ? `/profile` : `/profile/${item.user._id}`}>*/}
-                            {/*    {item.user.userName}*/}
-                            {/*</Link>*/}
+                            <Link
+                                to={`/artist/details/${item.apiArtistId}`}
+                                className={"wd-link"}
+                            >
+                                {item.artistName}
+                            </Link>
+                            {/*{item.artistName}*/}
                         </Card.Text>
                     )}
 
