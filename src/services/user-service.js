@@ -8,6 +8,9 @@ export const findUser = async (userId) => {
 
 export const findCurrentUser = async () => {
   const response = await axios.get(`${USER_API}/currentUser`);
+  if (response.data === null) {
+    localStorage.clear();
+  }
   return response.data;
 };
 

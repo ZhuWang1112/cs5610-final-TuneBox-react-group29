@@ -20,9 +20,14 @@ const searchSlice = createSlice({
         updateSearchType(state, action) {
             state.searchType = action.payload;
             localStorage.setItem("searchType", action.payload);
-        }
+        },
+        cleanSearchReducer(state, action) {
+            state.searchContent = "";
+            state.searchResults = [];
+            state.searchType = "search-remote-albums";
+        },
     }
 });
 
-export const {updateSearchContent, updateSearchResults, updateSearchType} = searchSlice.actions;
+export const {updateSearchContent, updateSearchResults, updateSearchType, cleanSearchReducer} = searchSlice.actions;
 export default searchSlice.reducer;

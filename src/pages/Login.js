@@ -1,16 +1,23 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./Login_styles.css";
 import { loginThunk } from "../services/users/users-thunks";
+import {cleanSearchReducer} from "../reducers/search-reducer";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showLoginError, setShowLoginError] = useState(false);
-
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("currentUser")) {
+      dispatch(cleanSearchReducer());
+    }
+    }, []);
 
   const handleLogin = async () => {
     setShowLoginError(false);
