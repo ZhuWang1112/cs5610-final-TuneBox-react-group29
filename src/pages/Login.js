@@ -12,10 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    if (e.key !== "Enter") {
-      return;
-    }
+  const handleLogin = async () => {
     setShowLoginError(false);
     try {
       localStorage.clear();
@@ -69,6 +66,11 @@ const Login = () => {
                   }}
                   type="text"
                   required={true}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleLogin();
+                    }
+                  }}
                   className={`form-control register-control-input fw-bold text-white`}
                 />
               </div>
@@ -91,7 +93,11 @@ const Login = () => {
                   type="password"
                   required={true}
                   className={`form-control register-control-input fw-bold text-white`}
-                  onKeyDown={handleLogin}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleLogin();
+                    }
+                  }}
                 />
               </div>
 
