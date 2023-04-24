@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import { useNavigate } from "react-router";
+import {useSelector} from "react-redux";
 
 const SideBar = () => {
   const { pathname } = useLocation();
@@ -25,6 +26,7 @@ const SideBar = () => {
   const navigate = useNavigate();
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
   const [login, setLogin] = useState(false);
+  const searchType = useSelector((state) => state.search.searchType);
 
   useEffect(() => {
     setLogin(loginUser ? true : false);
@@ -62,7 +64,7 @@ const SideBar = () => {
         </div>
       </Link>
       <Link
-        to="/search/search-remote-albums"
+        to={`/search/${searchType}`}
         className={`list-group-item d-flex align-items-center justify-content-center fw-bold pt-3 pb-3 ${
           active === `search` ? `bg-warning text-white` : `text-muted`
         }`}

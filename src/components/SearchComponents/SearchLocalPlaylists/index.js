@@ -7,8 +7,9 @@ import {findCurrentUserThunk} from "../../../services/users/users-thunks";
 import "./index.css";
 
 import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
-import {updateSearchResults} from "../../../reducers/search-reducer";
+import {updateSearchResults, updateSearchType} from "../../../reducers/search-reducer";
 import Pagination from "../../AdminComponents/Pagination/Pagination";
+import {useLocation} from "react-router";
 
 function SearchLocalPlaylists() {
     const [currentPage, setCurrentPage] = useState(1); // current page

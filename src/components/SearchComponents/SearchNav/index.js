@@ -7,7 +7,7 @@ import {getAlbums, getArtists, getTracks} from "../../../services/rapidAPI-servi
 import {useDispatch, useSelector} from "react-redux";
 import {
     updateSearchContent,
-    updateSearchResults,
+    updateSearchResults, updateSearchType,
 } from "../../../reducers/search-reducer";
 import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
 import {searchPlaylistThunk} from "../../../services/thunks/playlist-thunk";
@@ -18,6 +18,10 @@ const SearchNav = () => {
     const active = paths[2];
     const {searchContent} = useSelector(state => state.search);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(updateSearchType(active));
+    }, [pathname]);
 
     const searchRapidAPI = async (e) => {
         if (e.key !== "Enter" && (active === "search-remote-albums" || active === "search-remote-artists" || active === "search-remote-tracks")) {
