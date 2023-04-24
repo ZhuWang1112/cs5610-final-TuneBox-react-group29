@@ -1,7 +1,7 @@
 import axios from "axios";
 import data from "bootstrap/js/src/dom/data";
 
-const key = "47442ef149msh569cea63f301f5cp185dc0jsndfa5d96b7f96";
+const key = "1ac1e8b9b6msh3bfb445be8a917ap1293ccjsn9d817918a22d";
 // const NAPSTER_API = "https://api.napster.com/v2.2";
 // const NAPSTER_KEY = process.env.REACT_APP_NAPSTER_KEY;
 
