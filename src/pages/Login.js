@@ -22,7 +22,8 @@ const Login = () => {
           const userID = JSON.parse(
             window.localStorage.getItem("currentUser")
           )._id;
-          navigate(`/home?_id=${userID}`);
+          // navigate(`/home?_id=${userID}`);
+          navigate(`/home`);
         } else {
           setShowLoginError(true);
         }
