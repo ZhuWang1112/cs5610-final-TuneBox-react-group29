@@ -13,6 +13,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
+    if (e.key !== "Enter") {
+      return;
+    }
     setShowLoginError(false);
     try {
       localStorage.clear();
@@ -88,6 +91,7 @@ const Login = () => {
                   type="password"
                   required={true}
                   className={`form-control register-control-input fw-bold text-white`}
+                  onKeyDown={handleLogin}
                 />
               </div>
 
