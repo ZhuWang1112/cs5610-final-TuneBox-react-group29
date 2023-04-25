@@ -46,7 +46,7 @@ export const getAlbums = async (albumName) => {
         method: 'GET',
         url: 'https://spotify23.p.rapidapi.com/search/',
         params: {
-            q: `${albumName}`,
+            q: `${albumName}` || 'a',
             type: 'albums',
             offset: '0',
             limit: '70',
@@ -86,7 +86,7 @@ export const getArtists = async (artistsName) => {
         method: "GET",
         url: "https://spotify23.p.rapidapi.com/search/",
         params: {
-            q: `${artistsName}`,
+            q: `${artistsName}`|| 'a',
             type: "artists",
             offset: "0",
             limit: "70",
@@ -128,7 +128,7 @@ export const getTracks = async (tracksName) => {
         method: "GET",
         url: "https://spotify23.p.rapidapi.com/search/",
         params: {
-            q: `${tracksName}`,
+            q: `${tracksName}` || 'a',
             type: "tracks",
             offset: "0",
             limit: "70",

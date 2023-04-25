@@ -14,6 +14,8 @@ import { SONG_LIMITATION_FOR_REGULAR_USER } from "../../utils/URL";
 import { deleteLikeSong, addLikeSong } from "../../reducers/like-reducer.js";
 import "./index.css";
 import { Link } from "react-router-dom";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const MediaPlayer = () => {
   // const song = {
   //     mp3Url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
@@ -50,6 +52,13 @@ const MediaPlayer = () => {
   }, [song]);
 
   const handlePlay = () => {
+    // if no song is selected, then show a toast
+    if (!song.mp3Url) {
+      toast("Please select a song to play", {
+        autoClose: 2000, // after 2 seconds
+      });
+      return;
+    }
     dispatch(updateIsPlaying(true));
     audioRef.current.play();
   };
@@ -129,6 +138,7 @@ const MediaPlayer = () => {
             {song.img && (
               <img src={song.img} alt="Song Cover" style={{ height: "85px" }} />
             )}
+            <ToastContainer />
           </div>
           <div className={"d-none d-md-block col-6 p-0 m-0 pt-2 "}>
             {/*<div className="wd-scrolling-text">{song.songName}</div>*/}
