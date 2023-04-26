@@ -21,12 +21,12 @@ const Search = () => {
         <div>
             <SearchNav/>
             <Routes>
-                <Route path="/search-remote-albums" element={<SearchRemoteAlbums />} />
-                <Route path="/search-remote-artists" element={<SearchRemoteArtists />} />
-                <Route path="/search-remote-tracks" element={<SearchRemoteTracks />} />
-                <Route path="/search-local-artists" element={<SearchLocalArtists />} />
-                <Route path="/search-local-playlists" element={<SearchLocalPlaylists />} />
-                <Route path="/search-local-songs" element={<SearchLocalSongs />} />
+                <Route path="/search-remote-albums/*" element={<SearchRemoteAlbums />} />
+                <Route path="/search-remote-artists/*" element={<SearchRemoteArtists />} />
+                <Route path="/search-remote-tracks/*" element={<SearchRemoteTracks />} />
+                <Route path="/search-local-artists/*" element={<SearchLocalArtists />} />
+                <Route path="/search-local-playlists/*" element={<SearchLocalPlaylists />} />
+                <Route path="/search-local-songs/*" element={<SearchLocalSongs />} />
             </Routes>
         </div>
     );

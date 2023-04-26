@@ -1,5 +1,5 @@
 import "./index.css";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {Link} from "react-router-dom";
 import {BiSearch} from "react-icons/bi";
 import React, {useEffect, useState} from "react";
@@ -16,6 +16,7 @@ const SearchNav = () => {
     const active = paths[2];
     const {searchContent} = useSelector(state => state.search);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(updateSearchType(active));
@@ -28,27 +29,33 @@ const SearchNav = () => {
         let response = [];
 
         if (active === "search-remote-albums") {
+            navigate(`/search/search-remote-albums/${searchContent}`);
             response = await getAlbums(searchContent);
             dispatch(updateSearchResults(response));
         } else if (active === "search-remote-artists") {
+            navigate(`/search/search-remote-artists/${searchContent}`);
             response = await getArtists(searchContent);
             dispatch(updateSearchResults(response));
         } else if (active === "search-remote-tracks") {
+            navigate(`/search/search-remote-tracks/${searchContent}`);
             response = await getTracks(searchContent);
             dispatch(updateSearchResults(response));
         } else if (active === "search-local-playlists") {
+            navigate(`/search/search-local-playlists/${searchContent}`);
             response = await searchLocalService.searchPlaylists(searchContent);
             dispatch(updateSearchResults(response));
             // dispatch(searchPlaylistThunk(searchContent)).then((response) => {
             //     dispatch(updateSearchResults(response.payload));
             // });
         } else if (active === "search-local-artists") {
+            navigate(`/search/search-local-artists/${searchContent}`);
             response =  await searchLocalService.searchArtists(searchContent);
             dispatch(updateSearchResults(response));
             // dispatch(searchArtistThunk(searchContent)).then((response) => {
             //     dispatch(updateSearchResults(response.payload));
             // });
         } else if (active === "search-local-songs") {
+            navigate(`/search/search-local-songs/${searchContent}`);
             response = await searchLocalService.searchSongs(searchContent);
             dispatch(updateSearchResults(response));
             // dispatch(searchSongThunk(searchContent)).then((response) => {
