@@ -12,6 +12,7 @@ import {
 import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
 import {searchPlaylistThunk} from "../../../services/thunks/playlist-thunk";
 import {searchSongThunk} from "../../../services/thunks/song-thunk";
+import * as searchLocalService from "../../../services/search-localAPI-service";
 const SearchNav = () => {
     const { pathname } = useLocation();
     const paths = pathname.split("/");
@@ -39,17 +40,23 @@ const SearchNav = () => {
             response = await getTracks(searchContent);
             dispatch(updateSearchResults(response));
         } else if (active === "search-local-playlists") {
-            dispatch(searchPlaylistThunk(searchContent)).then((response) => {
-                dispatch(updateSearchResults(response.payload));
-            });
+            response = await searchLocalService.searchPlaylists(searchContent);
+            dispatch(updateSearchResults(response));
+            // dispatch(searchPlaylistThunk(searchContent)).then((response) => {
+            //     dispatch(updateSearchResults(response.payload));
+            // });
         } else if (active === "search-local-artists") {
-            dispatch(searchArtistThunk(searchContent)).then((response) => {
-                dispatch(updateSearchResults(response.payload));
-            });
+            response =  await searchLocalService.searchArtists(searchContent);
+            dispatch(updateSearchResults(response));
+            // dispatch(searchArtistThunk(searchContent)).then((response) => {
+            //     dispatch(updateSearchResults(response.payload));
+            // });
         } else if (active === "search-local-songs") {
-            dispatch(searchSongThunk(searchContent)).then((response) => {
-                dispatch(updateSearchResults(response.payload));
-            });
+            response = await searchLocalService.searchSongs(searchContent);
+            dispatch(updateSearchResults(response));
+            // dispatch(searchSongThunk(searchContent)).then((response) => {
+            //     dispatch(updateSearchResults(response.payload));
+            // });
         }
     };
 
@@ -61,7 +68,8 @@ const SearchNav = () => {
                        style={{ color: "white" }}
                        value={searchContent}
                        onChange={(e) => dispatch(updateSearchContent(e.target.value))}
-                       onKeyDown={searchRapidAPI}
+                       // note: not onKeyDown
+                       onKeyUp={searchRapidAPI}
                 />
                 <BiSearch className="bi bi-search position-absolute
                        wd-nudge-up" size={24}></BiSearch>

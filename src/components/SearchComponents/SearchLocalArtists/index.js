@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import SearchCard from "../SearchCard";
 import {useDispatch, useSelector} from "react-redux";
-import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
-import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
-import { findCurrentUserThunk } from "../../../services/users/users-thunks";
+import {findCurrentUserSongsThunk} from "../../../services/thunks/like-thunk";
+import {findCurrentUserThunk} from "../../../services/users/users-thunks";
 
 import "./index.css";
-import {getTracks} from "../../../services/rapidAPI-service";
 import {updateSearchResults} from "../../../reducers/search-reducer";
 import Pagination from "../../AdminComponents/Pagination/Pagination";
+import * as searchLocalService from "../../../services/search-localAPI-service";
 
 
 function SearchLocalArtists() {
@@ -24,11 +23,14 @@ function SearchLocalArtists() {
 
   useEffect(() => {
 
-          dispatch(searchArtistThunk(searchContent)).then((response) => {
-              dispatch(updateSearchResults(response.payload));
-          });
-
-
+      const fetchLocalArtists = async () => {
+          const response =  await searchLocalService.searchArtists(searchContent);
+          dispatch(updateSearchResults(response));
+      }
+      fetchLocalArtists();
+          // dispatch(searchArtistThunk(searchContent)).then((response) => {
+          //     dispatch(updateSearchResults(response.payload));
+          // });
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

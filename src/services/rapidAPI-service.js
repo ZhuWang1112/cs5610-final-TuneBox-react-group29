@@ -1,41 +1,8 @@
 import axios from "axios";
 import data from "bootstrap/js/src/dom/data";
 
-const key = "1ac1e8b9b6msh3bfb445be8a917ap1293ccjsn9d817918a22d";
-// const NAPSTER_API = "https://api.napster.com/v2.2";
-// const NAPSTER_KEY = process.env.REACT_APP_NAPSTER_KEY;
+const key = "dc311bd25dmshc09f7a2a7c55b75p166c09jsnaf5f5287a4e0";
 
-// export const fullTextSearch = async (query) => {
-//     const options = {
-//         method: 'GET',
-//         url: 'https://spotify23.p.rapidapi.com/search/',
-//         params: {
-//             q: 'query',
-//             type: 'multi',
-//             offset: '0',
-//             limit: '10',
-//             numberOfTopResults: '5'
-//         },
-//         headers: {
-//             'X-RapidAPI-Key': '72347ff321msh369939397882912p1fdb14jsn7f3b5a9e92f1',
-//             'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
-//         }
-//     };
-//
-//     await axios.request(options).then(function (response) {
-//         console.log(" rapidapi-serivce: ",response.data);
-//         localStorage.setItem("currentData", JSON.stringify(response.data))
-//         return response.data
-//     }).catch(function (error) {
-//         console.error(error);
-//         return
-//     });
-//
-//     // const response = await axios.get(
-//     //     `${NAPSTER_API}/search/verbose?query=${query}&apikey=${NAPSTER_KEY}`
-//     // );
-//     // return response.data.search.data;
-// };
 export const formatTime = (ms) => {
     let minutes = Math.floor(ms / 60000);
     let seconds = ((ms % 60000) / 1000).toFixed(0);
