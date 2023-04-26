@@ -14,6 +14,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [cellphone, setCellphone] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
 
   const addPlaylist = async (userId) => {
     const newPlaylist = {
@@ -31,7 +32,7 @@ const Register = () => {
     try {
       localStorage.clear();
       await dispatch(
-        registerThunk({ userName, password, email, cellphone, gender })
+        registerThunk({ userName, password, email, cellphone, gender, isAdmin })
       );
       // navigate("/login");
       await dispatch(loginThunk({ userName, password })).then((res) => {
@@ -47,7 +48,7 @@ const Register = () => {
       // add one default playlist for user
       addPlaylist(user_id);
     } catch (error) {
-      alert("something is wrong!");
+      alert("User name or email already exists!");
     }
   };
 
@@ -178,6 +179,34 @@ const Register = () => {
                       }}
                     />
                     Non-binary
+                  </label>
+                </div>
+              </div>
+
+              <div className={`mt-3`}>
+                <label className="mt-2 text-warning fw-bold mb-2">User Type</label>
+                <div className={`mt-2 d-flex justify-content-start`}>
+                  <label className={`text-muted fw-bold`}>
+                    <input
+                        type="radio"
+                        name="userType"
+                        value="false"
+                        onChange={(e) => {
+                          setIsAdmin(e.target.value === "true");
+                        }}
+                    />
+                    Regular
+                  </label>
+                  <label className={`ms-3 text-muted fw-bold`}>
+                    <input
+                        type="radio"
+                        name="userType"
+                        value="true"
+                        onChange={(e) => {
+                          setIsAdmin(e.target.value === "true");
+                        }}
+                    />
+                    Admin
                   </label>
                 </div>
               </div>

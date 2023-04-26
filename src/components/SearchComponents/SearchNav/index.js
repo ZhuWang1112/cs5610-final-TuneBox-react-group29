@@ -9,9 +9,6 @@ import {
     updateSearchContent,
     updateSearchResults, updateSearchType,
 } from "../../../reducers/search-reducer";
-import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
-import {searchPlaylistThunk} from "../../../services/thunks/playlist-thunk";
-import {searchSongThunk} from "../../../services/thunks/song-thunk";
 import * as searchLocalService from "../../../services/search-localAPI-service";
 const SearchNav = () => {
     const { pathname } = useLocation();
