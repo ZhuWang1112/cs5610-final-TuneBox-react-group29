@@ -8,6 +8,7 @@ import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
 import "./index.css";
 import {updateSearchResults} from "../../../reducers/search-reducer";
 import Pagination from "../../AdminComponents/Pagination/Pagination";
+import * as searchLocalService from "../../../services/search-localAPI-service";
 
 
 function SearchLocalSongs() {
@@ -23,10 +24,15 @@ function SearchLocalSongs() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchLocalSongs = async () => {
+      const response = await searchLocalService.searchSongs(searchContent);
+      dispatch(updateSearchResults(response));
+    }
+    fetchLocalSongs();
 
-    dispatch(searchSongThunk(searchContent)).then((response) => {
-      dispatch(updateSearchResults(response.payload));
-    });
+    // dispatch(searchSongThunk(searchContent)).then((response) => {
+    //   dispatch(updateSearchResults(response.payload));
+    // });
 
     window.addEventListener("resize", handleResize);
     return () => {

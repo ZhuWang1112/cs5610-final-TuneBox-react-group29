@@ -10,6 +10,7 @@ import {searchArtistThunk} from "../../../services/thunks/artist-thunk";
 import {updateSearchResults, updateSearchType} from "../../../reducers/search-reducer";
 import Pagination from "../../AdminComponents/Pagination/Pagination";
 import {useLocation} from "react-router";
+import * as searchLocalService from "../../../services/search-localAPI-service";
 
 function SearchLocalPlaylists() {
     const [currentPage, setCurrentPage] = useState(1); // current page
@@ -24,9 +25,14 @@ function SearchLocalPlaylists() {
 
     useEffect(() => {
 
-        dispatch(searchPlaylistThunk(searchContent)).then((response) => {
-            dispatch(updateSearchResults(response.payload));
-        });
+        const fetchLocalPlaylists = async () => {
+            const response = await searchLocalService.searchPlaylists(searchContent);
+            dispatch(updateSearchResults(response));
+        }
+        fetchLocalPlaylists();
+        // dispatch(searchPlaylistThunk(searchContent)).then((response) => {
+        //     dispatch(updateSearchResults(response.payload));
+        // });
 
         window.addEventListener("resize", handleResize);
         return () => {

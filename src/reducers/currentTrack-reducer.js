@@ -19,7 +19,11 @@ const formatTime = (ms) => {
 
 const currentTrackSlice = createSlice({
     name: "currentTrack",
-    initialState: { track: song, isPlaying: null },
+    initialState: {
+        track:
+            localStorage.getItem("currentTrack") ? JSON.parse(localStorage.getItem("currentTrack")) : song,
+        isPlaying: null
+    },
     reducers: {
         updateIsPlaying(state, action) {
             state.isPlaying = action.payload;
@@ -28,6 +32,7 @@ const currentTrackSlice = createSlice({
         changeTrack(state, action) {
             state.track = action.payload;
             state.isPlaying = true;
+            localStorage.setItem("currentTrack", JSON.stringify(state.track));
             // console.log("current track: " + JSON.stringify(state.track));
         }
     },

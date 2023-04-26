@@ -32,9 +32,9 @@ const playlistSlice = createSlice({
     [deletePlaylistThunk.fulfilled]: (state, { payload }) => {
       state.playlists = payload;
     },
-    [searchPlaylistThunk.fulfilled]: (state, action) => {
-      state.playListName = action.payload;
-    },
+    // [searchPlaylistThunk.fulfilled]: (state, action) => {
+    //   state.playListName = action.payload;
+    // },
   },
 });
 
