@@ -98,3 +98,6 @@ color:gray;
 textarea[type="text"]:focus{
     border: 3px solid #555;
 }
+.comment-panel-div {
+    color: black !important;
+}
