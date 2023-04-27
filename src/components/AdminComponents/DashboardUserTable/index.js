@@ -13,8 +13,7 @@ import {
 import {Link} from "react-router-dom";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import {useEffect, useState} from "react";
-import axios from "axios";
-const API_BASE = 'http://localhost:4000/api';
+import {findLatestUsers} from "../services";
 const DashboardUserTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,12 +39,11 @@ const DashboardUserTable = () => {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        axios.get(`${API_BASE}/users/admin/lastpage?limit=5`)
-            .then(response => {
-                setRows(response.data.reverse());
-            }).catch(error => {
-            console.error(error);
-        });
+        const fetchData = async () => {
+            const response = await findLatestUsers();
+            setRows(response.reverse());
+        }
+        fetchData();
     },[]);
 
     return (

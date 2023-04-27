@@ -5,6 +5,7 @@ import './index.css';
 import { useDispatch, useSelector } from "react-redux";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
+import {countPlaylists} from "../services";
 
 const API_BASE = "http://localhost:4000/api";
 const PlaylistsTable = () => {
@@ -14,14 +15,12 @@ const PlaylistsTable = () => {
   const [usersPerPage, setUsersPerPage] = useState(5);
   const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get(`${API_BASE}/playlists/admin/count`)
-      .then((response) => {
-        setTotalCount(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    const fetchData = async () => {
+      const playlistsNum = await countPlaylists();
+        setTotalCount(playlistsNum);
+    };
+    fetchData();
   }, []);
 
 useEffect(() => {
