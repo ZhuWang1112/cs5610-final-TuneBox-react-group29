@@ -140,7 +140,7 @@ const AlbumSongs = ({ songs }) => {
         <div className={`col col-xxl-10 col-xl-10 col-lg-10`}>
           {songs.map((song, idx) => (
             <DetailItem
-              key={song.apiSongId}
+              key={song.apiSongId + Date.now()}
               type="album"
               song={song}
               isLike={
