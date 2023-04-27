@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const PLAYLIST_API = "http://localhost:4000/api/artist/artistSongs";
-const CLOUD_ALBUM_API = "http://localhost:4000/api/remoteApi/albums";
-const ARTIST_API = "http://localhost:4000/api/artists";
+const PLAYLIST_API = process.env.REACT_APP_API_BASE + "/api/artist/artistSongs";
+const CLOUD_ALBUM_API = process.env.REACT_APP_API_BASE + "/api/remoteApi/albums";
+const ARTIST_API = process.env.REACT_APP_API_BASE + "/api/artists";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 export const findArtistDetails = async (api) => {
   const response = await axios.get(`${PLAYLIST_API}/${api}`);
@@ -20,6 +21,6 @@ export const insertArtistIfNotExist = async (artist) => {
 };
 
 export const findArtistGeneralInfoById = async (artistId) => {
-    const response = await axios.get(`http://localhost:4000/api/remoteApi/artistInfo/${artistId}`);
+    const response = await axios.get(`${API_BASE}/api/remoteApi/artistInfo/${artistId}`);
     return response.data;
 }

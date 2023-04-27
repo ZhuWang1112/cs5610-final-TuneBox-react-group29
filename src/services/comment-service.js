@@ -1,5 +1,5 @@
 import axios from "axios";
-const COMMENT_API = "http://localhost:4000/api/comment";
+const COMMENT_API = process.env.REACT_APP_API_BASE + "/api/comment";
 
 export const createComment = async (comment) => {
   const response = await axios.post(`${COMMENT_API}`, comment);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const USERS_API_URL = "http://localhost:4000/api/users";
+const USERS_API_URL = process.env.REACT_APP_API_BASE + "/api/users";
 
 const api = axios.create({
     withCredentials: true,

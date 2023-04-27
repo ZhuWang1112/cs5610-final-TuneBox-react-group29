@@ -1,7 +1,7 @@
 import axios from "axios";
 import { updateUserNonAdmin } from "./user-service";
-const PLAYLIST_API = "http://localhost:4000/api/playlists";
-const PLAYLISTDEFAULT_API = "http://localhost:4000/api/playlistsdefault";
+const PLAYLIST_API = process.env.REACT_APP_API_BASE + "/api/playlists";
+const PLAYLISTDEFAULT_API = process.env.REACT_APP_API_BASE + "/api/playlistsdefault";
 
 export const createPlaylist = async (obj) => {
   const response = await axios.post(PLAYLIST_API, obj.playlist);

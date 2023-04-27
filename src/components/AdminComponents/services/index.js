@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = process.env.REACT_APP_API_BASE + "/api";
 
 export const findLatestUsers = async () => {
     const response = await axios.get(`${API_BASE}/users/admin/lastpage?limit=5`);

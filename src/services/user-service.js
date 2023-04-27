@@ -1,5 +1,6 @@
 import axios from "axios";
-const USER_API = "http://localhost:4000/api/users";
+console.log("process.env.REACT_APP_API_BASE", process.env.REACT_APP_API_BASE);
+const USER_API = process.env.REACT_APP_API_BASE + "/api/users";
 
 export const findUser = async (userId) => {
   const response = await axios.get(`${USER_API}/${userId}`);

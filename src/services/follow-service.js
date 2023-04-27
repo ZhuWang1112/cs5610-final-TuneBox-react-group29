@@ -1,6 +1,6 @@
 import axios from "axios";
-const FOLLOW_API = "http://localhost:4000/api/follows";
-const FOLLOWOBJ_API = "http://localhost:4000/api/followObjects";
+const FOLLOW_API = process.env.REACT_APP_API_BASE + "/api/follows";
+const FOLLOWOBJ_API = process.env.REACT_APP_API_BASE + "/api/followObjects";
 
 export const findFollowees = async (userId) => {
   const response = await axios.get(`${FOLLOWOBJ_API}/${userId}`);
