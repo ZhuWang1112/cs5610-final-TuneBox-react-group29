@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {Form, Button, Col, Row} from "react-bootstrap";
-const API_BASE = 'http://localhost:4000/api';
+import {searchUsersByPartialName} from "../services";
 
 function SpecificUser({handleEdit, handleDelete}) {
     const [username, setUsername] = useState('');
@@ -10,8 +9,8 @@ function SpecificUser({handleEdit, handleDelete}) {
     const handleSearch = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.get(`${API_BASE}/users/admin/partialname/${username}`);
-            setUsers(response.data);
+            const users = await searchUsersByPartialName(username);
+            setUsers(users);
         } catch (error) {
             console.error(error);
         }
@@ -39,6 +38,7 @@ function SpecificUser({handleEdit, handleDelete}) {
                         <th className="d-none d-md-table-cell">gender</th>
                         <th>isAdmin</th>
                         <th>isVip</th>
+                        <th>isDeleted</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,6 +50,7 @@ function SpecificUser({handleEdit, handleDelete}) {
                                 <td className="d-none d-md-table-cell">{user.gender}</td>
                                 <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                                 <td>{user.isVip ? 'Yes' : 'No'}</td>
+                                <td>{user.isDeleted ? "Yes" : "No"}</td>
                                 <td>
                                     <button onClick={() => handleEdit(user)} className="btn btn-primary mr-2">
                                         Edit

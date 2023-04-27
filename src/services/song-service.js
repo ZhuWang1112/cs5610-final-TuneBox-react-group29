@@ -1,5 +1,5 @@
 import axios from "axios";
-const SONG_API = "http://localhost:4000/api/songs";
+const SONG_API = process.env.REACT_APP_API_BASE + "/api/songs";
 
 export const findSongs = async (songList) => {
   const response = await axios.get(`${SONG_API}`, {

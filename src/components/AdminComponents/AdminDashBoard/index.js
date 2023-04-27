@@ -8,14 +8,12 @@ import {
 import DashboardUserTable from "../DashboardUserTable";
 import DashboardPlaylistsTable from "../DashboardPlaylistsTable";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
-
-const API_BASE = "http://localhost:4000/api";
+import {countFemaleUsers, countMaleUsers, countPlaylists, countPremiumUsers, countUsers} from "../services";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -26,46 +24,27 @@ const AdminDashboard = () => {
   const [maleUsersNum, setMaleUsersNum] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE}/users/admin/count`)
-      .then((response) => {
-        setUsersNum(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get(`${API_BASE}/playlists/admin/count`)
-      .then((response) => {
-        setPlaylistsNum(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get(`${API_BASE}/users/admin/vip/count`)
-      .then((response) => {
-        setPremiumUsersNum(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get(`${API_BASE}/users/admin/female/count`)
-      .then((response) => {
-        setFemaleUsersNum(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get(`${API_BASE}/users/admin/male/count`)
-      .then((response) => {
-        setMaleUsersNum(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    const fetchData = async () => {
+
+      const usersNum = await countUsers();
+      setUsersNum(usersNum);
+
+      const playlistsNum = await countPlaylists();
+      setPlaylistsNum(playlistsNum);
+
+      const premiumUsersNum = await countPremiumUsers();
+      setPremiumUsersNum(premiumUsersNum);
+
+      const femaleUsersNum = await countFemaleUsers();
+      setFemaleUsersNum(femaleUsersNum);
+
+      const maleUsersNum = await countMaleUsers();
+      setMaleUsersNum(maleUsersNum);
+
+    }
+    fetchData();
+
   }, []);
 
   let percent = (premiumUsersNum / usersNum) * 100;

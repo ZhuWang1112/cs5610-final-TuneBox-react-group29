@@ -1,5 +1,5 @@
 import axios from "axios";
-const SONG_PLAYLIST_API = "http://localhost:4000/api/songPlaylist";
+const SONG_PLAYLIST_API = process.env.REACT_APP_API_BASE + "/api/songPlaylist";
 
 export const findSongsByPlaylistId = async (pid) => {
   const response = await axios.get(`${SONG_PLAYLIST_API}/${pid}`);
