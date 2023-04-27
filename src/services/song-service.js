@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 const SONG_API = process.env.REACT_APP_API_BASE + "/api/songs";
 
 export const findSongs = async (songList) => {

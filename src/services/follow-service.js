@@ -1,7 +1,7 @@
 import axios from "axios";
 const FOLLOW_API = process.env.REACT_APP_API_BASE + "/api/follows";
 const FOLLOWOBJ_API = process.env.REACT_APP_API_BASE + "/api/followObjects";
-
+axios.defaults.withCredentials = true;
 export const findFollowees = async (userId) => {
   const response = await axios.get(`${FOLLOWOBJ_API}/${userId}`);
   return response.data;

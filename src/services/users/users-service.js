@@ -4,6 +4,7 @@ const USERS_API_URL = process.env.REACT_APP_API_BASE + "/api/users";
 const api = axios.create({
     withCredentials: true,
 });
+axios.defaults.withCredentials = true;
 
 export const findAllUsers = async () => {
     const response = await axios.get(USERS_API_URL);

@@ -2,7 +2,7 @@ import axios from "axios";
 import { updateUserNonAdmin } from "./user-service";
 const PLAYLIST_API = process.env.REACT_APP_API_BASE + "/api/playlists";
 const PLAYLISTDEFAULT_API = process.env.REACT_APP_API_BASE + "/api/playlistsdefault";
-
+axios.defaults.withCredentials = true;
 export const createPlaylist = async (obj) => {
   const response = await axios.post(PLAYLIST_API, obj.playlist);
   // increase playlistCount in user table

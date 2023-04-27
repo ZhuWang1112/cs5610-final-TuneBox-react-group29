@@ -1,7 +1,7 @@
 import axios from "axios";
 console.log("process.env.REACT_APP_API_BASE", process.env.REACT_APP_API_BASE);
 const USER_API = process.env.REACT_APP_API_BASE + "/api/users";
-
+axios.defaults.withCredentials = true;
 export const findUser = async (userId) => {
   const response = await axios.get(`${USER_API}/${userId}`);
   return response.data;
