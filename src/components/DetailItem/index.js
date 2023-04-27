@@ -2,21 +2,14 @@ import React, { useState, useRef } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsFillPauseCircleFill, BsFillPlayCircleFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import { BsThreeDotsVertical, BsFillFolderSymlinkFill } from "react-icons/bs";
+import { BsFillFolderSymlinkFill } from "react-icons/bs";
 import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router";
 import "./index.css";
 import {
   changeTrack,
   updateIsPlaying,
 } from "../../reducers/currentTrack-reducer";
-import { getTrackThunk } from "../../services/thunks/track-thunk";
-import { FaRegPauseCircle, FaRegPlayCircle } from "react-icons/fa";
 
 const DetailItem = ({
   type,

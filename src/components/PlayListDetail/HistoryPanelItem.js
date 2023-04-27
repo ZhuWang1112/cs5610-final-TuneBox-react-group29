@@ -22,7 +22,12 @@ const HistoryPanelItem = ({ comment }) => {
         }
       >
         <div className={`d-flex justify-content-start`}>
-          <img src={comment.user.img} width={40} className={`rounded-circle`} />
+          <img
+            src={comment.user.img}
+            width={40}
+            height={40}
+            className={`rounded-circle`}
+          />
         </div>
         <div className={`d-flex justify-content-center`}>
           <p className={`mb-0 comment-user-name-div text-nowarp`}>
