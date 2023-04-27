@@ -14,11 +14,8 @@ import { Box, useTheme } from "@mui/material";
 import {Link} from "react-router-dom";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {findLatestPlaylists} from "../services";
 
-
-const API_BASE = 'http://localhost:4000/api';
 const DashboardPlaylistsTable = () => {
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({

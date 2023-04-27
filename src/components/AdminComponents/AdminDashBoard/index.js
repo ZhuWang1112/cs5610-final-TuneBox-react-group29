@@ -8,15 +8,12 @@ import {
 import DashboardUserTable from "../DashboardUserTable";
 import DashboardPlaylistsTable from "../DashboardPlaylistsTable";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 import { useDispatch } from "react-redux";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
 import {countFemaleUsers, countMaleUsers, countPlaylists, countPremiumUsers, countUsers} from "../services";
-
-const API_BASE = "http://localhost:4000/api";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();

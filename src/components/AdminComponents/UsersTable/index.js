@@ -3,13 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Pagination from '../Pagination/Pagination';
 import SpecificUser from "../SpecificUser";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
+import {countAllUsers, deleteUser, fetchUsersByPagination, updateUser} from "../services";
 
-const API_BASE = "http://localhost:4000/api";
-axios.defaults.withCredentials = true;
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
@@ -28,27 +26,27 @@ const UserTable = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE}/users/admin/count/all`)
-      .then((response) => {
-        setTotalCount(response.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const totalCount = await countAllUsers();
+        setTotalCount(totalCount);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {
-    axios
-      .get(
-        `${API_BASE}/users/admin/pagination?page=${currentPage}&limit=${usersPerPage}`
-      )
-      .then((response) => {
-        setUsers(response.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const users = await fetchUsersByPagination(currentPage, usersPerPage);
+        setUsers(users);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    fetchData();
   }, [currentPage, usersPerPage]);
 
   useEffect(() => {
@@ -76,27 +74,25 @@ const UserTable = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .put(`${API_BASE}/users/admin/${editingUser._id}`, formData)
-      .then((response) => {
-        setUsers(
+    try {
+      const updatedUser = await updateUser(editingUser._id, formData);
+      setUsers(
           users.map((user) =>
-            user._id === editingUser._id ? response.data : user
+              user._id === editingUser._id ? updatedUser : user
           )
-        );
-        setEditingUser(null);
-        setFormData({
-          userName: "",
-          email: "",
-          gender: "",
-          isAdmin: false,
-          isVip: false,
-          isDeleted: false,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+      );
+      setEditingUser(null);
+      setFormData({
+        userName: "",
+        email: "",
+        gender: "",
+        isAdmin: false,
+        isVip: false,
+        isDeleted: false,
       });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEdit = (user) => {
@@ -113,18 +109,16 @@ const UserTable = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this user? It may lead to exceptions in the collection {follow}, so be careful !!"
+        "Are you sure you want to delete this user? It may lead to exceptions in the collection {follow}, so be careful !!"
     );
     if (confirmed) {
-      await axios
-        .delete(`${API_BASE}/users/admin/${id}`)
-        .then((response) => {
-          setUsers(users.filter((user) => user._id !== id));
-          setTotalCount(totalCount - 1);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      try {
+        await deleteUser(id);
+        setUsers(users.filter((user) => user._id !== id));
+        setTotalCount(totalCount - 1);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 import './index.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { findCurrentUserThunk } from "../../../services/users/users-thunks";
 import { findCurrentUserSongsThunk } from "../../../services/thunks/like-thunk";
-import {countPlaylists} from "../services";
-
-const API_BASE = "http://localhost:4000/api";
+import {countPlaylists, deletePlaylist, fetchPlaylistsByPagination} from "../services";
 const PlaylistsTable = () => {
   const [playlists, setPlaylists] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,16 +21,16 @@ const PlaylistsTable = () => {
   }, []);
 
 useEffect(() => {
-  axios
-    .get(
-      `${API_BASE}/playlists/admin/pagination?page=${currentPage}&limit=${usersPerPage}`
-    )
-    .then((response) => {
-      setPlaylists(response.data);
-    })
-    .catch((error) => {
+  const fetchData = async () => {
+    try {
+      const playlists = await fetchPlaylistsByPagination(currentPage, usersPerPage);
+      setPlaylists(playlists);
+    } catch (error) {
       console.error(error);
-    });
+    }
+  };
+
+  fetchData();
 }, [currentPage, usersPerPage]);
 
   useEffect(() => {
@@ -43,16 +40,16 @@ useEffect(() => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this playlist?"
+        "Are you sure you want to delete this playlist?"
     );
     if (confirmed) {
-      await axios
-        .delete(`${API_BASE}/playlists/admin/${id}`)
-        .then(setPlaylists(playlists.filter((playlist) => playlist._id !== id)))
-        .catch((error) => {
-          console.error(error);
-        });
-      setTotalCount(totalCount - 1);
+      try {
+        await deletePlaylist(id);
+        setPlaylists(playlists.filter((playlist) => playlist._id !== id));
+        setTotalCount(totalCount - 1);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   const handlePageChange = (page) => {
